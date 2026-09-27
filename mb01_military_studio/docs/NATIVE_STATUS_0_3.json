@@ -1,0 +1,13 @@
+{
+  "release": "0.3.0-alpha.1",
+  "blender": {
+    "target": "4.5 LTS",
+    "status": "NOT_RUN"
+  },
+  "unreal": {
+    "target": "5.8",
+    "status": "NOT_RUN"
+  },
+  "stable_release_gate": "BLOCKED",
+  "source_checks": "See reports/VALIDATION_REPORT.json; do not substitute source tests for native execution."
+}

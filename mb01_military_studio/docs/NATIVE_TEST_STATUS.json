@@ -1,0 +1,10 @@
+{
+  "blender_4_5_install": "NOT_RUN",
+  "blender_operator_build": "NOT_RUN",
+  "blender_bevel_material_render": "NOT_RUN",
+  "blender_FBX_export": "NOT_RUN",
+  "unreal_5_8_import": "NOT_RUN",
+  "unreal_collision_and_materials": "NOT_RUN",
+  "SW01_PK01_live_connector": "NOT_RUN",
+  "reason": "Blender/bpy and Unreal executables unavailable in development environment."
+}

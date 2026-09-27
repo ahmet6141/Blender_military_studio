@@ -1,0 +1,177 @@
+{
+  "schema": "mb01.gamekit/0.1",
+  "source_module": "HANGAR.WALL.VISION",
+  "config": {
+    "module_id": "HANGAR.WALL.VISION",
+    "family": "HANGAR",
+    "width": 4.5,
+    "height": 7.6,
+    "thickness": 0.22,
+    "detail": "WORKING",
+    "door_open": 0.0,
+    "style": {
+      "palette": "COASTAL",
+      "wall_material": "Plaster",
+      "frame_material": "SteelDark",
+      "plinth_material": "Stone",
+      "wear": 0.15
+    }
+  },
+  "levels": {
+    "0": {
+      "render_meshes": 2,
+      "triangles": 372,
+      "max_material_slots": 7,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_VISION_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 360,
+          "materials": [
+            "ConcreteLight",
+            "Joint",
+            "Plaster",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "7e937e105e6c3561deaee28a656158cad48a101e5f3ce8e5c39f637e66e16bda",
+          "collision_hulls": 4
+        },
+        {
+          "key": "GLASS",
+          "name": "SM_MB03_VISION_be7e2166_GLASS",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 12,
+          "materials": [
+            "Glass"
+          ],
+          "geometry_sha256": "de7d97bbece2fa1df0387c704dba36d1612e2d3d99b107c64645ee6fb4024f7e",
+          "collision_hulls": 0
+        }
+      ]
+    },
+    "1": {
+      "render_meshes": 2,
+      "triangles": 336,
+      "max_material_slots": 7,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_VISION_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 324,
+          "materials": [
+            "ConcreteLight",
+            "Joint",
+            "Plaster",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "05b2d42a9c1621ce8fe5c466de0f816e6d0baf5e80fde68b50dc0f8daab6d9d0",
+          "collision_hulls": 4
+        },
+        {
+          "key": "GLASS",
+          "name": "SM_MB03_VISION_be7e2166_GLASS",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 12,
+          "materials": [
+            "Glass"
+          ],
+          "geometry_sha256": "de7d97bbece2fa1df0387c704dba36d1612e2d3d99b107c64645ee6fb4024f7e",
+          "collision_hulls": 0
+        }
+      ]
+    },
+    "2": {
+      "render_meshes": 2,
+      "triangles": 192,
+      "max_material_slots": 7,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_VISION_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 180,
+          "materials": [
+            "ConcreteLight",
+            "Joint",
+            "Plaster",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "fe90342b59d323f45014f503b6fad1057325510a6ce6a5f2746ae3aa044e3de6",
+          "collision_hulls": 4
+        },
+        {
+          "key": "GLASS",
+          "name": "SM_MB03_VISION_be7e2166_GLASS",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 12,
+          "materials": [
+            "Glass"
+          ],
+          "geometry_sha256": "de7d97bbece2fa1df0387c704dba36d1612e2d3d99b107c64645ee6fb4024f7e",
+          "collision_hulls": 0
+        }
+      ]
+    }
+  },
+  "omitted_roles": {
+    "0": [],
+    "1": [
+      "HeadReveal",
+      "SillDrip",
+      "VisionHeadShadow"
+    ],
+    "2": [
+      "HeadReveal",
+      "PanelSeams",
+      "SillDrip",
+      "VisionHeadShadow"
+    ]
+  },
+  "status": "PASS",
+  "errors": [],
+  "raw_source_triangles_before_blender_modifiers": true,
+  "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+  "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+  "native_blender": "NOT_RUN",
+  "native_unreal": "NOT_RUN",
+  "limitations": [
+    "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+    "LOD2 is conservative geometry, not a far-building impostor.",
+    "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+  ]
+}

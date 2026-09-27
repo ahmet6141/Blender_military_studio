@@ -1,0 +1,1350 @@
+{
+  "schema": "mb01.module_catalog/0.2",
+  "scope": "Fictional architectural scenery; no military, structural or ballistic compliance claim.",
+  "modules": [
+    {
+      "id": "COMMON.WALL.PLAIN",
+      "title": "Düz duvar paneli",
+      "category": "WALL",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "plain",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "COMMON.WALL.WINDOW",
+      "title": "Pencereli duvar",
+      "category": "WALL",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "window",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "COMMON.WALL.NARROW",
+      "title": "Dar pencereli duvar",
+      "category": "WALL",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "narrow",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "COMMON.WALL.SUNSHADE",
+      "title": "Güneşlikli pencere",
+      "category": "SHADING",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "sunshade",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "COMMON.WALL.VENT",
+      "title": "Panjurlu havalandırma paneli",
+      "category": "WALL",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "vent",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "COMMON.ENTRY.SERVICE",
+      "title": "Tek kanat servis kapısı",
+      "category": "ENTRY",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "service",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "COMMON.ENTRY.DOUBLE",
+      "title": "Çift kanat personel girişi",
+      "category": "ENTRY",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "double",
+      "width_range": [
+        3.0,
+        5.4
+      ],
+      "height_range": [
+        3.2,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "HQ.FACADE.GLAZED",
+      "title": "Camlı cephe bölümü",
+      "category": "GLAZING",
+      "families": [
+        "HQ"
+      ],
+      "builder": "glazed",
+      "width_range": [
+        3.0,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "HQ.ENTRY.LOBBY",
+      "title": "Saçaklı camlı ana giriş",
+      "category": "ENTRY",
+      "families": [
+        "HQ"
+      ],
+      "builder": "lobby",
+      "width_range": [
+        3.2,
+        5.4
+      ],
+      "height_range": [
+        3.3,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "UNIT.WALL.WINDOW",
+      "title": "Birlik binası pencere modülü",
+      "category": "WALL",
+      "families": [
+        "UNIT"
+      ],
+      "builder": "unit_window",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "HANGAR.WALL.METAL",
+      "title": "Hangar metal yan panel",
+      "category": "HANGAR_ENVELOPE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "metal",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        4.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 6.4,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "HANGAR.WALL.CLERES",
+      "title": "Hangar üst bant penceresi",
+      "category": "HANGAR_ENVELOPE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "clerestory",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        4.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 6.4,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "HANGAR.WALL.LOUVER",
+      "title": "Hangar havalandırma bölmesi",
+      "category": "HANGAR_ENVELOPE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hangar_louver",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        4.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 6.4,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "HANGAR.ENTRY.PERSONNEL",
+      "title": "Hangar yan personel girişi",
+      "category": "HANGAR_ENTRY",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hangar_service",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        4.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 6.4,
+      "status": "implemented_core",
+      "note": ""
+    },
+    {
+      "id": "COMMON.CORNER.OUTER90",
+      "title": "Dış köşe",
+      "category": "CORNER",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.CORNER.INNER90",
+      "title": "İç köşe",
+      "category": "CORNER",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.CORNER.TERMINAL",
+      "title": "Uç bitiş",
+      "category": "CORNER",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.ROOF.PARAPET",
+      "title": "Parapet",
+      "category": "ROOF",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.ROOF.COPING",
+      "title": "Parapet kapak profili",
+      "category": "ROOF",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.ROOF.EAVE",
+      "title": "Saçak bitişi",
+      "category": "ROOF",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.ROOF.DRAIN",
+      "title": "Oluk ve iniş bağlantısı",
+      "category": "ROOF",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.BASE.PLINTH",
+      "title": "Kaide",
+      "category": "BASE",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.BASE.LANDING",
+      "title": "Personel sahanlığı",
+      "category": "BASE",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.BASE.RAMP",
+      "title": "Görsel rampa",
+      "category": "BASE",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.BASE.DRAIN",
+      "title": "Zemin drenaj yuvası",
+      "category": "BASE",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.DETAIL.SIGN",
+      "title": "Nötr numara rozeti",
+      "category": "DETAIL",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.DETAIL.LIGHT",
+      "title": "Opal armatür",
+      "category": "DETAIL",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "COMMON.DETAIL.CABINET",
+      "title": "Servis kutusu",
+      "category": "DETAIL",
+      "families": [
+        "HQ",
+        "UNIT",
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.STRUCTURE.PORTAL",
+      "title": "Portal çerçeve",
+      "category": "STRUCTURE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.STRUCTURE.PURLIN",
+      "title": "Aşık modülü",
+      "category": "STRUCTURE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.STRUCTURE.BRACE",
+      "title": "Görsel çapraz",
+      "category": "STRUCTURE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.GATE.SLIDING",
+      "title": "Çok kanat sürgülü ana kapı",
+      "category": "HANGAR_ENTRY",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.GATE.RAIL",
+      "title": "Ray başlığı ve kılavuz",
+      "category": "HANGAR_ENTRY",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.ROOF.SKIN",
+      "title": "Modüler çatı kaplaması",
+      "category": "ROOF",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.ROOF.LIGHT",
+      "title": "Çatı ışıklığı",
+      "category": "ROOF",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.FLOOR.THRESHOLD",
+      "title": "Apron eşiği",
+      "category": "BASE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.SERVICE.PLATFORM",
+      "title": "Bakım platformu dekoru",
+      "category": "DETAIL",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.SERVICE.WALL",
+      "title": "Tesisat duvarı",
+      "category": "DETAIL",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.LIGHT.LINEAR",
+      "title": "Askılı lineer armatür",
+      "category": "DETAIL",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SHELTER.AS07.ADAPTER",
+      "title": "Mevcut AS07 bina adaptörü",
+      "category": "ADAPTER",
+      "families": [
+        "SHELTER"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SHELTER.AS07.ARCH",
+      "title": "AS07 kemer hücresi ayrıştırma",
+      "category": "STRUCTURE",
+      "families": [
+        "SHELTER"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SHELTER.AS07.ROOF",
+      "title": "AS07 çatı hücresi",
+      "category": "ROOF",
+      "families": [
+        "SHELTER"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SHELTER.AS07.LOUVER",
+      "title": "AS07 panjur hücresi",
+      "category": "WALL",
+      "families": [
+        "SHELTER"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SHELTER.AS07.REAR",
+      "title": "AS07 arka duvar ve servis kapısı",
+      "category": "ENTRY",
+      "families": [
+        "SHELTER"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HQ.ENTRY.PORTICO",
+      "title": "Temsil giriş portiği",
+      "category": "ENTRY",
+      "families": [
+        "HQ"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HQ.FACADE.CORNERGLASS",
+      "title": "Köşe camı",
+      "category": "GLAZING",
+      "families": [
+        "HQ"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HQ.FACADE.MEETING",
+      "title": "Toplantı salonu cephe paketi",
+      "category": "GLAZING",
+      "families": [
+        "HQ"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HQ.INTERIOR.LOBBY",
+      "title": "Giriş holü",
+      "category": "INTERIOR",
+      "families": [
+        "HQ"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HQ.INTERIOR.OFFICE",
+      "title": "Seçili ofis",
+      "category": "INTERIOR",
+      "families": [
+        "HQ"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "UNIT.ENTRY.SIDECANOPY",
+      "title": "Yan giriş saçağı",
+      "category": "ENTRY",
+      "families": [
+        "UNIT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "UNIT.FACADE.CORRIDOR",
+      "title": "Koridor penceresi",
+      "category": "WALL",
+      "families": [
+        "UNIT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "UNIT.VOLUME.STAIR",
+      "title": "Merdiven hacmi dış kabuğu",
+      "category": "VOLUME",
+      "families": [
+        "UNIT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "UNIT.INTERIOR.ROOM",
+      "title": "Seçili oda seti",
+      "category": "INTERIOR",
+      "families": [
+        "UNIT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SUPPORT.CANOPY.BAY",
+      "title": "Eğitim gölgeliği",
+      "category": "STRUCTURE",
+      "families": [
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SUPPORT.WALL.STORE",
+      "title": "Ekipman deposu dış kabuğu",
+      "category": "WALL",
+      "families": [
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "SUPPORT.DETAIL.BOARD",
+      "title": "Nötr eğitim panosu",
+      "category": "DETAIL",
+      "families": [
+        "SUPPORT"
+      ],
+      "builder": "",
+      "width_range": [
+        2.4,
+        5.4
+      ],
+      "height_range": [
+        3.0,
+        4.4
+      ],
+      "default_width": 3.6,
+      "default_height": 3.6,
+      "status": "planned",
+      "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+    },
+    {
+      "id": "HANGAR.WALL.CASSETTE",
+      "title": "Kaset bantlı metal panel",
+      "category": "HANGAR_ENVELOPE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hg_cassette",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        6.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 7.6,
+      "status": "implemented_core",
+      "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+    },
+    {
+      "id": "HANGAR.WALL.VISION",
+      "title": "Alçak geniş cam bandı",
+      "category": "HANGAR_ENVELOPE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hg_vision",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        6.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 7.6,
+      "status": "implemented_core",
+      "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+    },
+    {
+      "id": "HANGAR.WALL.SHADED",
+      "title": "Güneş kırıcı üst cam bandı",
+      "category": "HANGAR_ENVELOPE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hg_shaded",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        6.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 7.6,
+      "status": "implemented_core",
+      "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+    },
+    {
+      "id": "HANGAR.WALL.DUAL_VENT",
+      "title": "Çift panjurlu servis paneli",
+      "category": "HANGAR_ENVELOPE",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hg_dual_vent",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        6.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 7.6,
+      "status": "implemented_core",
+      "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+    },
+    {
+      "id": "HANGAR.ENTRY.DOUBLE_SERVICE",
+      "title": "Saçaklı çift servis kapısı",
+      "category": "HANGAR_ENTRY",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hg_double_service",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        6.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 7.6,
+      "status": "implemented_core",
+      "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+    },
+    {
+      "id": "HANGAR.ENTRY.CANOPY",
+      "title": "Saçaklı personel girişi",
+      "category": "HANGAR_ENTRY",
+      "families": [
+        "HANGAR"
+      ],
+      "builder": "hg_canopy_service",
+      "width_range": [
+        2.8,
+        6.0
+      ],
+      "height_range": [
+        6.0,
+        9.0
+      ],
+      "default_width": 4.5,
+      "default_height": 7.6,
+      "status": "implemented_core",
+      "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+    }
+  ]
+}

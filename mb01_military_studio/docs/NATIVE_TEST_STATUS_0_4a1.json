@@ -1,0 +1,71 @@
+{
+  "version": "0.4.0-alpha.1",
+  "python_compileall": "PASS",
+  "pure_python_full_building_regression": {
+    "status": "PASS",
+    "hq_variants": [
+      "EXECUTIVE",
+      "TECHNICAL",
+      "MONOLITHIC"
+    ],
+    "hq_detail_levels": [
+      "DRAFT",
+      "WORKING",
+      "HERO"
+    ],
+    "other_families": [
+      "UNIT",
+      "HANGAR",
+      "SHELTER",
+      "RANGE_SET"
+    ],
+    "checks": [
+      "core.validation PASS",
+      "PBR semantic material coverage",
+      "deterministic source build path"
+    ]
+  },
+  "existing_module_gamekit_regression": {
+    "status": "PASS",
+    "modules_checked": 6,
+    "lod_levels_checked": [
+      0,
+      1,
+      2
+    ]
+  },
+  "blender_native_runtime": "NOT_RUN_IN_PACKAGING_ENVIRONMENT",
+  "glonorce_mcp_runtime": "NOT_RUN_IN_PACKAGING_ENVIRONMENT",
+  "unreal_runtime": "NOT_RUN_IN_PACKAGING_ENVIRONMENT",
+  "notes": [
+    "Blender-native game_ready.audit and shader graph creation require Blender 4.5+.",
+    "Glonorce Blender MCP requires a live compatible Blender session; its repository currently documents Blender 5.0+.",
+    "Final visual acceptance requires multi-view Material screenshots/render review and target-engine import testing."
+  ],
+  "whole_building_lod_compiler_regression": {
+    "status": "PASS",
+    "families": [
+      "HQ",
+      "UNIT",
+      "HANGAR",
+      "SHELTER",
+      "RANGE_SET"
+    ],
+    "levels": [
+      0,
+      1,
+      2
+    ],
+    "hq_example_triangles": [
+      30580,
+      21712,
+      15480
+    ],
+    "hq_lod2_reduction_percent_vs_lod0": 49.4,
+    "checks": [
+      "monotonic semantic triangle reduction",
+      "canonical closed door pose",
+      "material/UV preservation in pure compiler"
+    ]
+  }
+}

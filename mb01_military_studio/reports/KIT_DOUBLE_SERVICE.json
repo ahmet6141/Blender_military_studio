@@ -1,0 +1,237 @@
+{
+  "schema": "mb01.gamekit/0.1",
+  "source_module": "HANGAR.ENTRY.DOUBLE_SERVICE",
+  "config": {
+    "module_id": "HANGAR.ENTRY.DOUBLE_SERVICE",
+    "family": "HANGAR",
+    "width": 4.5,
+    "height": 7.6,
+    "thickness": 0.22,
+    "detail": "WORKING",
+    "door_open": 0.0,
+    "style": {
+      "palette": "COASTAL",
+      "wall_material": "Plaster",
+      "frame_material": "SteelDark",
+      "plinth_material": "Stone",
+      "wear": 0.15
+    }
+  },
+  "levels": {
+    "0": {
+      "render_meshes": 3,
+      "triangles": 528,
+      "max_material_slots": 8,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 288,
+          "materials": [
+            "ConcreteLight",
+            "Galvanized",
+            "Joint",
+            "LightWarm",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "3347d4f2c3ee4bc52a4d7fa72846a8dd3de1e1cebebb50cddbb3c34d45330742",
+          "collision_hulls": 3
+        },
+        {
+          "key": "DOOR_0",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_0",
+          "pivot_m": [
+            0.07,
+            1.075,
+            0.035
+          ],
+          "triangles": 120,
+          "materials": [
+            "Galvanized",
+            "RoofOlive",
+            "Yellow"
+          ],
+          "geometry_sha256": "16c6ae84be899f74290e00e313e6364d3ea66130764ddb9c8e0e92de2e3dce99",
+          "collision_hulls": 1
+        },
+        {
+          "key": "DOOR_1",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_1",
+          "pivot_m": [
+            0.07,
+            -1.0750000000000002,
+            0.035
+          ],
+          "triangles": 120,
+          "materials": [
+            "Galvanized",
+            "RoofOlive",
+            "Yellow"
+          ],
+          "geometry_sha256": "c9fca0a8ca5dda66da47dfcc4ae18f3c92cc15fdec0f91765512cf8219a60bdf",
+          "collision_hulls": 1
+        }
+      ]
+    },
+    "1": {
+      "render_meshes": 3,
+      "triangles": 360,
+      "max_material_slots": 8,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 264,
+          "materials": [
+            "ConcreteLight",
+            "Galvanized",
+            "Joint",
+            "LightWarm",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "d5b8ee5289df1739c3c4df1ba15391990fd4496fe1964643a78b952d3a830a21",
+          "collision_hulls": 3
+        },
+        {
+          "key": "DOOR_0",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_0",
+          "pivot_m": [
+            0.07,
+            1.075,
+            0.035
+          ],
+          "triangles": 48,
+          "materials": [
+            "Galvanized",
+            "RoofOlive",
+            "Yellow"
+          ],
+          "geometry_sha256": "cc7416245ad1836b5468cb833444c86e058b2e4f634dd2bb0fb96d5861f3fb80",
+          "collision_hulls": 1
+        },
+        {
+          "key": "DOOR_1",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_1",
+          "pivot_m": [
+            0.07,
+            -1.0750000000000002,
+            0.035
+          ],
+          "triangles": 48,
+          "materials": [
+            "Galvanized",
+            "RoofOlive",
+            "Yellow"
+          ],
+          "geometry_sha256": "423353694fcf8f92a9c54161489b0edd6556ff2c3ca317480e530a82a192c05a",
+          "collision_hulls": 1
+        }
+      ]
+    },
+    "2": {
+      "render_meshes": 3,
+      "triangles": 252,
+      "max_material_slots": 8,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 156,
+          "materials": [
+            "ConcreteLight",
+            "Galvanized",
+            "Joint",
+            "LightWarm",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "3727d3e71dbc531903a8e943c4a0c4d9b91578ebc6038d0e7c7618e603c06f40",
+          "collision_hulls": 3
+        },
+        {
+          "key": "DOOR_0",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_0",
+          "pivot_m": [
+            0.07,
+            1.075,
+            0.035
+          ],
+          "triangles": 48,
+          "materials": [
+            "Galvanized",
+            "RoofOlive",
+            "Yellow"
+          ],
+          "geometry_sha256": "cc7416245ad1836b5468cb833444c86e058b2e4f634dd2bb0fb96d5861f3fb80",
+          "collision_hulls": 1
+        },
+        {
+          "key": "DOOR_1",
+          "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_1",
+          "pivot_m": [
+            0.07,
+            -1.0750000000000002,
+            0.035
+          ],
+          "triangles": 48,
+          "materials": [
+            "Galvanized",
+            "RoofOlive",
+            "Yellow"
+          ],
+          "geometry_sha256": "423353694fcf8f92a9c54161489b0edd6556ff2c3ca317480e530a82a192c05a",
+          "collision_hulls": 1
+        }
+      ]
+    }
+  },
+  "omitted_roles": {
+    "0": [],
+    "1": [
+      "HeadReveal",
+      "EntryShadowReveal"
+    ],
+    "2": [
+      "HeadReveal",
+      "PanelSeams",
+      "CanopyLight",
+      "EntryShadowReveal",
+      "EntryJambFold"
+    ]
+  },
+  "status": "PASS",
+  "errors": [],
+  "raw_source_triangles_before_blender_modifiers": true,
+  "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+  "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+  "native_blender": "NOT_RUN",
+  "native_unreal": "NOT_RUN",
+  "limitations": [
+    "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+    "LOD2 is conservative geometry, not a far-building impostor.",
+    "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+  ]
+}

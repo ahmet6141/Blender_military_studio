@@ -1,0 +1,125 @@
+{
+  "schema": "mb01.gamekit/0.1",
+  "source_module": "HANGAR.WALL.DUAL_VENT",
+  "config": {
+    "module_id": "HANGAR.WALL.DUAL_VENT",
+    "family": "HANGAR",
+    "width": 4.5,
+    "height": 7.6,
+    "thickness": 0.22,
+    "detail": "WORKING",
+    "door_open": 0.0,
+    "style": {
+      "palette": "COASTAL",
+      "wall_material": "Plaster",
+      "frame_material": "SteelDark",
+      "plinth_material": "Stone",
+      "wear": 0.15
+    }
+  },
+  "levels": {
+    "0": {
+      "render_meshes": 1,
+      "triangles": 732,
+      "max_material_slots": 6,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_DUAL_VENT_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 732,
+          "materials": [
+            "Interior",
+            "Joint",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "ab78b4f3e259be19a9aebe472ae2e4be99de08c0dbd346b5810b765039e870c0",
+          "collision_hulls": 13
+        }
+      ]
+    },
+    "1": {
+      "render_meshes": 1,
+      "triangles": 720,
+      "max_material_slots": 6,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_DUAL_VENT_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 720,
+          "materials": [
+            "Interior",
+            "Joint",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "d496b25d800eaaaa63ed39656b962582806fa5a2560e3381c9a88cee3532e9ea",
+          "collision_hulls": 13
+        }
+      ]
+    },
+    "2": {
+      "render_meshes": 1,
+      "triangles": 576,
+      "max_material_slots": 6,
+      "assets": [
+        {
+          "key": "OPAQUE",
+          "name": "SM_MB03_DUAL_VENT_be7e2166_OPAQUE",
+          "pivot_m": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "triangles": 576,
+          "materials": [
+            "Interior",
+            "Joint",
+            "RoofOlive",
+            "RoofOliveLight",
+            "SteelDark",
+            "Stone"
+          ],
+          "geometry_sha256": "49ffd3639def3d4af93ce368e1cd2a78f27583cbca866b3395428847966941c3",
+          "collision_hulls": 13
+        }
+      ]
+    }
+  },
+  "omitted_roles": {
+    "0": [],
+    "1": [
+      "HeadReveal"
+    ],
+    "2": [
+      "HeadReveal",
+      "PanelSeams"
+    ]
+  },
+  "status": "PASS",
+  "errors": [],
+  "raw_source_triangles_before_blender_modifiers": true,
+  "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+  "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+  "native_blender": "NOT_RUN",
+  "native_unreal": "NOT_RUN",
+  "limitations": [
+    "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+    "LOD2 is conservative geometry, not a far-building impostor.",
+    "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+  ]
+}

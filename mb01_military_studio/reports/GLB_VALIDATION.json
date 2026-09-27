@@ -1,0 +1,181 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "file": "KIT_CASSETTE_LODs.glb",
+      "source": "HANGAR.WALL.CASSETTE",
+      "sha256": "f186ad86ef00ef0bad90709d01133111983595e9554514d52b4e96ee82650381",
+      "geometries": 12,
+      "triangles": 408,
+      "expected_triangles": 408,
+      "bounds": [
+        [
+          -0.06549999862909317,
+          0.0,
+          -14.25
+        ],
+        [
+          0.2199999988079071,
+          7.599999904632568,
+          2.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    },
+    {
+      "file": "KIT_VISION_LODs.glb",
+      "source": "HANGAR.WALL.VISION",
+      "sha256": "98fae62ab26fe6a9713ab371e048c3fccbbfe7ca888f4128bdcece377599dca0",
+      "geometries": 21,
+      "triangles": 900,
+      "expected_triangles": 900,
+      "bounds": [
+        [
+          -0.16500000655651093,
+          0.0,
+          -14.25
+        ],
+        [
+          0.2199999988079071,
+          7.599999904632568,
+          2.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    },
+    {
+      "file": "KIT_SHADED_LODs.glb",
+      "source": "HANGAR.WALL.SHADED",
+      "sha256": "db071c0159b69d1f445e070100a8132f1689a0cdd4c90cd7b67654f5aa6bc760",
+      "geometries": 21,
+      "triangles": 1140,
+      "expected_triangles": 1140,
+      "bounds": [
+        [
+          -0.7300000190734863,
+          0.0,
+          -14.25
+        ],
+        [
+          0.2199999988079071,
+          7.599999904632568,
+          2.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    },
+    {
+      "file": "KIT_DUAL_VENT_LODs.glb",
+      "source": "HANGAR.WALL.DUAL_VENT",
+      "sha256": "1392919460599c3fb7b325af31035f1aee3616618a93760c0fb74cfca86b1b05",
+      "geometries": 16,
+      "triangles": 2028,
+      "expected_triangles": 2028,
+      "bounds": [
+        [
+          -0.18000000715255737,
+          0.0,
+          -14.25
+        ],
+        [
+          0.24500000476837158,
+          7.599999904632568,
+          2.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    },
+    {
+      "file": "KIT_DOUBLE_SERVICE_LODs.glb",
+      "source": "HANGAR.ENTRY.DOUBLE_SERVICE",
+      "sha256": "2f7e8eea4f5ff00b9c795862824d3381cd280d87ea8d96ebe6576caa75c83036",
+      "geometries": 38,
+      "triangles": 1140,
+      "expected_triangles": 1140,
+      "bounds": [
+        [
+          -1.1299999952316284,
+          0.0,
+          -14.25
+        ],
+        [
+          0.30000001192092896,
+          7.599999904632568,
+          2.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    },
+    {
+      "file": "KIT_CANOPY_LODs.glb",
+      "source": "HANGAR.ENTRY.CANOPY",
+      "sha256": "87db06667617b00881d31e192e2a4f04d51692041985779b328907d729fdd2d7",
+      "geometries": 29,
+      "triangles": 924,
+      "expected_triangles": 924,
+      "bounds": [
+        [
+          -1.1299999952316284,
+          0.0,
+          -14.25
+        ],
+        [
+          0.30000001192092896,
+          7.599999904632568,
+          2.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    },
+    {
+      "file": "EXP_COASTAL.glb",
+      "source": "EXP_COASTAL",
+      "sha256": "f94d6ff84d7defcb9ff91e471938c66231ab4bcfdce4990c73a3eb8cbe93611a",
+      "geometries": 379,
+      "triangles": 29592,
+      "expected_triangles": 29592,
+      "bounds": [
+        [
+          -5.0,
+          -0.07999999821186066,
+          -18.25
+        ],
+        [
+          38.25,
+          11.854999542236328,
+          18.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    },
+    {
+      "file": "EXP_COMPACT.glb",
+      "source": "EXP_COMPACT",
+      "sha256": "c955fd16492d8d2cfd9bebb353bdcf04b0e1e285051ffc701fa7d52b98c60d35",
+      "geometries": 254,
+      "triangles": 20881,
+      "expected_triangles": 20881,
+      "bounds": [
+        [
+          -5.0,
+          -0.07999999821186066,
+          -14.25
+        ],
+        [
+          26.25,
+          8.989999771118164,
+          14.25
+        ]
+      ],
+      "status": "PASS",
+      "native": false
+    }
+  ]
+}

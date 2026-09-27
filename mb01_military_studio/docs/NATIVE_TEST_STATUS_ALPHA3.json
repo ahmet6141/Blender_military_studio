@@ -1,0 +1,8 @@
+{
+  "generator": "0.2.0-alpha.3 QA",
+  "native_blender": "NOT_RUN",
+  "native_unreal": "NOT_RUN",
+  "release_gate": "BLOCKED_PENDING_NATIVE_TESTS",
+  "full_collision_engine": false,
+  "auto_live_kit_integration": false
+}

@@ -1,0 +1,118 @@
+{
+  "textures": [
+    {
+      "name": "Concrete",
+      "source": "Prior AF01 0.1.0 original procedural texture",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 2048,
+      "files": {
+        "Concrete_BaseColor.png": "fede368d5f868146301cd9b8c5c97c964e73d22945b8073cc1e56a073c5a6f39",
+        "Concrete_Height.png": "6f923b1b2d704ad495f3b66ca68f450d823c6eb98f71abfc8777362ed03eb1ec",
+        "Concrete_NormalDX.png": "ff390905794f78e012229fba6c440d7a72ba80320367f1aa9502ed46c69386c1",
+        "Concrete_NormalGL.png": "548d0551be3bf5f4bdb6a070ad8e559c7764cda9b06e365587dd688704d63012",
+        "Concrete_ORM.png": "e9e4ffb87c2998485b712818c299f5e3612b7b9bda471f2c3d45552d214c0f78"
+      }
+    },
+    {
+      "name": "CoatedSteel",
+      "source": "Prior AF01 0.1.0 original procedural texture",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 1024,
+      "files": {
+        "CoatedSteel_BaseColor.png": "37ce71a0ec345307c069fe158c2a85405a34e86de73b46b263b0494c562c0356",
+        "CoatedSteel_Height.png": "70dbfe605b3305c49df3503abbb41a68019ba61c04ade6bcfbbad5f3bef3eadc",
+        "CoatedSteel_NormalDX.png": "47b168c5fe0e1b1a9c2e921d95c780db742e9c557286ba17296351b5d8b6de9f",
+        "CoatedSteel_NormalGL.png": "a881e558e2616d599f216ff3a64c6fb7600b20c69dc96ff288f45b6b6fc757db",
+        "CoatedSteel_ORM.png": "023678ac0fc63cdad9642ae8fb4a6b38e09ff45af4fb8aa834bedd9079a0407b"
+      }
+    },
+    {
+      "name": "Galvanized",
+      "source": "Prior AF01 0.1.0 original procedural texture",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 1024,
+      "files": {
+        "Galvanized_BaseColor.png": "90f43bd112ec471f8e653cfe194506bb942909cbf3627845c7d0e9b442621b31",
+        "Galvanized_Height.png": "ffc9ec28947f8c3e96f062c51985411d9ac217de3d2cbddb857d91680922f539",
+        "Galvanized_NormalDX.png": "6f3bcf46dc35d6ab859a1a560620e6cbe59f5b6e2231bb476019f4953429a0af",
+        "Galvanized_NormalGL.png": "7765ebe2857853bc9b95647b060c11f58030323524d3dcbb5b8853d4250f3c1a",
+        "Galvanized_ORM.png": "d525963316780ed4fbd3550bf0276bd5f75da53d494de000e2c6f59ebfeaf840"
+      }
+    },
+    {
+      "name": "Asphalt",
+      "source": "Prior AF01 0.1.0 original procedural texture",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 2048,
+      "files": {
+        "Asphalt_BaseColor.png": "185b564b3b8c6e2520517296832db95cae86179ec6956925599a10215d3b3117",
+        "Asphalt_Height.png": "0ed7572843cd56d5931ecf26bb4af64bcecffba67f813ac13d64921b2186b386",
+        "Asphalt_NormalDX.png": "2e28a3bff2b4b2d56ba0dae67cd2aa373015c86133c0aa9ba975ade7f7b3681e",
+        "Asphalt_NormalGL.png": "6deec3af78e3e038c63d1e2e65357b03a86b5a11f84822361ffe4af7d61adaa0",
+        "Asphalt_ORM.png": "857a69f09a662fc30813ebb71cd2edca2813b76550b9d0ee2f9f5b8d8222e5ca"
+      }
+    },
+    {
+      "name": "Plaster",
+      "source": "MB01 original synthesized tileable surface",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 2048,
+      "files": {
+        "Plaster_BaseColor.png": "4280d242751416608261f0ad84448b4df6541e139a3cf6b4a6b7d87a0cd2610e",
+        "Plaster_Height.png": "71a3f0de6b7fbdcfc655d3d2e3583b8dfa755bdffd78bcc9f43e466759502beb",
+        "Plaster_NormalDX.png": "66f6c137c6e662e621a5d6c5963a11d298a418223f0162c578d19a56693be148",
+        "Plaster_NormalGL.png": "a7a2019470ea50a7e6868efc84409619e4aedc267f9dfcf89ee6150fdb3e21b3",
+        "Plaster_ORM.png": "672e71b449f10ed6a8450204f5708bbe31d07edba7d7fa4e7d7b66580d4c46c8"
+      }
+    },
+    {
+      "name": "Stone",
+      "source": "MB01 original synthesized tileable surface",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 1024,
+      "files": {
+        "Stone_BaseColor.png": "a0bb834a3a32572af03a01b6067122c834a6d5adcbc2146cfc4d8cc1a6092f09",
+        "Stone_Height.png": "151f3ec6a18a6a5342488d4e195e985a445d83c481bdcd5813d9be104e449129",
+        "Stone_NormalDX.png": "09bcdc1d319ee917ef64b8c3ce631064027d18d11888130507c49c681e89f49f",
+        "Stone_NormalGL.png": "e7c0191eb638d544177c15ccd97bc55098ca268b525e701cc8f32f49e5af5c42",
+        "Stone_ORM.png": "3c31d9a9fe44402077546d672b18d4ebf79228dfc4639314a6eb5d9981a6aa79"
+      }
+    },
+    {
+      "name": "Timber",
+      "source": "MB01 original synthesized tileable surface",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 1024,
+      "files": {
+        "Timber_BaseColor.png": "3d063533897de1c3a44b52c849f7494d4928af7ed0a052ff0fe9f13ab7b7667a",
+        "Timber_Height.png": "aab92e743a21771942c978cc965130c22b9f8d126a81d3cab1ea095b91247ae7",
+        "Timber_NormalDX.png": "f6084e29d4db733eed15e57acb49af79194752992705c75f360ab3322b72f009",
+        "Timber_NormalGL.png": "007747d87d7e49d480825d4ac2b4e0ac4e54c5028b96c38dc50573c2ab3547ff",
+        "Timber_ORM.png": "963735c3d417002d97d9bdca1c03150e1e21459a3782ad85b0d4a70a5128e6f6"
+      }
+    },
+    {
+      "name": "Membrane",
+      "source": "MB01 original synthesized tileable surface",
+      "method": "procedural",
+      "license": "CC0-1.0",
+      "size": 1024,
+      "files": {
+        "Membrane_BaseColor.png": "c626b410680ac2bc10b7adfe5a9a0a64765dc1ec37260c358143b6c50f56bfbf",
+        "Membrane_Height.png": "8838a6308b4153dd659fc69ce1b12a06f405cb659ed6b000da232ec72bd69a31",
+        "Membrane_NormalDX.png": "d12146e9d76b367c5c76e00737ae06505db0ca195230cfe39e0c298163bdaf68",
+        "Membrane_NormalGL.png": "85f6cf4d68ad752963f4e29dd40d44a5b3920b1e15aa686404b90126d2f28938",
+        "Membrane_ORM.png": "6baf2a975418920d43e1cc1f8d3e65162199969f7d2cdea305454bb03940d54a"
+      }
+    }
+  ],
+  "scan_assets_downloaded": false,
+  "note": "All included sets are original procedural surfaces. External scans were not successfully downloaded."
+}

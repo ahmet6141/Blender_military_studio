@@ -1,0 +1,41 @@
+{
+  "schema": "mb01.reference_registry/1",
+  "date": "2026-09-26",
+  "certification": false,
+  "references": [
+    {
+      "id": "AFCFS_QUALITY",
+      "url": "https://afcfs.wbdg.org/facility-quality/index.html",
+      "reviewed": "public page text",
+      "use": "Architectural coherence/finishing inspiration",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "AFCFS_EXTERIORS",
+      "url": "https://afcfs.wbdg.org/facilities-exteriors/index.html",
+      "reviewed": "public page text",
+      "use": "Envelope categories and passive design reference, no calculations",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "EPIC_PBR",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/physically-based-materials-in-unreal-engine",
+      "reviewed": "public page text",
+      "use": "Paint dielectric / galvanized metal distinction",
+      "status": "RECIPE_IMPLEMENTED_NATIVE_TEST_PENDING"
+    },
+    {
+      "id": "EPIC_FBX",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/fbx-static-mesh-pipeline-in-unreal-engine",
+      "reviewed": "public page text",
+      "use": "Per-asset pivots, collision naming and export",
+      "status": "ADAPTER_IMPLEMENTED_NATIVE_TEST_PENDING"
+    },
+    {
+      "id": "UFC_4_211_01",
+      "reviewed": false,
+      "status": "NOT_VERIFIED_NOT_IMPLEMENTED",
+      "note": "Complete current text could not be retrieved. No rule/table conformity is claimed."
+    }
+  ]
+}

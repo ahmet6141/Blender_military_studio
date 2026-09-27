@@ -1,0 +1,88 @@
+{
+  "baseline_zip_sha256": "d2f2822199de81a2ca446750890cb053e1bea57df1e806b9ce58497d9f7f2701",
+  "same": [
+    "mb01_military_studio/LICENSE",
+    "mb01_military_studio/assets/Asphalt/Asphalt_BaseColor.png",
+    "mb01_military_studio/assets/Asphalt/Asphalt_Height.png",
+    "mb01_military_studio/assets/Asphalt/Asphalt_NormalDX.png",
+    "mb01_military_studio/assets/Asphalt/Asphalt_NormalGL.png",
+    "mb01_military_studio/assets/Asphalt/Asphalt_ORM.png",
+    "mb01_military_studio/assets/CoatedSteel/CoatedSteel_BaseColor.png",
+    "mb01_military_studio/assets/CoatedSteel/CoatedSteel_Height.png",
+    "mb01_military_studio/assets/CoatedSteel/CoatedSteel_NormalDX.png",
+    "mb01_military_studio/assets/CoatedSteel/CoatedSteel_NormalGL.png",
+    "mb01_military_studio/assets/CoatedSteel/CoatedSteel_ORM.png",
+    "mb01_military_studio/assets/Concrete/Concrete_BaseColor.png",
+    "mb01_military_studio/assets/Concrete/Concrete_Height.png",
+    "mb01_military_studio/assets/Concrete/Concrete_NormalDX.png",
+    "mb01_military_studio/assets/Concrete/Concrete_NormalGL.png",
+    "mb01_military_studio/assets/Concrete/Concrete_ORM.png",
+    "mb01_military_studio/assets/Galvanized/Galvanized_BaseColor.png",
+    "mb01_military_studio/assets/Galvanized/Galvanized_Height.png",
+    "mb01_military_studio/assets/Galvanized/Galvanized_NormalDX.png",
+    "mb01_military_studio/assets/Galvanized/Galvanized_NormalGL.png",
+    "mb01_military_studio/assets/Galvanized/Galvanized_ORM.png",
+    "mb01_military_studio/assets/LICENSE_ASSETS.txt",
+    "mb01_military_studio/assets/Membrane/Membrane_BaseColor.png",
+    "mb01_military_studio/assets/Membrane/Membrane_Height.png",
+    "mb01_military_studio/assets/Membrane/Membrane_NormalDX.png",
+    "mb01_military_studio/assets/Membrane/Membrane_NormalGL.png",
+    "mb01_military_studio/assets/Membrane/Membrane_ORM.png",
+    "mb01_military_studio/assets/Plaster/Plaster_BaseColor.png",
+    "mb01_military_studio/assets/Plaster/Plaster_Height.png",
+    "mb01_military_studio/assets/Plaster/Plaster_NormalDX.png",
+    "mb01_military_studio/assets/Plaster/Plaster_NormalGL.png",
+    "mb01_military_studio/assets/Plaster/Plaster_ORM.png",
+    "mb01_military_studio/assets/Stone/Stone_BaseColor.png",
+    "mb01_military_studio/assets/Stone/Stone_Height.png",
+    "mb01_military_studio/assets/Stone/Stone_NormalDX.png",
+    "mb01_military_studio/assets/Stone/Stone_NormalGL.png",
+    "mb01_military_studio/assets/Stone/Stone_ORM.png",
+    "mb01_military_studio/assets/Timber/Timber_BaseColor.png",
+    "mb01_military_studio/assets/Timber/Timber_Height.png",
+    "mb01_military_studio/assets/Timber/Timber_NormalDX.png",
+    "mb01_military_studio/assets/Timber/Timber_NormalGL.png",
+    "mb01_military_studio/assets/Timber/Timber_ORM.png",
+    "mb01_military_studio/assets/manifest.json",
+    "mb01_military_studio/coordinates.py",
+    "mb01_military_studio/core.py",
+    "mb01_military_studio/docs/ARCHITECTURE.md",
+    "mb01_military_studio/docs/NATIVE_TEST_STATUS.json",
+    "mb01_military_studio/docs/SOURCE_MANIFEST.json",
+    "mb01_military_studio/docs/VISUAL_REVIEW_TR.md",
+    "mb01_military_studio/materials.py",
+    "mb01_military_studio/unreal/MB01_Import.py",
+    "mb01_military_studio/vendor/NOTICE_AS07.md",
+    "mb01_military_studio/vendor/__init__.py",
+    "mb01_military_studio/vendor/as07_reference.py"
+  ],
+  "modified": [
+    {
+      "file": "mb01_military_studio/README_TR.md",
+      "old_sha256": "9c44a91432a3842c3f5931083a1d772d8af585e2ee2c82265797dc0af807b957",
+      "new_sha256": "b631fc2939849ff0418efae254b6d0af52997b4c5eb508bb1bbf4d4e5ee97d0e"
+    },
+    {
+      "file": "mb01_military_studio/__init__.py",
+      "old_sha256": "e9287ea1cb00f7dd419c8ffa95891b79ab93bbb7c0ed31548e556c7fec891534",
+      "new_sha256": "9d65bd45160271d457d1c8b66db02d1cf891216a2548af9a6c5ec32ed7a82f5a"
+    },
+    {
+      "file": "mb01_military_studio/blender_backend.py",
+      "old_sha256": "13774284b980158ff5ea1f9156efa6f04cf5075c9f693f9a19a84dd0b90e9aa9",
+      "new_sha256": "db457564b9c2dba38513134ab797fd4c0faba6544de9afc07a0d55d635c33260"
+    },
+    {
+      "file": "mb01_military_studio/exporter.py",
+      "old_sha256": "5ea12517c86bca01e1972e2f569886cd8a6571b22919414c46d0dbdc5f69fa3c",
+      "new_sha256": "a8ac3e9da4bcaf0bebf00a62326c23a420b1aed7ca61efc1bcb2b7ee9f2b53d4"
+    },
+    {
+      "file": "mb01_military_studio/ui.py",
+      "old_sha256": "f58c9e915e8c42b808082923960c2834dd1172bbe06890a2378741d6743f6b18",
+      "new_sha256": "37750212a520503e67ab476bcec1af6407a4e20d58319d12a8fbdb35ea377b33"
+    }
+  ],
+  "missing": [],
+  "as07_matches_uploaded_file": true
+}

@@ -1,0 +1,5 @@
+{
+  "as07_sha256": "a9a4888e509f7ce5a079571c30ddf8010b19f06387f881de2650f34217e4d700",
+  "source": "User-provided AS07_Shelter_Generator.py; retained unchanged.",
+  "derivative_adapter": "mb01_military_studio/core.py; source scene builder not called."
+}

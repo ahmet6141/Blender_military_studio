@@ -1,0 +1,612 @@
+[
+  {
+    "image": "MODULE_CASSETTE.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 700,
+    "height": 760,
+    "samples": 6,
+    "triangles": 204,
+    "camera": {
+      "eye": [
+        -12.0,
+        -8.0,
+        8.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        3.75
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 19.62,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_module": "HANGAR.WALL.CASSETTE",
+    "settings": {
+      "module_id": "HANGAR.WALL.CASSETTE",
+      "family": "HANGAR",
+      "width": 4.5,
+      "height": 7.6,
+      "thickness": 0.22,
+      "detail": "WORKING",
+      "door_open": 0.0,
+      "style": {
+        "palette": "COASTAL",
+        "wall_material": "Plaster",
+        "frame_material": "SteelDark",
+        "plinth_material": "Stone",
+        "wear": 0.15
+      }
+    }
+  },
+  {
+    "image": "MODULE_VISION.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 700,
+    "height": 760,
+    "samples": 6,
+    "triangles": 372,
+    "camera": {
+      "eye": [
+        -12.0,
+        -8.0,
+        8.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        3.75
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 5.96,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_module": "HANGAR.WALL.VISION",
+    "settings": {
+      "module_id": "HANGAR.WALL.VISION",
+      "family": "HANGAR",
+      "width": 4.5,
+      "height": 7.6,
+      "thickness": 0.22,
+      "detail": "WORKING",
+      "door_open": 0.0,
+      "style": {
+        "palette": "COASTAL",
+        "wall_material": "Plaster",
+        "frame_material": "SteelDark",
+        "plinth_material": "Stone",
+        "wear": 0.15
+      }
+    }
+  },
+  {
+    "image": "MODULE_SHADED.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 700,
+    "height": 760,
+    "samples": 6,
+    "triangles": 444,
+    "camera": {
+      "eye": [
+        -12.0,
+        -8.0,
+        8.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        3.75
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 6.86,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_module": "HANGAR.WALL.SHADED",
+    "settings": {
+      "module_id": "HANGAR.WALL.SHADED",
+      "family": "HANGAR",
+      "width": 4.5,
+      "height": 7.6,
+      "thickness": 0.22,
+      "detail": "WORKING",
+      "door_open": 0.0,
+      "style": {
+        "palette": "COASTAL",
+        "wall_material": "Plaster",
+        "frame_material": "SteelDark",
+        "plinth_material": "Stone",
+        "wear": 0.15
+      }
+    }
+  },
+  {
+    "image": "MODULE_DUAL_VENT.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 700,
+    "height": 760,
+    "samples": 6,
+    "triangles": 732,
+    "camera": {
+      "eye": [
+        -12.0,
+        -8.0,
+        8.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        3.75
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 6.63,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_module": "HANGAR.WALL.DUAL_VENT",
+    "settings": {
+      "module_id": "HANGAR.WALL.DUAL_VENT",
+      "family": "HANGAR",
+      "width": 4.5,
+      "height": 7.6,
+      "thickness": 0.22,
+      "detail": "WORKING",
+      "door_open": 0.0,
+      "style": {
+        "palette": "COASTAL",
+        "wall_material": "Plaster",
+        "frame_material": "SteelDark",
+        "plinth_material": "Stone",
+        "wear": 0.15
+      }
+    }
+  },
+  {
+    "image": "MODULE_DOUBLE_SERVICE.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 700,
+    "height": 760,
+    "samples": 6,
+    "triangles": 528,
+    "camera": {
+      "eye": [
+        -12.0,
+        -8.0,
+        8.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        3.75
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 6.8,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_module": "HANGAR.ENTRY.DOUBLE_SERVICE",
+    "settings": {
+      "module_id": "HANGAR.ENTRY.DOUBLE_SERVICE",
+      "family": "HANGAR",
+      "width": 4.5,
+      "height": 7.6,
+      "thickness": 0.22,
+      "detail": "WORKING",
+      "door_open": 0.0,
+      "style": {
+        "palette": "COASTAL",
+        "wall_material": "Plaster",
+        "frame_material": "SteelDark",
+        "plinth_material": "Stone",
+        "wear": 0.15
+      }
+    }
+  },
+  {
+    "image": "MODULE_CANOPY.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 700,
+    "height": 760,
+    "samples": 6,
+    "triangles": 408,
+    "camera": {
+      "eye": [
+        -12.0,
+        -8.0,
+        8.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        3.75
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 5.79,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_module": "HANGAR.ENTRY.CANOPY",
+    "settings": {
+      "module_id": "HANGAR.ENTRY.CANOPY",
+      "family": "HANGAR",
+      "width": 4.5,
+      "height": 7.6,
+      "thickness": 0.22,
+      "detail": "WORKING",
+      "door_open": 0.0,
+      "style": {
+        "palette": "COASTAL",
+        "wall_material": "Plaster",
+        "frame_material": "SteelDark",
+        "plinth_material": "Stone",
+        "wear": 0.15
+      }
+    }
+  },
+  {
+    "image": "EXP_COASTAL.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 1200,
+    "height": 780,
+    "samples": 6,
+    "triangles": 29592,
+    "camera": {
+      "eye": [
+        -35.28,
+        -43.2,
+        21.419999999999998
+      ],
+      "target": [
+        13.68,
+        -0.0,
+        3.952
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 33.02,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_preset": "EXP_COASTAL",
+    "settings": {
+      "name": "HG_COASTAL_03",
+      "width": 32.0,
+      "depth": 36.0,
+      "eave_height": 7.6,
+      "roof_rise": 2.6,
+      "bays": 8,
+      "roof_type": "MONITOR",
+      "monitor_width": 5.2,
+      "monitor_height": 1.0,
+      "opening_width": 22.0,
+      "opening_height": 6.15,
+      "gate_leaves": 6,
+      "gate_open": 0.82,
+      "gate_glazing": true,
+      "personnel_open": 0.0,
+      "left_panels": "CASSETTE,CANOPY_ENTRY,SHADED,SHADED,VISION,SHADED,DUAL_VENT,CASSETTE",
+      "right_panels": "CASSETTE,VISION,VISION,SHADED,DUAL_VENT,SHADED,DOUBLE_SERVICE,CASSETTE",
+      "rear_service_door": true,
+      "wall_thickness": 0.22,
+      "base_height": 0.18,
+      "local_ground": true,
+      "apron_depth": 5.0,
+      "drain": true,
+      "landings": true,
+      "walkway_width": 3.2,
+      "gutters": true,
+      "services": true,
+      "fixtures": true,
+      "signage": true,
+      "fasteners": true,
+      "detail": "WORKING",
+      "palette": "COASTAL",
+      "roof_finish": "OLIVE",
+      "wall_finish": "LIGHT",
+      "wetness": 0.0,
+      "normal_strength": 0.24,
+      "concrete_tile_m": 2.0,
+      "metal_tile_m": 1.2,
+      "seed": 17
+    },
+    "glb": {
+      "bytes": 11590148,
+      "geometries": 334,
+      "nodes": 334,
+      "embedded_texture_files": 9
+    }
+  },
+  {
+    "image": "EXP_TECHNICAL.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 1200,
+    "height": 780,
+    "samples": 6,
+    "triangles": 25398,
+    "camera": {
+      "eye": [
+        -35.28,
+        -37.800000000000004,
+        19.740000000000002
+      ],
+      "target": [
+        13.68,
+        -0.0,
+        3.744
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 29.71,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_preset": "EXP_TECHNICAL",
+    "settings": {
+      "name": "HG_TECH_03",
+      "width": 28.0,
+      "depth": 36.0,
+      "eave_height": 7.2,
+      "roof_rise": 2.2,
+      "bays": 8,
+      "roof_type": "GABLE",
+      "monitor_width": 5.2,
+      "monitor_height": 1.0,
+      "opening_width": 18.0,
+      "opening_height": 5.8,
+      "gate_leaves": 4,
+      "gate_open": 0.82,
+      "gate_glazing": true,
+      "personnel_open": 0.0,
+      "left_panels": "CASSETTE,DOUBLE_SERVICE,VISION,VISION,DUAL_VENT,METAL,METAL,CASSETTE",
+      "right_panels": "CASSETTE,METAL,DUAL_VENT,VISION,VISION,METAL,CANOPY_ENTRY,CASSETTE",
+      "rear_service_door": true,
+      "wall_thickness": 0.22,
+      "base_height": 0.18,
+      "local_ground": true,
+      "apron_depth": 5.0,
+      "drain": true,
+      "landings": true,
+      "walkway_width": 3.2,
+      "gutters": true,
+      "services": true,
+      "fixtures": true,
+      "signage": true,
+      "fasteners": true,
+      "detail": "WORKING",
+      "palette": "COASTAL",
+      "roof_finish": "OLIVE",
+      "wall_finish": "OLIVE",
+      "wetness": 0.0,
+      "normal_strength": 0.24,
+      "concrete_tile_m": 2.0,
+      "metal_tile_m": 1.2,
+      "seed": 17
+    }
+  },
+  {
+    "image": "EXP_COMPACT.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 1200,
+    "height": 780,
+    "samples": 6,
+    "triangles": 20881,
+    "camera": {
+      "eye": [
+        -23.52,
+        -32.400000000000006,
+        18.06
+      ],
+      "target": [
+        9.120000000000001,
+        -0.0,
+        3.536
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 27.55,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_preset": "EXP_COMPACT",
+    "settings": {
+      "name": "HG_COMPACT_03",
+      "width": 24.0,
+      "depth": 24.0,
+      "eave_height": 6.8,
+      "roof_rise": 1.8,
+      "bays": 6,
+      "roof_type": "GABLE",
+      "monitor_width": 5.2,
+      "monitor_height": 1.0,
+      "opening_width": 14.0,
+      "opening_height": 5.35,
+      "gate_leaves": 4,
+      "gate_open": 0.82,
+      "gate_glazing": false,
+      "personnel_open": 0.0,
+      "left_panels": "CASSETTE,CANOPY_ENTRY,VISION,DUAL_VENT,SHADED,CASSETTE",
+      "right_panels": "CASSETTE,SHADED,VISION,DUAL_VENT,PERSONNEL,CASSETTE",
+      "rear_service_door": true,
+      "wall_thickness": 0.22,
+      "base_height": 0.18,
+      "local_ground": true,
+      "apron_depth": 5.0,
+      "drain": true,
+      "landings": true,
+      "walkway_width": 3.2,
+      "gutters": true,
+      "services": true,
+      "fixtures": true,
+      "signage": true,
+      "fasteners": true,
+      "detail": "WORKING",
+      "palette": "COASTAL",
+      "roof_finish": "SILVER",
+      "wall_finish": "GRAPHITE",
+      "wetness": 0.0,
+      "normal_strength": 0.24,
+      "concrete_tile_m": 2.0,
+      "metal_tile_m": 1.2,
+      "seed": 17
+    },
+    "glb": {
+      "bytes": 10396960,
+      "geometries": 225,
+      "nodes": 225,
+      "embedded_texture_files": 9
+    }
+  },
+  {
+    "image": "EXP_LONG.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 1200,
+    "height": 780,
+    "samples": 6,
+    "triangles": 34031,
+    "camera": {
+      "eye": [
+        -47.04,
+        -43.2,
+        22.680000000000003
+      ],
+      "target": [
+        18.240000000000002,
+        -0.0,
+        4.16
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 27.8,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_preset": "EXP_LONG",
+    "settings": {
+      "name": "HG_LONG_03",
+      "width": 32.0,
+      "depth": 48.0,
+      "eave_height": 8.0,
+      "roof_rise": 2.8,
+      "bays": 10,
+      "roof_type": "MONITOR",
+      "monitor_width": 5.2,
+      "monitor_height": 1.0,
+      "opening_width": 22.0,
+      "opening_height": 6.3,
+      "gate_leaves": 6,
+      "gate_open": 0.82,
+      "gate_glazing": true,
+      "personnel_open": 0.0,
+      "left_panels": "CASSETTE,DOUBLE_SERVICE,VISION,VISION,SHADED,SHADED,SHADED,DUAL_VENT,METAL,CASSETTE",
+      "right_panels": "CASSETTE,METAL,DUAL_VENT,SHADED,SHADED,VISION,VISION,METAL,CANOPY_ENTRY,CASSETTE",
+      "rear_service_door": true,
+      "wall_thickness": 0.22,
+      "base_height": 0.18,
+      "local_ground": true,
+      "apron_depth": 5.0,
+      "drain": true,
+      "landings": true,
+      "walkway_width": 3.2,
+      "gutters": true,
+      "services": true,
+      "fixtures": true,
+      "signage": true,
+      "fasteners": true,
+      "detail": "WORKING",
+      "palette": "COASTAL",
+      "roof_finish": "GRAPHITE",
+      "wall_finish": "LIGHT",
+      "wetness": 0.0,
+      "normal_strength": 0.24,
+      "concrete_tile_m": 2.0,
+      "metal_tile_m": 1.2,
+      "seed": 17
+    }
+  },
+  {
+    "image": "EXP_URBAN.png",
+    "renderer": "independent_cpu_raycast",
+    "native_blender": false,
+    "native_unreal": false,
+    "image_ai": false,
+    "width": 1200,
+    "height": 780,
+    "samples": 6,
+    "triangles": 30898,
+    "camera": {
+      "eye": [
+        -35.28,
+        -48.6,
+        22.680000000000003
+      ],
+      "target": [
+        13.68,
+        -0.0,
+        4.16
+      ],
+      "vertical_fov": 40
+    },
+    "seconds": 35.11,
+    "limitations": "No native bevel, tangent-normal, refraction, multi-bounce GI or temporal test.",
+    "source_preset": "EXP_URBAN",
+    "settings": {
+      "name": "HG_URBAN_03",
+      "width": 36.0,
+      "depth": 36.0,
+      "eave_height": 8.0,
+      "roof_rise": 2.8,
+      "bays": 8,
+      "roof_type": "MONITOR",
+      "monitor_width": 5.2,
+      "monitor_height": 1.0,
+      "opening_width": 24.0,
+      "opening_height": 6.6,
+      "gate_leaves": 8,
+      "gate_open": 0.7,
+      "gate_glazing": true,
+      "personnel_open": 0.0,
+      "left_panels": "CASSETTE,CANOPY_ENTRY,VISION,SHADED,SHADED,VISION,DUAL_VENT,CASSETTE",
+      "right_panels": "CASSETTE,DUAL_VENT,VISION,SHADED,SHADED,VISION,DOUBLE_SERVICE,CASSETTE",
+      "rear_service_door": true,
+      "wall_thickness": 0.22,
+      "base_height": 0.18,
+      "local_ground": true,
+      "apron_depth": 5.0,
+      "drain": true,
+      "landings": true,
+      "walkway_width": 3.2,
+      "gutters": true,
+      "services": true,
+      "fixtures": true,
+      "signage": true,
+      "fasteners": true,
+      "detail": "WORKING",
+      "palette": "URBAN",
+      "roof_finish": "SILVER",
+      "wall_finish": "GRAPHITE",
+      "wetness": 0.0,
+      "normal_strength": 0.24,
+      "concrete_tile_m": 2.0,
+      "metal_tile_m": 1.2,
+      "seed": 17
+    }
+  }
+]

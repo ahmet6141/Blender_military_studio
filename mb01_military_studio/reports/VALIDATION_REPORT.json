@@ -1,0 +1,2371 @@
+{
+  "generator": "MB01 Expansion 0.3.0-alpha.1",
+  "date": "2026-09-26T14:49:00.043641+00:00",
+  "native_blender": {
+    "status": "NOT_RUN",
+    "reason": "No installed Blender/bpy; DNS to download.blender.org and pypi.org unavailable."
+  },
+  "native_unreal": {
+    "status": "NOT_RUN",
+    "reason": "No Unreal editor"
+  },
+  "stable_release_gate": "BLOCKED",
+  "standards_certification": false,
+  "new_scanned_textures": 0,
+  "unit_tests": {
+    "executed": 397,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "status": "PASS"
+  },
+  "geometry_sweep": {
+    "executed": 45,
+    "passed": 45,
+    "rows": [
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 327,
+        "triangles": 22496,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 328,
+        "triangles": 28928,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 328,
+        "triangles": 28928,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 331,
+        "triangles": 22460,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 332,
+        "triangles": 28892,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 332,
+        "triangles": 28892,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 331,
+        "triangles": 22568,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 332,
+        "triangles": 29000,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_COASTAL",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 332,
+        "triangles": 29000,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 257,
+        "triangles": 18768,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 258,
+        "triangles": 24832,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 258,
+        "triangles": 24832,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 257,
+        "triangles": 18768,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 258,
+        "triangles": 24832,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 258,
+        "triangles": 24832,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 257,
+        "triangles": 18912,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 258,
+        "triangles": 24976,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_TECHNICAL",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 258,
+        "triangles": 24976,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 222,
+        "triangles": 15184,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 223,
+        "triangles": 20056,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 223,
+        "triangles": 20056,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 222,
+        "triangles": 15292,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 223,
+        "triangles": 20164,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 223,
+        "triangles": 20164,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 222,
+        "triangles": 15292,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 223,
+        "triangles": 20164,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_COMPACT",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 223,
+        "triangles": 20164,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 1.7763568394002505e-15,
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 369,
+        "triangles": 25922,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 370,
+        "triangles": 33450,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 370,
+        "triangles": 33450,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 373,
+        "triangles": 25886,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 374,
+        "triangles": 33414,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 374,
+        "triangles": 33414,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 373,
+        "triangles": 25994,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 374,
+        "triangles": 33522,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_LONG",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 374,
+        "triangles": 33522,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 333,
+        "triangles": 23468,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 334,
+        "triangles": 30268,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 334,
+        "triangles": 30268,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 333,
+        "triangles": 23468,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 334,
+        "triangles": 30268,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 334,
+        "triangles": 30268,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "errors": [],
+        "parts": 333,
+        "triangles": 23528,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 0.0,
+          "fixture_shoe_contact_max_gap_m": 1.7763568394002505e-15,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "errors": [],
+        "parts": 334,
+        "triangles": 30328,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 0.0,
+          "fixture_shoe_contact_max_gap_m": 1.7763568394002505e-15,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      },
+      {
+        "preset": "EXP_URBAN",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "errors": [],
+        "parts": 334,
+        "triangles": 30328,
+        "independent_qa_status": "PASS",
+        "independent_qa_issues": [],
+        "uv_zero_area_triangles": 0,
+        "interface_metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 0.0,
+          "fixture_shoe_contact_max_gap_m": 1.7763568394002505e-15,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        }
+      }
+    ]
+  },
+  "gamekit_bundles": [
+    {
+      "schema": "mb01.gamekit/0.1",
+      "source_module": "HANGAR.WALL.CASSETTE",
+      "config": {
+        "module_id": "HANGAR.WALL.CASSETTE",
+        "family": "HANGAR",
+        "width": 4.5,
+        "height": 7.6,
+        "thickness": 0.22,
+        "detail": "WORKING",
+        "door_open": 0.0,
+        "style": {
+          "palette": "COASTAL",
+          "wall_material": "Plaster",
+          "frame_material": "SteelDark",
+          "plinth_material": "Stone",
+          "wear": 0.15
+        }
+      },
+      "levels": {
+        "0": {
+          "render_meshes": 1,
+          "triangles": 204,
+          "max_material_slots": 5,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_CASSETTE_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 204,
+              "materials": [
+                "Joint",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "e251943f97b9e2c81be554e3a6d397c17b9bd4cef0e00f92dc95e523fd73fe13",
+              "collision_hulls": 1
+            }
+          ]
+        },
+        "1": {
+          "render_meshes": 1,
+          "triangles": 156,
+          "max_material_slots": 5,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_CASSETTE_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 156,
+              "materials": [
+                "Joint",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "c676d3133f2a065225dafda79be875edf30d25d642938fd9e9f0e1f507470ce0",
+              "collision_hulls": 1
+            }
+          ]
+        },
+        "2": {
+          "render_meshes": 1,
+          "triangles": 48,
+          "max_material_slots": 5,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_CASSETTE_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 48,
+              "materials": [
+                "Joint",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "17ecc480790001ab88a7854aa03e7dabad6eb740a4032eaac69f063cf54df0ed",
+              "collision_hulls": 1
+            }
+          ]
+        }
+      },
+      "omitted_roles": {
+        "0": [],
+        "1": [
+          "HeadReveal",
+          "CassetteReveals"
+        ],
+        "2": [
+          "HeadReveal",
+          "PanelSeams",
+          "CassetteReveals",
+          "CassetteFold"
+        ]
+      },
+      "status": "PASS",
+      "errors": [],
+      "raw_source_triangles_before_blender_modifiers": true,
+      "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+      "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+      "native_blender": "NOT_RUN",
+      "native_unreal": "NOT_RUN",
+      "limitations": [
+        "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+        "LOD2 is conservative geometry, not a far-building impostor.",
+        "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+      ]
+    },
+    {
+      "schema": "mb01.gamekit/0.1",
+      "source_module": "HANGAR.WALL.VISION",
+      "config": {
+        "module_id": "HANGAR.WALL.VISION",
+        "family": "HANGAR",
+        "width": 4.5,
+        "height": 7.6,
+        "thickness": 0.22,
+        "detail": "WORKING",
+        "door_open": 0.0,
+        "style": {
+          "palette": "COASTAL",
+          "wall_material": "Plaster",
+          "frame_material": "SteelDark",
+          "plinth_material": "Stone",
+          "wear": 0.15
+        }
+      },
+      "levels": {
+        "0": {
+          "render_meshes": 2,
+          "triangles": 372,
+          "max_material_slots": 7,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_VISION_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 360,
+              "materials": [
+                "ConcreteLight",
+                "Joint",
+                "Plaster",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "7e937e105e6c3561deaee28a656158cad48a101e5f3ce8e5c39f637e66e16bda",
+              "collision_hulls": 4
+            },
+            {
+              "key": "GLASS",
+              "name": "SM_MB03_VISION_be7e2166_GLASS",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 12,
+              "materials": [
+                "Glass"
+              ],
+              "geometry_sha256": "de7d97bbece2fa1df0387c704dba36d1612e2d3d99b107c64645ee6fb4024f7e",
+              "collision_hulls": 0
+            }
+          ]
+        },
+        "1": {
+          "render_meshes": 2,
+          "triangles": 336,
+          "max_material_slots": 7,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_VISION_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 324,
+              "materials": [
+                "ConcreteLight",
+                "Joint",
+                "Plaster",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "05b2d42a9c1621ce8fe5c466de0f816e6d0baf5e80fde68b50dc0f8daab6d9d0",
+              "collision_hulls": 4
+            },
+            {
+              "key": "GLASS",
+              "name": "SM_MB03_VISION_be7e2166_GLASS",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 12,
+              "materials": [
+                "Glass"
+              ],
+              "geometry_sha256": "de7d97bbece2fa1df0387c704dba36d1612e2d3d99b107c64645ee6fb4024f7e",
+              "collision_hulls": 0
+            }
+          ]
+        },
+        "2": {
+          "render_meshes": 2,
+          "triangles": 192,
+          "max_material_slots": 7,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_VISION_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 180,
+              "materials": [
+                "ConcreteLight",
+                "Joint",
+                "Plaster",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "fe90342b59d323f45014f503b6fad1057325510a6ce6a5f2746ae3aa044e3de6",
+              "collision_hulls": 4
+            },
+            {
+              "key": "GLASS",
+              "name": "SM_MB03_VISION_be7e2166_GLASS",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 12,
+              "materials": [
+                "Glass"
+              ],
+              "geometry_sha256": "de7d97bbece2fa1df0387c704dba36d1612e2d3d99b107c64645ee6fb4024f7e",
+              "collision_hulls": 0
+            }
+          ]
+        }
+      },
+      "omitted_roles": {
+        "0": [],
+        "1": [
+          "HeadReveal",
+          "SillDrip",
+          "VisionHeadShadow"
+        ],
+        "2": [
+          "HeadReveal",
+          "PanelSeams",
+          "SillDrip",
+          "VisionHeadShadow"
+        ]
+      },
+      "status": "PASS",
+      "errors": [],
+      "raw_source_triangles_before_blender_modifiers": true,
+      "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+      "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+      "native_blender": "NOT_RUN",
+      "native_unreal": "NOT_RUN",
+      "limitations": [
+        "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+        "LOD2 is conservative geometry, not a far-building impostor.",
+        "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+      ]
+    },
+    {
+      "schema": "mb01.gamekit/0.1",
+      "source_module": "HANGAR.WALL.SHADED",
+      "config": {
+        "module_id": "HANGAR.WALL.SHADED",
+        "family": "HANGAR",
+        "width": 4.5,
+        "height": 7.6,
+        "thickness": 0.22,
+        "detail": "WORKING",
+        "door_open": 0.0,
+        "style": {
+          "palette": "COASTAL",
+          "wall_material": "Plaster",
+          "frame_material": "SteelDark",
+          "plinth_material": "Stone",
+          "wear": 0.15
+        }
+      },
+      "levels": {
+        "0": {
+          "render_meshes": 2,
+          "triangles": 444,
+          "max_material_slots": 7,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_SHADED_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 432,
+              "materials": [
+                "ConcreteLight",
+                "Joint",
+                "Plaster",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "eb0a5d3e54414a0c5776bccc6b26c4a8125267566fd3cadec953e1a27fa1a2ac",
+              "collision_hulls": 4
+            },
+            {
+              "key": "GLASS",
+              "name": "SM_MB03_SHADED_be7e2166_GLASS",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 12,
+              "materials": [
+                "Glass"
+              ],
+              "geometry_sha256": "d9eda31542017eeb713fc4ad902700632558bd593e7a8ff5ace33aa1df27427a",
+              "collision_hulls": 0
+            }
+          ]
+        },
+        "1": {
+          "render_meshes": 2,
+          "triangles": 420,
+          "max_material_slots": 7,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_SHADED_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 408,
+              "materials": [
+                "ConcreteLight",
+                "Joint",
+                "Plaster",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "a0dcbbe6bde0530fe9a2baa3a0df4379c9324800ce819849b8173f3b27e783d1",
+              "collision_hulls": 4
+            },
+            {
+              "key": "GLASS",
+              "name": "SM_MB03_SHADED_be7e2166_GLASS",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 12,
+              "materials": [
+                "Glass"
+              ],
+              "geometry_sha256": "d9eda31542017eeb713fc4ad902700632558bd593e7a8ff5ace33aa1df27427a",
+              "collision_hulls": 0
+            }
+          ]
+        },
+        "2": {
+          "render_meshes": 2,
+          "triangles": 276,
+          "max_material_slots": 7,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_SHADED_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 264,
+              "materials": [
+                "ConcreteLight",
+                "Joint",
+                "Plaster",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "a398bfbfbf5b4e9c1c720bb464eddc27b0bb43869854a8eccd7107afd060c9c1",
+              "collision_hulls": 4
+            },
+            {
+              "key": "GLASS",
+              "name": "SM_MB03_SHADED_be7e2166_GLASS",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 12,
+              "materials": [
+                "Glass"
+              ],
+              "geometry_sha256": "d9eda31542017eeb713fc4ad902700632558bd593e7a8ff5ace33aa1df27427a",
+              "collision_hulls": 0
+            }
+          ]
+        }
+      },
+      "omitted_roles": {
+        "0": [],
+        "1": [
+          "HeadReveal",
+          "SillDrip"
+        ],
+        "2": [
+          "HeadReveal",
+          "PanelSeams",
+          "SillDrip"
+        ]
+      },
+      "status": "PASS",
+      "errors": [],
+      "raw_source_triangles_before_blender_modifiers": true,
+      "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+      "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+      "native_blender": "NOT_RUN",
+      "native_unreal": "NOT_RUN",
+      "limitations": [
+        "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+        "LOD2 is conservative geometry, not a far-building impostor.",
+        "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+      ]
+    },
+    {
+      "schema": "mb01.gamekit/0.1",
+      "source_module": "HANGAR.WALL.DUAL_VENT",
+      "config": {
+        "module_id": "HANGAR.WALL.DUAL_VENT",
+        "family": "HANGAR",
+        "width": 4.5,
+        "height": 7.6,
+        "thickness": 0.22,
+        "detail": "WORKING",
+        "door_open": 0.0,
+        "style": {
+          "palette": "COASTAL",
+          "wall_material": "Plaster",
+          "frame_material": "SteelDark",
+          "plinth_material": "Stone",
+          "wear": 0.15
+        }
+      },
+      "levels": {
+        "0": {
+          "render_meshes": 1,
+          "triangles": 732,
+          "max_material_slots": 6,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_DUAL_VENT_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 732,
+              "materials": [
+                "Interior",
+                "Joint",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "ab78b4f3e259be19a9aebe472ae2e4be99de08c0dbd346b5810b765039e870c0",
+              "collision_hulls": 13
+            }
+          ]
+        },
+        "1": {
+          "render_meshes": 1,
+          "triangles": 720,
+          "max_material_slots": 6,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_DUAL_VENT_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 720,
+              "materials": [
+                "Interior",
+                "Joint",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "d496b25d800eaaaa63ed39656b962582806fa5a2560e3381c9a88cee3532e9ea",
+              "collision_hulls": 13
+            }
+          ]
+        },
+        "2": {
+          "render_meshes": 1,
+          "triangles": 576,
+          "max_material_slots": 6,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_DUAL_VENT_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 576,
+              "materials": [
+                "Interior",
+                "Joint",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "49ffd3639def3d4af93ce368e1cd2a78f27583cbca866b3395428847966941c3",
+              "collision_hulls": 13
+            }
+          ]
+        }
+      },
+      "omitted_roles": {
+        "0": [],
+        "1": [
+          "HeadReveal"
+        ],
+        "2": [
+          "HeadReveal",
+          "PanelSeams"
+        ]
+      },
+      "status": "PASS",
+      "errors": [],
+      "raw_source_triangles_before_blender_modifiers": true,
+      "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+      "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+      "native_blender": "NOT_RUN",
+      "native_unreal": "NOT_RUN",
+      "limitations": [
+        "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+        "LOD2 is conservative geometry, not a far-building impostor.",
+        "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+      ]
+    },
+    {
+      "schema": "mb01.gamekit/0.1",
+      "source_module": "HANGAR.ENTRY.DOUBLE_SERVICE",
+      "config": {
+        "module_id": "HANGAR.ENTRY.DOUBLE_SERVICE",
+        "family": "HANGAR",
+        "width": 4.5,
+        "height": 7.6,
+        "thickness": 0.22,
+        "detail": "WORKING",
+        "door_open": 0.0,
+        "style": {
+          "palette": "COASTAL",
+          "wall_material": "Plaster",
+          "frame_material": "SteelDark",
+          "plinth_material": "Stone",
+          "wear": 0.15
+        }
+      },
+      "levels": {
+        "0": {
+          "render_meshes": 3,
+          "triangles": 528,
+          "max_material_slots": 8,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 288,
+              "materials": [
+                "ConcreteLight",
+                "Galvanized",
+                "Joint",
+                "LightWarm",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "3347d4f2c3ee4bc52a4d7fa72846a8dd3de1e1cebebb50cddbb3c34d45330742",
+              "collision_hulls": 3
+            },
+            {
+              "key": "DOOR_0",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_0",
+              "pivot_m": [
+                0.07,
+                1.075,
+                0.035
+              ],
+              "triangles": 120,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "16c6ae84be899f74290e00e313e6364d3ea66130764ddb9c8e0e92de2e3dce99",
+              "collision_hulls": 1
+            },
+            {
+              "key": "DOOR_1",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_1",
+              "pivot_m": [
+                0.07,
+                -1.0750000000000002,
+                0.035
+              ],
+              "triangles": 120,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "c9fca0a8ca5dda66da47dfcc4ae18f3c92cc15fdec0f91765512cf8219a60bdf",
+              "collision_hulls": 1
+            }
+          ]
+        },
+        "1": {
+          "render_meshes": 3,
+          "triangles": 360,
+          "max_material_slots": 8,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 264,
+              "materials": [
+                "ConcreteLight",
+                "Galvanized",
+                "Joint",
+                "LightWarm",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "d5b8ee5289df1739c3c4df1ba15391990fd4496fe1964643a78b952d3a830a21",
+              "collision_hulls": 3
+            },
+            {
+              "key": "DOOR_0",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_0",
+              "pivot_m": [
+                0.07,
+                1.075,
+                0.035
+              ],
+              "triangles": 48,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "cc7416245ad1836b5468cb833444c86e058b2e4f634dd2bb0fb96d5861f3fb80",
+              "collision_hulls": 1
+            },
+            {
+              "key": "DOOR_1",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_1",
+              "pivot_m": [
+                0.07,
+                -1.0750000000000002,
+                0.035
+              ],
+              "triangles": 48,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "423353694fcf8f92a9c54161489b0edd6556ff2c3ca317480e530a82a192c05a",
+              "collision_hulls": 1
+            }
+          ]
+        },
+        "2": {
+          "render_meshes": 3,
+          "triangles": 252,
+          "max_material_slots": 8,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 156,
+              "materials": [
+                "ConcreteLight",
+                "Galvanized",
+                "Joint",
+                "LightWarm",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "3727d3e71dbc531903a8e943c4a0c4d9b91578ebc6038d0e7c7618e603c06f40",
+              "collision_hulls": 3
+            },
+            {
+              "key": "DOOR_0",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_0",
+              "pivot_m": [
+                0.07,
+                1.075,
+                0.035
+              ],
+              "triangles": 48,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "cc7416245ad1836b5468cb833444c86e058b2e4f634dd2bb0fb96d5861f3fb80",
+              "collision_hulls": 1
+            },
+            {
+              "key": "DOOR_1",
+              "name": "SM_MB03_DOUBLE_SERVICE_be7e2166_DOOR_1",
+              "pivot_m": [
+                0.07,
+                -1.0750000000000002,
+                0.035
+              ],
+              "triangles": 48,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "423353694fcf8f92a9c54161489b0edd6556ff2c3ca317480e530a82a192c05a",
+              "collision_hulls": 1
+            }
+          ]
+        }
+      },
+      "omitted_roles": {
+        "0": [],
+        "1": [
+          "HeadReveal",
+          "EntryShadowReveal"
+        ],
+        "2": [
+          "HeadReveal",
+          "PanelSeams",
+          "CanopyLight",
+          "EntryShadowReveal",
+          "EntryJambFold"
+        ]
+      },
+      "status": "PASS",
+      "errors": [],
+      "raw_source_triangles_before_blender_modifiers": true,
+      "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+      "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+      "native_blender": "NOT_RUN",
+      "native_unreal": "NOT_RUN",
+      "limitations": [
+        "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+        "LOD2 is conservative geometry, not a far-building impostor.",
+        "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+      ]
+    },
+    {
+      "schema": "mb01.gamekit/0.1",
+      "source_module": "HANGAR.ENTRY.CANOPY",
+      "config": {
+        "module_id": "HANGAR.ENTRY.CANOPY",
+        "family": "HANGAR",
+        "width": 4.5,
+        "height": 7.6,
+        "thickness": 0.22,
+        "detail": "WORKING",
+        "door_open": 0.0,
+        "style": {
+          "palette": "COASTAL",
+          "wall_material": "Plaster",
+          "frame_material": "SteelDark",
+          "plinth_material": "Stone",
+          "wear": 0.15
+        }
+      },
+      "levels": {
+        "0": {
+          "render_meshes": 2,
+          "triangles": 408,
+          "max_material_slots": 8,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_CANOPY_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 288,
+              "materials": [
+                "ConcreteLight",
+                "Galvanized",
+                "Joint",
+                "LightWarm",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "1c14cd0da23362d0673574ced62afb666a874dbf703b465cfcf4351b7b9e87d3",
+              "collision_hulls": 3
+            },
+            {
+              "key": "DOOR_0",
+              "name": "SM_MB03_CANOPY_be7e2166_DOOR_0",
+              "pivot_m": [
+                0.07,
+                0.515,
+                0.035
+              ],
+              "triangles": 120,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "788771efd146394e2e2c769e95f037262816e3908616b01c198aecc02417234b",
+              "collision_hulls": 1
+            }
+          ]
+        },
+        "1": {
+          "render_meshes": 2,
+          "triangles": 312,
+          "max_material_slots": 8,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_CANOPY_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 264,
+              "materials": [
+                "ConcreteLight",
+                "Galvanized",
+                "Joint",
+                "LightWarm",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "a317c9d8be972c87823326125afcea812d246bf9d8c044a4a9fab5b8483e4f52",
+              "collision_hulls": 3
+            },
+            {
+              "key": "DOOR_0",
+              "name": "SM_MB03_CANOPY_be7e2166_DOOR_0",
+              "pivot_m": [
+                0.07,
+                0.515,
+                0.035
+              ],
+              "triangles": 48,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "de5f49380d25982d16ca39fa8ea679b4cd1a01021b09e873b9a5935cb4d58dc2",
+              "collision_hulls": 1
+            }
+          ]
+        },
+        "2": {
+          "render_meshes": 2,
+          "triangles": 204,
+          "max_material_slots": 8,
+          "assets": [
+            {
+              "key": "OPAQUE",
+              "name": "SM_MB03_CANOPY_be7e2166_OPAQUE",
+              "pivot_m": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "triangles": 156,
+              "materials": [
+                "ConcreteLight",
+                "Galvanized",
+                "Joint",
+                "LightWarm",
+                "RoofOlive",
+                "RoofOliveLight",
+                "SteelDark",
+                "Stone"
+              ],
+              "geometry_sha256": "cbffc6472d469b3d947f6b8527aeadfa479cac970ba8c534e348e60ad18a1e11",
+              "collision_hulls": 3
+            },
+            {
+              "key": "DOOR_0",
+              "name": "SM_MB03_CANOPY_be7e2166_DOOR_0",
+              "pivot_m": [
+                0.07,
+                0.515,
+                0.035
+              ],
+              "triangles": 48,
+              "materials": [
+                "Galvanized",
+                "RoofOlive",
+                "Yellow"
+              ],
+              "geometry_sha256": "de5f49380d25982d16ca39fa8ea679b4cd1a01021b09e873b9a5935cb4d58dc2",
+              "collision_hulls": 1
+            }
+          ]
+        }
+      },
+      "omitted_roles": {
+        "0": [],
+        "1": [
+          "HeadReveal",
+          "EntryShadowReveal"
+        ],
+        "2": [
+          "HeadReveal",
+          "PanelSeams",
+          "CanopyLight",
+          "EntryShadowReveal",
+          "EntryJambFold"
+        ]
+      },
+      "status": "PASS",
+      "errors": [],
+      "raw_source_triangles_before_blender_modifiers": true,
+      "policy": "semantic simplification; opaque/glass/door split; no texture bake",
+      "lighting": "DYNAMIC_ONLY; UV0_Tile is not a lightmap",
+      "native_blender": "NOT_RUN",
+      "native_unreal": "NOT_RUN",
+      "limitations": [
+        "Wall collision excludes ornamental frames, glazing and awning; review player traces.",
+        "LOD2 is conservative geometry, not a far-building impostor.",
+        "No trim atlas bake, automatic Nanite/HISM or whole-building optimization."
+      ]
+    }
+  ],
+  "catalog": {
+    "total": 62,
+    "implemented_core": 20,
+    "new_modules": 6,
+    "old_planned_unimplemented": 42
+  },
+  "syntax": {
+    "status": "PASS",
+    "files": 35
+  },
+  "baseline_diff_counts": {
+    "unchanged": 95,
+    "modified": 9,
+    "added": 11,
+    "missing": 0
+  },
+  "as07_source_unchanged": true,
+  "textures_unchanged": true,
+  "source_check_status": "PASS",
+  "seconds": 57.27,
+  "independent_renders": {
+    "count": 11,
+    "method": "Independent CPU ray-cast; no image AI",
+    "records": "RENDER_RECORDS.json",
+    "native": false
+  },
+  "glb_roundtrip": {
+    "status": "PASS",
+    "files": [
+      {
+        "file": "KIT_CASSETTE_LODs.glb",
+        "source": "HANGAR.WALL.CASSETTE",
+        "sha256": "f186ad86ef00ef0bad90709d01133111983595e9554514d52b4e96ee82650381",
+        "geometries": 12,
+        "triangles": 408,
+        "expected_triangles": 408,
+        "bounds": [
+          [
+            -0.06549999862909317,
+            0.0,
+            -14.25
+          ],
+          [
+            0.2199999988079071,
+            7.599999904632568,
+            2.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      },
+      {
+        "file": "KIT_VISION_LODs.glb",
+        "source": "HANGAR.WALL.VISION",
+        "sha256": "98fae62ab26fe6a9713ab371e048c3fccbbfe7ca888f4128bdcece377599dca0",
+        "geometries": 21,
+        "triangles": 900,
+        "expected_triangles": 900,
+        "bounds": [
+          [
+            -0.16500000655651093,
+            0.0,
+            -14.25
+          ],
+          [
+            0.2199999988079071,
+            7.599999904632568,
+            2.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      },
+      {
+        "file": "KIT_SHADED_LODs.glb",
+        "source": "HANGAR.WALL.SHADED",
+        "sha256": "db071c0159b69d1f445e070100a8132f1689a0cdd4c90cd7b67654f5aa6bc760",
+        "geometries": 21,
+        "triangles": 1140,
+        "expected_triangles": 1140,
+        "bounds": [
+          [
+            -0.7300000190734863,
+            0.0,
+            -14.25
+          ],
+          [
+            0.2199999988079071,
+            7.599999904632568,
+            2.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      },
+      {
+        "file": "KIT_DUAL_VENT_LODs.glb",
+        "source": "HANGAR.WALL.DUAL_VENT",
+        "sha256": "1392919460599c3fb7b325af31035f1aee3616618a93760c0fb74cfca86b1b05",
+        "geometries": 16,
+        "triangles": 2028,
+        "expected_triangles": 2028,
+        "bounds": [
+          [
+            -0.18000000715255737,
+            0.0,
+            -14.25
+          ],
+          [
+            0.24500000476837158,
+            7.599999904632568,
+            2.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      },
+      {
+        "file": "KIT_DOUBLE_SERVICE_LODs.glb",
+        "source": "HANGAR.ENTRY.DOUBLE_SERVICE",
+        "sha256": "2f7e8eea4f5ff00b9c795862824d3381cd280d87ea8d96ebe6576caa75c83036",
+        "geometries": 38,
+        "triangles": 1140,
+        "expected_triangles": 1140,
+        "bounds": [
+          [
+            -1.1299999952316284,
+            0.0,
+            -14.25
+          ],
+          [
+            0.30000001192092896,
+            7.599999904632568,
+            2.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      },
+      {
+        "file": "KIT_CANOPY_LODs.glb",
+        "source": "HANGAR.ENTRY.CANOPY",
+        "sha256": "87db06667617b00881d31e192e2a4f04d51692041985779b328907d729fdd2d7",
+        "geometries": 29,
+        "triangles": 924,
+        "expected_triangles": 924,
+        "bounds": [
+          [
+            -1.1299999952316284,
+            0.0,
+            -14.25
+          ],
+          [
+            0.30000001192092896,
+            7.599999904632568,
+            2.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      },
+      {
+        "file": "EXP_COASTAL.glb",
+        "source": "EXP_COASTAL",
+        "sha256": "f94d6ff84d7defcb9ff91e471938c66231ab4bcfdce4990c73a3eb8cbe93611a",
+        "geometries": 379,
+        "triangles": 29592,
+        "expected_triangles": 29592,
+        "bounds": [
+          [
+            -5.0,
+            -0.07999999821186066,
+            -18.25
+          ],
+          [
+            38.25,
+            11.854999542236328,
+            18.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      },
+      {
+        "file": "EXP_COMPACT.glb",
+        "source": "EXP_COMPACT",
+        "sha256": "c955fd16492d8d2cfd9bebb353bdcf04b0e1e285051ffc701fa7d52b98c60d35",
+        "geometries": 254,
+        "triangles": 20881,
+        "expected_triangles": 20881,
+        "bounds": [
+          [
+            -5.0,
+            -0.07999999821186066,
+            -14.25
+          ],
+          [
+            26.25,
+            8.989999771118164,
+            14.25
+          ]
+        ],
+        "status": "PASS",
+        "native": false
+      }
+    ]
+  },
+  "legacy_geometry_regression": {
+    "count": 8,
+    "passed": 8,
+    "report": "LEGACY_REGRESSION.json"
+  },
+  "game_ready_scope": "Six expansion modules only; whole-building importer unchanged; UE LOD association manual.",
+  "test_dependencies": [
+    "Python standard library",
+    "NumPy",
+    "Pillow"
+  ]
+}

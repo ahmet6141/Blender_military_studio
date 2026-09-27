@@ -1,0 +1,1405 @@
+{
+  "version": "0.2.0-alpha.3 QA candidate",
+  "date": "2026-09-26",
+  "python": "3.13.5",
+  "unit_tests": {
+    "executed": 322,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "status": "PASS"
+  },
+  "geometry_sweep": {
+    "executed": 27,
+    "passed": 27,
+    "records": [
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 21248,
+        "source_hash": "aaf71f6af2e76b574d353fc3a52329fa9d62487bb2fa68d25382b6e830b0a879"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 27608,
+        "source_hash": "3bc89a77e49f7fc3fd7f426840de65c6cbeb64e6a2f889e97c97e443b0519557"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 27608,
+        "source_hash": "3bc89a77e49f7fc3fd7f426840de65c6cbeb64e6a2f889e97c97e443b0519557"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 21212,
+        "source_hash": "b5118d3967ecb13e03ca40166d7948349956bd1687cd05a9fe548f1e0287f4c7"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 27572,
+        "source_hash": "fdfa7e89b6ff0ab4af2224522e9935cae81c6660cac9fdb438c006e8e5529922"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 27572,
+        "source_hash": "fdfa7e89b6ff0ab4af2224522e9935cae81c6660cac9fdb438c006e8e5529922"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 21320,
+        "source_hash": "5f9e609d1012a0232f3118cebbe6209d2558878b188588747baab90127d72861"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 27680,
+        "source_hash": "6b4fbdd72c4635f55aac2695462f3caa891ad15bc671785c5e4a22b2daca26d8"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            15.48,
+            15.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            15.292,
+            15.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            15.258,
+            15.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006991
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 27680,
+        "source_hash": "6b4fbdd72c4635f55aac2695462f3caa891ad15bc671785c5e4a22b2daca26d8"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 18768,
+        "source_hash": "76f17487fba16143ed441c5944b82a5795748c25c54ca9f0fff3036f00dc590f"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 24760,
+        "source_hash": "4853353ec9a8594fa989bafda4fd1737ef4863d0cf7d443db9642611431ee69f"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -3.552713678800501e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 24760,
+        "source_hash": "4853353ec9a8594fa989bafda4fd1737ef4863d0cf7d443db9642611431ee69f"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 18768,
+        "source_hash": "e24c013fb92aa51accca2ea3f56607f6972c8c302469535e7b3034302aced7d7"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 24760,
+        "source_hash": "47d21e747677505f17112c2e53c5d2e8205426a2c49151c2838ad611729c08aa"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 24760,
+        "source_hash": "47d21e747677505f17112c2e53c5d2e8205426a2c49151c2838ad611729c08aa"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 18912,
+        "source_hash": "0eef01cee75ac58ba7b4b83e7c2163485d9544e16b5690a9b88d187227ace64a"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 24904,
+        "source_hash": "ef5c60a88cb5c0e64507b2f70ee63f1690a1c56a08100bf083775a653ad882ef"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            13.48,
+            13.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            13.292,
+            13.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            13.258,
+            13.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 24904,
+        "source_hash": "ef5c60a88cb5c0e64507b2f70ee63f1690a1c56a08100bf083775a653ad882ef"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.16,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 14392,
+        "source_hash": "a7ea996150c9e6f976029dd991fdc4db2c5b14ca720b6b4e5bf337645ff009ea"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.16,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 19264,
+        "source_hash": "f639617aeabbd8008f6783f0a353445232b4a3205d7359c0e6f904e085570112"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.16,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 0.0,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 19264,
+        "source_hash": "f639617aeabbd8008f6783f0a353445232b4a3205d7359c0e6f904e085570112"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.22,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 14500,
+        "source_hash": "98a9740104b376cb69d914f4fc650f27e9222f8fb593cf8a173d0b3b869e0fc0"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.22,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 19372,
+        "source_hash": "b8f00f00b69d0d6c151a8006e524164cb5d68f9e41ed5f4b9d912cdbbf5fdd10"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.22,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": -1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 19372,
+        "source_hash": "b8f00f00b69d0d6c151a8006e524164cb5d68f9e41ed5f4b9d912cdbbf5fdd10"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.36,
+        "detail": "DRAFT",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 14500,
+        "source_hash": "a5139c3b8441a9474ac801a45bafd201de3535f84940b41839f8dfa5c15f115d"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.36,
+        "detail": "WORKING",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 19372,
+        "source_hash": "37fbb06be3a9a7a08cfa34c4894621962d49aea9f7fa455b300c0aac500afaeb"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "wall_thickness": 0.36,
+        "detail": "HERO",
+        "status": "PASS",
+        "metrics": {
+          "rear_plane_gap_m": 0.0,
+          "rear_corner_cover_m": 1.7763568394002505e-15,
+          "HG_ServiceCabinets_abs_centers": [
+            11.48,
+            11.48
+          ],
+          "HG_ServiceCabinetFaces_abs_centers": [
+            11.292,
+            11.292
+          ],
+          "HG_CabinetHandles_abs_centers": [
+            11.258,
+            11.258
+          ],
+          "cabinet_inward_offsets_m": [
+            0.1880000000000006,
+            0.1880000000000006
+          ],
+          "fixture_shoe_contact_max_gap_m": 8.881784197001252e-16,
+          "downpipe_wall_clearance_m": 0.07165959371006814
+        },
+        "zero_area_uv_triangles": 0,
+        "issues": [],
+        "triangles": 19372,
+        "source_hash": "37fbb06be3a9a7a08cfa34c4894621962d49aea9f7fa455b300c0aac500afaeb"
+      }
+    ]
+  },
+  "gate_pose_samples": {
+    "executed": 63,
+    "passed": 63,
+    "scope": "actual gate mesh width vs pose metadata, NOT full collision sweep",
+    "records": [
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.0,
+        "measured_clear_m": 0.01200000000000001,
+        "metadata_clear_m": 0.01200000000000001,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.05,
+        "measured_clear_m": 1.1159,
+        "metadata_clear_m": 1.1159,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.1,
+        "measured_clear_m": 2.2198,
+        "metadata_clear_m": 2.2198,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.15,
+        "measured_clear_m": 3.3236999999999997,
+        "metadata_clear_m": 3.3236999999999997,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.2,
+        "measured_clear_m": 4.427600000000001,
+        "metadata_clear_m": 4.427600000000001,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.25,
+        "measured_clear_m": 5.5315,
+        "metadata_clear_m": 5.5315,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.3,
+        "measured_clear_m": 6.6354,
+        "metadata_clear_m": 6.6354,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.35,
+        "measured_clear_m": 7.739299999999999,
+        "metadata_clear_m": 7.739299999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.4,
+        "measured_clear_m": 8.8432,
+        "metadata_clear_m": 8.8432,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.45,
+        "measured_clear_m": 9.947099999999999,
+        "metadata_clear_m": 9.947099999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.5,
+        "measured_clear_m": 11.051000000000002,
+        "metadata_clear_m": 11.051000000000002,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.55,
+        "measured_clear_m": 12.154900000000001,
+        "metadata_clear_m": 12.154900000000001,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.6,
+        "measured_clear_m": 13.258799999999997,
+        "metadata_clear_m": 13.258799999999997,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.65,
+        "measured_clear_m": 14.3627,
+        "metadata_clear_m": 14.3627,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.7,
+        "measured_clear_m": 15.4666,
+        "metadata_clear_m": 15.4666,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.75,
+        "measured_clear_m": 16.570500000000003,
+        "metadata_clear_m": 16.570500000000003,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.8,
+        "measured_clear_m": 17.674400000000002,
+        "metadata_clear_m": 17.674400000000002,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.85,
+        "measured_clear_m": 18.7783,
+        "metadata_clear_m": 18.7783,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.9,
+        "measured_clear_m": 19.8822,
+        "metadata_clear_m": 19.8822,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 0.95,
+        "measured_clear_m": 20.9861,
+        "metadata_clear_m": 20.9861,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "DAYLIGHT_MRO",
+        "open_fraction": 1.0,
+        "measured_clear_m": 22.0,
+        "metadata_clear_m": 22.0,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.0,
+        "measured_clear_m": 0.011999999999999567,
+        "metadata_clear_m": 0.011999999999999567,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.05,
+        "measured_clear_m": 0.9158999999999988,
+        "metadata_clear_m": 0.9158999999999988,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.1,
+        "measured_clear_m": 1.8197999999999999,
+        "metadata_clear_m": 1.8197999999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.15,
+        "measured_clear_m": 2.723699999999999,
+        "metadata_clear_m": 2.723699999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.2,
+        "measured_clear_m": 3.6276,
+        "metadata_clear_m": 3.6276,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.25,
+        "measured_clear_m": 4.5315,
+        "metadata_clear_m": 4.5315,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.3,
+        "measured_clear_m": 5.435399999999999,
+        "metadata_clear_m": 5.435399999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.35,
+        "measured_clear_m": 6.339299999999999,
+        "metadata_clear_m": 6.339299999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.4,
+        "measured_clear_m": 7.243199999999999,
+        "metadata_clear_m": 7.243199999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.45,
+        "measured_clear_m": 8.147099999999998,
+        "metadata_clear_m": 8.147099999999998,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.5,
+        "measured_clear_m": 9.050999999999998,
+        "metadata_clear_m": 9.050999999999998,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.55,
+        "measured_clear_m": 9.954900000000002,
+        "metadata_clear_m": 9.954900000000002,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.6,
+        "measured_clear_m": 10.858799999999999,
+        "metadata_clear_m": 10.858799999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.65,
+        "measured_clear_m": 11.762700000000002,
+        "metadata_clear_m": 11.762700000000002,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.7,
+        "measured_clear_m": 12.666599999999999,
+        "metadata_clear_m": 12.666599999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.75,
+        "measured_clear_m": 13.5705,
+        "metadata_clear_m": 13.5705,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.8,
+        "measured_clear_m": 14.4744,
+        "metadata_clear_m": 14.4744,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.85,
+        "measured_clear_m": 15.3783,
+        "metadata_clear_m": 15.3783,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.9,
+        "measured_clear_m": 16.2822,
+        "metadata_clear_m": 16.2822,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 0.95,
+        "measured_clear_m": 17.1861,
+        "metadata_clear_m": 17.1861,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "CLASSIC_MAINTENANCE",
+        "open_fraction": 1.0,
+        "measured_clear_m": 18.0,
+        "metadata_clear_m": 18.0,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.0,
+        "measured_clear_m": 0.01200000000000001,
+        "metadata_clear_m": 0.01200000000000001,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.05,
+        "measured_clear_m": 0.7159,
+        "metadata_clear_m": 0.7159,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.1,
+        "measured_clear_m": 1.4198,
+        "metadata_clear_m": 1.4198,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.15,
+        "measured_clear_m": 2.1237,
+        "metadata_clear_m": 2.1237,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.2,
+        "measured_clear_m": 2.8276,
+        "metadata_clear_m": 2.8276,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.25,
+        "measured_clear_m": 3.5315,
+        "metadata_clear_m": 3.5315,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.3,
+        "measured_clear_m": 4.2354,
+        "metadata_clear_m": 4.2354,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.35,
+        "measured_clear_m": 4.939299999999999,
+        "metadata_clear_m": 4.939299999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.4,
+        "measured_clear_m": 5.6432,
+        "metadata_clear_m": 5.6432,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.45,
+        "measured_clear_m": 6.347100000000001,
+        "metadata_clear_m": 6.347100000000001,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.5,
+        "measured_clear_m": 7.051,
+        "metadata_clear_m": 7.051,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.55,
+        "measured_clear_m": 7.754900000000001,
+        "metadata_clear_m": 7.754900000000001,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.6,
+        "measured_clear_m": 8.4588,
+        "metadata_clear_m": 8.4588,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.65,
+        "measured_clear_m": 9.162700000000001,
+        "metadata_clear_m": 9.162700000000001,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.7,
+        "measured_clear_m": 9.8666,
+        "metadata_clear_m": 9.8666,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.75,
+        "measured_clear_m": 10.5705,
+        "metadata_clear_m": 10.5705,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.8,
+        "measured_clear_m": 11.2744,
+        "metadata_clear_m": 11.2744,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.85,
+        "measured_clear_m": 11.978299999999999,
+        "metadata_clear_m": 11.978299999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.9,
+        "measured_clear_m": 12.682200000000002,
+        "metadata_clear_m": 12.682200000000002,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 0.95,
+        "measured_clear_m": 13.386099999999999,
+        "metadata_clear_m": 13.386099999999999,
+        "error_m": 0.0,
+        "status": "PASS"
+      },
+      {
+        "preset": "COMPACT_SERVICE",
+        "open_fraction": 1.0,
+        "measured_clear_m": 14.0,
+        "metadata_clear_m": 14.0,
+        "error_m": 0.0,
+        "status": "PASS"
+      }
+    ]
+  },
+  "native_blender": {
+    "status": "NOT_RUN",
+    "reason": "No executable/bpy; download and plugin discovery unavailable"
+  },
+  "native_unreal": {
+    "status": "NOT_RUN",
+    "reason": "Unreal editor not available"
+  },
+  "standards_certified": false,
+  "temporal_render_test": "NOT_RUN",
+  "release_gate": "BLOCKED_PENDING_NATIVE_TESTS",
+  "seconds": 49.81
+}

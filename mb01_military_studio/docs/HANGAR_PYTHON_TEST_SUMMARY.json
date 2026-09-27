@@ -1,0 +1,54 @@
+{
+  "generator": "MB01 Hangar Studio 0.2.0-alpha.2",
+  "date": "2026-09-26",
+  "unit_tests": {
+    "executed": 254,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 21.2,
+    "status": "PASS"
+  },
+  "native_blender": {
+    "status": "NOT_RUN",
+    "reason": "No Blender/bpy; executable download attempts did not succeed."
+  },
+  "native_unreal": {
+    "status": "NOT_RUN",
+    "reason": "No Unreal editor available."
+  },
+  "standards_certification": false,
+  "additional_geometry_sweep": {
+    "executed": 24,
+    "passed": 24
+  },
+  "preset_geometry": {
+    "DAYLIGHT_MRO": {
+      "parts": 294,
+      "triangles": 27544,
+      "vertices": 17348,
+      "errors": [],
+      "bays": 8,
+      "gate_leaves": 6,
+      "gate_clear_width_at_pose_m": 18.115959999999998
+    },
+    "CLASSIC_MAINTENANCE": {
+      "parts": 257,
+      "triangles": 24696,
+      "vertices": 15512,
+      "errors": [],
+      "bays": 8,
+      "gate_leaves": 4,
+      "gate_clear_width_at_pose_m": 14.112839999999998
+    },
+    "COMPACT_SERVICE": {
+      "parts": 207,
+      "triangles": 19308,
+      "vertices": 12080,
+      "errors": [],
+      "bays": 6,
+      "gate_leaves": 4,
+      "gate_clear_width_at_pose_m": 11.55596
+    }
+  }
+}

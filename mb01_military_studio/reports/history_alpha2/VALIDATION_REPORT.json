@@ -1,0 +1,95 @@
+{
+  "generator": "0.2.0-alpha.1",
+  "date": "2026-09-26",
+  "python": "3.13.5",
+  "native_blender": {
+    "status": "NOT_RUN",
+    "reason": "bpy/Blender unavailable; download DNS resolution failed"
+  },
+  "native_unreal": {
+    "status": "NOT_RUN",
+    "reason": "Unreal editor unavailable"
+  },
+  "compatibility_claim": "Blender 4.5 / UE5.8 targets, not runtime-certified compatibility",
+  "unit_tests": {
+    "executed": 168,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 16.781,
+    "status": "PASS"
+  },
+  "catalog": {
+    "total": 56,
+    "implemented_core": 14,
+    "planned": 42
+  },
+  "syntax": "PASS",
+  "example_glbs": {
+    "HQ": {
+      "bytes": 14937824,
+      "geometries": 34,
+      "nodes": 57,
+      "generated_earlier_this_run": true,
+      "unique_geometries_read": 38,
+      "unique_triangles_read": 972,
+      "sha256": "84405b74507174cc4d2c42181fd0912f86748334ac177454257c4f5217cdaf35",
+      "native_export": false
+    },
+    "UNIT": {
+      "bytes": 14860988,
+      "geometries": 18,
+      "nodes": 39,
+      "generated_earlier_this_run": true,
+      "unique_geometries_read": 20,
+      "unique_triangles_read": 480,
+      "sha256": "a3aaa5665981bbb524cc43241e7012de9a88786c6ebc554cdaa9f60ab0275fff",
+      "native_export": false
+    },
+    "HANGAR": {
+      "bytes": 14945016,
+      "geometries": 28,
+      "nodes": 42,
+      "generated_earlier_this_run": true,
+      "unique_geometries_read": 30,
+      "unique_triangles_read": 1164,
+      "sha256": "0bcdfb189fd989050af0a21c48f2529cac62b9b040a8953865a8c8fa5b6c22df",
+      "native_export": false
+    },
+    "SUPPORT": {
+      "bytes": 14887244,
+      "geometries": 23,
+      "nodes": 26,
+      "embedded_texture_files": 15,
+      "unique_geometries_read": 25,
+      "unique_triangles_read": 696,
+      "sha256": "e8fcf3892664b79f5c156bcf108cc6a666b9f6ac7daecee095923155638dc6b0",
+      "native_export": false
+    }
+  },
+  "baseline": {
+    "identical_files": 54,
+    "modified_files": 5,
+    "missing_files": 0,
+    "as07_matches_uploaded_file": true,
+    "geometry_core_unchanged": true,
+    "materials_source_unchanged": true
+  },
+  "dev_packages": {
+    "numpy": "2.3.5",
+    "Pillow": "12.3.0",
+    "vtk": "9.6.2",
+    "trimesh": "4.11.1",
+    "scipy": "1.17.0",
+    "numba": "0.65.1"
+  },
+  "independent_cpu_previews": {
+    "completed": 16,
+    "native": false,
+    "report": "CATALOG_RENDER_LOG.json"
+  },
+  "texture_files": {
+    "reused_pngs": 40,
+    "new_scanned_downloads": 0
+  }
+}

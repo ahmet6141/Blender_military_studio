@@ -1,0 +1,387 @@
+{
+  "schema": "mb01.roadmap/0.2",
+  "date": "2026-09-26",
+  "no_calendar_duration_guarantee": true,
+  "phases": [
+    {
+      "id": "P0",
+      "title": "Kaynak ve sözleşme",
+      "status": "DONE",
+      "depends_on": [],
+      "tasks": [
+        {
+          "id": "MB2-001",
+          "title": "Kaynak hash ve lisans envanteri",
+          "status": "DONE",
+          "deliverable_acceptance": "BASELINE_DIFF ve AS07 hash"
+        },
+        {
+          "id": "MB2-002",
+          "title": "Kapsam/standart sınırı",
+          "status": "DONE",
+          "deliverable_acceptance": "Kaynaklı kurallar ile CGI profilinin ayrımı"
+        },
+        {
+          "id": "MB2-003",
+          "title": "Modül ve hücre şeması",
+          "status": "DONE",
+          "deliverable_acceptance": "Kimlik, aile, kategori ve strict JSON"
+        },
+        {
+          "id": "MB2-004",
+          "title": "Kategorize katalog",
+          "status": "DONE",
+          "deliverable_acceptance": "14 hazır/42 planlanmış kaydın ayrılması"
+        }
+      ]
+    },
+    {
+      "id": "P1",
+      "title": "İlk modüler cephe",
+      "status": "CORE_PASS_NATIVE_PENDING",
+      "depends_on": [
+        "P0"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-005",
+          "title": "14 sınırlı modül üreticisi",
+          "status": "CORE_PASS_NATIVE_PENDING",
+          "deliverable_acceptance": "Gerçek boşluk, pivot, metre tabanlı UV"
+        },
+        {
+          "id": "MB2-006",
+          "title": "Düz cephe sırası ve aile filtreleri",
+          "status": "CORE_PASS_NATIVE_PENDING",
+          "deliverable_acceptance": "1–32 hücre, hedef genişlik ve sabit kimlik"
+        },
+        {
+          "id": "MB2-007",
+          "title": "Malzeme rolleri ve eski PBR okuyucu",
+          "status": "CORE_PASS_NATIVE_PENDING",
+          "deliverable_acceptance": "Duvar/çerçeve/kaide, palet, eksik set hatası"
+        },
+        {
+          "id": "MB2-008",
+          "title": "Blender paneli ve JSON akışı",
+          "status": "CORE_PASS_NATIVE_PENDING",
+          "deliverable_acceptance": "Kaynak kod var; native düğme akışı ayrıca test edilecek"
+        },
+        {
+          "id": "MB2-009",
+          "title": "Eski exporter adaptörü",
+          "status": "CORE_PASS_NATIVE_PENDING",
+          "deliverable_acceptance": "Modüler snapshot, özel kökü eski üreticiden ayırma"
+        },
+        {
+          "id": "MB2-010",
+          "title": "Saf Python regresyon ve görsel denetim",
+          "status": "CORE_PASS_NATIVE_PENDING",
+          "deliverable_acceptance": "Birim test raporu ve gerçek geometri önizlemeleri"
+        }
+      ]
+    },
+    {
+      "id": "P1-N",
+      "title": "Native doğrulama",
+      "status": "PENDING",
+      "depends_on": [
+        "P1"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-011",
+          "title": "Temiz Blender 4.5 kurulumu",
+          "status": "PENDING",
+          "deliverable_acceptance": "Register/unregister ve gerçek panel elle testi"
+        },
+        {
+          "id": "MB2-012",
+          "title": "Üretim/kayıt/FBX smoke",
+          "status": "PENDING",
+          "deliverable_acceptance": "BLENDER_MODULAR_SMOKE gerçek raporu"
+        },
+        {
+          "id": "MB2-013",
+          "title": "Windows yolu ve kaynak yükleme",
+          "status": "PENDING",
+          "deliverable_acceptance": "Türkçe yol, eksik PBR, salt okunur hedef"
+        },
+        {
+          "id": "MB2-014",
+          "title": "UE5.8 ilk ithalat",
+          "status": "PENDING",
+          "deliverable_acceptance": "Kalibrasyon, materyal, collision; gerçek motor raporu"
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "Birleşimler ve kapalı bina",
+      "status": "PLANNED",
+      "depends_on": [
+        "P1-N"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-015",
+          "title": "İç/dış köşe ve sonlandırma",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Kalınlık/profil eşleme; çift kaide/parapet yok"
+        },
+        {
+          "id": "MB2-016",
+          "title": "Taban ve üst bitiş modülleri",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Tek yüzey sahibi, kontrol edilen sahanlık"
+        },
+        {
+          "id": "MB2-017",
+          "title": "Dört cephe tek kat demo",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Dış kabuk kapanışı ve gerçek giriş boşluğu"
+        },
+        {
+          "id": "MB2-018",
+          "title": "Kilit/çatışma sözleşmesi",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Eski özel parça ile yeni panel çakışmasının raporu"
+        }
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "HQ ve UNIT grameri",
+      "status": "PLANNED",
+      "depends_on": [
+        "P2"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-019",
+          "title": "Kat ve referans düzlemleri",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Pencere/söve/kat çizgisi tutarlılığı"
+        },
+        {
+          "id": "MB2-020",
+          "title": "L/U ve kanat hacmi",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Çözülebilen plan tiplerinin açık aralığı"
+        },
+        {
+          "id": "MB2-021",
+          "title": "Simetri ve alternatif cephe dizileri",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Kapı/etiket aynalama hatası yok"
+        },
+        {
+          "id": "MB2-022",
+          "title": "Görsel varyasyon tarayıcısı",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Bina/kaplama/ekipman seed ayrımı"
+        }
+      ]
+    },
+    {
+      "id": "P4",
+      "title": "Hangar ve AS07 modülleri",
+      "status": "PLANNED",
+      "depends_on": [
+        "P2"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-023",
+          "title": "Portal ve çatı sistemleri",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Geometri açıklık kontrolü; statik hesap değil"
+        },
+        {
+          "id": "MB2-024",
+          "title": "Sürgülü ana kapı ve ray",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Rest pose, pivot ve görsel hareket sınırı"
+        },
+        {
+          "id": "MB2-025",
+          "title": "AS07 parça adaptörü",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Kaynak aynılığı, iki eksen dönüşümü yok"
+        },
+        {
+          "id": "MB2-026",
+          "title": "Apron eşiği ve servis duvarı",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Zemin üst üste binmez, personel yönü açık"
+        }
+      ]
+    },
+    {
+      "id": "P5",
+      "title": "PBR ve sanat yönü",
+      "status": "PLANNED",
+      "depends_on": [
+        "P1-N"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-027",
+          "title": "Kaynak manifesti/thumbnail tarayıcı",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Lisans, scale, source-method etiketi"
+        },
+        {
+          "id": "MB2-028",
+          "title": "Aynı yol değişimini algılama",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Texture hash, image reload, doğru cache invalidation"
+        },
+        {
+          "id": "MB2-029",
+          "title": "Trim/detail ve UV planı",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Yönlü normal, seam kontrolü ve lightmap ayrımı"
+        },
+        {
+          "id": "MB2-030",
+          "title": "Durum/ıslaklık/aşınma",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Mimariye bağlı maskeler; nötr render kapısı"
+        }
+      ]
+    },
+    {
+      "id": "P6",
+      "title": "Birleşik yerleşke köprüleri",
+      "status": "PLANNED",
+      "depends_on": [
+        "P2",
+        "P4"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-031",
+          "title": "SW01 giriş-sahanlık bağlantısı",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Yaya açıklığı ile yol genişliği ayrılır"
+        },
+        {
+          "id": "MB2-032",
+          "title": "AF01 yüzey sahipliği",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Apron, eşik, drenajın tek üreticisi"
+        },
+        {
+          "id": "MB2-033",
+          "title": "PK01 dışlama güncellemesi",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Bitki ve mobilya ayak izi çakışmaz"
+        },
+        {
+          "id": "MB2-034",
+          "title": "Taşınmış/kilitli nesneler",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Güncel değil durumu ve açık yeniden bağlama"
+        }
+      ]
+    },
+    {
+      "id": "P7",
+      "title": "Unreal üretim akışı",
+      "status": "PLANNED",
+      "depends_on": [
+        "P1-N",
+        "P5"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-035",
+          "title": "Artımlı FBX/manifest",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Farkı göster, ilgisiz asseti ezme"
+        },
+        {
+          "id": "MB2-036",
+          "title": "Modüler materyal instance düzeni",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Parametreli ana tarif ve override"
+        },
+        {
+          "id": "MB2-037",
+          "title": "ISM grupları ve bütçe",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Mesh+materyal+collision anahtarına göre gruplama"
+        },
+        {
+          "id": "MB2-038",
+          "title": "Native görsel/performans testi",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Sürüm ve donanımla ölçülmüş rapor"
+        }
+      ]
+    },
+    {
+      "id": "P8",
+      "title": "İç mekân ve çekim durumu",
+      "status": "PLANNED",
+      "depends_on": [
+        "P3",
+        "P4",
+        "P7"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-039",
+          "title": "Dış çekim/lobi/seçili oda seviyeleri",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Cephe ile iç mekân açıklıkları eşleşir"
+        },
+        {
+          "id": "MB2-040",
+          "title": "Kapı/ışık bileşenleri",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Doğru pivot ve seçilebilir animasyon durumu"
+        },
+        {
+          "id": "MB2-041",
+          "title": "Çekim sürekliliği kaydı",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Kapı, ekipman, nem, ışık yeniden yüklenir"
+        }
+      ]
+    },
+    {
+      "id": "RC",
+      "title": "Sürüm adayı",
+      "status": "PLANNED",
+      "depends_on": [
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7"
+      ],
+      "tasks": [
+        {
+          "id": "MB2-042",
+          "title": "Kurulum/upgrade/regresyon",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Eski MB01 sahnesi yeni adayda kontrol edilir"
+        },
+        {
+          "id": "MB2-043",
+          "title": "Demo ve dokümantasyon",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Native kaynak renderları ve bilinen sınırlar"
+        },
+        {
+          "id": "MB2-044",
+          "title": "Lisans/asset raporu ve paket",
+          "status": "PLANNED",
+          "deliverable_acceptance": "Hash bütünlüğü; yapımcı kaynakları korunmuş"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "mb01.expansion.plan/1",
+  "date": "2026-09-26",
+  "release": "0.3.0-alpha.1",
+  "stable_release": "BLOCKED_BY_NATIVE_TESTS",
+  "phases": [
+    {
+      "id": "F0",
+      "title": "Kaynak dondurma",
+      "status": "SOURCE_VERIFIED",
+      "work_packages": [
+        "baseline_sha",
+        "as07_immutable",
+        "legacy_geometry_signature"
+      ]
+    },
+    {
+      "id": "F1",
+      "title": "Altı modül ve kategori",
+      "status": "IMPLEMENTED_SOURCE_TESTED",
+      "work_packages": [
+        "actual_apertures",
+        "hinges",
+        "family_limits"
+      ]
+    },
+    {
+      "id": "F2",
+      "title": "Beş önayar ve hücre editörü",
+      "status": "IMPLEMENTED_NATIVE_PENDING",
+      "work_packages": [
+        "ten_tokens",
+        "five_presets",
+        "single_cell_operator"
+      ]
+    },
+    {
+      "id": "F3",
+      "title": "Modül LOD/collision/socket kiti",
+      "status": "IMPLEMENTED_NATIVE_PENDING",
+      "work_packages": [
+        "opaque_glass_door_split",
+        "three_lods",
+        "stable_slots_pivots",
+        "fbx_export"
+      ]
+    },
+    {
+      "id": "F4",
+      "title": "Blender ve Unreal doğrulama",
+      "status": "NOT_RUN",
+      "work_packages": [
+        "clean_install",
+        "shader_tangent",
+        "fbx_lods",
+        "ue_scale_collision"
+      ]
+    },
+    {
+      "id": "F5",
+      "title": "PBR trim/bake ve yüzey durumu",
+      "status": "PLANNED",
+      "work_packages": [
+        "verified_sources",
+        "real_atlas_bake",
+        "wetness_masks"
+      ]
+    },
+    {
+      "id": "F6",
+      "title": "Ek mimari aileler",
+      "status": "PLANNED",
+      "work_packages": [
+        "new_gate_roof_designs",
+        "hq_unit_entries",
+        "service_interiors"
+      ]
+    },
+    {
+      "id": "F7",
+      "title": "Yerleşke ve runtime",
+      "status": "PLANNED",
+      "work_packages": [
+        "af01_sw01_pk01_bridges",
+        "incremental_reimport",
+        "ism",
+        "door_blueprint"
+      ]
+    }
+  ]
+}

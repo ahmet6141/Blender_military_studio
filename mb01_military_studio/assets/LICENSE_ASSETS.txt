@@ -1,0 +1,11 @@
+MB01 original procedural texture and generated-model assets are supplied under
+CC0 1.0 Universal dedication, to the extent the project contributors can grant it.
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The first four texture families (Concrete, Asphalt, CoatedSteel, Galvanized)
+are preserved from this project's AF01 generated originals; Plaster, Stone,
+Timber and Membrane were generated for MB01. No purchased/scanned third-party
+asset or font file is included. This statement does not license any external
+material a user later adds as an override. Code licenses are independent.
+
+These are fictional CGI assets, not construction or live-fire range designs.
