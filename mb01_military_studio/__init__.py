@@ -26,6 +26,15 @@ def register():
     except Exception:
         for module in reversed(registered):module.unregister()
         raise
+    # MB01 Studio is an additive, UI-only front panel over the five modules
+    # above. Keep its registration isolated: if it ever fails, the rest of
+    # the add-on (already fully registered) must not be torn down with it.
+    try:
+        from . import studio_ui
+        studio_ui.register()
+    except Exception:
+        import traceback
+        print('[MB01] MB01 Studio panel failed to register; classic panels remain available.\n'+traceback.format_exc())
 
 
 def unregister():
@@ -35,6 +44,12 @@ def unregister():
     from .assembly import blender_qa
     from .game_ready import ui as gamekit_ui
     from . import mcp_ui
+    try:
+        from . import studio_ui
+        studio_ui.unregister()
+    except Exception:
+        import traceback
+        print('[MB01] MB01 Studio panel failed to unregister cleanly.\n'+traceback.format_exc())
     mcp_ui.unregister()
     gamekit_ui.unregister()
     blender_qa.unregister()

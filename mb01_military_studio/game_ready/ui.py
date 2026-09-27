@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 """Explicit small-asset kit panel; does not silently optimize the user's scene."""
-import bpy,json,traceback
+import bpy,json
 from bpy.props import EnumProperty,FloatProperty,StringProperty,PointerProperty
 from ..modular.contracts import ModuleInput,Style
 from ..modular.catalog import require
@@ -45,7 +45,9 @@ class MB03_OT_Kit(bpy.types.Operator):
                 self.report({'INFO'},str(path))
             return {'FINISHED'}
         except Exception as exc:
-            text=bpy.data.texts.new('MB03_LAST_ERROR');text.write(traceback.format_exc());self.report({'ERROR'},str(exc)[:240]);return {'CANCELLED'}
+            from ..mb_common import write_error_log
+            write_error_log(self,exc,block_name='MB03_LAST_ERROR',log_prefix='MB03')
+            return {'CANCELLED'}
 
 class MB03_PT_Kit(bpy.types.Panel):
     bl_idname='MB03_PT_kit';bl_label='Modül Oyun-Kiti | 0.3 alpha.1';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='MB01';bl_options={'DEFAULT_CLOSED'}

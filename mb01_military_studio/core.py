@@ -98,7 +98,7 @@ def settings_for(kind,**kwargs):
     return Settings(**d).checked()
 
 def digest(value):return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-def canonical(v):return (v[1],-v[0],v[2])
+from .mb_common import canonical
 
 class Model:
     def __init__(self,s):

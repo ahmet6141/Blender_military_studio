@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 """Experimental MB01 panels. Does not replace the existing whole-building controls."""
-import json, traceback, uuid
+import json, uuid
 from datetime import datetime
 from pathlib import Path
 import bpy
@@ -139,9 +139,9 @@ class MB02_OT_Action(bpy.types.Operator):
             else:raise ValueError('Unknown modular action.')
             return {'FINISHED'}
         except Exception as exc:
-            tb=traceback.format_exc();print(tb)
-            t=bpy.data.texts.get('MB01_Modular_Last_Error') or bpy.data.texts.new('MB01_Modular_Last_Error');t.clear();t.write(tb)
-            self.report({'ERROR'},str(exc));return {'CANCELLED'}
+            from ..mb_common import write_error_log
+            write_error_log(self,exc,block_name='MB01_Modular_Last_Error',log_prefix='MB01_Modular')
+            return {'CANCELLED'}
 
 
 def button(layout,label,action,icon='NONE'):
@@ -150,7 +150,7 @@ def button(layout,label,action,icon='NONE'):
 
 class MB02_PT_Main(bpy.types.Panel):
     bl_idname='MB02_PT_Main';bl_label='MB01 / Modüler Mimari • alpha.1'
-    bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='MB01'
+    bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='MB01';bl_options={'DEFAULT_CLOSED'}
     def draw(self,context):
         p=context.scene.mb02;l=self.layout
         l.label(text='14 hazır parça • tek kat düz cephe',icon='INFO')

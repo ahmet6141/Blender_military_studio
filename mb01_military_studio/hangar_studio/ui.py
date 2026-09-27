@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 """Categorized Hangar Studio panel. This is an additive legacy MB01 add-on module."""
-import bpy, json, traceback
+import bpy, json
 from pathlib import Path
 from dataclasses import fields
 from bpy.props import StringProperty, FloatProperty, IntProperty, BoolProperty, EnumProperty, PointerProperty
@@ -70,9 +70,8 @@ def active(context):
 
 
 def error(op,exc):
-    text=traceback.format_exc();print('[HangarStudio] '+text)
-    block=bpy.data.texts.get('HG_Last_Error') or bpy.data.texts.new('HG_Last_Error');block.write('\n'+text)
-    op.report({'ERROR'},str(exc)[:240])
+    from ..mb_common import write_error_log
+    write_error_log(op,exc,block_name='HG_Last_Error',log_prefix='HangarStudio')
 
 
 class HG_OT_Preset(bpy.types.Operator):
@@ -238,7 +237,7 @@ class HG_OT_ReadJSON(bpy.types.Operator,ImportHelper):
 
 
 class HG_PT_Main(bpy.types.Panel):
-    bl_idname='HG_PT_main';bl_label='Hangar Expansion | 0.3 alpha.1';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='MB01'
+    bl_idname='HG_PT_main';bl_label='Hangar Expansion | 0.3 alpha.1';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='MB01';bl_options={'DEFAULT_CLOSED'}
     def draw(self,context):
         p=context.scene.mb01_hangar;l=self.layout
         l.label(text='Kurgusal CGI mimari · yeni revizyon',icon='MOD_BUILD')

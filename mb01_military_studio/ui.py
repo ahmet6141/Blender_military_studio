@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-import bpy,json,traceback
+import bpy,json
 from pathlib import Path
 from dataclasses import fields
 from bpy.props import StringProperty,FloatProperty,IntProperty,BoolProperty,EnumProperty,PointerProperty
@@ -58,9 +58,8 @@ def active(context):
     return B.root_for(context.active_object)
 
 def report_error(op,exc):
-    text=traceback.format_exc();print('[MB01 ERROR]\n'+text)
-    block=bpy.data.texts.get('MB01_Last_Error') or bpy.data.texts.new('MB01_Last_Error');block.write('\n'+text)
-    op.report({'ERROR'},str(exc)[:240])
+    from .mb_common import write_error_log
+    write_error_log(op,exc,block_name='MB01_Last_Error',log_prefix='MB01')
 
 class MB01_OT_Preset(bpy.types.Operator):
     bl_idname='mb01.apply_preset';bl_label='Seçilen aile ölçülerini yükle';bl_options={'REGISTER','UNDO'}
@@ -170,7 +169,7 @@ class MB01_OT_Report(bpy.types.Operator):
         self.report({'INFO'},'Text Editor: '+name);return {'FINISHED'}
 
 class MB01_PT_Main(bpy.types.Panel):
-    bl_label='MB01 | Military Building Studio';bl_idname='MB01_PT_main';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='MB01'
+    bl_label='MB01 | Military Building Studio';bl_idname='MB01_PT_main';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='MB01';bl_options={'DEFAULT_CLOSED'}
     def draw(self,context):
         p=context.scene.mb01;l=self.layout
         l.label(text='0.4 alpha.1 · MCP + CGI/PBR HQ',icon='MOD_BUILD')

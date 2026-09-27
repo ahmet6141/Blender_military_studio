@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 """Immutable material recipes; normal/roughness/metal sources are always explicit."""
 from pathlib import Path
-import json,hashlib
+import json,hashlib,struct
 ASSETS=Path(__file__).resolve().parent/'assets'
 
 # Linear tints. Coatings are dielectric; exposed galvanized metal is metallic.
@@ -54,6 +54,37 @@ def recipes(palette='COASTAL',wear=.15,override=''):
     return out
 
 
+def _png_size(path):
+    """Read width/height straight from the PNG IHDR chunk. Pure Python, no
+    Pillow/bpy dependency, so it can run inside the game-ready audit and in
+    a plain unit test alike."""
+    with open(path,'rb') as fh:
+        head=fh.read(24)
+    if head[:8]!=b'\x89PNG\r\n\x1a\n':raise ValueError('Not a PNG file: '+str(path))
+    width,height=struct.unpack('>II',head[16:24])
+    return width,height
+
+
+def resolution_report(recipe):
+    """Per-texture-family resolution audit across the whole PBR set: which
+    tag folders (Concrete, CoatedSteel, ...) are internally consistent, and
+    whether the library as a whole uses one unified resolution. Surfaced by
+    the game-ready audit so a mixed 1K/2K/4K set is a visible, actionable
+    warning instead of a silent inconsistency."""
+    families={}
+    for r in recipe.values():
+        tag=r.get('tag')
+        if not tag or tag in families:continue
+        sizes={kind:_png_size(path) for kind,path in r['textures'].items()}
+        widths={size[0] for size in sizes.values()}
+        families[tag]={'sizes':sizes,'consistent_within_family':len(widths)==1}
+    by_resolution={}
+    for tag,info in families.items():
+        res=next(iter(info['sizes'].values()))[0]
+        by_resolution.setdefault(res,[]).append(tag)
+    return {'families':families,'by_resolution':by_resolution,'unified':len(by_resolution)==1}
+
+
 def create_blender_materials(recipe):
     import bpy
     result={}
@@ -91,15 +122,44 @@ def create_blender_materials(recipe):
             links.new(tint.outputs[0],mix.inputs[1]);links.new(vc.outputs['Color'],mix.inputs[2])
             split=nodes.new('ShaderNodeSeparateColor');split.mode='RGB';split.location=(-210,40);links.new(tex['ORM'].outputs['Color'],split.inputs[0])
             ao=nodes.new('ShaderNodeMixRGB');ao.blend_type='MULTIPLY';ao.inputs[0].default_value=1;ao.location=(250,500)
-            links.new(mix.outputs[0],ao.inputs[1]);links.new(split.outputs['Red'],ao.inputs[2]);links.new(ao.outputs[0],bs.inputs['Base Color'])
+            links.new(mix.outputs[0],ao.inputs[1]);links.new(split.outputs['Red'],ao.inputs[2])
             # Set mean roughness from recipe but retain the supplied roughness variation.
             rough=nodes.new('ShaderNodeMath');rough.operation='MULTIPLY';rough.inputs[1].default_value=min(1.2,r['roughness']+.18*float(r['wear']));rough.location=(200,10)
-            links.new(split.outputs['Green'],rough.inputs[0]);links.new(rough.outputs[0],bs.inputs['Roughness'])
+            links.new(split.outputs['Green'],rough.inputs[0])
             # Source texture metal mask is not used for a painted surface's substrate.
             bs.inputs['Metallic'].default_value=r['metallic']
             normal=nodes.new('ShaderNodeNormalMap');normal.inputs['Strength'].default_value=r['normal_strength'];normal.uv_map='UV0_Tile';normal.location=(60,-240)
             links.new(tex['NormalGL'].outputs['Color'],normal.inputs['Color'])
             bump=nodes.new('ShaderNodeBump');bump.inputs['Strength'].default_value=.16;bump.inputs['Distance'].default_value=.035;bump.location=(350,-220)
-            links.new(tex['Height'].outputs['Color'],bump.inputs['Height']);links.new(normal.outputs['Normal'],bump.inputs['Normal']);links.new(bump.outputs['Normal'],bs.inputs['Normal'])
+            links.new(tex['Height'].outputs['Color'],bump.inputs['Height']);links.new(normal.outputs['Normal'],bump.inputs['Normal'])
+
+            # Object-space (UV-independent) grunge pass: large soft patches darken/roughen the
+            # surface and a fine noise perturbs the normal, both scaled by the recipe's 'wear'.
+            # At wear=0 every added node is a no-op (Fac/Strength collapse to 0), so this never
+            # changes the look of an existing 'clean' material — purely additive realism.
+            coord=nodes.new('ShaderNodeTexCoord');coord.location=(-950,-520)
+
+            weather=nodes.new('ShaderNodeTexNoise');weather.inputs['Scale'].default_value=2.4;weather.location=(-720,-520)
+            links.new(coord.outputs['Object'],weather.inputs['Vector'])
+            ramp=nodes.new('ShaderNodeValToRGB');ramp.location=(-480,-520)
+            ramp.color_ramp.elements[0].position=.55;ramp.color_ramp.elements[0].color=(0,0,0,1)
+            ramp.color_ramp.elements[1].position=.85;ramp.color_ramp.elements[1].color=(1,1,1,1)
+            links.new(weather.outputs['Fac'],ramp.inputs['Fac'])
+            grunge=nodes.new('ShaderNodeMath');grunge.operation='MULTIPLY';grunge.inputs[1].default_value=float(r['wear']);grunge.location=(-260,-520)
+            links.new(ramp.outputs['Color'],grunge.inputs[0])
+
+            dirt_tint=nodes.new('ShaderNodeMixRGB');dirt_tint.blend_type='MULTIPLY';dirt_tint.inputs[2].default_value=(.05,.045,.04,1.);dirt_tint.location=(480,470)
+            links.new(ao.outputs[0],dirt_tint.inputs[1]);links.new(grunge.outputs[0],dirt_tint.inputs[0]);links.new(dirt_tint.outputs[0],bs.inputs['Base Color'])
+
+            grunge_rough=nodes.new('ShaderNodeMath');grunge_rough.operation='MULTIPLY';grunge_rough.inputs[1].default_value=.35;grunge_rough.location=(-40,-40)
+            links.new(grunge.outputs[0],grunge_rough.inputs[0])
+            rough_sum=nodes.new('ShaderNodeMath');rough_sum.operation='ADD';rough_sum.use_clamp=True;rough_sum.location=(430,-10)
+            links.new(rough.outputs[0],rough_sum.inputs[0]);links.new(grunge_rough.outputs[0],rough_sum.inputs[1]);links.new(rough_sum.outputs[0],bs.inputs['Roughness'])
+
+            detail=nodes.new('ShaderNodeTexNoise');detail.inputs['Scale'].default_value=42.;detail.location=(-720,-680)
+            links.new(coord.outputs['Object'],detail.inputs['Vector'])
+            detail_bump=nodes.new('ShaderNodeBump');detail_bump.inputs['Strength'].default_value=.26*float(r['wear']);detail_bump.inputs['Distance'].default_value=.01;detail_bump.location=(600,-260)
+            links.new(detail.outputs['Fac'],detail_bump.inputs['Height']);links.new(bump.outputs['Normal'],detail_bump.inputs['Normal'])
+            links.new(detail_bump.outputs['Normal'],bs.inputs['Normal'])
         result[key]=mat
     return result

@@ -9,12 +9,9 @@ from math import pi, radians
 from ..vendor import as07_reference as A
 from .catalog import require
 from .contracts import ModuleInput, digest
+from ..mb_common import canonical
 
 VERSION = '0.2.0-alpha.1'
-
-
-def canonical(p):
-    return (p[1], -p[0], p[2])
 
 
 class ModuleModel:

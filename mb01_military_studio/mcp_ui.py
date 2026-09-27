@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-import bpy,json,traceback
+import bpy,json
 from .assembly.blender_qa import root_for
 
 
@@ -38,8 +38,9 @@ class MB04_OT_GameAudit(bpy.types.Operator):
             self.report({'ERROR'} if report['status']=='FAIL' else {'INFO'},report['status']+' — '+name)
             return {'FINISHED'}
         except Exception as exc:
-            block=bpy.data.texts.get('MB04_LAST_ERROR') or bpy.data.texts.new('MB04_LAST_ERROR');block.write(traceback.format_exc())
-            self.report({'ERROR'},str(exc)[:240]);return {'CANCELLED'}
+            from .mb_common import write_error_log
+            write_error_log(self,exc,block_name='MB04_LAST_ERROR',log_prefix='MB04')
+            return {'CANCELLED'}
 
 
 class MB04_OT_LODBundle(bpy.types.Operator):
@@ -57,8 +58,9 @@ class MB04_OT_LODBundle(bpy.types.Operator):
             dest=export_building_bundle(cfg,bpy.path.abspath(p.export_directory),root.get('mb01_texture_root',''),self.mode)
             self.report({'INFO'},str(dest));return {'FINISHED'}
         except Exception as exc:
-            block=bpy.data.texts.get('MB04_LAST_ERROR') or bpy.data.texts.new('MB04_LAST_ERROR');block.write(traceback.format_exc())
-            self.report({'ERROR'},str(exc)[:240]);return {'CANCELLED'}
+            from .mb_common import write_error_log
+            write_error_log(self,exc,block_name='MB04_LAST_ERROR',log_prefix='MB04')
+            return {'CANCELLED'}
 
 
 class MB04_PT_MCP(bpy.types.Panel):

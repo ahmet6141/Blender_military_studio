@@ -6,6 +6,7 @@ import json
 import bpy
 from ..blender_backend import descendants
 from ..assembly.blender_qa import scan_live
+from .. import materials
 
 
 def audit_building(root):
@@ -34,11 +35,19 @@ def audit_building(root):
     warnings=[]
     if total_tri>1_500_000:warnings.append('High evaluated triangle count for a single building; review Nanite/LOD strategy in target engine.')
     if not any(o['category']=='GLASS' for o in objects):warnings.append('No GLASS category detected; verify material grouping if glazing is expected.')
+    texture_resolution=None
+    try:
+        texture_resolution=materials.resolution_report(materials.recipes(override=root.get('mb01_texture_root','')))
+        if not texture_resolution['unified']:
+            mix=', '.join(f'{res}px: {sorted(tags)}' for res,tags in sorted(texture_resolution['by_resolution'].items(),reverse=True))
+            warnings.append('PBR texture families use mixed resolutions ('+mix+'); unify before a stable release.')
+    except (FileNotFoundError,ValueError) as exc:
+        issues.append({'code':'PBR_SET_INCOMPLETE','severity':'ERROR','part':str(exc)})
     error=any(i.get('severity')=='ERROR' for i in issues)
     status='FAIL' if error else ('WARNING' if issues or warnings else 'PASS')
     return {'schema':'mb01.game_readiness/0.4','status':status,'root':root.name,'generator':root.get('mb01_version',''),
         'objects':objects,'object_count':len(objects),'evaluated_triangles':total_tri,'material_count':len(material_names),
-        'materials':sorted(material_names),'issues':issues,'warnings':warnings,
+        'materials':sorted(material_names),'issues':issues,'warnings':warnings,'texture_resolution':texture_resolution,
         'gates':{'evaluated_mesh_qa':base.get('status'),'uv0_tile_required':True,'collision_policy_required':True,
                  'negative_scale_forbidden':True,'native_ue_test_required':True,'visual_review_required':True},
         'limitations':['This is a Blender-side gate, not an Unreal runtime benchmark.',
