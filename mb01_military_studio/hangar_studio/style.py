@@ -31,7 +31,8 @@ def recipes(config, override=''):
     # Identity sign: matte anthracite cabinet, brushed-aluminium bezel/standoffs, muted subtitle.
     clone('HG_SignFace','SteelDark',(.055,.065,.075),.30)
     clone('HG_Alu','Galvanized',(.80,.83,.85),.26)
-    clone('HG_SignSub','White',(.72,.77,.78),.45)
+    clone('HG_SignSub','White',(.66,.71,.72),.45)
+    clone('HG_SignInk','SteelDark',(.022,.025,.028),.55)
     # Surface roles never change the old materials. Variant changes are intentionally subtle.
     for exposed in (False,True):
         wet=c.wetness if exposed else 0.

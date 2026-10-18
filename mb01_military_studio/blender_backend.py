@@ -7,6 +7,42 @@ from . import core,materials
 from .mb_common import bevel_segments
 
 
+FONT_DIR=__import__('pathlib').Path(__file__).resolve().parent/'assets'/'fonts'
+
+
+def label_object(l,material,name,collection):
+    """FONT object from a generator label.
+
+    Optional keys: font (bundled file), tracking, anchor LEFT/CENTER/RIGHT, cap_height and
+    max_width. With cap_height the glyph bounds (not the font's line box) are measured and
+    the text is scaled to that cap height, shrunk to max_width, and anchored on its visible
+    bounds: horizontally per anchor, vertically on the glyph middle. Labels without these
+    keys keep the old centred behaviour.
+    """
+    data=bpy.data.curves.new(name,'FONT');data.body=l['body'];data.size=l['size']
+    font=l.get('font')
+    if font and (FONT_DIR/font).exists():data.font=bpy.data.fonts.load(str(FONT_DIR/font),check_existing=True)
+    data.space_character=l.get('tracking',1.)
+    data.align_x={'LEFT':'LEFT','RIGHT':'RIGHT'}.get(l.get('anchor'),'CENTER');data.align_y='CENTER'
+    data.extrude=l.get('extrude',.0008);data.bevel_depth=l.get('bevel',0.);data.bevel_resolution=1;data.resolution_u=5
+    data.materials.append(material)
+    ob=bpy.data.objects.new(name,data);collection.objects.link(ob)
+    ob.location=l['location'];ob.rotation_euler=l['rotation']
+    cap=l.get('cap_height');maxw=l.get('max_width')
+    if cap or maxw:
+        def box():
+            bpy.context.view_layer.update()
+            xs=[c[0] for c in ob.bound_box];ys=[c[1] for c in ob.bound_box]
+            return min(xs),max(xs),min(ys),max(ys)
+        x0,x1,y0,y1=box();s=1.
+        if cap and y1-y0>1e-6:s=cap/(y1-y0)
+        if maxw and (x1-x0)*s>maxw:s=maxw/(x1-x0)
+        data.size*=s;x0,x1,y0,y1=box()
+        ax={'LEFT':x0,'RIGHT':x1}.get(l.get('anchor'),(x0+x1)/2)
+        ob.location=ob.location+ob.matrix_basis.to_3x3()@Vector((-ax,-(y0+y1)/2,0.))
+    return ob
+
+
 def descendants(root):
     out=[root]
     for ch in root.children:out.extend(descendants(ch))
@@ -119,10 +155,7 @@ class BuildJob:
         for l in model.labels:
             key='LABEL_'+l['name']
             if key in self.locked:continue
-            data=bpy.data.curves.new('MB01_'+key,'FONT');data.body=l['body'];data.size=l['size'];data.align_x='CENTER';data.align_y='CENTER'
-            data.extrude=l.get('extrude',.0008);data.bevel_depth=l.get('bevel',0.);data.bevel_resolution=1;data.resolution_u=5;data.materials.append(mats[l['material']])
-            ob=bpy.data.objects.new('MB01_'+key,data);group('SIGNAGE').objects.link(ob);ob.parent=root
-            ob.location=l['location'];ob.rotation_euler=l['rotation']
+            ob=label_object(l,mats[l['material']],'MB01_'+key,group('SIGNAGE'));ob.parent=root
             ob['mb01_owner']=self.id;ob['mb01_element']=key;ob['mb01_kind']='TEXT';ob['mb01_category']='SIGNAGE'
             ob['mb01_asset_key']=key;ob['mb01_collision_mode']='NONE'
         for p in model.ports:

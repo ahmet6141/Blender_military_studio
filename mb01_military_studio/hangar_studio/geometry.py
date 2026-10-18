@@ -12,6 +12,7 @@ from ..modular import geometry as MG
 from .contracts import HangarConfig, PANEL_MODULES, ENTRY_TYPES, stable_variant, gate_motion, gate_clear_width
 from . import VERSION
 from ..assembly.contracts import envelope
+import re
 A = core.A
 
 
@@ -298,39 +299,57 @@ def _trolley(m,c,p,xx,y,z1,top):
     p.box((xx,y,z0-.0075),(.10,.06,.015),'Galvanized')
 
 
+def sign_text(c):
+    """'HG_VEHICLE_DEPOT_01' -> ('VEHICLE DEPOT', '01'); prefix dropped, underscores spaced."""
+    body=c.name
+    for prefix in ('HG_','HGR_','HANGAR_'):
+        if body.upper().startswith(prefix):body=body[len(prefix):];break
+    found=re.match(r'^(.*?)[_-]?(\d+)$',body)
+    title,number=(found.group(1),found.group(2)) if found and found.group(1) else (body,'')
+    return re.sub(r'[_-]+',' ',title).strip().upper() or 'HANGAR',number
+
+
 def _identity_sign(m,c):
-    """Standoff-mounted sign cabinet on the front gable: anthracite face, brushed-aluminium
-    bezel and rule, raised letters, yellow accent bar and an LED light bar on two arms."""
+    """Gable identity sign on one proportional grid (unit = panel height H).
+
+    Amber number block (H x H) + anthracite name field; title, aluminium rule and
+    tracked subtitle share one left edge; equal margins; aluminium edge frame;
+    concealed mounting on a recessed carrier so the panel floats with a shadow gap.
+    Letters are raised, bevelled geometry in one bundled OFL family (Big Shoulders).
+    """
     z=c.base_height;oh=c.opening_height;env=envelope(c);face=env.front_y
-    sw=min(6.4,max(4.2,c.width*.20));sh=.78
-    zc=z+oh+.745+.22+sh/2
-    zc=min(zc,roof_level(c,sw/2+.35)-.30-sh/2)        # stays inside the gable field
-    yb=face-.06;yf=yb-.05;ym=(yb+yf)/2
-    m.box('HG_SignCabinet',(0,ym,zc),(sw,.05,sh),'HG_SignFace','DETAIL',.003)
-    bez=m.p('HG_SignBezel','DETAIL',.002)
-    for zz in (zc-sh/2-.011,zc+sh/2+.011):bez.box((0,ym-.001,zz),(sw+.044,.054,.022),'HG_Alu')
-    for xx in (-sw/2-.011,sw/2+.011):bez.box((xx,ym-.001,zc),(.022,.054,sh),'HG_Alu')
-    so=m.p('HG_SignStandoffs','DETAIL',.001);seg=8 if c.detail=='DRAFT' else 14
-    for xx in (-(sw/2-.28),sw/2-.28):
-        for zz in (zc-(sh/2-.16),zc+(sh/2-.16)):
-            so.cylinder((xx,face,zz),(xx,yb,zz),.014,'HG_Alu',seg)
-            so.cylinder((xx,yf,zz),(xx,yf-.008,zz),.022,'HG_Alu',seg)
-    m.box('HG_SignAccent',(-sw/2+.34,yf-.006,zc+.05),(.045,.012,.42),'Yellow','DETAIL',.001)
-    m.box('HG_SignRule',(.12,yf-.003,zc-.13),(sw*.68,.006,.010),'HG_Alu','DETAIL',.001)
-    size=min(.30,(sw-1.3)/(.64*max(1,len(c.name))))
-    m.label(c.name,(.12,yf-.004,zc+.09),size,'White',name='HangarIdentity',extrude=.012,bevel=.0015)
+    title,number=sign_text(c)
+    W=min(7.6,max(4.4,c.width*.17));H=round(W/4.8,3)
+    zc=z+oh+.745+.32+H/2
+    zc=min(zc,roof_level(c,W/2+.3)-.35-H/2)          # stays inside the gable field
+    x0,x1=-W/2,W/2;xb=x0+H if number else x0
+    yc0,yc1=face,face-.06                             # recessed carrier (shadow gap)
+    yp0,yp1=yc1,yc1-.04                               # panel
+    inset=.10*H
+    m.box('HG_SignCarrier',(0,(yc0+yc1)/2,zc),(W-2*inset,yc0-yc1,H-2*inset),'SteelDark','DETAIL',.002)
+    if number:
+        m.box('HG_SignNumberBlock',((x0+xb)/2,(yp0+yp1)/2,zc),(xb-x0,yp0-yp1,H),'Yellow','DETAIL',.002)
+    m.box('HG_SignField',((xb+x1)/2,(yp0+yp1)/2,zc),(x1-xb,yp0-yp1,H),'HG_SignFace','DETAIL',.002)
+    f=.024;fy=(yp0+yp1-.006)/2;fd=yp0-yp1+.006           # frame 3 mm proud of the face
+    fr=m.p('HG_SignFrame','DETAIL',.002)
+    for zz in (zc-H/2-f/2,zc+H/2+f/2):fr.box((0,fy,zz),(W+2*f,fd,f),'HG_Alu')
+    for xx in (x0-f/2,x1+f/2):fr.box((xx,fy,zc),(f,fd,H),'HG_Alu')
+    face_y=yp1
+    pad=.20*H;xt=xb+pad;xr=x1-.16*H
+    if number:
+        e=.010
+        m.label(number,((x0+xb)/2,face_y-e,zc),H*.6,'HG_SignInk',name='HangarNumber',extrude=e,bevel=.002,
+                font='BigShoulders-Bold.ttf',anchor='CENTER',cap_height=.58*H,max_width=.74*H)
+    e=.008
+    m.label(title,(xt,face_y-e,zc+.13*H),H*.4,'White',name='HangarIdentity',extrude=e,bevel=.0015,
+            font='BigShoulders-Bold.ttf',anchor='LEFT',cap_height=.32*H,max_width=xr-xt,tracking=1.04)
+    m.box('HG_SignRule',((xt+xr)/2,face_y-.002,zc-.095*H),(xr-xt,.004,max(.006,.011*H)),'HG_Alu','DETAIL',.001)
     if c.subtitle.strip():
-        m.label(c.subtitle.strip(),(.12,yf-.004,zc-.24),.10,'HG_SignSub',name='HangarSubtitle',extrude=.006)
-    # LED light bar above the cabinet on two arms.
-    zl=zc+sh/2+.20;lw=sw*.62
-    m.box('HG_SignLight',(0,face-.30,zl),(lw,.07,.05),'HG_Alu','DETAIL',.002)
-    m.box('HG_SignLightLens',(0,face-.30,zl-.029),(lw-.06,.05,.008),'LightWarm','DETAIL',.001)
-    arms=m.p('HG_SignLightArms','DETAIL',.002)
-    for xx in (-lw*.42,lw*.42):
-        arms.beam((xx,face,zl+.07),(xx,face-.30,zl+.03),.03,.04,'HG_Alu')
-        arms.box((xx,face-.006,zl+.07),(.09,.012,.12),'HG_Alu')
-
-
+        e=.004
+        m.label(c.subtitle.strip().upper(),(xt,face_y-e,zc-.255*H),H*.15,'HG_SignSub',name='HangarSubtitle',extrude=e,
+                font='BigShoulders-Bold.ttf',anchor='LEFT',cap_height=.10*H,max_width=xr-xt,tracking=1.45)
+    m.hangar_meta['identity_sign_design']=dict(title=title,number=number,subtitle=c.subtitle.strip().upper(),
+        width_m=W,height_m=H,center=(0.,face_y,zc),grid_unit_m=H)
 
 def _gates(m,c):
     oh=c.opening_height;z=c.base_height;w=c.width

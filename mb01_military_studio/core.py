@@ -112,8 +112,9 @@ class Model:
     def box(self,name,c,d,mat,group='BODY',bevel=.008,collide=False,axes=A.IDENTITY):
         self.p(name,group,bevel).box(c,d,mat,axes)
         if collide:self.collisions.append(dict(part='SM_MB01_'+name,center=tuple(c),dims=tuple(d),axes=axes))
-    def label(self,text,loc,size,mat='White',rotation=(pi/2,0,0),name='Label',extrude=.0008,bevel=0.):
-        if self.cfg.signage:self.labels.append(dict(name=f'{name}_{len(self.labels):02d}',body=text,location=loc,size=size,material=mat,rotation=rotation,extrude=extrude,bevel=bevel))
+    def label(self,text,loc,size,mat='White',rotation=(pi/2,0,0),name='Label',extrude=.0008,bevel=0.,**typography):
+        # typography: font (file in assets/fonts), anchor LEFT/CENTER/RIGHT, cap_height, max_width, tracking
+        if self.cfg.signage:self.labels.append(dict(name=f'{name}_{len(self.labels):02d}',body=text,location=loc,size=size,material=mat,rotation=rotation,extrude=extrude,bevel=bevel,**typography))
     def port(self,name,loc,yaw,width,role='PEDESTRIAN'):
         self.ports.append(dict(name=name,location=loc,yaw=yaw,width=width,height=self.cfg.base_height,role=role,
             location_convention='base_plane' if role=='PEDESTRIAN' else 'surface_plane'))

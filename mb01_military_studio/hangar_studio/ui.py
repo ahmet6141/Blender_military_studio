@@ -45,7 +45,7 @@ class HGSettings(bpy.types.PropertyGroup):
     services:BoolProperty(name='Kablo tavaları / servis kutuları',default=True)
     fixtures:BoolProperty(name='Askılı armatür geometrisi',default=True)
     signage:BoolProperty(name='Kimlik / numara detayları',default=True)
-    subtitle:StringProperty(name='Tabela alt yazısı',default='MAINTENANCE / CGI',maxlen=32,description='Kimlik plakasının altındaki sarı satır; boş bırakılırsa yazılmaz.')
+    subtitle:StringProperty(name='Tabela alt yazısı',default='AIRCRAFT MAINTENANCE',maxlen=32,description='Tabelada başlığın altındaki görev satırı; boş bırakılırsa yazılmaz.')
     fasteners:BoolProperty(name='Seçili bağlantı detayları',default=True)
     detail:EnumProperty(name='Ayrıntı',items=[('DRAFT','Draft',''),('WORKING','Working',''),('HERO','Hero','')],default='WORKING')
     palette:EnumProperty(name='Palet',items=[('COASTAL','Coastal',''),('WOODLAND','Woodland',''),('URBAN','Urban','')],default='COASTAL')

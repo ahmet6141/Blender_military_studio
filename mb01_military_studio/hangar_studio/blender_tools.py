@@ -8,7 +8,7 @@ from dataclasses import asdict
 from math import radians
 import json, uuid, time, platform, hashlib
 from .. import core
-from ..blender_backend import descendants, mesh_for, remove_object, remove_collection_tree
+from ..blender_backend import descendants, mesh_for, remove_object, remove_collection_tree, label_object
 from ..mb_common import bevel_segments
 from . import VERSION, geometry, style
 from .contracts import to_document, from_document, number, gate_clear_width
@@ -88,10 +88,7 @@ class BuildJob:
                 if hasattr(bevel,'harden_normals'):bevel.harden_normals=True
             yield .08+.72*(i+1)/len(model.parts),part.name
         for l in model.labels:
-            data=bpy.data.curves.new('HG_'+l['name'],'FONT');data.body=l['body'];data.size=l['size']
-            data.align_x='CENTER';data.align_y='CENTER';data.extrude=l.get('extrude',.0008);data.bevel_depth=l.get('bevel',0.);data.bevel_resolution=1;data.resolution_u=5;data.materials.append(mats[l['material']])
-            ob=bpy.data.objects.new('HG_'+l['name'],data);group('SIGNAGE').objects.link(ob);ob.parent=root
-            ob.location=l['location'];ob.rotation_euler=l['rotation']
+            ob=label_object(l,mats[l['material']],'HG_'+l['name'],group('SIGNAGE'));ob.parent=root
             for k,v in dict(mb01_owner=self.owner,mb01_element='LABEL_'+l['name'],mb01_kind='TEXT',mb01_category='SIGNAGE',
                 mb01_asset_key='LABEL_'+l['name'],mb01_collision_mode='NONE').items():ob[k]=v
         for p in model.ports:
