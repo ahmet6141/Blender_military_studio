@@ -102,25 +102,47 @@ def _copy_module(m, config, token, width, face_id, translate, axes):
     return src
 
 
+def _frame_y(c,i):
+    """Frame line of portal i. The two end frames sit inside the girt zone so the column's
+    outer flange (.20 from the frame line) stays 5 mm behind the cladding core face; every
+    part that bears on a frame (cleats, splices) uses this, not i*bay_pitch."""
+    from ..modular.geometry import ModuleModel
+    bp=c.depth/c.bays;e=max(0.,.205-(c.wall_thickness-ModuleModel.CLAD_CORE))
+    return i*bp+(e if i==0 else (-e if i==c.bays else 0.))
+
+
 def _structure(m,c):
     a,d,z=c.width/2,c.depth,c.base_height
     bp=d/c.bays
+    from ..modular.geometry import ModuleModel
+    lim=c.wall_thickness-ModuleModel.CLAD_CORE-.005    # wall-side stop for end-frame plates
     for i in range(c.bays+1):
-        y=i*bp
+        y=_frame_y(c,i);end=-1 if i==0 else (1 if i==c.bays else 0)
+
+        def span(half):   # plates stop 3 mm inside the flange's outer face (no shared plane)
+            lo,hi=y-half,y+half
+            if end<0:lo=max(lo,-lim+.003)
+            if end>0:hi=min(hi,d+lim-.003)
+            return (lo+hi)/2,hi-lo
         frame=m.p(f'HG_Portal_{i:02d}','STRUCTURE',.004)
         for side in (-1,1):
             x=side*(a-.22)
             frame.prism(A.i_profile(.34,.40,.035,.040),(x,y,z+.105),A.IDENTITY,c.eave_height-.54-.105,'SteelDark')
             _ibeam(frame,(x,y,roof_level(c,x)-.52),(0,y,roof_level(c,0)-.52))
-            m.box('HG_BaseShoes',(x,y,z+.055),(.62,.68,.11),'SteelDark','STRUCTURE',.004)
+            yc,dy=span(.34)
+            m.box('HG_BaseShoes',(x,yc,z+.055),(.62,dy,.11),'SteelDark','STRUCTURE',.004)
             # Thickening plate is a visible mechanical joint, not a load calculation.
-            m.box('HG_EaveConnection',(x,y,roof_level(c,x)-.64),(.48,.46,.26),'Galvanized','DETAIL',.004)
+            yc,dy=span(.23)
+            m.box('HG_EaveConnection',(x,yc,roof_level(c,x)-.64),(.48,dy,.26),'Galvanized','DETAIL',.004)
             if c.fasteners and c.detail!='DRAFT':
                 p=m.p('HG_Fasteners','DETAIL',.001)
                 for dx in (-.23,.23):
                     for dy in (-.25,.25):
-                        p.cylinder((x+dx,y+dy,z+.111),(x+dx,y+dy,z+.155),.028,'Galvanized',6)
-                        p.cylinder((x+dx,y+dy,z+.108),(x+dx,y+dy,z+.121),.044,'Galvanized',12)
+                        yy=y+dy
+                        if end<0:yy=max(yy,-lim+.05)
+                        if end>0:yy=min(yy,d+lim-.05)
+                        p.cylinder((x+dx,yy,z+.111),(x+dx,yy,z+.155),.028,'Galvanized',6)
+                        p.cylinder((x+dx,yy,z+.108),(x+dx,yy,z+.121),.044,'Galvanized',12)
         m.box('HG_RidgeSplice',(0,y,roof_level(c,0)-.52),(.70,.045,.32),'Galvanized','DETAIL',.003)
     # Purlins remain under the roof. No main purlins across the monitor opening.
     xs=[-a+(j+.5)*(2*a/12) for j in range(12)]
@@ -322,7 +344,7 @@ def _roof_underside(m,c,env,lights):
         x=sup['x'];o=1. if x>0 else -1.;xc=x+o*.054
         bottom=R(xc)-.52+.23*k-.005;top=R(x)-.12          # rafter top flange (_structure, .46 I-beam)
         for i in range(c.bays+1):
-            cl.box((xc,i*bp,(bottom+top)/2),(.010,.14,top-bottom),'Galvanized')
+            cl.box((xc,_frame_y(c,i),(bottom+top)/2),(.010,.14,top-bottom),'Galvanized')
 
 
 def _rooflight_plan(c,env):
