@@ -33,6 +33,20 @@ def recipes(config, override=''):
     clone('HG_Alu','Galvanized',(.80,.83,.85),.26)
     clone('HG_SignSub','White',(.66,.71,.72),.45)
     clone('HG_SignInk','SteelDark',(.022,.025,.028),.55)
+    # ---- domain material blocks: add clones only under your own anchor ----------------
+    # [GATE MATERIALS] names start with HG_Gate (texture kit set: Gates)
+
+
+    # [ROOF MATERIALS] names start with HG_Roof (texture kit set: Roof)
+
+
+    # [WALL MATERIALS] names start with HG_Wall (texture kit set: Cladding)
+
+
+    # [DOOR MATERIALS] names start with HG_Door (texture kit set: Cladding)
+
+
+    # ---- end of domain material blocks -----------------------------------------------
     # Surface roles never change the old materials. Variant changes are intentionally subtle.
     for exposed in (False,True):
         wet=c.wetness if exposed else 0.
