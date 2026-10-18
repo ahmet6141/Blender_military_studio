@@ -204,7 +204,15 @@ def preview_scene(root):
     sun=bpy.data.objects.new(data.name,data);collection.objects.link(sun);sun.rotation_euler=(math.radians(25),math.radians(-30),math.radians(-35))
     world=bpy.data.worlds.new('MB01_NeutralWorld');world.use_nodes=True
     nodes=world.node_tree.nodes;bg=nodes.get('Background');bg.inputs['Color'].default_value=(.34,.40,.47,1);bg.inputs['Strength'].default_value=.32
-    sky=nodes.new('ShaderNodeTexSky');sky.sky_type='NISHITA';sky.sun_elevation=math.radians(24);sky.sun_rotation=math.radians(135);sky.altitude=.25;links=world.node_tree.links;links.new(sky.outputs['Color'],bg.inputs['Color'])
+    sky=nodes.new('ShaderNodeTexSky')
+    # Blender 5.0 renamed the Sky Texture's 'NISHITA' enum identifier to 'MULTIPLE_SCATTERING'
+    # (same physically-based multi-scatter atmosphere model, new name). Resolve it from the
+    # node's own enum at runtime instead of hard-coding one Blender version's spelling.
+    sky_options={i.identifier for i in sky.bl_rna.properties['sky_type'].enum_items}
+    sky.sky_type='NISHITA' if 'NISHITA' in sky_options else 'MULTIPLE_SCATTERING' if 'MULTIPLE_SCATTERING' in sky_options else sky.sky_type
+    sky.sun_elevation=math.radians(24);sky.sun_rotation=math.radians(135)
+    if hasattr(sky,'altitude'):sky.altitude=.25
+    links=world.node_tree.links;links.new(sky.outputs['Color'],bg.inputs['Color'])
     scene.world=world;scene.render.engine='CYCLES';scene.cycles.samples=192 if s.detail=='HERO' else 96;scene.cycles.use_denoising=True
     scene.render.resolution_x=1600;scene.render.resolution_y=1000;scene.render.resolution_percentage=100
     scene.view_settings.view_transform='AgX'
