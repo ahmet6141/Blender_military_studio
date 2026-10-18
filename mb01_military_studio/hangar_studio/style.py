@@ -41,6 +41,13 @@ def recipes(config, override=''):
 
 
     # [WALL MATERIALS] names start with HG_Wall (texture kit set: Cladding)
+    # Pressed-steel trims a shade off the sheet (flashings, angles, screw heads), a contrast
+    # tone for accent cassette bays, and the light factory liner on every core's inner face.
+    trimcols={'LIGHT':(.66,.69,.68),'OLIVE':(.20,.255,.21),'GRAPHITE':(.105,.135,.145)}
+    cassettecols={'LIGHT':(.30,.34,.35),'OLIVE':(.42,.47,.41),'GRAPHITE':(.50,.53,.54)}
+    clone('HG_WallTrim','RoofOlive',trimcols[c.wall_finish],.50)
+    clone('HG_WallCassette','RoofOlive',cassettecols[c.wall_finish],.40)
+    clone('HG_WallLiner','RoofOlive',(.80,.81,.79),.62)
 
 
     # [DOOR MATERIALS] names start with HG_Door (texture kit set: Cladding)
