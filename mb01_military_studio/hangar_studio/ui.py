@@ -45,6 +45,7 @@ class HGSettings(bpy.types.PropertyGroup):
     services:BoolProperty(name='Kablo tavaları / servis kutuları',default=True)
     fixtures:BoolProperty(name='Askılı armatür geometrisi',default=True)
     signage:BoolProperty(name='Kimlik / numara detayları',default=True)
+    subtitle:StringProperty(name='Tabela alt yazısı',default='MAINTENANCE / CGI',maxlen=32,description='Kimlik plakasının altındaki sarı satır; boş bırakılırsa yazılmaz.')
     fasteners:BoolProperty(name='Seçili bağlantı detayları',default=True)
     detail:EnumProperty(name='Ayrıntı',items=[('DRAFT','Draft',''),('WORKING','Working',''),('HERO','Hero','')],default='WORKING')
     palette:EnumProperty(name='Palet',items=[('COASTAL','Coastal',''),('WOODLAND','Woodland',''),('URBAN','Urban','')],default='COASTAL')
@@ -291,7 +292,7 @@ HG_PT_Facade=_panel('HG_PT_facade','02 · Cephe hücreleri',('left_panels','righ
 HG_PT_Doors=_panel('HG_PT_doors','03 · Açıklık / teleskopik kapılar',('opening_width','opening_height','gate_leaves','gate_glazing','gate_open','personnel_open'),
     lambda l,p:l.operator('mb01hg.pose',icon='DRIVER'))
 HG_PT_Floor=_panel('HG_PT_floor','04 · Zemin / drenaj / portlar',('base_height','local_ground','apron_depth','drain','landings','loading_dock','walkway_width'))
-HG_PT_Detail=_panel('HG_PT_detail','05 · Bağlantı / tesisat / kimlik',('gutters','services','fixtures','signage','fasteners','seed'))
+HG_PT_Detail=_panel('HG_PT_detail','05 · Bağlantı / tesisat / kimlik',('gutters','services','fixtures','signage','subtitle','fasteners','seed'))
 HG_PT_Material=_panel('HG_PT_material','06 · PBR yüzey rolleri',('palette','wall_finish','roof_finish','wetness','normal_strength','concrete_tile_m','metal_tile_m','texture_root'))
 
 def extra_tools(l,p):

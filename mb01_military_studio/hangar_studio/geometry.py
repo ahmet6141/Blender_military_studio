@@ -244,7 +244,9 @@ def _gates(m,c):
         # The ground guide is shallow visual geometry. No performance-rated track design.
         m.box('HG_GroundGuides',(0,y,z+.008),(w-.20,.031,.016),'Galvanized','DETAIL',.001)
     coverdepth=.44+(c.gate_leaves//2-1)*.24
-    m.box('HG_GateHeader',(0,-.12,z+oh+.48),(w+.20,.32,.33),'SteelDark','STRUCTURE',.004)
+    # The header meets the opening head: no open band at the wall plane between the leaf
+    # tops and the rails (interior rafters were visible from outside above the gate).
+    m.box('HG_GateHeader',(0,-.12,z+oh+.3225),(w+.20,.32,.645),'SteelDark','STRUCTURE',.004)
     m.box('HG_RailCanopy',(0,-.28-coverdepth/2,z+oh+.695),(w+.44,coverdepth+.45,.10),'SteelDark','FACADE',.005)
     m.box('HG_CanopySoffit',(0,-.28-coverdepth/2,z+oh+.637),(w+.21,coverdepth+.22,.018),'Galvanized','DETAIL',.001)
     m.box('HG_PortalAccent',(0,-.51-coverdepth,z+oh+.71),(w+.20,.022,.025),'Yellow','DETAIL',.001)
@@ -270,6 +272,7 @@ def _gates(m,c):
         p.box((x,y-.065,z0+.22),(lw-.17,.015,.22),'Galvanized')
         p.box((x,y-.073,z0+1.06),(.035,.045,.34),'Galvanized')
         p.box((x,y+.068,z0+.022),(lw-.10,.030,.035),'Rubber')
+        p.box((x,y+.068,z1+.012),(lw-.10,.030,.034),'Rubber')  # top weather seal under the header
         for xx in (x-lw*.32,x+lw*.32):
             p.box((xx,y,z1+.115),(.075,.07,.28),'Galvanized')
             first=len(p.vertices)
@@ -448,7 +451,8 @@ def _services(m,c):
         front=-(.44+(c.gate_leaves//2-1)*.24)-.57
         m.box('HG_IdentityPlate',(0,front,z+c.opening_height+.72),(4.6,.08,.64),'SteelDark','DETAIL',.005)
         m.label(c.name,(0,front-.043,z+c.opening_height+.76),.32,'White',name='HangarIdentity')
-        m.label('MAINTENANCE / CGI',(0,front-.044,z+c.opening_height+.55),.09,'Yellow',name='HangarSubtitle')
+        if c.subtitle.strip():
+            m.label(c.subtitle.strip(),(0,front-.044,z+c.opening_height+.55),.09,'Yellow',name='HangarSubtitle')
         for entry in m.hangar_meta['personnel_openings_design']:
             x,y,_=entry['center'];nx,ny,_=entry['normal']
             # A shallow perimeter luminaire and neutral door label panel.

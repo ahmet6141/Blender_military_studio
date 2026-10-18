@@ -67,6 +67,7 @@ class HangarConfig:
     services: bool = True
     fixtures: bool = True
     signage: bool = True
+    subtitle: str = 'MAINTENANCE / CGI'
     fasteners: bool = True
     detail: str = 'WORKING'
     palette: str = 'COASTAL'
@@ -99,6 +100,8 @@ class HangarConfig:
     def checked(self):
         if not isinstance(self.name, str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,47}', self.name):
             raise ValueError('Hangar adı: harfle başlayan 1–48 ASCII harf/rakam/_/- kullanın.')
+        if not isinstance(self.subtitle, str) or not re.fullmatch(r'[A-Za-z0-9 /_.-]{0,32}', self.subtitle):
+            raise ValueError('Alt yazı: en çok 32 ASCII harf/rakam/boşluk/ / _ . - kullanın.')
         for name, lo, hi in NUMERIC_RANGES:
             number(name, getattr(self, name), lo, hi)
         if type(self.bays) is not int or not 4 <= self.bays <= 12:
@@ -172,19 +175,19 @@ PRESETS.update({
 # MRO hall at the generator's upper limits and a compact alert (QRA) shelter.
 PRESETS.update({
     'DEPOT_STORAGE': dict(name='HG_DEPOT_01',width=24.,depth=48.,bays=10,eave_height=7.,roof_rise=1.9,roof_type='GABLE',
-        opening_width=10.,opening_height=4.6,gate_leaves=4,gate_glazing=False,gate_open=.3,wall_finish='GRAPHITE',roof_finish='SILVER',
+        opening_width=10.,opening_height=4.6,gate_leaves=4,gate_glazing=False,gate_open=.3,wall_finish='GRAPHITE',roof_finish='SILVER',subtitle='STORAGE DEPOT / CGI',
         loading_dock=True,left_panels='METAL,LOUVER,METAL,DOUBLE_SERVICE,METAL,METAL,LOUVER,METAL,PERSONNEL,METAL',
         right_panels='METAL,METAL,LOUVER,METAL,DOUBLE_SERVICE,METAL,LOUVER,METAL,METAL,CASSETTE'),
     'DEPOT_VEHICLE': dict(name='HG_VEHICLE_DEPOT_01',width=30.,depth=42.,bays=10,eave_height=7.2,roof_rise=2.2,roof_type='GABLE',
-        opening_width=14.,opening_height=5.,gate_leaves=4,gate_glazing=False,gate_open=.55,palette='WOODLAND',wall_finish='OLIVE',roof_finish='GRAPHITE',
+        opening_width=14.,opening_height=5.,gate_leaves=4,gate_glazing=False,gate_open=.55,palette='WOODLAND',wall_finish='OLIVE',roof_finish='GRAPHITE',subtitle='VEHICLE DEPOT / CGI',
         loading_dock=True,left_panels='METAL,DOUBLE_SERVICE,METAL,DUAL_VENT,METAL,METAL,DUAL_VENT,METAL,DOUBLE_SERVICE,METAL',
         right_panels='METAL,DUAL_VENT,METAL,METAL,PERSONNEL,METAL,DUAL_VENT,METAL,METAL,LOUVER'),
     'MRO_WIDEBODY': dict(name='HG_WIDEBODY_01',width=48.,depth=60.,bays=12,eave_height=9.,roof_rise=4.,roof_type='MONITOR',monitor_width=8.,monitor_height=1.3,
-        opening_width=36.,opening_height=7.7,gate_leaves=8,gate_open=.85,wall_finish='LIGHT',roof_finish='GRAPHITE',
+        opening_width=36.,opening_height=7.7,gate_leaves=8,gate_open=.85,wall_finish='LIGHT',roof_finish='GRAPHITE',subtitle='WIDEBODY MRO / CGI',
         left_panels='CASSETTE,CANOPY_ENTRY,VISION,VISION,SHADED,SHADED,DUAL_VENT,SHADED,SHADED,VISION,DOUBLE_SERVICE,CASSETTE',
         right_panels='CASSETTE,DOUBLE_SERVICE,VISION,SHADED,SHADED,DUAL_VENT,DUAL_VENT,SHADED,VISION,VISION,CANOPY_ENTRY,CASSETTE'),
     'ALERT_QRA': dict(name='HG_ALERT_01',width=20.,depth=18.,bays=4,eave_height=6.2,roof_rise=1.6,roof_type='GABLE',
-        opening_width=12.,opening_height=5.2,gate_leaves=4,gate_open=1.,palette='URBAN',wall_finish='GRAPHITE',roof_finish='GRAPHITE',apron_depth=8.,
+        opening_width=12.,opening_height=5.2,gate_leaves=4,gate_open=1.,palette='URBAN',wall_finish='GRAPHITE',roof_finish='GRAPHITE',apron_depth=8.,subtitle='QRA ALERT / CGI',
         left_panels='CASSETTE,CANOPY_ENTRY,VISION,CASSETTE',right_panels='CASSETTE,VISION,PERSONNEL,CASSETTE'),
 })
 

@@ -80,6 +80,26 @@ avlusu), çelik burun, kauçuk tamponlar, dok dengeleyici plakalar, babalar, kor
 - Hangar panelinde ve MB01 Studio'da düğmeler: *Kapı animasyonu oluştur*,
   *Animasyonlu FBX dışa aktar*.
 
+## Viewport incelemesi (Workbench, dokusuz) ve düzeltmeler
+
+DEPOT_STORAGE ve MRO_WIDEBODY HERO seviyesinde 7'şer inceleme açısı + kapı
+animasyonu kareleri (kapalı / %25 / %50 / %75 / açık, personel kapısı kapalı/açık)
+Workbench ile çekilip tek tek incelendi.
+
+- **Kapı başlığı boşluğu (düzeltildi).** `HG_GateHeader` açıklık üst kotunun 31.5 cm
+  üstünde başlıyordu; kanat üstleri ile ray arasındaki bantta duvar düzlemi açıktı ve
+  dışarıdan kapının üstünden iç makaslar görünüyordu. Başlık artık açıklık üst
+  kotundan saçak kanopisine kadar iner (`z+oh … z+oh+.645`); kanat üstüne kauçuk
+  üst fitil eklendi. Z-fight çifti sayısı değişmedi (DEPOT 69, MRO 151; hepsi
+  önceki, gizli/alt-cm sınıfı).
+- **Çift kanatlı personel kapıları** iki kanadı da ters yönlerde (−96° / +96°) dışa
+  açıyor; kare incelemesinde doğrulandı.
+- **Teleskopik kanat kademesi** raya göre sıralı başlıyor, cep tarafında üst üste
+  biniyor; açık pozda kanatlar ray kanopisinin altında kalıyor.
+- **Tabela alt yazısı** artık `HangarConfig.subtitle` (en çok 32 ASCII karakter, boş
+  bırakılırsa yazılmaz): depo önayarları "STORAGE DEPOT / CGI", "VEHICLE DEPOT / CGI",
+  MRO "WIDEBODY MRO / CGI", QRA "QRA ALERT / CGI". Hangar panelinde alan olarak var.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından
