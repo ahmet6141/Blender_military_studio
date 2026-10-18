@@ -462,7 +462,7 @@
       "materials": [
        "Galvanized"
       ],
-      "bevel_m": 0.002,
+      "bevel_m": 0.0,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -1673,7 +1673,7 @@
       "materials": [
        "Galvanized"
       ],
-      "bevel_m": 0.002,
+      "bevel_m": 0.0,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -3055,7 +3055,7 @@
        "Galvanized",
        "SteelDark"
       ],
-      "bevel_m": 0.003,
+      "bevel_m": 0,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -3071,7 +3071,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -3143,7 +3143,7 @@
        "Red",
        "White"
       ],
-      "bevel_m": 0.009,
+      "bevel_m": 0,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -3178,7 +3178,7 @@
        "SteelDark",
        "Yellow"
       ],
-      "bevel_m": 0.007,
+      "bevel_m": 0.004,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -3284,7 +3284,7 @@
        "SteelDark",
        "Rubber"
       ],
-      "bevel_m": 0.009,
+      "bevel_m": 0.004,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -3303,7 +3303,7 @@
        "Galvanized",
        "Yellow"
       ],
-      "bevel_m": 0.014,
+      "bevel_m": 0.004,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -3337,7 +3337,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.007,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3353,7 +3353,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3369,7 +3369,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3385,7 +3385,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3401,7 +3401,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3417,7 +3417,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3433,7 +3433,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3449,7 +3449,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3465,7 +3465,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3481,7 +3481,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.005,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3673,7 +3673,7 @@
       "materials": [
        "SteelDark"
       ],
-      "bevel_m": 0.006,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3689,7 +3689,7 @@
       "materials": [
        "ConcreteLight"
       ],
-      "bevel_m": 0.014,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,
@@ -3755,7 +3755,7 @@
        "RoofOliveLight",
        "RoofOlive"
       ],
-      "bevel_m": 0.012,
+      "bevel_m": 0.004,
       "collision": "COMPLEX",
       "collision_boxes": 0,
       "door": null,

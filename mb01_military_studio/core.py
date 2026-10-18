@@ -254,7 +254,7 @@ def roof_building(m,w,d,z,pitched=False):
         m.box('RoofRidgeCap',(0,d/2,z+rise+.10),(w+.78,.23,.055),'Galvanized','DETAIL',.005)
     # Rainpipes, scupper plates, brackets. End locations avoid facade window centres.
     for x in (-w/2+.13,w/2-.13):
-        p=m.p('RainwaterPipes','DETAIL',.002)
+        p=m.p('RainwaterPipes','DETAIL',0.)
         p.pipe([(x,d+.22,z+.15),(x,d+.35,z-.15),(x,d+.35,.38),(x,d+.54,.25)],.055,'Galvanized',10)
         for zz in (1.1,3.0,5.5,8):
             if zz<z-.3:m.box('PipeClamps',(x,d+.28,zz),(.19,.19,.028),'SteelDark','DETAIL',.001)
@@ -730,7 +730,10 @@ def build_shelter(m):
         p.name=p.name.replace('SM_AS07_','SM_MB01_AS07_')
         p.vertices=[(x,y,z+s.base_height) for x,y,z in p.vertices]
         p.pivot=(p.pivot[0],p.pivot[1],p.pivot[2]+s.base_height)
-        p.bevel=0 if s.detail=='DRAFT' else p.bevel
+        # Vendor AS07 bevels are too wide for their thinnest features (7-14 mm on sign
+        # panels, cases and equipment) and the mitred gutter pipes cannot be bevelled
+        # at all; both left zero-area UV faces that failed the export preflight.
+        p.bevel=0 if s.detail=='DRAFT' or any(t in p.name for t in ('GuttersAndDownpipes','WallEquipment')) else min(p.bevel,.004)
         if p.group=='Door':
             p.group='DOOR';m.doors.append(dict(part=p.name,kind='HINGE',closed=p.pivot,opened=p.pivot,
                 angle=-radians(95),open_fraction=s.door_open))
