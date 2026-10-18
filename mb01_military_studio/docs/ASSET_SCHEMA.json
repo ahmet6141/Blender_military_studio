@@ -2165,8 +2165,8 @@
     "night_lighting": true,
     "micro_details": true
    },
-   "part_count": 41,
-   "triangles_raw": 10364,
+   "part_count": 42,
+   "triangles_raw": 10472,
    "groups": {
     "BODY": [
      {
@@ -2284,6 +2284,22 @@
       "lod2": false
      },
      {
+      "name": "SM_MB01_RidgeSplice",
+      "group": "DETAIL",
+      "primitives": 9,
+      "triangles_raw": 108,
+      "vertices": 72,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
       "name": "SM_MB01_Purlins",
       "group": "DETAIL",
       "primitives": 12,
@@ -2356,7 +2372,7 @@
       "materials": [
        "Galvanized"
       ],
-      "bevel_m": 0.002,
+      "bevel_m": 0.0,
       "collision": "NONE",
       "collision_boxes": 0,
       "door": null,
@@ -4206,7 +4222,7 @@
    "lod2": "kept"
   },
   "DETAIL": {
-   "parts": 88,
+   "parts": 89,
    "families": [
     "HANGAR",
     "HQ",

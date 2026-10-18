@@ -159,10 +159,12 @@ def _roof(m,c):
                       'Glass','GLASS',0.)
                 for z in (sill,meave):
                     m.box('HG_MonitorFrames',(x,(y0+y1)/2,z),(.13,y1-y0,.085),'SteelDark','FACADE',.002)
-                m.box('HG_MonitorDrip',(x+s*.07,(y0+y1)/2,sill-.045),(.23,y1-y0,.045),'Galvanized','DETAIL',.002)
+                # 1 cm shorter than the frame rails so the drip's end faces never share a plane with them.
+                m.box('HG_MonitorDrip',(x+s*.07,(y0+y1)/2,sill-.045),(.23,y1-y0-.02,.045),'Galvanized','DETAIL',.002)
             for y in (i*bp,):
                 for s in (-1,1):
-                    m.box('HG_MonitorPosts',(s*mh,y,(roof_level(c,mh)-.51+meave)/2),(.13,.095,meave-(roof_level(c,mh)-.51)),
+                    # Posts sit 1 cm proud of the .13 m frame rails: flush faces z-fight.
+                    m.box('HG_MonitorPosts',(s*mh,y,(roof_level(c,mh)-.51+meave)/2),(.15,.095,meave-(roof_level(c,mh)-.51)),
                           'SteelDark','STRUCTURE',.003)
             for lo,hi,za,zb in ((-mh-.15,0,meave,peak),(0,mh+.15,peak,meave)):
                 p=m.p(f'HG_MonitorRoof_{i}_{int(lo==0)}','ROOF',.002)
@@ -170,7 +172,7 @@ def _roof(m,c):
                     ((1,0,0),(0,0,1),(0,1,0)),bp+(-env.roof_y0 if i==0 else 0)+(env.roof_y1-d if i==c.bays-1 else 0),'HG_Roof')
                 _roof_uv(p,.32/(mh+.15))
         for s in (-1,1):
-            m.box('HG_MonitorPosts',(s*mh,d,(roof_level(c,mh)-.51+meave)/2),(.13,.095,meave-roof_level(c,mh)+.51),'SteelDark','STRUCTURE',.003)
+            m.box('HG_MonitorPosts',(s*mh,d,(roof_level(c,mh)-.51+meave)/2),(.15,.095,meave-roof_level(c,mh)+.51),'SteelDark','STRUCTURE',.003)
         m.box('HG_MonitorCap',(0,(env.roof_y0+env.roof_y1)/2,peak+.12),(.20,env.roof_y1-env.roof_y0+.08,.07),'HG_RoofTrim','DETAIL',.002)
         for y in (env.roof_y0,env.roof_y1-.10):
             profile=[(-mh,roof_level(c,mh)),(0,roof_level(c,0)),(mh,roof_level(c,mh)),(mh,meave),(0,peak),(-mh,meave)]
@@ -213,8 +215,10 @@ def _facades(m,c):
     for sign in (-1,1):
         x=sign*env.outside_x
         for y,sy in ((env.front_y,-1),(env.back_y,1)):
+            # The side leg owns the corner; the front/rear leg butts against its inner face
+            # instead of overlapping it (overlapping legs shared two outer planes: z-fighting).
             caps.box((x+sign*.003,y-sy*.064,z+c.eave_height/2),(.006,.14,c.eave_height),'HG_RoofTrim')
-            caps.box((x-sign*.064,y+sy*.003,z+c.eave_height/2),(.14,.006,c.eave_height),'HG_RoofTrim')
+            caps.box((x-sign*.067,y+sy*.003,z+c.eave_height/2),(.134,.006,c.eave_height),'HG_RoofTrim')
         # Fill the sloped wall/roof return without protruding through the roof skin.
         lo,hi=(a,env.outside_x) if sign>0 else (-env.outside_x,-a)
         prof=[(lo,z+c.eave_height),(hi,z+c.eave_height)]
@@ -312,7 +316,8 @@ def _floor(m,c):
         # Channel bottom is below the surrounding slab. Rim rests at the cut edges.
         m.box('HG_DrainTrough',((xa+xb)/2,(ya+yb)/2,z-.235),(xb-xa,yb-ya,.05),'SteelDark','GROUND',.002)
         for yy in (ya+.014,yb-.014):
-            m.box('HG_DrainRim',((xa+xb)/2,yy,z-.027),(xb-xa,.028,.055),'Galvanized','DETAIL',.002)
+            # Rim runs between the two .05 m end blocks rather than through them.
+            m.box('HG_DrainRim',((xa+xb)/2,yy,z-.027),(xb-xa-.10,.028,.055),'Galvanized','DETAIL',.002)
         count=ceil((xb-xa)/.105)
         grate=m.p('HG_DrainGrating','DETAIL',.001)
         for i in range(count):
@@ -364,7 +369,9 @@ def _gutters(m,c):
         p.prism(profile,(x,env.roof_y0,top),((1,0,0),(0,0,1),(0,1,0)),env.roof_y1-env.roof_y0,'Galvanized')
         for y in (.22,d-.22):
             px=side*(env.outside_x+.12)
-            m.p('HG_Downpipes','DETAIL',.002).pipe([(x,y,top-.08),(px,y,top-.38),(px,y,z+.33),(px+side*.20,y,z+.20)],.055,'Galvanized',10 if c.detail=='DRAFT' else 16)
+            # Mitred pipes are not bevelled: even one segment degenerates UVs at the mitres,
+            # and a 2 mm bevel on a 55 mm round tube is invisible anyway.
+            m.p('HG_Downpipes','DETAIL',0.).pipe([(x,y,top-.08),(px,y,top-.38),(px,y,z+.33),(px+side*.20,y,z+.20)],.055,'Galvanized',10 if c.detail=='DRAFT' else 16)
             for zz in (z+.65,z+2.4,z+4.2,z+5.8):
                 if zz<top-.4:m.box('HG_PipeClamps',(px-side*.04,y,zz),(.18,.04,.04),'SteelDark','DETAIL',.001)
 
@@ -379,7 +386,7 @@ def _services(m,c):
             for i in range(ceil(d/.95)):
                 y=.4+i*(d-.8)/max(1,ceil(d/.95)-1)
                 p.box((x,y,tz-.029),(.27,.025,.025),'Galvanized')
-            m.p('HG_Conduits','DETAIL',.001).pipe([(x+.03,.4,tz+.015),(x+.03,d-.4,tz+.015)],.018,'Rubber',8)
+            m.p('HG_Conduits','DETAIL',0.).pipe([(x+.03,.4,tz+.015),(x+.03,d-.4,tz+.015)],.018,'Rubber',8)
             for i,token in enumerate(sequence):
                 if token!='METAL':continue
                 y=(i+.5)*bp

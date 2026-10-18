@@ -98,7 +98,7 @@ def settings_for(kind,**kwargs):
     return Settings(**d).checked()
 
 def digest(value):return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-from .mb_common import canonical
+from .mb_common import canonical, polish_part
 
 class Model:
     def __init__(self,s):
@@ -121,6 +121,7 @@ class Model:
         if self.done:return self
         for p in self.parts:
             p.vertices=[canonical(v) for v in p.vertices];p.pivot=canonical(p.pivot)
+            polish_part(p)
         for r in self.labels:
             r['location']=canonical(r['location']);a=list(r['rotation']);a[2]-=pi/2;r['rotation']=tuple(a)
         for r in self.ports:r['location']=canonical(r['location']);r['yaw']-=pi/2
@@ -147,9 +148,11 @@ def local_ground(m,front=True):
 
 def rect_frame(m,name,x,y,z,width,height,depth,mat='SteelDark',side=False):
     # Canonical front-facing window detail in a local plane; side handled by facade transform.
+    # Jambs run full height; head and sill butt between them. Overlapping corner squares
+    # put two coplanar faces on top of each other at every frame corner.
     f=.065
     for xx in (x-width/2,x+width/2):m.box(name,(xx,y,z),(f,depth,height+f),mat,'FACADE',.003)
-    for zz in (z-height/2,z+height/2):m.box(name,(x,y,zz),(width+f,depth,f),mat,'FACADE',.003)
+    for zz in (z-height/2,z+height/2):m.box(name,(x,y,zz),(width-f,depth,f),mat,'FACADE',.003)
 
 def front_window(m,x,y,z,w,h,index,normal=-1):
     # A real wall opening. Glass, reveal and blind live INSIDE; no solid wall behind.
@@ -606,11 +609,15 @@ def build_hangar(m):
             x=side*(w/2-.21)
             spring=z+h+rise*(1-abs(x)/(w/2+.38))-.36
             i_beam(m,'PortalColumns',(x,y,z+.08),(x,y,spring),.32,.38)
-            i_beam(m,'PortalRafters',(x,y,spring),(0,y,z+h+rise-.36),.26,.43)
+            # Rafters stop short of the ridge line and meet under a splice plate; two I-sections
+            # ending on the same point overlapped with coplanar web faces.
+            ridge=z+h+rise-.36;rx=side*.17
+            i_beam(m,'PortalRafters',(x,y,spring),(rx,y,spring+(ridge-spring)*(abs(x)-abs(rx))/abs(x)),.26,.43)
             m.box('PortalFootplates',(x,y,z+.06),(.64,.65,.12),'SteelDark','DETAIL',.005)
             if s.detail!='DRAFT':
                 for dx in (-.21,.21):
                     for dy in (-.22,.22):m.p('Fasteners','DETAIL',.001).cylinder((x+dx,y+dy,z+.12),(x+dx,y+dy,z+.16),.028,'Galvanized',6)
+        m.box('RidgeSplice',(0,y,z+h+rise-.36),(.46,.07,.50),'Galvanized','DETAIL',.003)
     for side in (-1,1):
         for j in range(6):
             x=side*w/2*(j+.2)/6;zz=z+h+rise*(1-abs(x)/(w/2+.38))-.11
@@ -622,7 +629,8 @@ def build_hangar(m):
         for i in range(s.bays):
             y=(i+.5)*d/s.bays;length=d/s.bays
             m.box('ClerestoryGlass',(x,y,z+low+wh/2),(.025,length-.16,wh-.10),'Glass','GLASS',0)
-            for yy in ((y-length/2,y+length/2) if i==s.bays-1 else (y-length/2,)):m.box('ClerestoryFrames',(x,yy,z+low+wh/2),(.20,.10,wh),'SteelDark','DETAIL',.002)
+            # Mullions 1 cm proud of the rails: flush .20 m faces on both z-fight.
+            for yy in ((y-length/2,y+length/2) if i==s.bays-1 else (y-length/2,)):m.box('ClerestoryFrames',(x,yy,z+low+wh/2),(.21,.10,wh),'SteelDark','DETAIL',.002)
             for zz in (z+low,z+low+wh):m.box('ClerestoryFrames',(x,y,zz),(.20,length,.065),'SteelDark','DETAIL',.002)
         # Vertical cladding profiles stop at the actual window strip.
         for j in range(ceil(d/.72)+1):
@@ -630,7 +638,7 @@ def build_hangar(m):
             m.box('CladdingRibs',(x+side*.10,y,z+low/2),(.030,.032,low-.035),'RoofOliveLight','DETAIL',.001)
         # Concrete skirt and free-flowing exterior drainpipe.
         m.box('ConcretePlinth',(x+side*.10,d/2,z+.22),(.12,d,.44),'ConcreteLight','DETAIL',.006)
-        p=m.p('Rainwater','DETAIL',.002)
+        p=m.p('Rainwater','DETAIL',0.)
         p.box((side*(w/2+.2),d/2,z+h+.06),(.20,d+.65,.12),'Galvanized')
         for y in (.5,d-.5):p.pipe([(side*(w/2+.2),y,z+h),(side*(w/2+.36),y,z+h-.3),(side*(w/2+.36),y,z+.2)],.055,'Galvanized',10)
     # Front wall surrounds an actual door aperture, not a cuboid hidden by door faces.
@@ -658,7 +666,9 @@ def build_hangar(m):
             m.p('RoofSeams','DETAIL',.001).beam((x0,y,za+.10),(x1,y,zb+.10),.025,.030,'SteelDark')
     m.box('RidgeCap',(0,d/2,z+h+rise+.12),(.25,d+.85,.06),'Galvanized','DETAIL',.004)
     # Two leaves per side slide onto parallel tracks. Geometry is closed-rest and pivot local.
-    leafw=ow/4+.02
+    # Leaves on the same track meet with a 4 mm shut line instead of a 2 cm overlap whose
+    # coplanar faces flickered; the two tracks still overlap each other in depth.
+    leafw=ow/4-.004
     for side in (-1,1):
         for i in range(2):
             closed=(side*(i+.5)*ow/4,-.24-i*.14,z+.05)
