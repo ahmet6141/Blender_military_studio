@@ -87,7 +87,10 @@ def bevel_segments(part, detail):
     HANGAR/SHELTER exports. Those parts get a single segment at every detail
     level; the visual difference at 4-8 mm is nil, the triangle saving is not.
     """
-    if detail == 'DRAFT' or part.bevel <= 0:
+    # Sub-2 mm bevels (fasteners, seams, grating bars, cladding ribs, light shoes) are
+    # invisible past arm's length yet multiplied those parts' triangles 8-9x; a real-time
+    # asset carries edge bevels only where they read: structure, frames, slabs, doors.
+    if detail == 'DRAFT' or part.bevel < .002:
         return 0
     if any(len(face) != 4 for face in part.faces):
         return 1

@@ -36,7 +36,12 @@ sıfır alanlı UV yüzeyleri). UE importer ise exporter'ın yazdığı `mb01.sc
   yuvarlak okunur.
 - **Bevel kuralı** (`mb_common.bevel_segments`): prizma/kemer/silindir
   primitifleri tek segment; HERO 3 → 2 segment (4–5 mm'de görünmez, üçüncü halka
-  pencere boşluklarında UV'yi bozuyordu); gönyeli borular bevel'sız.
+  pencere boşluklarında UV'yi bozuyordu); gönyeli borular bevel'sız; 2 mm altı
+  bevel'lar (cıvatalar, dikiş çıtaları, ızgara çubukları, kaplama çıtaları) hiç
+  uygulanmaz — bu parçaların üçgen sayısını 8–9 kat şişiriyordu. HERO seviyesinde
+  değerlendirilmiş üçgen: çekirdek hangar 104K → 43K, EXP_COASTAL 184K → 102K,
+  DAYLIGHT_MRO 173K → 95K; sıfır n-gon, sıfır non-manifold, sıfır dejenere,
+  sıfır sıfır-alanlı UV (sadece zemin işaretleri, tasarım gereği açık düzlemler).
 - **Z-fighting** (aynı düzlemde aynı yöne bakan çakışan yüzler) poligon kırpma
   dedektörüyle bulunup kaynağında düzeltildi: ışıklık dikmeleri ray çerçevesinden
   1 cm taşkın, damlalık 1 cm kısa; köşe kapakları üst üste binmek yerine alın
