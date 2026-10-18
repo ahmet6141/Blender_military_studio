@@ -61,6 +61,7 @@ class HangarConfig:
     apron_depth: float = 5.0
     drain: bool = True
     landings: bool = True
+    loading_dock: bool = False
     walkway_width: float = 3.2
     gutters: bool = True
     services: bool = True
@@ -165,6 +166,26 @@ PRESETS.update({
     'EXP_COMPACT': dict(name='HG_COMPACT_03',width=24.,depth=24.,bays=6,roof_type='GABLE',eave_height=6.8,roof_rise=1.8,opening_width=14.,opening_height=5.35,gate_leaves=4,gate_glazing=False,wall_finish='GRAPHITE',roof_finish='SILVER',left_panels='CASSETTE,CANOPY_ENTRY,VISION,DUAL_VENT,SHADED,CASSETTE',right_panels='CASSETTE,SHADED,VISION,DUAL_VENT,PERSONNEL,CASSETTE'),
     'EXP_LONG': dict(name='HG_LONG_03',width=32.,depth=48.,bays=10,eave_height=8.,roof_rise=2.8,opening_height=6.3,gate_leaves=6,wall_finish='LIGHT',roof_finish='GRAPHITE',left_panels='CASSETTE,DOUBLE_SERVICE,VISION,VISION,SHADED,SHADED,SHADED,DUAL_VENT,METAL,CASSETTE',right_panels='CASSETTE,METAL,DUAL_VENT,SHADED,SHADED,VISION,VISION,METAL,CANOPY_ENTRY,CASSETTE'),
     'EXP_URBAN': dict(name='HG_URBAN_03',width=36.,depth=36.,bays=8,eave_height=8.,roof_rise=2.8,opening_width=24.,opening_height=6.6,gate_leaves=8,palette='URBAN',wall_finish='GRAPHITE',roof_finish='SILVER',gate_open=.7,left_panels='CASSETTE,CANOPY_ENTRY,VISION,SHADED,SHADED,VISION,DUAL_VENT,CASSETTE',right_panels='CASSETTE,DUAL_VENT,VISION,SHADED,SHADED,VISION,DOUBLE_SERVICE,CASSETTE')
+})
+
+# 0.4 alpha.2 base configurations: supply depots with a rear loading dock, a wide-body
+# MRO hall at the generator's upper limits and a compact alert (QRA) shelter.
+PRESETS.update({
+    'DEPOT_STORAGE': dict(name='HG_DEPOT_01',width=24.,depth=48.,bays=10,eave_height=7.,roof_rise=1.9,roof_type='GABLE',
+        opening_width=10.,opening_height=4.6,gate_leaves=4,gate_glazing=False,gate_open=.3,wall_finish='GRAPHITE',roof_finish='SILVER',
+        loading_dock=True,left_panels='METAL,LOUVER,METAL,DOUBLE_SERVICE,METAL,METAL,LOUVER,METAL,PERSONNEL,METAL',
+        right_panels='METAL,METAL,LOUVER,METAL,DOUBLE_SERVICE,METAL,LOUVER,METAL,METAL,CASSETTE'),
+    'DEPOT_VEHICLE': dict(name='HG_VEHICLE_DEPOT_01',width=30.,depth=42.,bays=10,eave_height=7.2,roof_rise=2.2,roof_type='GABLE',
+        opening_width=14.,opening_height=5.,gate_leaves=4,gate_glazing=False,gate_open=.55,palette='WOODLAND',wall_finish='OLIVE',roof_finish='GRAPHITE',
+        loading_dock=True,left_panels='METAL,DOUBLE_SERVICE,METAL,DUAL_VENT,METAL,METAL,DUAL_VENT,METAL,DOUBLE_SERVICE,METAL',
+        right_panels='METAL,DUAL_VENT,METAL,METAL,PERSONNEL,METAL,DUAL_VENT,METAL,METAL,LOUVER'),
+    'MRO_WIDEBODY': dict(name='HG_WIDEBODY_01',width=48.,depth=60.,bays=12,eave_height=9.,roof_rise=4.,roof_type='MONITOR',monitor_width=8.,monitor_height=1.3,
+        opening_width=36.,opening_height=7.7,gate_leaves=8,gate_open=.85,wall_finish='LIGHT',roof_finish='GRAPHITE',
+        left_panels='CASSETTE,CANOPY_ENTRY,VISION,VISION,SHADED,SHADED,DUAL_VENT,SHADED,SHADED,VISION,DOUBLE_SERVICE,CASSETTE',
+        right_panels='CASSETTE,DOUBLE_SERVICE,VISION,SHADED,SHADED,DUAL_VENT,DUAL_VENT,SHADED,VISION,VISION,CANOPY_ENTRY,CASSETTE'),
+    'ALERT_QRA': dict(name='HG_ALERT_01',width=20.,depth=18.,bays=4,eave_height=6.2,roof_rise=1.6,roof_type='GABLE',
+        opening_width=12.,opening_height=5.2,gate_leaves=4,gate_open=1.,palette='URBAN',wall_finish='GRAPHITE',roof_finish='GRAPHITE',apron_depth=8.,
+        left_panels='CASSETTE,CANOPY_ENTRY,VISION,CASSETTE',right_panels='CASSETTE,VISION,PERSONNEL,CASSETTE'),
 })
 
 def preset(name, **overrides):

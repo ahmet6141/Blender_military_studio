@@ -39,6 +39,7 @@ class HGSettings(bpy.types.PropertyGroup):
     apron_depth:FloatProperty(name='Ön apron derinliği / m',default=5,min=3,max=8)
     drain:BoolProperty(name='Kesilmiş drenaj kanalı',default=True)
     landings:BoolProperty(name='Personel sahanlıkları',default=True)
+    loading_dock:BoolProperty(name='Arka yükleme doku + rampa',default=False,description='Depo konfigürasyonu: döşeme kotunda platform, 1.15 m alçak servis avlusu, 1:8 rampa, tamponlar.')
     walkway_width:FloatProperty(name='Yaya port genişliği / m',default=3.2,min=2.4,max=4.5)
     gutters:BoolProperty(name='Oluk / iniş / kelepçeler',default=True)
     services:BoolProperty(name='Kablo tavaları / servis kutuları',default=True)
@@ -173,6 +174,34 @@ class HG_OT_Pose(bpy.types.Operator):
         except Exception as exc:error(self,exc);return {'CANCELLED'}
 
 
+class HG_OT_Animate(bpy.types.Operator):
+    bl_idname='mb01hg.animate';bl_label='Kapı animasyonu oluştur (keyframe)';bl_options={'REGISTER','UNDO'}
+    frames:IntProperty(name='Açılış süresi / kare',default=96,min=8,max=1200)
+    loop:BoolProperty(name='Aç – bekle – kapat döngüsü',default=True)
+    clear:BoolProperty(name='Animasyonu kaldır',default=False)
+    def execute(self,context):
+        try:
+            from . import animation
+            root=active(context);config_for(root)
+            if self.clear:animation.clear_door_animation(root);self.report({'INFO'},'Kapı animasyonu kaldırıldı.')
+            else:
+                s=animation.animate_doors(root,frames=self.frames,loop=self.loop)
+                self.report({'INFO'},f"{s['doors']} kapı, {s['tracks']} ray, kare {s['start']}–{s['end']}.")
+            return {'FINISHED'}
+        except Exception as exc:error(self,exc);return {'CANCELLED'}
+
+
+class HG_OT_ExportAnim(bpy.types.Operator,ExportHelper):
+    bl_idname='mb01hg.export_anim';bl_label='Animasyonlu FBX dışa aktar'
+    filename_ext='.fbx';filter_glob:StringProperty(default='*.fbx',options={'HIDDEN'})
+    def execute(self,context):
+        try:
+            from . import animation
+            animation.export_door_animation(active(context),self.filepath);self.report({'INFO'},self.filepath)
+            return {'FINISHED'}
+        except Exception as exc:error(self,exc);return {'CANCELLED'}
+
+
 class HG_OT_Export(bpy.types.Operator):
     bl_idname='mb01hg.export';bl_label='FBX + PBR + UE manifest dışa aktar'
     def execute(self,context):
@@ -261,18 +290,19 @@ HG_PT_Facade=_panel('HG_PT_facade','02 · Cephe hücreleri',('left_panels','righ
     lambda l,p:l.operator('mb01hg.edit_cell',icon='MOD_BUILD'))
 HG_PT_Doors=_panel('HG_PT_doors','03 · Açıklık / teleskopik kapılar',('opening_width','opening_height','gate_leaves','gate_glazing','gate_open','personnel_open'),
     lambda l,p:l.operator('mb01hg.pose',icon='DRIVER'))
-HG_PT_Floor=_panel('HG_PT_floor','04 · Zemin / drenaj / portlar',('base_height','local_ground','apron_depth','drain','landings','walkway_width'))
+HG_PT_Floor=_panel('HG_PT_floor','04 · Zemin / drenaj / portlar',('base_height','local_ground','apron_depth','drain','landings','loading_dock','walkway_width'))
 HG_PT_Detail=_panel('HG_PT_detail','05 · Bağlantı / tesisat / kimlik',('gutters','services','fixtures','signage','fasteners','seed'))
 HG_PT_Material=_panel('HG_PT_material','06 · PBR yüzey rolleri',('palette','wall_finish','roof_finish','wetness','normal_strength','concrete_tile_m','metal_tile_m','texture_root'))
 
 def extra_tools(l,p):
+    l.operator('mb01hg.animate',icon='PLAY');l.operator('mb01hg.export_anim',icon='RENDER_ANIMATION')
     l.operator('mb01hg.save_json',icon='EXPORT');l.operator('mb01hg.read_json',icon='IMPORT')
     l.operator('mb01hg.section');l.operator('mb01hg.preview',icon='CAMERA_DATA')
     l.prop(p,'export_directory');l.operator('mb01hg.export',icon='EXPORT')
     l.label(text='Işık düzeni world / render ayarlarını değiştirir.')
 HG_PT_Tools=_panel('HG_PT_tools','07 · Kontrol / kayıt / aktarım',(),extra_tools)
 
-CLASSES=(HGSettings,HG_OT_Preset,HG_OT_Validate,HG_OT_Build,HG_OT_EditCell,HG_OT_Load,HG_OT_Pose,HG_OT_Export,HG_OT_Preview,
+CLASSES=(HGSettings,HG_OT_Preset,HG_OT_Validate,HG_OT_Build,HG_OT_EditCell,HG_OT_Load,HG_OT_Pose,HG_OT_Animate,HG_OT_ExportAnim,HG_OT_Export,HG_OT_Preview,
          HG_OT_Section,HG_OT_SaveJSON,HG_OT_ReadJSON,HG_PT_Main,HG_PT_Body,HG_PT_Facade,HG_PT_Doors,
          HG_PT_Floor,HG_PT_Detail,HG_PT_Material,HG_PT_Tools)
 

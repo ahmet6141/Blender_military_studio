@@ -84,6 +84,7 @@ def _draw_hangar(l, context, tab):
         l.operator('mb01hg.build', text='YENİ hangar revizyonu', icon='MESH_CUBE')
         l.separator();l.prop(p, 'active_root')
         l.operator('mb01hg.load_active', text='Aktif hangarı yükle', icon='IMPORT')
+        l.operator('mb01hg.animate', text='Kapı animasyonu (keyframe)', icon='PLAY')
     elif tab == 'MATERIALS':
         l.prop(p, 'palette');l.prop(p, 'wall_finish');l.prop(p, 'roof_finish')
         l.prop(p, 'wetness');l.prop(p, 'normal_strength');l.prop(p, 'texture_root')
@@ -92,6 +93,7 @@ def _draw_hangar(l, context, tab):
     elif tab == 'EXPORT':
         l.prop(p, 'export_directory')
         l.operator('mb01hg.export', text='FBX + PBR + UE manifest', icon='EXPORT')
+        l.operator('mb01hg.export_anim', text='Animasyonlu FBX', icon='RENDER_ANIMATION')
 
 
 def _draw_modular(l, context, tab):

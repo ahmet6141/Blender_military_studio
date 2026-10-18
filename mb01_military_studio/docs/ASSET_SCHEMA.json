@@ -5467,6 +5467,126 @@
      "DOUBLE_SERVICE",
      "CASSETTE"
     ]
+   },
+   "DEPOT_STORAGE": {
+    "name": "HG_DEPOT_01",
+    "width": 24.0,
+    "depth": 48.0,
+    "bays": 10,
+    "roof_type": "GABLE",
+    "gate_leaves": 4,
+    "left": [
+     "METAL",
+     "LOUVER",
+     "METAL",
+     "DOUBLE_SERVICE",
+     "METAL",
+     "METAL",
+     "LOUVER",
+     "METAL",
+     "PERSONNEL",
+     "METAL"
+    ],
+    "right": [
+     "METAL",
+     "METAL",
+     "LOUVER",
+     "METAL",
+     "DOUBLE_SERVICE",
+     "METAL",
+     "LOUVER",
+     "METAL",
+     "METAL",
+     "CASSETTE"
+    ]
+   },
+   "DEPOT_VEHICLE": {
+    "name": "HG_VEHICLE_DEPOT_01",
+    "width": 30.0,
+    "depth": 42.0,
+    "bays": 10,
+    "roof_type": "GABLE",
+    "gate_leaves": 4,
+    "left": [
+     "METAL",
+     "DOUBLE_SERVICE",
+     "METAL",
+     "DUAL_VENT",
+     "METAL",
+     "METAL",
+     "DUAL_VENT",
+     "METAL",
+     "DOUBLE_SERVICE",
+     "METAL"
+    ],
+    "right": [
+     "METAL",
+     "DUAL_VENT",
+     "METAL",
+     "METAL",
+     "PERSONNEL",
+     "METAL",
+     "DUAL_VENT",
+     "METAL",
+     "METAL",
+     "LOUVER"
+    ]
+   },
+   "MRO_WIDEBODY": {
+    "name": "HG_WIDEBODY_01",
+    "width": 48.0,
+    "depth": 60.0,
+    "bays": 12,
+    "roof_type": "MONITOR",
+    "gate_leaves": 8,
+    "left": [
+     "CASSETTE",
+     "CANOPY_ENTRY",
+     "VISION",
+     "VISION",
+     "SHADED",
+     "SHADED",
+     "DUAL_VENT",
+     "SHADED",
+     "SHADED",
+     "VISION",
+     "DOUBLE_SERVICE",
+     "CASSETTE"
+    ],
+    "right": [
+     "CASSETTE",
+     "DOUBLE_SERVICE",
+     "VISION",
+     "SHADED",
+     "SHADED",
+     "DUAL_VENT",
+     "DUAL_VENT",
+     "SHADED",
+     "VISION",
+     "VISION",
+     "CANOPY_ENTRY",
+     "CASSETTE"
+    ]
+   },
+   "ALERT_QRA": {
+    "name": "HG_ALERT_01",
+    "width": 20.0,
+    "depth": 18.0,
+    "bays": 4,
+    "roof_type": "GABLE",
+    "gate_leaves": 4,
+    "left": [
+     "CASSETTE",
+     "CANOPY_ENTRY",
+     "VISION",
+     "CASSETTE"
+    ],
+    "right": [
+     "CASSETTE",
+     "VISION",
+     "PERSONNEL",
+     "CASSETTE"
+    ]
    }
   }
  },

@@ -54,6 +54,30 @@ sıfır alanlı UV yüzeyleri). UE importer ise exporter'ın yazdığı `mb01.sc
 - AS07 (SHELTER) adaptöründe vendor bevel değerleri 4 mm ile sınırlandı,
   oluk/boru ve duvar ekipmanı bevel'sız; vendor kaynağı değiştirilmedi.
 
+## Yeni üs konfigürasyonları (Hangar Studio önayarları)
+
+| Önayar | Ölçü | Çatı | Kapı | Özellik |
+|---|---|---|---|---|
+| `DEPOT_STORAGE` | 24 × 48 m, 10 bölme | GABLE, gümüş | 10 m, 4 kanat, camsız | arka **yükleme doku** + 1:8 rampa, panjur/servis kapısı cephe |
+| `DEPOT_VEHICLE` | 30 × 42 m, 10 bölme | GABLE, grafit | 14 m, 4 kanat | yükleme doku, çift havalandırma, WOODLAND palet |
+| `MRO_WIDEBODY` | 48 × 60 m, 12 bölme, 9 m saçak | MONITOR 8 m ışıklık | 36 m, 8 kanat | üreticinin üst sınırlarında geniş gövdeli bakım hangarı |
+| `ALERT_QRA` | 20 × 18 m, 4 bölme | GABLE, grafit | 12 m, tam açık | kompakt alarm barınağı, 8 m apron, URBAN palet |
+
+`HangarConfig.loading_dock`: döşeme kotunda platform (rampa 1:8, 1.15 m alçak servis
+avlusu), çelik burun, kauçuk tamponlar, dok dengeleyici plakalar, babalar, korkuluk ve
+`DOCK_SERVICE` (SERVICE_ROAD) portu; arka personel kapıları doğrudan platforma açılır.
+
+## Kapı animasyonu (`hangar_studio/animation.py`)
+
+- `animate_doors(root, frames, loop)`: her kapının `mb01_door` sözleşmesinden
+  gerçek F-curve üretir — teleskopik kanatlar ray sırasına göre kademeli başlar,
+  birlikte varır; personel kapıları menteşe pivotundan döner; `loop` ile
+  aç–bekle–kapat döngüsü. Kapılar kapalı pozda (kanonik) dinlenir.
+- `export_door_animation`: kapılar + kabuk tek animasyonlu FBX (bake). Unreal'da
+  aynı sözleşme Blueprint timeline ile sürülür; FBX önizleme/sinematik teslimidir.
+- Hangar panelinde ve MB01 Studio'da düğmeler: *Kapı animasyonu oluştur*,
+  *Animasyonlu FBX dışa aktar*.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından

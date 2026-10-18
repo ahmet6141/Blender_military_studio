@@ -116,8 +116,10 @@ def _structure(m,c):
             if token!='METAL':continue
             y0=i*bp+.30;y1=(i+1)*bp-.30;x=side*(a-.34)
             p=m.p('HG_SelectiveBraces','STRUCTURE',.002)
+            # The two diagonals of the X sit in separate planes (one bolted in front of the
+            # other, as real flat-bar bracing is) instead of intersecting with coplanar faces.
             p.beam((x,y0,z+.65),(x,y1,z+c.eave_height-.80),.045,.055,'Galvanized')
-            p.beam((x,y1,z+.65),(x,y0,z+c.eave_height-.80),.045,.055,'Galvanized')
+            p.beam((x-side*.05,y1,z+.65),(x-side*.05,y0,z+c.eave_height-.80),.045,.055,'Galvanized')
 
 
 def _roof(m,c):
@@ -140,7 +142,10 @@ def _roof(m,c):
     seams=m.p('HG_StandingSeams','DETAIL',.001)
     for i in range(count+1):
         y=env.roof_y0+(env.roof_y1-env.roof_y0)*i/count
-        for lo,hi in ((-env.roof_x,-mh),(mh,env.roof_x)):
+        # On a gable the two halves stop 16 mm short of the ridge (under the ridge cap)
+        # instead of both ending on the ridge line with coplanar side faces.
+        gap=.016 if mh==0. else 0.
+        for lo,hi in ((-env.roof_x,-mh-gap),(mh+gap,env.roof_x)):
             seams.beam((lo,y,roof_level(c,lo)+.105),(hi,y,roof_level(c,hi)+.105),.029,.036,'HG_RoofTrim')
     if c.roof_type=='GABLE':
         p=m.p('HG_RidgeCap','ROOF',.002)
@@ -339,10 +344,38 @@ def _floor(m,c):
         p.floor_polygon([(x-.03,.65),(x+.03,.65),(x+.03,d-.60),(x-.03,d-.60)],z+.0025,'White')
 
 
+def _loading_dock(m,c):
+    """Rear loading dock: the floor level continues as a platform past the rear wall and
+    the service yard sits 1.15 m lower, reached by a 1:8 ramp. Door sills stay at floor
+    level, so rear personnel doors open onto the platform."""
+    if not c.loading_dock:return
+    env=envelope(c);z=c.base_height;h=1.15;depth=3.2;width=2*env.outside_x-4.
+    y0=env.floor_back_y if c.local_ground else env.back_y
+    m.box('HG_DockPlatform',(0.,y0+depth/2,z-(h+.18)/2),(width,depth,h+.18),'HG_Concrete_INDOOR_0','GROUND',.004)
+    m.box('HG_DockNosing',(0.,y0+depth-.04,z-.04),(width,.08,.08),'Galvanized','DETAIL',.002)
+    ramp=h*8.;xb=-width/2;xa=xb-ramp
+    m.p('HG_DockRamp','GROUND',.004).prism([(xa,z-h-.18),(xb,z-h-.18),(xb,z)],(0,y0,0),((1,0,0),(0,0,1),(0,1,0)),depth,'HG_Concrete_EXPOSED_1')
+    m.box('HG_DockRampKerb',(xb-ramp/2,y0+.08,z-h/2-.04),(ramp,.16,h+.08),'HG_Concrete_EXPOSED_0','GROUND',.004)
+    yard_x0,yard_x1=xa-1.,width/2+2.
+    m.box('HG_DockYard',((yard_x0+yard_x1)/2,y0+depth+3.,z-h-.09),(yard_x1-yard_x0,6.,.18),'HG_Concrete_EXPOSED_2','GROUND',.002)
+    n=max(2,int(width//2.6))
+    for i in range(n):
+        x=-width/2+(i+.5)*width/n
+        m.box('HG_DockBumpers',(x,y0+depth+.06,z-.25),(.32,.12,.40),'Rubber','DETAIL',0.)
+        if i%2==0:m.box('HG_DockLevellers',(x,y0+depth-.92,z+.012),(1.9,1.6,.024),'SteelDark','DETAIL',.002)
+    for x in (-width/2+.35,width/2-.35):
+        m.p('HG_DockBollards','DETAIL',0.).cylinder((x,y0+.30,z),(x,y0+.30,z+.9),.06,'Yellow',12)
+    m.box('HG_DockGuard',(width/2-.03,y0+depth/2,z+.55),(.06,depth,1.1),'Galvanized','DETAIL',.002)
+    m.hangar_meta['loading_dock_design']=dict(width_m=width,depth_m=depth,height_m=h,ramp_m=ramp,y0=y0)
+    m.port('DOCK_SERVICE',(0.,y0+depth+3.,z-h),pi/2,width,'SERVICE_ROAD')
+
+
 def _landings_and_ports(m,c):
     z=c.base_height
     for entry in m.hangar_meta['personnel_openings_design']:
         x,y,_=entry['center'];nx,ny,_=entry['normal'];width=c.walkway_width
+        if c.loading_dock and ny>.5:
+            continue  # rear doors open onto the dock platform; the dock owns that edge
         # Canonical module outward normal converted into design. The entry sits at exterior plane.
         if c.local_ground and c.landings:
             # Side apron ends at a+.65; rear apron ends at d+.24.
@@ -430,7 +463,7 @@ def build(config):
         standards_status='CGI_ONLY_NOT_CERTIFIED',facade_cells=[],roof_cells=[],roof_supports_design=[],
         personnel_openings_design=[],floor_rectangles_design=[],light_fixtures_design=[],
         nominal_width_m=c.width,nominal_depth_m=c.depth,envelope=envelope(c).to_dict())
-    for operation in (_structure,_roof,_facades,_gates,_floor,_landings_and_ports,_gutters,_services):
+    for operation in (_structure,_roof,_facades,_gates,_floor,_loading_dock,_landings_and_ports,_gutters,_services):
         operation(m,c)
     m.notes += ['New closed hangar assembly; original AS07 and legacy buildings are not altered.',
         'Profile sizes, apertures and fixtures are artistic geometry, not structural/fire/military compliance.',
