@@ -10,7 +10,9 @@ doğrulandı; "pure Python PASS, native PENDING" dönemi bu sürümle kapandı.
 | `register()` — 6 modül + MB01 Studio paneli | PASS |
 | `core.build` + `preview_scene` — 5 aile | PASS |
 | Canlı mesh QA (`scan_live`) — 5 aile × WORKING/HERO | 10/10 PASS |
-| Canlı mesh QA — 8 Hangar Studio önayarı × WORKING/HERO | 16/16 PASS |
+| Canlı mesh QA — 12 Hangar Studio önayarı × WORKING/HERO | 24/24 PASS |
+| Kapı animasyonu (MRO_WIDEBODY: 15 kapı, 4 ray) — kapalı/açık/kapalı pozlar sözleşmeyle birebir, menteşe açısı doğru | PASS |
+| Animasyonlu FBX geri-import — kanat L1 1→97. karede 18.0 m kayıyor | PASS |
 | `export_project` HQ → FBX geri-import | 66 asset, 66 UV1, 22 LOD, 6 UCX |
 | `export_project` Hangar Studio EXP_COASTAL → FBX geri-import | 234 asset / 334 yerleşim, 234 UV1, 45 LOD, kapılarda UCX |
 | Cycles render — HQ, HANGAR, SHELTER, Hangar Studio, Modüler | görsel regresyon yok |
