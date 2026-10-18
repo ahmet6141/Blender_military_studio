@@ -142,70 +142,418 @@ def _structure(m,c):
             p.beam((x-side*.05,y1,z+.65),(x-side*.05,y0,z+c.eave_height-.80),.045,.055,'Galvanized')
 
 
+# ------------------------------------------------------------------ roof system helpers
+# Section datums (design coords): roof_level(x) is the underside of the 85 mm build-up
+# (HG_RoofSkin prism); the pan surface is roof_level+ROOF_SKIN. Pressed flashings are
+# modelled 6 mm thick (0.7 mm sheet exaggerated so it reads without a bevel); every lap
+# is offset >=2 mm (sloped or long faces) or bedded into the part below, never coplanar.
+ROOF_SKIN=.085
+SEAM=((-.016,-.005),(.016,-.005),(.009,.058),(-.009,.058))   # tapered double-lock rib, 5 mm bedded
+OVER=.072            # flashing underside above the pan: clears the seam head (.058*sqrt(1+s*s))
+VERGE=((-.150,-.005),(-.150,.070),(.010,.070),(.010,-.180),(.030,-.200),(.026,-.204),
+       (.004,-.182),(.004,.064),(-.144,.064),(-.144,-.005))   # u out from sheet edge, v up from pan
+# Notch return (monitor roofs): same section, cover 4 mm higher so it laps over the verge.
+VERGE_RETURN=tuple((u,v+.004 if v>.06 else (-.002 if v==-.005 else v)) for u,v in VERGE)
+# Stop end that closes the verge channel at the eave (fills the U, recessed 2 mm).
+VERGE_STOP=((-.144,-.005),(.004,-.005),(.004,.064),(-.144,.064))
+GUTTER=((0.,0.),(0.,-.150),(.176,-.150),(.206,-.016),(.218,-.016),(.218,-.008),
+        (.198,-.008),(.1715,-.146),(.004,-.146),(.004,0.))   # u out from back leg, v from back top
+GUTTER_END=((-.002,.002),(-.002,-.152),(.1775,-.152),(.2075,-.0175),(.2200,-.0175),(.2200,-.0065))
+FLASH='HG_RoofFlashing'
+XZ=((1,0,0),(0,0,1),(0,1,0))   # prism axes: profile in the XZ plane, extruded along +Y
+
+
+def _run(p,y,a,b,profile,mat,crimp=0.):
+    """Prism along the sloped XZ segment a->b at depth y; profile u=+Y, v=upward normal.
+    crimp: the head (v>.03) of the b end is set back along the run, the ~55 degree folded
+    dog-ear end of a real seam at the eave. Every face stays planar, no extra triangles."""
+    dx,dz=b[0]-a[0],b[1]-a[1];L=hypot(dx,dz);t=(dx/L,0.,dz/L)
+    n=(-t[2],0.,t[0]) if t[0]>0 else (t[2],0.,-t[0])
+    def place(k,u,v):
+        s=k*L-(crimp if k and v>.03 else 0.)
+        return (a[0]+n[0]*v+t[0]*s,y+u,a[1]+n[2]*v+t[2]*s)
+    _sweep(p,profile,place,(0,1),mat)
+
+
+def _sweep(p,profile,place,stations,mat):
+    """Closed extrusion of a 2D profile through several stations: exact mitres at the ridge,
+    no internal caps. place(station,u,v)->xyz. Same face layout as MeshPart.prism."""
+    pr=list(profile)
+    if A.polygon_area(pr)<0:pr.reverse()
+    n=len(pr);K=len(stations);tri=A.triangulate_polygon(pr)
+    verts=[place(st,u,v) for st in stations for u,v in pr]
+    faces=[tuple(reversed(t)) for t in tri]+[tuple(j+n*(K-1) for j in t) for t in tri]
+    for k in range(K-1):
+        faces+=[(k*n+i,k*n+(i+1)%n,(k+1)*n+(i+1)%n,(k+1)*n+i) for i in range(n)]
+    p.primitive(verts,faces,mat)
+
+
+def _sheet(p,rows,mat,up,skip=()):
+    """Open single-sided sheet from a grid rows[k][j]; faces turned so their normal z has the
+    sign of up (+1 roof top, -1 ceiling). skip: (k,j) quads left open (rooflight holes)."""
+    K,J=len(rows),len(rows[0]);verts=[q for r in rows for q in r]
+    faces=[(k*J+j,k*J+j+1,(k+1)*J+j+1,(k+1)*J+j) for k in range(K-1) for j in range(J-1) if (k,j) not in skip]
+    if not faces:return
+    a,b,c=(verts[i] for i in faces[0][:3])
+    if A.cross(A.sub(b,a),A.sub(c,a))[2]*up<0:faces=[tuple(reversed(f)) for f in faces]
+    p.primitive(verts,faces,mat,closed=False)
+
+
+def _frustum(p,a,b,r0,r1,mat,n=12):
+    from math import cos,sin
+    z=A.unit(A.sub(b,a));ref=(0,0,1) if abs(z[2])<.95 else (0,1,0)
+    x=A.unit(A.cross(ref,z));y=A.cross(z,x)
+    v=[A.add(o,A.add(A.mul(x,r*cos(i*2*pi/n)),A.mul(y,r*sin(i*2*pi/n)))) for o,r in ((a,r0),(b,r1)) for i in range(n)]
+    p.primitive(v,[tuple(reversed(range(n))),tuple(range(n,2*n))]+[(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)],mat)
+
+
+def _roof_grid(c):
+    """Pan pitch that divides the bay, so a seam sits on every bay joint and the per-bay
+    skin sheets never show a butt line: 6-12 pans of 467-542 mm (WORKING/HERO) per bay."""
+    bp=c.depth/c.bays;n=max(4,int(bp/(.70 if c.detail=='DRAFT' else .50)+.5))
+    return [i*bp/n for i in range(c.bays*n+1)],bp/n,n
+
+
+def _ridge(p,y0,y1,zs,slope,W,crown,mat):
+    """Ridge flashing: two wings clearing the seam heads, drip hems down to 4 mm above the
+    pans, a rolled crown. zs = pan surface at x=0. y0/y1 end inside the verge face legs; the
+    crown void is closed by 6 mm end plates set 2 mm back, resting on the verge covers."""
+    S=lambda X:zs-slope*X;U=lambda X:S(X)+OVER;O=lambda X:U(X)+.006;w=W-.006
+    pr=[(W,S(W)+.004),(W,O(W)),(.05,O(.05)),(0.,O(0.)+crown),(-.05,O(.05)),(-W,O(W)),(-W,S(W)+.004),
+        (-w,S(w)+.004),(-w,U(w)),(-.044,U(.044)),(0.,O(0.)+crown-.007),(.044,U(.044)),(w,U(w)),(w,S(w)+.004)]
+    p.prism(pr,(0,y0,0),XZ,y1-y0,mat)
+    cap=[(-.05,S(.05)+.070),(0.,S(0.)+.070),(.05,S(.05)+.070),(.05,U(.05)),(0.,O(0.)+crown-.007),(-.05,U(.05))]
+    for ya in (y0+.002,y1-.008):
+        p.prism(cap,(0,ya,0),XZ,.006,mat)
+
+
+def _eave_trim(p,side,edge,under,slope,y0,y1,mat):
+    """Eave drip flashing: 45 mm flange slid under the pan ends (top 3 mm below the pan, so
+    the sheets lap onto the drip), face leg over the build-up edge stopping 3 mm below the
+    pan line, 45-degree kick into the gutter. under = skin underside z at |x|=edge."""
+    S=lambda X:under+ROOF_SKIN+slope*(edge-X)
+    pr=[(edge-.045,S(edge-.045)-.009),(edge-.045,S(edge-.045)-.003),(edge+.010,S(edge+.010)-.003),
+        (edge+.010,under-.050),(edge+.038,under-.078),(edge+.034,under-.082),(edge+.004,under-.054),
+        (edge+.004,S(edge+.004)-.009)]
+    p.prism([(side*x,z) for x,z in pr],(0,y0,0),XZ,y1-y0,mat)
+
+
+def _verge(p,surface,stations,y_edge,out,mat,stops=()):
+    """Verge/barge flashing along a gable edge; surface(x) = pan z. out=-1 front, +1 rear.
+    stops: eave-end stations whose open U-channel gets a stop end, recessed 2 mm."""
+    place=lambda x,u,v:(x,y_edge+out*u,surface(x)+v)
+    _sweep(p,VERGE,place,stations,mat)
+    for xe in stops:
+        o=1. if xe>0 else -1.
+        _sweep(p,VERGE_STOP,place,(xe-o*.008,xe-o*.002),mat)
+
+
+def _facade_boxes(m,side):
+    """Face AABBs (|x| mirrored to +) of the facade modules on one side; _facades has
+    already placed them when _gutters runs, so wall-domain changes are respected."""
+    tag='_LEFT_' if side<0 else '_RIGHT_';out=[]
+    for p in m.parts:
+        if tag in p.name and '__' in p.name:
+            for f in p.faces:
+                q=[p.vertices[j] for j in f];xs=[side*v[0] for v in q]
+                out.append((min(xs),max(xs),min(v[1] for v in q),max(v[1] for v in q),min(v[2] for v in q),max(v[2] for v in q)))
+    return out
+
+
+def _pipe_hits(boxes,env,y,z0,z1):
+    """Facade faces entering the downpipe corridor (pipe, clamps, shoe): 70-400 mm off the
+    wall face, +-75 mm along the wall, z0..z1. 0 = clear."""
+    x0,x1=env.outside_x+.07,env.outside_x+.40
+    return sum(1 for b in boxes if b[1]>x0 and b[0]<x1 and b[3]>y-.075 and b[2]<y+.075 and b[5]>z0 and b[4]<z1)
+
+
+def _downpipe_lines(m,c,env,side,z0,z1,conflicts):
+    """Rainwater outlets: one near each end (nudged inward if a module feature is in the
+    way; always placed, at the least obstructed try if none is clear, and logged), frame
+    lines nearest to ~14 m spacing whose corridor is clear, then gaps over 18 m are split."""
+    d=c.depth;bp=d/c.bays;ys=[];boxes=_facade_boxes(m,side)
+    clear=lambda y:_pipe_hits(boxes,env,y,z0,z1)==0
+    for y,step in ((.22,.30),(d-.22,-.30)):
+        best=None
+        for k in range(6):
+            hits=_pipe_hits(boxes,env,y+k*step,z0,z1)
+            if best is None or hits<best[0]:best=(hits,y+k*step)
+            if not hits:break
+        ys.append(best[1])
+        if best[0]:conflicts.append(dict(side=side,y=best[1],faces=best[0]))
+    n=max(1,int(d/14.+.5))
+    for k in range(1,n):
+        free=[i*bp for i in range(1,c.bays) if min([abs(i*bp-y) for y in ys]+[9.])>=4. and clear(i*bp)]
+        if free:
+            y=min(free,key=lambda v:abs(v-d*k/n))
+            if abs(y-d*k/n)<=1.5*bp:ys.append(y)
+    ys=sorted(ys)
+    while True:   # split the widest remaining run over 18 m at the clear line nearest its middle
+        for g,ya,yb in sorted(((b-a,a,b) for a,b in zip(ys,ys[1:])),reverse=True):
+            if g<=18.:return ys
+            free=[i*bp for i in range(1,c.bays) if ya+4.<=i*bp<=yb-4. and clear(i*bp)]
+            if free:
+                ys=sorted(ys+[min(free,key=lambda v:abs(v-(ya+yb)/2))]);break
+        else:return ys
+
+
+def _roof_underside(m,c,env,lights):
+    """Interior: trapezoidal liner (ribs downslope, resting on the purlins) between the
+    walls/monitor kerb, cut for rooflights; cleats tie each purlin to the rafter below."""
+    a,d=c.width/2,c.depth;bp=d/c.bays;s=env.slope;R=lambda X:roof_level(c,X)
+    _,q,n=_roof_grid(c)          # one liner rib per roof pan: rooflight cuts land on rib starts
+    xin=c.monitor_width/2 if c.roof_type=='MONITOR' else 0.;xout=a-.002
+    for side in (-1,1):
+        p=m.p(f'HG_RoofLiner_{side:+d}','ROOF',0.)
+        for i in range(c.bays):
+            prof=[]
+            for r in range(int(bp/q+.5)):
+                y=i*bp+r*q;prof+=[(y,0.),(y+q-.060,0.),(y+q-.045,-.025),(y+q-.015,-.025)]
+            prof.append(((i+1)*bp,0.))
+            hole=[l for l in lights if l['side']==side and l['bay']==i]
+            xs=[xin]+([hole[0]['x0'],hole[0]['x1']] if hole else [])+[xout]
+            skip={(1,j) for j in range(len(prof)-1) if hole and prof[j][0]>=hole[0]['y0']-1e-9
+                  and prof[j+1][0]<=hole[0]['y1']+1e-9}
+            rows=[[(side*X,y,R(X)-.070+dz) for y,dz in prof] for X in xs]
+            _sheet(p,rows,'HG_RoofLiner',-1,skip)
+    if c.detail=='DRAFT':return
+    k=sqrt(1.+s*s);cl=m.p('HG_PurlinCleats','STRUCTURE',.001)
+    for sup in m.hangar_meta['roof_supports_design']:
+        x=sup['x'];o=1. if x>0 else -1.;xc=x+o*.054
+        bottom=R(xc)-.52+.23*k-.005;top=R(x)-.12          # rafter top flange (_structure, .46 I-beam)
+        for i in range(c.bays+1):
+            cl.box((xc,i*bp,(bottom+top)/2),(.010,.14,top-bottom),'Galvanized')
+
+
+def _rooflight_plan(c,env):
+    """GRP strips in a checkerboard of interior bays: 2-3 pans wide, half the slope long,
+    kept off the light-hanger zone (bay centre +-0.70 m), the ridge and the eaves."""
+    if c.roof_type!='GABLE':return []
+    bp=c.depth/c.bays;rx=env.roof_x;_,pitch,n=_roof_grid(c)
+    L=min(7.2,max(3.,.5*rx));xc=.55*rx;room=bp/2-.70
+    k0=1 if 2*pitch<=room else 0;k=max(1,min(3,int(room/pitch)-k0));out=[]
+    for i in range(1,c.bays-1):
+        for side in (-1,1):
+            if (i+(side>0))%2:continue
+            y0=i*bp+k0*pitch
+            out.append(dict(side=side,bay=i,x0=xc-L/2,x1=xc+L/2,y0=y0,y1=y0+k*pitch,pans=k))
+    return out
+
+
+def _monitor(m,c,env,ys):
+    """Lantern on the ridge: kerb upstand + apron flashing, continuous sill/head rails with
+    bay and intermediate mullions, glass captured 20 mm in the rails, end walls on the
+    gable planes, standing-seam monitor roof with its own ridge, eave drips and verges."""
+    d=c.depth;bp=d/c.bays;s=env.slope;mh=c.monitor_width/2;t=c.wall_thickness
+    R=lambda X:roof_level(c,abs(X));S=lambda X:R(X)+ROOF_SKIN
+    mx=mh+.15;meave=roof_level(c,0)+c.monitor_height;peak=meave+.32;ms=.32/mx
+    Mz=lambda X:meave+(peak-meave)*(1-abs(X)/mx)                 # monitor roof underside
+    kh=min(.22,max(.12,.2*(Mz(mh)-S(mh))));sill=S(mh)+kh;head=Mz(mh-.06)+.002
+    ndiv=max(2,int(bp/1.4+.5))
+    # 1 mm bevel (none): ~100 mullion boxes with a 2-segment bevel cost ~6k tris post-bevel,
+    # and a 2 mm round on 50-120 mm sections is invisible at roof distance.
+    frames=m.p('HG_MonitorFrames','FACADE',.001);kerb=m.p('HG_MonitorKerb','ROOF',.001)
+    # Lantern eave drip: not named '*Drip' so LOD1 (small-token filter) keeps it like LOD0/LOD2.
+    drip=m.p('HG_MonitorEaveTrim','ROOF',.001);vg=m.p('HG_Bargeboards','ROOF',.001)
+    for side in (-1,1):
+        x=side*mh
+        kerb.box((side*(mh-.05),d/2,(R(mh)-.095+sill)/2),(.10,d,sill-(R(mh)-.095)),'HG_RoofLiner')
+        # Apron: vertical leg tucked into the sill rail, cover over the seam ends, drip hem.
+        pr=[(mh+.004,sill+.020),(mh+.010,sill+.020),(mh+.010,S(mh+.010)+OVER+.006),(mh+.200,S(mh+.200)+OVER+.006),
+            (mh+.200,S(mh+.200)+.004),(mh+.194,S(mh+.194)+.004),(mh+.194,S(mh+.194)+OVER),(mh+.004,S(mh+.004)+OVER)]
+        kerb.prism([(side*u,z) for u,z in pr],(0,env.front_y-.003,0),XZ,env.back_y-env.front_y+.006,FLASH)
+        # Stop ends close the apron void where it oversails the notch returns (set back 2 mm).
+        se=[(mh+.010,S(mh+.010)-.005),(mh+.194,S(mh+.194)-.005),(mh+.194,S(mh+.194)+OVER),(mh+.010,S(mh+.010)+OVER)]
+        for ya in (env.front_y-.001,env.back_y-.005):
+            kerb.prism([(side*u,z) for u,z in se],(0,ya,0),XZ,.006,FLASH)
+        for zc,hz in ((sill+.04,.08),(head-.04,.08)):
+            frames.box((x,d/2,zc),(.12,d,hz),'SteelDark')
+        lines=[(i*bp+k*bp/ndiv,.07 if k==0 else .05) for i in range(c.bays) for k in range(ndiv) if i or k]
+        for y,w in [(.025,.05),(d-.025,.05)]+lines:
+            frames.box((x,y,(sill+head)/2),(.11,w,head-sill-.16),'SteelDark')
+        for i in range(c.bays):
+            m.box(f'HG_MonitorGlass_{i}_{side}',(x,(i+.5)*bp,(sill+head)/2),(.024,bp-.06,head-sill-.12),'Glass','GLASS',0.)
+        for i in range(c.bays+1):
+            z0=R(mh)-.51;z1=Mz(mh-.204)+.003
+            m.box('HG_MonitorPosts',(side*(mh-.129),i*bp,(z0+z1)/2),(.15,.095,z1-z0),'SteelDark','STRUCTURE',.003)
+        _eave_trim(drip,side,mx,meave,ms,env.roof_y0-.007,env.roof_y1+.007,FLASH)
+        # End-wall corner trims (L), bedded into the apron cover and the monitor roof. The
+        # return leg covers the whole end-wall return and stops 3 mm inside the end jamb.
+        for yf,o in ((env.front_y,-1),(env.back_y,1)):
+            z0=S(mh)+.074;z1=Mz(mh-.09)+.003
+            vg.box((side*(mh-.041),yf+o*.0065,(z0+z1)/2),(.098,.013,z1-z0),FLASH)
+            ya,yb=(yf-.010,.003) if o<0 else (d-.003,yf+.010)
+            vg.box((side*(mh+.0065),(ya+yb)/2,(z0+z1)/2),(.013,yb-ya,z1-z0-.004),FLASH)
+    for i in range(c.bays):
+        y0=env.roof_y0 if i==0 else i*bp;y1=env.roof_y1 if i==c.bays-1 else (i+1)*bp
+        for lo,hi,za,zb in ((-mx,0,meave,peak),(0,mx,peak,meave)):
+            p=m.p(f'HG_MonitorRoof_{i}_{int(lo==0)}','ROOF',.002);f0=len(p.faces)
+            p.prism([(lo,za),(hi,zb),(hi,zb+ROOF_SKIN),(lo,za+ROOF_SKIN)],(0,y0,0),XZ,y1-y0,'HG_Roof')
+            _roof_uv(p,ms)
+            # Soffit seen from the hangar floor through the lantern: flat liner finish.
+            if 'HG_RoofLiner' not in p.material_names:p.material_names.append('HG_RoofLiner')
+            for k in range(f0,len(p.faces)):
+                q=[p.vertices[j] for j in p.faces[k][:3]]
+                if A.cross(A.sub(q[1],q[0]),A.sub(q[2],q[0]))[2]<0:p.material_ids[k]=p.material_names.index('HG_RoofLiner')
+    # Lantern frame: one-piece cranked RHS 100x180 rafter on every frame line (top bedded 2 mm
+    # into the soffit, ends framed into the posts) and a ridge purlin running between the
+    # end rafters; the end rafters butt the end walls.
+    raf=m.p('HG_MonitorRafters','STRUCTURE',.001);xr=mh-.13
+    for i in range(c.bays+1):
+        raf.prism([(-xr,Mz(xr)+.002),(0.,Mz(0.)+.002),(xr,Mz(xr)+.002),(xr,Mz(xr)-.178),(0.,Mz(0.)-.178),(-xr,Mz(xr)-.178)],
+                  (0,min(max(i*bp-.05,0.),d-.10),0),XZ,.10,'SteelDark')
+    raf.box((0.,d/2,Mz(0.)-.058),(.10,d-.10,.12),'SteelDark')
+    _ridge(m.p('HG_MonitorCap','ROOF',.001),env.roof_y0-.008,env.roof_y1+.008,peak+ROOF_SKIN,ms,.17,.030,FLASH)
+    Sm=lambda X:peak+ROOF_SKIN-ms*abs(X)
+    for y_edge,out in ((env.roof_y0,-1),(env.roof_y1,1)):
+        _verge(vg,Sm,(-(mx-.001),0.,mx-.001),y_edge,out,FLASH,(-(mx-.001),mx-.001))
+    # End walls stand on the gable planes, top follows the monitor roof underside exactly.
+    prof=[(-mh,R(mh)),(0,R(0)),(mh,R(mh)),(mh,Mz(mh)),(0,Mz(0)),(-mh,Mz(mh))]
+    for y in (env.front_y,d):
+        m.p('HG_MonitorEndCaps','BODY',.003).prism(prof,(0,y,0),XZ,t,'HG_Wall')
+
+
+def _roof_hardware(m,c,env,ys,pitch,npan,lights):
+    """Fall-arrest line on seam clamps (posts <=10 m apart) and two vent stacks with EPDM
+    boots; placed clear of rooflights, ridge vents and the monitor apron."""
+    d=c.depth;bp=d/c.bays;s=env.slope;rx=env.roof_x;mon=c.roof_type=='MONITOR';mh=c.monitor_width/2 if mon else 0.
+    R=lambda X:roof_level(c,abs(X));S=lambda X:R(X)+ROOF_SKIN
+    T=lambda sd:A.unit((sd,0.,-s));N=lambda sd:A.unit((sd*s,0.,1.))
+    line=m.p('HG_RoofSafetyLine','ROOF',.001)     # ROOF: hidden with the roof in section view
+    for X in ((-(mh+1.25),mh+1.25) if mon else (1.0,)):
+        sd=1. if X>0 else -1.;n=max(1,ceil((d-1.)/10.))
+        posts=sorted({min(ys,key=lambda y:abs(y-(.5+j*(d-1.)/n))) for j in range(n+1)})
+        top=S(X)+.50
+        for y in posts:
+            base=(X,y,S(X));line.box(A.add(base,A.mul(N(sd),.0355)),(.12,.06,.075),'Galvanized',(T(sd),(0,1,0),N(sd)))
+            line.cylinder((X,y,S(X)+.065),(X,y,top),.022,'Galvanized',8)
+            line.box((X,y,top),(.05,.04,.03),'Galvanized')
+        line.pipe([(X,posts[0],top-.002),(X,posts[-1],top-.002)],.005,'Galvanized',6)
+        for y in (posts[0]+.15,posts[-1]-.15):
+            line.cylinder((X,y-.11,top-.002),(X,y+.11,top-.002),.028,'Yellow',8)
+    from math import cos,sin
+    stacks=m.p('HG_RoofPenetrations','ROOF',.001)
+    for sd in (-1,1):
+        free=[i for i in range(1,c.bays-1) if not any(l['side']==sd and l['bay']==i for l in lights)] or [1]
+        i=max(free) if sd>0 else min(free)
+        X=.62*rx if not mon else mh+.15+.55*(rx-mh-.15);x=sd*X;y=i*bp+(npan//2+.5)*pitch
+        stacks.box(A.add((x,y,S(X)),A.mul(N(sd),.002)),(.44,.36,.006),'Galvanized',(T(sd),(0,1,0),N(sd)))
+        zb=S(X)+.005-.12*s-.002;top=S(X)+.95
+        _frustum(stacks,(x,y,zb),(x,y,zb+.14+.12*s),.12,.065,'Rubber')
+        stacks.cylinder((x,y,zb+.01),(x,y,top),.055,'Galvanized',12)
+        _frustum(stacks,(x,y,top+.07),(x,y,top+.13),.11,.015,'Galvanized')
+        for k in range(3):
+            ang=k*2*pi/3
+            stacks.box((x+.045*cos(ang),y+.045*sin(ang),top+.031),(.012,.012,.082),'Galvanized')
+
+
 def _roof(m,c):
-    a,d=c.width/2,c.depth;bp=d/c.bays;env=envelope(c)
-    mh=c.monitor_width/2 if c.roof_type=='MONITOR' else 0.
-    # Per-bay sheets are distinct assets with one continuous metre-scaled chart.
+    a,d=c.width/2,c.depth;bp=d/c.bays;env=envelope(c);s=env.slope;rx=env.roof_x
+    mon=c.roof_type=='MONITOR';mh=c.monitor_width/2 if mon else 0.
+    R=lambda X:roof_level(c,abs(X));S=lambda X:R(X)+ROOF_SKIN
+    ys,pitch,npan=_roof_grid(c);lights=_rooflight_plan(c,env);hero=c.detail!='DRAFT'
+    # ---- skin: per-bay sheets (texture-kit tiling surface), cut for GRP rooflights
     for i in range(c.bays):
         ya,yb=env.roof_y0 if i==0 else i*bp,env.roof_y1 if i==c.bays-1 else (i+1)*bp
         for side in (-1,1):
-            lo,hi=(-env.roof_x,-mh) if side<0 else (mh,env.roof_x)
-            pa,pb=roof_level(c,lo),roof_level(c,hi)
+            lo,hi=(-rx,-mh) if side<0 else (mh,rx)
             p=m.p(f'HG_RoofSkin_{i:02d}_{side:+d}','ROOF',.002)
-            p.prism([(lo,pa),(hi,pb),(hi,pb+.085),(lo,pa+.085)],(0,ya,0),
-                    ((1,0,0),(0,0,1),(0,1,0)),yb-ya,'HG_Roof')
-            _roof_uv(p,env.slope)
-            m.hangar_meta['roof_cells'].append(dict(id=p.name,x0=lo,x1=hi,y0=ya,y1=yb))
-    # Standing seams run downslope and terminate at the correct roof edge.
-    pitch=.72 if c.detail=='DRAFT' else .60
-    count=max(4,ceil(d/pitch))
+            cut=[l for l in lights if l['side']==side and l['bay']==i]
+            pieces=rectangle_difference((lo,ya,hi,yb),(min(side*cut[0]['x0'],side*cut[0]['x1']),cut[0]['y0'],
+                   max(side*cut[0]['x0'],side*cut[0]['x1']),cut[0]['y1'])) if cut else [(lo,ya,hi,yb)]
+            for x0,y0,x1,y1 in pieces:
+                p.prism([(x0,R(x0)),(x1,R(x1)),(x1,S(x1)),(x0,S(x0))],(0,y0,0),XZ,y1-y0,'HG_Roof')
+                m.hangar_meta['roof_cells'].append(dict(id=p.name,x0=x0,x1=x1,y0=y0,y1=y1))
+            _roof_uv(p,s)
+    # ---- standing seams on the grid + one 5 mm pencil rib in every pan
     seams=m.p('HG_StandingSeams','DETAIL',.001)
-    for i in range(count+1):
-        y=env.roof_y0+(env.roof_y1-env.roof_y0)*i/count
-        # On a gable the two halves stop 16 mm short of the ridge (under the ridge cap)
-        # instead of both ending on the ridge line with coplanar side faces.
-        gap=.016 if mh==0. else 0.
-        for lo,hi in ((-env.roof_x,-mh-gap),(mh+gap,env.roof_x)):
-            seams.beam((lo,y,roof_level(c,lo)+.105),(hi,y,roof_level(c,hi)+.105),.029,.036,'HG_RoofTrim')
-    if c.roof_type=='GABLE':
-        p=m.p('HG_RidgeCap','ROOF',.002)
-        p.prism([(-.24,roof_level(c,0)+.06),(0,roof_level(c,0)+.17),(.24,roof_level(c,0)+.06),
-                 (.24,roof_level(c,0)+.10),(0,roof_level(c,0)+.21),(-.24,roof_level(c,0)+.10)],
-                 (0,env.roof_y0-.04,0),((1,0,0),(0,0,1),(0,1,0)),env.roof_y1-env.roof_y0+.08,'HG_RoofTrim')
+    runs=[(mh+.17 if mon else .27,rx-.012,S)]
+    if mon:
+        mx=mh+.15;meave=roof_level(c,0)+c.monitor_height;peak=meave+.32;ms=.32/mx
+        Sm=lambda X:peak+ROOF_SKIN-ms*abs(X)
+        runs.append((.14,mx-.012,Sm))
+    for x_in,x_out,surf in runs:
+        main=surf is S
+        for side in (-1,1):
+            for y in ys:
+                # Seams inside a rooflight run belong to the GRP sheet (split at its laps); the
+                # boundary seams stay metal. The downslope end is crimped (dog-ear) at the eave.
+                lit=[l for l in lights if main and l['side']==side and l['y0']+1e-6<y<l['y1']-1e-6]
+                cuts=[(x_in,x_out,'HG_RoofSeam')] if not lit else [(x_in,lit[0]['x0'],'HG_RoofSeam'),
+                      (lit[0]['x0'],lit[0]['x1'],'HG_RoofLight'),(lit[0]['x1'],x_out,'HG_RoofSeam')]
+                for u0,u1,mat in cuts:
+                    _run(seams,y,(side*u0,surf(u0)),(side*u1,surf(u1)),SEAM,mat,.045 if u1==x_out else 0.)
+            # Pencil ribs on the main roof only: on the lantern they sit 1-1.6 m higher, read as
+            # nothing and cost ~1k tris on wide monitors.
+            if not hero or not main:continue
+            for j in range(len(ys)-1):
+                y=(ys[j]+ys[j+1])/2
+                lit=[l for l in lights if l['side']==side and l['y0']-1e-9<=y<=l['y1']+1e-9]
+                spans=[(x_in,x_out)] if not lit else [(x_in,lit[0]['x0']-.03),(lit[0]['x1']+.03,x_out)]
+                for u0,u1 in spans:
+                    _sheet(seams,[[(side*X,y-.015,surf(X)-.001),(side*X,y,surf(X)+.005),(side*X,y+.015,surf(X)-.001)]
+                                  for X in (u0,u1)],'HG_Roof',1)
+                if lit:
+                    l=lit[0]
+                    _sheet(seams,[[(side*X,y-.015,surf(X)-.002),(side*X,y,surf(X)+.006),(side*X,y+.015,surf(X)-.002)]
+                                  for X in (l['x0']+.03,l['x1']-.03)],'HG_RoofLight',1)
+    # ---- GRP rooflights: translucent body through the build-up, end-lap strips
+    if lights:
+        rl=m.p('HG_RoofLights','ROOF',.001)
+        for l in lights:
+            sd=l['side'];x0,x1=l['x0']+.001,l['x1']-.001
+            rl.prism([(sd*x0,S(x0)-.001),(sd*x1,S(x1)-.001),(sd*x1,R(x1)-.073),(sd*x0,R(x0)-.073)],
+                     (0,l['y0']+.001,0),XZ,l['y1']-l['y0']-.002,'HG_RoofLight')
+            # End laps shed water downslope: the metal sheet above laps over the GRP at the
+            # head, the GRP laps over the metal sheet below at the foot.
+            for X,mat in ((l['x0'],'HG_Roof'),(l['x1'],'HG_RoofLight')):
+                rl.prism([(sd*(X-.025),S(X-.025)-.001),(sd*(X+.025),S(X+.025)-.001),(sd*(X+.025),S(X+.025)+.004),
+                          (sd*(X-.025),S(X-.025)+.004)],(0,l['y0']-.010,0),XZ,l['y1']-l['y0']+.020,mat)
+    # ---- eaves: drip flashing over the build-up edge, fascia board for the gutter brackets
+    trim=m.p('HG_RoofEaveTrim','ROOF',.001);fascia=m.p('HG_RoofFascia','ROOF',.001)
+    for side in (-1,1):
+        _eave_trim(trim,side,rx,R(rx),s,env.roof_y0-.007,env.roof_y1+.007,FLASH)
+        top=R(rx-.009)+.002;bot=R(rx)-.24
+        fascia.box((side*(rx-.006),(env.roof_y0+env.roof_y1)/2,(top+bot)/2),(.006,env.roof_y1-env.roof_y0+.012,top-bot),FLASH)
+    # ---- verges: one mitred sweep per gable (GABLE), or eave->monitor runs plus notch returns
+    vg=m.p('HG_Bargeboards','ROOF',.001)
+    for y_edge,out in ((env.roof_y0,-1),(env.roof_y1,1)):
+        if not mon:
+            _verge(vg,S,(-(rx-.006),0.,rx-.006),y_edge,out,FLASH,(-(rx-.006),rx-.006))
+        else:
+            for side in (-1,1):
+                _verge(vg,S,(side*(mh-.012),side*(rx-.006)),y_edge,out,FLASH,(side*(rx-.006),))
+                # Notch return: caps the sheet edge at x=+-mh in the overhang in front of the
+                # monitor end wall (the monitor sits back on the gable plane).
+                ya,yb=(env.roof_y0-.007,env.front_y+.002) if out<0 else (env.back_y-.002,env.roof_y1+.007)
+                _sweep(vg,VERGE_RETURN,lambda y,u,v,sd=side:(sd*(mh-u),y,S(mh-u)+v),(ya,yb),FLASH)
+    if not mon:
+        # ---- ridge: flashing over the seam ends + louvred ridge ventilators, placed in mirrored
+        # bay pairs (plus the middle bay on odd counts) so the ridge reads symmetric
+        _ridge(m.p('HG_RidgeCap','ROOF',.001),env.roof_y0-.008,env.roof_y1+.008,S(0.),s,.30,.040,FLASH)
+        vents=m.p('HG_RoofRidgeVents','ROOF',.001);O=lambda X:S(X)+OVER+.006
+        Lv=min(2.4,bp-1.0);h0=S(0.)+.50;Hu=lambda X:h0-.060*X/.414
+        lo,hi=O(.26)+.04,Hu(.26)-.04;nb=max(4,int((hi-lo-.03)/.055))
+        for i in sorted({j for i in range(1,c.bays//2,3) for j in (i,c.bays-1-i)}|({c.bays//2} if c.bays%2 else set())):
+            yc=(i+.5)*bp
+            vents.prism([(-.26,O(.26)-.003),(0.,O(0.)-.003),(.26,O(.26)-.003),(.26,Hu(.26)+.002),(0.,Hu(0.)+.002),
+                         (-.26,Hu(.26)+.002)],(0,yc-Lv/2,0),XZ,Lv,FLASH)
+            vents.prism([(-.420,Hu(.42)-.064),(-.420,Hu(.42)+.006),(0.,Hu(0.)+.006),(.420,Hu(.42)+.006),(.420,Hu(.42)-.064),
+                         (.414,Hu(.414)-.064),(.414,Hu(.414)),(0.,Hu(0.)),(-.414,Hu(.414)),(-.414,Hu(.414)-.064)],
+                        (0,yc-Lv/2-.05,0),XZ,Lv+.10,FLASH)
+            for side in (-1,1):
+                # Dark louvre throat with 40-degree weather blades (60 mm deep, 6-7 per side at
+                # ~65 mm pitch) bedded 3 mm into it; blades end 10 mm short of the opening.
+                vents.box((side*.258,yc,(lo+hi)/2),(.010,Lv-.10,hi-lo),'Interior')
+                for k in range(nb):
+                    zz=lo+.03+(hi-lo-.06)*k/(nb-1)
+                    vents.box((side*.2856,yc,zz),(.06,Lv-.12,.008),'Galvanized',A.euler_axes(0,side*radians(40),0))
     else:
-        sill=roof_level(c,mh)+.04
-        meave=roof_level(c,0)+c.monitor_height
-        peak=meave+.32
-        for i in range(c.bays):
-            y0=i*bp+.045;y1=(i+1)*bp-.045
-            for s in (-1,1):
-                x=s*mh
-                m.box(f'HG_MonitorGlass_{i}_{s}',(x,(y0+y1)/2,(sill+meave)/2),(.024,y1-y0,meave-sill-.15),
-                      'Glass','GLASS',0.)
-                for z in (sill,meave):
-                    m.box('HG_MonitorFrames',(x,(y0+y1)/2,z),(.13,y1-y0,.085),'SteelDark','FACADE',.002)
-                # 1 cm shorter than the frame rails so the drip's end faces never share a plane with them.
-                m.box('HG_MonitorDrip',(x+s*.07,(y0+y1)/2,sill-.045),(.23,y1-y0-.02,.045),'Galvanized','DETAIL',.002)
-            for y in (i*bp,):
-                for s in (-1,1):
-                    # Posts sit 1 cm proud of the .13 m frame rails: flush faces z-fight.
-                    m.box('HG_MonitorPosts',(s*mh,y,(roof_level(c,mh)-.51+meave)/2),(.15,.095,meave-(roof_level(c,mh)-.51)),
-                          'SteelDark','STRUCTURE',.003)
-            for lo,hi,za,zb in ((-mh-.15,0,meave,peak),(0,mh+.15,peak,meave)):
-                p=m.p(f'HG_MonitorRoof_{i}_{int(lo==0)}','ROOF',.002)
-                p.prism([(lo,za),(hi,zb),(hi,zb+.085),(lo,za+.085)],(0,env.roof_y0 if i==0 else i*bp,0),
-                    ((1,0,0),(0,0,1),(0,1,0)),bp+(-env.roof_y0 if i==0 else 0)+(env.roof_y1-d if i==c.bays-1 else 0),'HG_Roof')
-                _roof_uv(p,.32/(mh+.15))
-        for s in (-1,1):
-            m.box('HG_MonitorPosts',(s*mh,d,(roof_level(c,mh)-.51+meave)/2),(.15,.095,meave-roof_level(c,mh)+.51),'SteelDark','STRUCTURE',.003)
-        m.box('HG_MonitorCap',(0,(env.roof_y0+env.roof_y1)/2,peak+.12),(.20,env.roof_y1-env.roof_y0+.08,.07),'HG_RoofTrim','DETAIL',.002)
-        for y in (env.roof_y0,env.roof_y1-.10):
-            profile=[(-mh,roof_level(c,mh)),(0,roof_level(c,0)),(mh,roof_level(c,mh)),(mh,meave),(0,peak),(-mh,meave)]
-            m.p('HG_MonitorEndCaps','BODY',.003).prism(profile,(0,y,0),((1,0,0),(0,0,1),(0,1,0)),.10,'HG_Wall')
-    # Continuous bargeboard follows the gable; no fake vertical rectangle through the roof.
-    for y in (env.roof_y0-.035,env.roof_y1+.035):
-        for lo,hi in ((-env.roof_x,0),(0,env.roof_x)):
-            m.p('HG_Bargeboards','FACADE',.003).beam((lo,y,roof_level(c,lo)+.015),(hi,y,roof_level(c,hi)+.015),.15,.20,'SteelDark')
+        _monitor(m,c,env,ys)
+    if hero:_roof_hardware(m,c,env,ys,pitch,npan,lights)
+    _roof_underside(m,c,env,lights)
+    m.hangar_meta['roof_design']=dict(pan_pitch_m=pitch,pans_per_bay=npan,seam_height_m=.058,
+        rooflights=lights,build_up_m=ROOF_SKIN,downpipes_design=[],downpipe_conflicts=[])
 
 
 def _facades(m,c):
@@ -721,21 +1069,43 @@ def _landings_and_ports(m,c):
 
 
 def _gutters(m,c):
+    """Fascia-hung box gutter: drip flashing kicks into it, hidden hangers every ~1.2 m,
+    stop ends 50 mm past the verges, running outlets with 45-degree swan necks to downpipes
+    on band clamps, shoes over a gully on the apron."""
     if not c.gutters:return
-    a,d,z=c.width/2,c.depth,c.base_height
-    profile=[(-.15,-.105),(.15,-.105),(.15,.095),(.125,.095),(.125,-.077),(-.125,-.077),(-.125,.095),(-.15,.095)]
-    p=m.p('HG_Gutters','DETAIL',.002)
+    env=envelope(c);z=c.base_height;rx=env.roof_x;rl=roof_level(c,rx);hero=c.detail!='DRAFT'
+    y0,y1=env.roof_y0-.05,env.roof_y1+.05;top=rl-.072
+    g=m.p('HG_Gutters','DETAIL',.001);hang=m.p('HG_GutterHangers','DETAIL',.001)
+    pipes=m.p('HG_Downpipes','DETAIL',0.);clamps=m.p('HG_PipeClamps','DETAIL',.001)
     for side in (-1,1):
-        env=envelope(c)
-        x=side*(env.outside_x+.33);top=roof_level(c,x)-.025
-        p.prism(profile,(x,env.roof_y0,top),((1,0,0),(0,0,1),(0,1,0)),env.roof_y1-env.roof_y0,'Galvanized')
-        for y in (.22,d-.22):
-            px=side*(env.outside_x+.12)
-            # Mitred pipes are not bevelled: even one segment degenerates UVs at the mitres,
-            # and a 2 mm bevel on a 55 mm round tube is invisible anyway.
-            m.p('HG_Downpipes','DETAIL',0.).pipe([(x,y,top-.08),(px,y,top-.38),(px,y,z+.33),(px+side*.20,y,z+.20)],.055,'Galvanized',10 if c.detail=='DRAFT' else 16)
-            for zz in (z+.65,z+2.4,z+4.2,z+5.8):
-                if zz<top-.4:m.box('HG_PipeClamps',(px-side*.04,y,zz),(.18,.04,.04),'SteelDark','DETAIL',.001)
+        X=lambda u:side*(rx+.001+u)
+        g.prism([(X(u),top+v) for u,v in GUTTER],(0,y0,0),XZ,y1-y0,'Galvanized')
+        for ye in (y0,y1):
+            g.prism([(X(u),top+v) for u,v in GUTTER_END],(0,ye-.002,0),XZ,.004,'Galvanized')
+        if hero:
+            nh=max(2,int((y1-y0-.5)/1.2+.5))+1     # fascia brackets at ~1.2 m
+            for k in range(nh):
+                y=y0+.25+k*(y1-y0-.5)/(nh-1)
+                hang.beam((X(-.006),y,top+.001),(X(.214),y,top-.007),.025,.004,'Galvanized')
+        px=side*(env.outside_x+.14);xo=X(.088);h45=abs(xo-px);meta=m.hangar_meta['roof_design']
+        lines=_downpipe_lines(m,c,env,side,z+.10,top-.20,meta['downpipe_conflicts'])
+        meta['downpipes_design']+=[dict(side=side,y=y) for y in lines]
+        for y in lines:
+            g.cylinder((xo,y,top-.140),(xo,y,top-.250),.046,'Galvanized',8)
+            zt=top-.30;pipes.pipe([(xo,y,top-.20),(xo,y,zt),(px,y,zt-h45),(px,y,z+.33),(px+side*.15,y,z+.18)],
+                                  .055,'Galvanized',8 if c.detail=='DRAFT' else 12)
+            lo,hi=z+.9,zt-h45-.25;nc=max(2,ceil((hi-lo)/2.)+1)
+            for k in range(nc):
+                zz=lo+(hi-lo)*k/(nc-1)
+                # Round band (octagon inscribed radius 57 mm clears the 55 mm pipe) on a stand-off
+                # stem bedded 4 mm into the cladding and 2 mm into the band.
+                clamps.cylinder((px,y,zz-.0175),(px,y,zz+.0175),.062,'SteelDark',8)
+                so=abs(px)-.06-(env.outside_x-.004)
+                clamps.box((side*(env.outside_x-.004+so/2),y,zz),(so,.03,.03),'SteelDark')
+            if c.local_ground and hero:
+                gx=side*(env.outside_x+.285)
+                m.box('HG_RainGullies',(gx,y,z+.022),(.28,.28,.05),'HG_Concrete_EXPOSED_0','GROUND',.001)
+                m.box('HG_RainGullies',(gx,y,z+.049),(.20,.20,.006),'Galvanized','GROUND',.001)
 
 
 def _services(m,c):

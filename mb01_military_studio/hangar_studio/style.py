@@ -42,6 +42,13 @@ def recipes(config, override=''):
 
 
     # [ROOF MATERIALS] names start with HG_Roof (texture kit set: Roof)
+    rc=out['HG_Roof']['color']
+    # Folded seam heads catch the light; flashings are colour-matched coil (second batch).
+    clone('HG_RoofSeam','HG_Roof',[min(1.,x*1.10) for x in rc],.42)
+    clone('HG_RoofFlashing','HG_Roof',[x*.86 for x in rc],.45)
+    # Interior liner tray (bright polyester) and translucent GRP rooflight sheet.
+    clone('HG_RoofLiner','White',(.74,.76,.75),.62)
+    lite=clone('HG_RoofLight','Glass',(.90,.92,.82),.40);lite['glass_transmission']=.40;lite['glass_ior']=1.52
 
 
     # [WALL MATERIALS] names start with HG_Wall (texture kit set: Cladding)
