@@ -35,6 +35,10 @@ def recipes(config, override=''):
     clone('HG_SignInk','SteelDark',(.022,.025,.028),.55)
     # ---- domain material blocks: add clones only under your own anchor ----------------
     # [GATE MATERIALS] names start with HG_Gate (texture kit set: Gates)
+    clone('HG_GateLiner','White',(.70,.73,.71),.60)            # flat liner face of the leaf panels (inside)
+    clone('HG_GateAlu','Galvanized',(.62,.65,.67),.34)         # anodised glazing channels, caps and bars
+    clone('HG_GateHazard','Yellow',(.93,.66,.06),.46)          # leading-edge chevrons, yellow
+    clone('HG_GateHazardInk','SteelDark',(.018,.018,.020),.55) # leading-edge chevrons, black
 
 
     # [ROOF MATERIALS] names start with HG_Roof (texture kit set: Roof)
