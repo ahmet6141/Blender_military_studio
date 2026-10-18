@@ -120,7 +120,7 @@ class BuildJob:
             key='LABEL_'+l['name']
             if key in self.locked:continue
             data=bpy.data.curves.new('MB01_'+key,'FONT');data.body=l['body'];data.size=l['size'];data.align_x='CENTER';data.align_y='CENTER'
-            data.extrude=.0008;data.resolution_u=5;data.materials.append(mats[l['material']])
+            data.extrude=l.get('extrude',.0008);data.bevel_depth=l.get('bevel',0.);data.bevel_resolution=1;data.resolution_u=5;data.materials.append(mats[l['material']])
             ob=bpy.data.objects.new('MB01_'+key,data);group('SIGNAGE').objects.link(ob);ob.parent=root
             ob.location=l['location'];ob.rotation_euler=l['rotation']
             ob['mb01_owner']=self.id;ob['mb01_element']=key;ob['mb01_kind']='TEXT';ob['mb01_category']='SIGNAGE'

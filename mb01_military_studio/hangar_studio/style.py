@@ -28,6 +28,10 @@ def recipes(config, override=''):
     clone('HG_RoofTrim','SteelDark',(.09,.13,.145),.43)
     clone('HG_Gate','RoofOlive',(.22,.30,.26) if c.palette!='URBAN' else (.19,.23,.245),.51)
     clone('HG_GateTrim','RoofOliveLight',(.29,.36,.32) if c.palette!='URBAN' else (.25,.29,.30),.48)
+    # Identity sign: matte anthracite cabinet, brushed-aluminium bezel/standoffs, muted subtitle.
+    clone('HG_SignFace','SteelDark',(.055,.065,.075),.30)
+    clone('HG_Alu','Galvanized',(.80,.83,.85),.26)
+    clone('HG_SignSub','White',(.72,.77,.78),.45)
     # Surface roles never change the old materials. Variant changes are intentionally subtle.
     for exposed in (False,True):
         wet=c.wetness if exposed else 0.

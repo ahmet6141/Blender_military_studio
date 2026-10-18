@@ -89,7 +89,7 @@ class BuildJob:
             yield .08+.72*(i+1)/len(model.parts),part.name
         for l in model.labels:
             data=bpy.data.curves.new('HG_'+l['name'],'FONT');data.body=l['body'];data.size=l['size']
-            data.align_x='CENTER';data.align_y='CENTER';data.extrude=.0008;data.resolution_u=5;data.materials.append(mats[l['material']])
+            data.align_x='CENTER';data.align_y='CENTER';data.extrude=l.get('extrude',.0008);data.bevel_depth=l.get('bevel',0.);data.bevel_resolution=1;data.resolution_u=5;data.materials.append(mats[l['material']])
             ob=bpy.data.objects.new('HG_'+l['name'],data);group('SIGNAGE').objects.link(ob);ob.parent=root
             ob.location=l['location'];ob.rotation_euler=l['rotation']
             for k,v in dict(mb01_owner=self.owner,mb01_element='LABEL_'+l['name'],mb01_kind='TEXT',mb01_category='SIGNAGE',

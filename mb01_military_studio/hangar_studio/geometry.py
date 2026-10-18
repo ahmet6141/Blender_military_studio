@@ -233,16 +233,108 @@ def _facades(m,c):
             ((1,0,0),(0,0,1),(0,1,0)),d,'HG_Wall')
 
 
+TRACK_PITCH=.24
+TRACK_INNER_BOTTOM=.13   # above opening head: top of the inner running flanges
+TRACK_INNER_TOP=.25      # cavity ceiling
+WHEEL_R=.05
+
+
+def _track_system(m,c):
+    """Top-hung telescopic door hardware, one track per leaf row.
+
+    Box-section rail with a bottom slot (hanger stems pass through, twin rollers run on the
+    inner flanges), a continuous support girder bolted to the canopy soffit through hanger
+    plates, cross spacers between adjacent girders, rubber-buffered end stops and a floor
+    guide channel. All quads; still visual hardware, not a rated door design.
+    """
+    oh=c.opening_height;z=c.base_height;w=c.width;top=z+oh
+    L=w-.18;n=c.gate_leaves//2
+    pitch=1.5;count=max(2,round(L/pitch));xs=[-L/2+.10+(L-.20)*i/(count-1) for i in range(count)]
+    for j in range(n):
+        y=-.43-j*TRACK_PITCH
+        rail=m.p(f'HG_GateRail_{j}','STRUCTURE',.002)
+        rail.box((0,y,top+.265),(L,.18,.03),'Galvanized')                       # top plate .25..28
+        for s in (-1,1):
+            rail.box((0,y+s*.08,top+.095),(L,.02,.31),'Galvanized')            # webs -.06..25
+            rail.box((0,y+s*.0475,top+.11),(L,.045,.04),'Galvanized')          # flanges -.06..-.02
+        # Support girder sits on the rail, hanger plates tie it to the canopy soffit.
+        m.box(f'HG_TrackGirder_{j}',(0,y,top+.33),(L,.18,.10),'SteelDark','STRUCTURE',.003)
+        hang=m.p('HG_TrackHangers','DETAIL',.001)
+        for xx in xs:
+            hang.box((xx,y,top+.386),(.16,.22,.012),'Galvanized')
+            hang.box((xx,y,top+.51),(.10,.14,.236),'Galvanized')
+            if j<n-1:
+                hang.box((xx,y-TRACK_PITCH/2,top+.33),(.08,.07,.06),'SteelDark')   # cross spacer
+        stops=m.p('HG_TrackEndStops','DETAIL',.001)
+        for s in (-1,1):
+            stops.box((s*(L/2+.006),y,top+.185),(.012,.20,.21),'SteelDark')
+            stops.box((s*(L/2-.04),y,top+.22),(.06,.10,.10),'Rubber')
+        # Floor guide channel: shallow U, the leaf guide pins run inside the slot.
+        guide=m.p('HG_GroundGuides','DETAIL',.001)
+        guide.box((0,y,z+.004),(w-.20,.10,.008),'Galvanized')
+        for s in (-1,1):
+            guide.box((0,y+s*.0425,z+.019),(w-.20,.015,.022),'Galvanized')
+
+
+def _trolley(m,c,p,xx,y,z1,top):
+    """Twin-roller hanger: bracket on the leaf top rail, stem through the rail slot, axle
+    carrier and four wheels on the inner flanges; plus the bottom guide pin in the channel."""
+    seg=10 if c.detail=='DRAFT' else 16
+    p.box((xx,y,z1+.03),(.26,.13,.06),'Galvanized')
+    stem_top=top+.17
+    p.box((xx,y,(z1+.06+stem_top)/2),(.06,.04,stem_top-(z1+.06)),'Galvanized')
+    p.box((xx,y,top+.185),(.26,.05,.05),'Galvanized')
+    zc=top+TRACK_INNER_BOTTOM+WHEEL_R+.001
+    first=len(p.vertices)
+    for dx in (-.09,.09):
+        for s in (-1,1):
+            p.cylinder((xx+dx,y+s*.031,zc),(xx+dx,y+s*.059,zc),WHEEL_R,'Galvanized',seg)
+    rv=p.vertices[first:]
+    m.hangar_meta.setdefault('roller_checks_design',[]).append(dict(part=p.name,
+        actual_z_min=min(v[2] for v in rv),actual_z_max=max(v[2] for v in rv),
+        track_inner_bottom=top+TRACK_INNER_BOTTOM,track_inner_top=top+TRACK_INNER_TOP))
+    # Bottom guide shoe rides inside the floor channel slot, 2 mm above the channel base.
+    z0=c.base_height+.025
+    p.box((xx,y,z0-.0075),(.10,.06,.015),'Galvanized')
+
+
+def _identity_sign(m,c):
+    """Standoff-mounted sign cabinet on the front gable: anthracite face, brushed-aluminium
+    bezel and rule, raised letters, yellow accent bar and an LED light bar on two arms."""
+    z=c.base_height;oh=c.opening_height;env=envelope(c);face=env.front_y
+    sw=min(6.4,max(4.2,c.width*.20));sh=.78
+    zc=z+oh+.745+.22+sh/2
+    zc=min(zc,roof_level(c,sw/2+.35)-.30-sh/2)        # stays inside the gable field
+    yb=face-.06;yf=yb-.05;ym=(yb+yf)/2
+    m.box('HG_SignCabinet',(0,ym,zc),(sw,.05,sh),'HG_SignFace','DETAIL',.003)
+    bez=m.p('HG_SignBezel','DETAIL',.002)
+    for zz in (zc-sh/2-.011,zc+sh/2+.011):bez.box((0,ym-.001,zz),(sw+.044,.054,.022),'HG_Alu')
+    for xx in (-sw/2-.011,sw/2+.011):bez.box((xx,ym-.001,zc),(.022,.054,sh),'HG_Alu')
+    so=m.p('HG_SignStandoffs','DETAIL',.001);seg=8 if c.detail=='DRAFT' else 14
+    for xx in (-(sw/2-.28),sw/2-.28):
+        for zz in (zc-(sh/2-.16),zc+(sh/2-.16)):
+            so.cylinder((xx,face,zz),(xx,yb,zz),.014,'HG_Alu',seg)
+            so.cylinder((xx,yf,zz),(xx,yf-.008,zz),.022,'HG_Alu',seg)
+    m.box('HG_SignAccent',(-sw/2+.34,yf-.006,zc+.05),(.045,.012,.42),'Yellow','DETAIL',.001)
+    m.box('HG_SignRule',(.12,yf-.003,zc-.13),(sw*.68,.006,.010),'HG_Alu','DETAIL',.001)
+    size=min(.30,(sw-1.3)/(.64*max(1,len(c.name))))
+    m.label(c.name,(.12,yf-.004,zc+.09),size,'White',name='HangarIdentity',extrude=.012,bevel=.0015)
+    if c.subtitle.strip():
+        m.label(c.subtitle.strip(),(.12,yf-.004,zc-.24),.10,'HG_SignSub',name='HangarSubtitle',extrude=.006)
+    # LED light bar above the cabinet on two arms.
+    zl=zc+sh/2+.20;lw=sw*.62
+    m.box('HG_SignLight',(0,face-.30,zl),(lw,.07,.05),'HG_Alu','DETAIL',.002)
+    m.box('HG_SignLightLens',(0,face-.30,zl-.029),(lw-.06,.05,.008),'LightWarm','DETAIL',.001)
+    arms=m.p('HG_SignLightArms','DETAIL',.002)
+    for xx in (-lw*.42,lw*.42):
+        arms.beam((xx,face,zl+.07),(xx,face-.30,zl+.03),.03,.04,'HG_Alu')
+        arms.box((xx,face-.006,zl+.07),(.09,.012,.12),'HG_Alu')
+
+
+
 def _gates(m,c):
     oh=c.opening_height;z=c.base_height;w=c.width
-    # Each track is a real open C-shaped extrusion around the roller.
-    for j in range(c.gate_leaves//2):
-        y=-.43-j*.24
-        profile=[(-.08,-.05),(.08,-.05),(.08,.16),(-.08,.16),(-.08,.13),(.05,.13),(.05,-.02),(-.08,-.02)]
-        p=m.p(f'HG_GateRail_{j}','STRUCTURE',.002)
-        p.prism(profile,(-w/2+.09,y,z+oh+.15),((0,1,0),(0,0,1),(1,0,0)),w-.18,'Galvanized')
-        # The ground guide is shallow visual geometry. No performance-rated track design.
-        m.box('HG_GroundGuides',(0,y,z+.008),(w-.20,.031,.016),'Galvanized','DETAIL',.001)
+    _track_system(m,c)
     coverdepth=.44+(c.gate_leaves//2-1)*.24
     # The header meets the opening head: no open band at the wall plane between the leaf
     # tops and the rails (interior rafters were visible from outside above the gate).
@@ -274,13 +366,7 @@ def _gates(m,c):
         p.box((x,y+.068,z0+.022),(lw-.10,.030,.035),'Rubber')
         p.box((x,y+.068,z1+.012),(lw-.10,.030,.034),'Rubber')  # top weather seal under the header
         for xx in (x-lw*.32,x+lw*.32):
-            p.box((xx,y,z1+.115),(.075,.07,.28),'Galvanized')
-            first=len(p.vertices)
-            p.cylinder((xx,y-.038,z+oh+.190),(xx,y+.038,z+oh+.190),.060,'Galvanized',12 if c.detail=='DRAFT' else 20)
-            rv=p.vertices[first:]
-            m.hangar_meta.setdefault('roller_checks_design',[]).append(dict(part=p.name,
-                actual_z_min=min(v[2] for v in rv),actual_z_max=max(v[2] for v in rv),
-                track_inner_bottom=z+oh+.13,track_inner_top=z+oh+.28))
+            _trolley(m,c,p,xx,y,z1,z+oh)
         if c.detail!='DRAFT' and c.fasteners:
             for xx in (x-lw/2+.044,x+lw/2-.044):
                 for zz in (z0+.14,z0+lh*.44,z1-.14):
@@ -448,11 +534,7 @@ def _services(m,c):
                         axes=(tangent,(0.,1.,0.),normal))
                 m.hangar_meta['light_fixtures_design'].append(dict(position=(x,y,bottom-.08),dimensions=(.17,1.6),watts_artist=55.))
     if c.signage:
-        front=-(.44+(c.gate_leaves//2-1)*.24)-.57
-        m.box('HG_IdentityPlate',(0,front,z+c.opening_height+.72),(4.6,.08,.64),'SteelDark','DETAIL',.005)
-        m.label(c.name,(0,front-.043,z+c.opening_height+.76),.32,'White',name='HangarIdentity')
-        if c.subtitle.strip():
-            m.label(c.subtitle.strip(),(0,front-.044,z+c.opening_height+.55),.09,'Yellow',name='HangarSubtitle')
+        _identity_sign(m,c)
         for entry in m.hangar_meta['personnel_openings_design']:
             x,y,_=entry['center'];nx,ny,_=entry['normal']
             # A shallow perimeter luminaire and neutral door label panel.

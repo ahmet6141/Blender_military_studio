@@ -100,6 +100,29 @@ Workbench ile çekilip tek tek incelendi.
   bırakılırsa yazılmaz): depo önayarları "STORAGE DEPOT / CGI", "VEHICLE DEPOT / CGI",
   MRO "WIDEBODY MRO / CGI", QRA "QRA ALERT / CGI". Hangar panelinde alan olarak var.
 
+## Kimlik tabelası ve kapı ray sistemi (viewport incelemesi sonrası yeniden tasarım)
+
+- **Tabela** (`_identity_sign`): ön alın duvarına 6 cm mesafe çubuklarıyla asılan
+  antrasit mat kabin (`HG_SignFace`), fırçalanmış alüminyum çerçeve, cetvel çizgisi ve
+  başlık kapakları (`HG_Alu`), sarı dikey vurgu çubuğu, 12 mm kabartma pahlı başlık
+  harfleri, 6 mm alt yazı (`HG_SignSub`), iki kol üzerinde LED ışık çubuğu
+  (`LightWarm` mercek). Genişlik bina genişliğinin %20'si (4.2–6.4 m), alın üçgeni
+  içinde kalacak şekilde otomatik alçalır; uzun adlarda yazı boyutu küçülür.
+  `label()` artık `extrude` / `bevel` taşır (çekirdek binalar eski değerleriyle kalır).
+- **Ray sistemi** (`_track_system`, `_trolley`): her ray sırası için altı yarıklı
+  kutu-kesit ray (üst plaka, iki gövde, iki iç koşu flanşı), rayın üstünde sürekli
+  taşıyıcı kiriş, 1.5 m aralıkla kanopi tavanına bağlanan askı plakaları ve kirişler
+  arası ara bağlantılar, uçlarda kauçuk tamponlu durdurucu plakalar, zeminde U-kanal
+  kılavuz. Kanat başına iki araba: kanat üst rayına oturan braket, yarıktan geçen gövde,
+  aks taşıyıcı ve iç flanşlarda koşan dört tekerlek (sözleşme kontrolü
+  `roller_checks_design` ile boşluk içinde doğrulanır), kanal yarığında alt kılavuz
+  pabucu. Eski C-profil ray (askısı rayın tabanından geçiyordu) ve düz zemin şeridi
+  kaldırıldı.
+- Doğrulama: 12 önayar × WORKING/HERO canlı QA 28/28 PASS; kapı animasyonu ve
+  animasyonlu FBX değişmedi; EXP_COASTAL export–geri-import (kabartma harfler dahil)
+  PASS; z-fight çiftleri temel değerlerde (DEPOT 69, MRO 151). HERO üçgen:
+  DEPOT_STORAGE 86K → 94K, MRO_WIDEBODY 159K → 175K (8 kanat × 2 araba × 4 tekerlek).
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından
