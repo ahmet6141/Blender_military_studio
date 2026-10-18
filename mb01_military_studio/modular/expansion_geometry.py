@@ -70,14 +70,54 @@ def _dual_vent(m):
 
 
 def _canopy(m, double=False):
-    m.entry(double=double,canopy=True,metal=True)
-    # Base entry supplies pivot-correct leaf, real wall opening and supported canopy.
-    ow=min(2.3,m.cfg.width-.7) if double else min(1.18,m.cfg.width-.7)
-    top=2.62 if double else 2.30
-    m.box('EntryShadowReveal',(0.,-.045,top+.104),(ow+.20,.020,.018),'Joint','DETAIL',.001)
-    for sign in (-1,1):
-        m.box('EntryJambFold',(sign*(ow/2+.085),-.024,top/2),(.04,.05,top),
-              m.cfg.style.frame_material,'FACADE',.002)
+    # Door set (frame, leaves, rain deflector) comes from entry(); a single entry gets a vision leaf.
+    m.entry(double=double,glazed=not double,metal=True)
+    w=m.cfg.width;draft=m.cfg.detail=='DRAFT'
+    ow=min(2.3,w-.7) if double else min(1.18,w-.7)
+    dh=2.62 if double else 2.30
+    seams=m._parts.get('PanelSeams')   # rib side faces as built by wall(); none -> no guard
+    ribx={round(abs(v[0]),6) for v in seams.vertices} if seams else set()
+    def clear_rib(v):
+        return v-.006 if any(abs(v-r)<.003 for r in ribx) else v
+    # Cantilevered steel entrance canopy sized to the door (not the bay): wall channel, two tapered
+    # arms, fascia, deck tray (front edge trim = drip below + kerb above, side upstands, abutment
+    # flashing, scupper spout beside the door), two ~35 deg tie rods with clevises, lugs and a
+    # turnbuckle, galvanized soffit and a housed downlight. Its soffit sits >= 45 mm above the
+    # hangar's perimeter wall light; nothing reaches past |x| = w/2-.15.
+    xe=clear_rib(min(w/2-.15,ow/2+.50));P=1.25 if double else 1.10;zu=max(dh+.30,2.76)
+    YZX=((0,1,0),(0,0,1),(1,0,0));S='SteelDark'
+    c=m.part('EntryCanopy','FACADE',.003)
+    c.box((0.,-.0265,zu+.07),(2*xe,.057,.14),S)                                   # wall channel
+    arm=[(-.055,zu),(-(P-.085),zu+.05),(-(P-.085),zu+.14),(-.055,zu+.14)]
+    for x0 in (-xe,xe-.06):
+        c.prism(arm,(x0,0.,0.),YZX,.06,S)                                          # tapered arms
+    c.box((0.,-(P-.055),zu+.095),(2*xe,.060,.090),S)                               # fascia
+    c.box((0.,-(P-.010)/2,zu+.1525),(2*xe,P-.006,.025),S)                          # deck
+    c.box((0.,-P+.004,zu+.155),(2*xe,.008,.080),S)              # edge trim: 17 mm drip groove + kerb
+    for s in (-1,1):
+        c.box((s*(xe-.004),-(P+.037)/2,zu+.180),(.008,P-.053,.030),S)              # side upstands
+    c.box((xe-.12,-P-.030,zu+.1775),(.040,.100,.025),S)                            # scupper spout
+    c.prism([(.002,zu+.165),(-.045,zu+.165),(-.045,zu+.195),(.002,zu+.255)],(-xe,0.,0.),YZX,2*xe,S)
+    xr=xe-.03
+    if any(abs(clear_rib(v)-v)>1e-9 for v in (xr-.05,xr+.05)):
+        xr-=.006
+    zr=zu+.200+(P-.185)*.70
+    rods=m.part('CanopyTieRods','DETAIL',0.)
+    for s in (-1,1):
+        x=s*xr
+        c.box((x,-(P-.10),zu+.19475),(.012,.080,.0605),S)                          # deck lug
+        c.box((x,-.024,zr),(.10,.052,.16),S)                                       # wall plate + packer
+        c.box((x,-.07725,zr),(.012,.0555,.070),S)                                  # wall lug
+        a=(x,-(P-.10),zu+.200);b=(x,-.085,zr);u=A.unit(A.sub(b,a))
+        rods.beam(a,A.add(a,A.mul(u,.045)),.028,.028,'Galvanized')                 # clevises
+        rods.beam(A.sub(b,A.mul(u,.045)),b,.028,.028,'Galvanized')
+        rods.cylinder(A.add(a,A.mul(u,.040)),A.sub(b,A.mul(u,.040)),.010,'Galvanized',6 if draft else 10)
+        mid=A.mul(A.add(a,b),.5)
+        rods.cylinder(A.sub(mid,A.mul(u,.065)),A.add(mid,A.mul(u,.065)),.016,'Galvanized',6 if draft else 8)  # turnbuckle
+    m.box('CanopySoffit',(0.,-(P-.03)/2,zu+.1325),(2*(xe-.06),P-.140,.015),'Galvanized','DETAIL',.001)
+    lx=min(.35,xe-.20)
+    m.box('CanopyLight',(0.,-P*.45,zu+.120),(2*lx,.140,.011),S,'DETAIL',.001)         # housing
+    m.box('CanopyLight',(0.,-P*.45,zu+.1125),(2*lx-.03,.100,.005),'LightWarm','DETAIL',.001)
 
 
 def generate(m, builder):
