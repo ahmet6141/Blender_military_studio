@@ -123,6 +123,27 @@ Workbench ile çekilip tek tek incelendi.
   PASS; z-fight çiftleri temel değerlerde (DEPOT 69, MRO 151). HERO üçgen:
   DEPOT_STORAGE 86K → 94K, MRO_WIDEBODY 159K → 175K (8 kanat × 2 araba × 4 tekerlek).
 
+## Tabela tasarımı v2 ve doku kiti
+
+- **Tabela**: tek oranlı ızgara (birim = panel yüksekliği H). Amber numara bloğu
+  (H x H) + antrasit ad alanı; başlık, alüminyum çizgi ve aralıklı alt yazı aynı sol
+  kenarda; eşit kenar boşlukları; alüminyum çerçeve; gölge boşluklu gizli taşıyıcı.
+  Ad hangar adından çözülür (`HG_VEHICLE_DEPOT_01` → "VEHICLE DEPOT" + "01"), alt yazı
+  görev satırıdır. Harfler paketlenmiş Big Shoulders Bold (SIL OFL 1.1) ile kabartma;
+  denenen diğer fontlar Blender'da bozuk glif dolgusu verdiği için alınmadı.
+  `blender_backend.label_object`: font, aralık, cap-height / azami genişlik sığdırma,
+  görünür glif sınırına göre hizalama.
+- **Doku kiti** (`game_ready/texture_kit.py`): her doku seti kendi yerleşimiyle —
+  DÖŞEMELİ (Cladding, Roof, Concrete: 4 m seamless, 4K'da 1024 px/m), TRIM (Structure,
+  Metal, Signage: uzun elemanlar kesit-çevresi bantları, kalan parçalar aynı yoğunlukta
+  benzersiz), BENZERSİZ (Gates, Glazing). UV_Paint (0) + çakışmasız UV_Mask (1),
+  MaterialID vertex rengi, aynı parçalar UV_Paint'te istiflenir. Çıktı: FBX, .blend,
+  set başına tam boy tel kafes + önizleme PNG, `texture_sets.json`.
+- `scripts/hangar_deliverables.py`: doku kiti + 8 açılı turntable + kapı animasyon
+  videosu (3 çekim, H.264) + Türkçe README. `deliverables/DEPOT_STORAGE/` ilk çıktı.
+- Doğrulama: 12 önayar × WORKING/HERO canlı QA 28/28 PASS; kit FBX geri-import:
+  263 nesne, 2 UV kanalı, 8 TS_ malzemesi, sıfır alanlı UV_Paint yüzü 0.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından
