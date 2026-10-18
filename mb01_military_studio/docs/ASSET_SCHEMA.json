@@ -1,0 +1,7234 @@
+{
+ "schema": "mb01.asset_schema/0.1",
+ "generator": "0.4.0-alpha.1",
+ "families": [
+  {
+   "kind": "HQ",
+   "label": {
+    "width": 35.2,
+    "depth": 20.4,
+    "floors": 3,
+    "floor_height": 3.6,
+    "bays": 8,
+    "roof": "FLAT"
+   },
+   "defaults": {
+    "kind": "HQ",
+    "name": "KARARGAH_01",
+    "width": 35.2,
+    "depth": 20.4,
+    "floors": 3,
+    "floor_height": 3.6,
+    "bays": 8,
+    "roof": "FLAT",
+    "detail": "WORKING",
+    "palette": "COASTAL",
+    "seed": 17,
+    "base_height": 0.18,
+    "walkway_width": 3.2,
+    "plaza_depth": 4.5,
+    "local_ground": true,
+    "services": true,
+    "signage": true,
+    "sunshades": true,
+    "door_open": 0.64,
+    "roof_rise": 4.2,
+    "wear": 0.15,
+    "office_style": "AUTO",
+    "service_bays": 3,
+    "stair_tower": true,
+    "roof_screen": true,
+    "corner_glass": false,
+    "command_variant": "EXECUTIVE",
+    "facade_relief": 0.55,
+    "vertical_fins": 6,
+    "atrium_floors": 3,
+    "base_cladding": true,
+    "night_lighting": true,
+    "micro_details": true
+   },
+   "part_count": 64,
+   "triangles_raw": 28732,
+   "groups": {
+    "BODY": [
+     {
+      "name": "SM_MB01_FloorSlabs",
+      "group": "BODY",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 2,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_FacadeWalls",
+      "group": "BODY",
+      "primitives": 371,
+      "triangles_raw": 4452,
+      "vertices": 2968,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 371,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyInterior",
+      "group": "BODY",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Interior"
+      ],
+      "bevel_m": 0,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyReturns",
+      "group": "BODY",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "DETAIL": [
+     {
+      "name": "SM_MB01_WindowInteriorBack",
+      "group": "DETAIL",
+      "primitives": 92,
+      "triangles_raw": 1104,
+      "vertices": 736,
+      "materials": [
+       "Interior"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_WindowReveals",
+      "group": "DETAIL",
+      "primitives": 184,
+      "triangles_raw": 2208,
+      "vertices": 1472,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_InteriorBlinds",
+      "group": "DETAIL",
+      "primitives": 92,
+      "triangles_raw": 1104,
+      "vertices": 736,
+      "materials": [
+       "Blind"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SunshadeBlades",
+      "group": "DETAIL",
+      "primitives": 276,
+      "triangles_raw": 3312,
+      "vertices": 2208,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SunshadeBrackets",
+      "group": "DETAIL",
+      "primitives": 184,
+      "triangles_raw": 2208,
+      "vertices": 1472,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_StoreyShadowLines",
+      "group": "DETAIL",
+      "primitives": 93,
+      "triangles_raw": 1116,
+      "vertices": 744,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryMullions",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryHandles",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LobbyAccent",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Yellow"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LobbyPullHandles",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryCanopy",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.012,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryCanopyEdge",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Yellow"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_CanopySupports",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_IdentityPanel",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.012,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SoffitLights",
+      "group": "DETAIL",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "LightWarm"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_HQShadowReveals",
+      "group": "DETAIL",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "Joint"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_HQPortalReveal",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Joint"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_HQRoofScreenPosts",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_HQRoofScreenCap",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofScreens",
+      "group": "DETAIL",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofScreenLouvres",
+      "group": "DETAIL",
+      "primitives": 7,
+      "triangles_raw": 84,
+      "vertices": 56,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RainwaterPipes",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 152,
+      "vertices": 80,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_PipeClamps",
+      "group": "DETAIL",
+      "primitives": 8,
+      "triangles_raw": 96,
+      "vertices": 64,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofPlantFeet",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.01,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofPlantHousing",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.035,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofPlantLouvres",
+      "group": "DETAIL",
+      "primitives": 20,
+      "triangles_raw": 240,
+      "vertices": 160,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofPlantFans",
+      "group": "DETAIL",
+      "primitives": 8,
+      "triangles_raw": 944,
+      "vertices": 480,
+      "materials": [
+       "SteelDark",
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ServiceCabinets",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.016,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ServiceCabinetHandles",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "FACADE": [
+     {
+      "name": "SM_MB01_WindowFrames",
+      "group": "FACADE",
+      "primitives": 460,
+      "triangles_raw": 5520,
+      "vertices": 3680,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_WindowTransoms",
+      "group": "FACADE",
+      "primitives": 92,
+      "triangles_raw": 1104,
+      "vertices": 736,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_WindowSills",
+      "group": "FACADE",
+      "primitives": 92,
+      "triangles_raw": 1104,
+      "vertices": 736,
+      "materials": [
+       "ConcreteLight"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_FacadePilasters",
+      "group": "FACADE",
+      "primitives": 36,
+      "triangles_raw": 432,
+      "vertices": 288,
+      "materials": [
+       "Stone"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_DoorFrames",
+      "group": "FACADE",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyPiers",
+      "group": "FACADE",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Stone"
+      ],
+      "bevel_m": 0.015,
+      "collision": "NONE",
+      "collision_boxes": 2,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyFrames",
+      "group": "FACADE",
+      "primitives": 8,
+      "triangles_raw": 96,
+      "vertices": 64,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_HQBaseCladding",
+      "group": "FACADE",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Stone"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_HQSideBaseCladding",
+      "group": "FACADE",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Stone"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_HQSpandrelBands",
+      "group": "FACADE",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_HQVerticalFins",
+      "group": "FACADE",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.005,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_HQPortalBlades",
+      "group": "FACADE",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Stone"
+      ],
+      "bevel_m": 0.012,
+      "collision": "NONE",
+      "collision_boxes": 2,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_HQPortalCrown",
+      "group": "FACADE",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.01,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_CornerPilasters",
+      "group": "FACADE",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.008,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "GLASS": [
+     {
+      "name": "SM_MB01_WindowGlass",
+      "group": "GLASS",
+      "primitives": 92,
+      "triangles_raw": 1104,
+      "vertices": 736,
+      "materials": [
+       "Glass"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_EntryGlass",
+      "group": "GLASS",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Glass"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyGlass",
+      "group": "GLASS",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "Glass"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "GROUND": [
+     {
+      "name": "SM_MB01_Foundation",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.009,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtBed",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Joint"
+      ],
+      "bevel_m": 0,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtPavers",
+      "group": "GROUND",
+      "primitives": 84,
+      "triangles_raw": 1008,
+      "vertices": 672,
+      "materials": [
+       "ConcreteLight",
+       "Concrete"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_RearServiceLanding",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "PROPS": [
+     {
+      "name": "SM_MB01_HQPlanter",
+      "group": "PROPS",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "ConcreteDark"
+      ],
+      "bevel_m": 0.018,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_HQPlanterSoil",
+      "group": "PROPS",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Gravel"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_HQWayfindingPylon",
+      "group": "PROPS",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.018,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_BenchLegs",
+      "group": "PROPS",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.007,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_BenchSlats",
+      "group": "PROPS",
+      "primitives": 8,
+      "triangles_raw": 96,
+      "vertices": 64,
+      "materials": [
+       "Timber"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_BenchBack",
+      "group": "PROPS",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "Timber"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_BenchBackSupports",
+      "group": "PROPS",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "ROOF": [
+     {
+      "name": "SM_MB01_RoofDeck",
+      "group": "ROOF",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "RoofMembrane"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ParapetWalls",
+      "group": "ROOF",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.007,
+      "collision": "COMPLEX",
+      "collision_boxes": 4,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ParapetCoping",
+      "group": "ROOF",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ]
+   },
+   "ports": [
+    {
+     "name": "PERSONNEL_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      -4.5,
+      0,
+      0
+     ],
+     "yaw_rad": -3.1416,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    },
+    {
+     "name": "REAR_SERVICE_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      21.8,
+      0,
+      0
+     ],
+     "yaw_rad": 0.0,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    }
+   ],
+   "doors": [],
+   "openings": 2,
+   "labels": [
+    "KARARGAH",
+    "KARARGAH 01"
+   ],
+   "notes": [
+    "0.4 HQ articulation: layered facade, portal blades, spandrel bands, optional fins, close-up micro detail and configurable command variants.",
+    "COMMAND style: glazed lobby, stronger vertical accents and optional corner glazing. Exterior shell only.",
+    "HQ/UNIT families remain visual shell assets only; no complete interior room layout is generated."
+   ]
+  },
+  {
+   "kind": "UNIT",
+   "label": {
+    "width": 30.8,
+    "depth": 14.4,
+    "floors": 2,
+    "floor_height": 3.4,
+    "bays": 8,
+    "roof": "PITCHED"
+   },
+   "defaults": {
+    "kind": "UNIT",
+    "name": "KARARGAH_01",
+    "width": 30.8,
+    "depth": 14.4,
+    "floors": 2,
+    "floor_height": 3.4,
+    "bays": 8,
+    "roof": "PITCHED",
+    "detail": "WORKING",
+    "palette": "COASTAL",
+    "seed": 17,
+    "base_height": 0.18,
+    "walkway_width": 3.2,
+    "plaza_depth": 4.5,
+    "local_ground": true,
+    "services": true,
+    "signage": true,
+    "sunshades": true,
+    "door_open": 0.64,
+    "roof_rise": 4.2,
+    "wear": 0.15,
+    "office_style": "AUTO",
+    "service_bays": 3,
+    "stair_tower": true,
+    "roof_screen": true,
+    "corner_glass": false,
+    "command_variant": "EXECUTIVE",
+    "facade_relief": 0.55,
+    "vertical_fins": 6,
+    "atrium_floors": 3,
+    "base_cladding": true,
+    "night_lighting": true,
+    "micro_details": true
+   },
+   "part_count": 55,
+   "triangles_raw": 16908,
+   "groups": {
+    "BODY": [
+     {
+      "name": "SM_MB01_FloorSlabs",
+      "group": "BODY",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_FacadeWalls",
+      "group": "BODY",
+      "primitives": 208,
+      "triangles_raw": 2496,
+      "vertices": 1664,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 208,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyInterior",
+      "group": "BODY",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Interior"
+      ],
+      "bevel_m": 0,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyReturns",
+      "group": "BODY",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_StairTowerMass",
+      "group": "BODY",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.007,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "DETAIL": [
+     {
+      "name": "SM_MB01_WindowInteriorBack",
+      "group": "DETAIL",
+      "primitives": 52,
+      "triangles_raw": 624,
+      "vertices": 416,
+      "materials": [
+       "Interior"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_WindowReveals",
+      "group": "DETAIL",
+      "primitives": 104,
+      "triangles_raw": 1248,
+      "vertices": 832,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_InteriorBlinds",
+      "group": "DETAIL",
+      "primitives": 52,
+      "triangles_raw": 624,
+      "vertices": 416,
+      "materials": [
+       "Blind"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SunshadeBlades",
+      "group": "DETAIL",
+      "primitives": 104,
+      "triangles_raw": 1248,
+      "vertices": 832,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SunshadeBrackets",
+      "group": "DETAIL",
+      "primitives": 104,
+      "triangles_raw": 1248,
+      "vertices": 832,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_StoreyShadowLines",
+      "group": "DETAIL",
+      "primitives": 52,
+      "triangles_raw": 624,
+      "vertices": 416,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LobbyAccent",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Yellow"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LobbyPullHandles",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryCanopy",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.012,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryCanopyEdge",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Yellow"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_CanopySupports",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_IdentityPanel",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.012,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SoffitLights",
+      "group": "DETAIL",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "LightWarm"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_StairTowerPlinth",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "ConcreteLight"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_TowerLouvres",
+      "group": "DETAIL",
+      "primitives": 14,
+      "triangles_raw": 168,
+      "vertices": 112,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_StairLandings",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ExternalStairs",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_StairStringers",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_StairRails",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LadderCage",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LadderRungs",
+      "group": "DETAIL",
+      "primitives": 23,
+      "triangles_raw": 276,
+      "vertices": 184,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofScreens",
+      "group": "DETAIL",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofScreenLouvres",
+      "group": "DETAIL",
+      "primitives": 7,
+      "triangles_raw": 84,
+      "vertices": 56,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofSeams",
+      "group": "DETAIL",
+      "primitives": 72,
+      "triangles_raw": 864,
+      "vertices": 576,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofRidgeCap",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.005,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RainwaterPipes",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 152,
+      "vertices": 80,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_PipeClamps",
+      "group": "DETAIL",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ServiceCabinets",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.016,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ServiceCabinetHandles",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "DOOR": [
+     {
+      "name": "SM_MB01_TowerDoor",
+      "group": "DOOR",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "HULLS",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "FACADE": [
+     {
+      "name": "SM_MB01_WindowFrames",
+      "group": "FACADE",
+      "primitives": 260,
+      "triangles_raw": 3120,
+      "vertices": 2080,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_WindowTransoms",
+      "group": "FACADE",
+      "primitives": 52,
+      "triangles_raw": 624,
+      "vertices": 416,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_WindowSills",
+      "group": "FACADE",
+      "primitives": 52,
+      "triangles_raw": 624,
+      "vertices": 416,
+      "materials": [
+       "ConcreteLight"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_FacadePilasters",
+      "group": "FACADE",
+      "primitives": 31,
+      "triangles_raw": 372,
+      "vertices": 248,
+      "materials": [
+       "Stone"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyPiers",
+      "group": "FACADE",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Stone"
+      ],
+      "bevel_m": 0.015,
+      "collision": "NONE",
+      "collision_boxes": 2,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyFrames",
+      "group": "FACADE",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_TowerDoorFrame",
+      "group": "FACADE",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "GLASS": [
+     {
+      "name": "SM_MB01_WindowGlass",
+      "group": "GLASS",
+      "primitives": 52,
+      "triangles_raw": 624,
+      "vertices": 416,
+      "materials": [
+       "Glass"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_LobbyGlass",
+      "group": "GLASS",
+      "primitives": 3,
+      "triangles_raw": 36,
+      "vertices": 24,
+      "materials": [
+       "Glass"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_TowerWindows",
+      "group": "GLASS",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Glass"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "GROUND": [
+     {
+      "name": "SM_MB01_Foundation",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.009,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtBed",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Joint"
+      ],
+      "bevel_m": 0,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtPavers",
+      "group": "GROUND",
+      "primitives": 72,
+      "triangles_raw": 864,
+      "vertices": 576,
+      "materials": [
+       "ConcreteLight",
+       "Concrete"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_RearServiceLanding",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "PROPS": [
+     {
+      "name": "SM_MB01_BenchLegs",
+      "group": "PROPS",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.007,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_BenchSlats",
+      "group": "PROPS",
+      "primitives": 8,
+      "triangles_raw": 96,
+      "vertices": 64,
+      "materials": [
+       "Timber"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_BenchBack",
+      "group": "PROPS",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "Timber"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_BenchBackSupports",
+      "group": "PROPS",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "ROOF": [
+     {
+      "name": "SM_MB01_PitchedRoof",
+      "group": "ROOF",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_GableInfill",
+      "group": "ROOF",
+      "primitives": 2,
+      "triangles_raw": 16,
+      "vertices": 12,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ]
+   },
+   "ports": [
+    {
+     "name": "PERSONNEL_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      -4.5,
+      0,
+      0
+     ],
+     "yaw_rad": -3.1416,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    },
+    {
+     "name": "REAR_SERVICE_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      15.8,
+      0,
+      0
+     ],
+     "yaw_rad": 0.0,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    }
+   ],
+   "doors": [],
+   "openings": 1,
+   "labels": [
+    "BIRLIK BINASI",
+    "KARARGAH 01"
+   ],
+   "notes": [
+    "BARRACKS style: repeated room bays with external stair tower and compact entry volume.",
+    "HQ/UNIT families remain visual shell assets only; no complete interior room layout is generated."
+   ]
+  },
+  {
+   "kind": "HANGAR",
+   "label": {
+    "width": 28.0,
+    "depth": 36.0,
+    "floors": 1,
+    "floor_height": 7.2,
+    "bays": 8,
+    "roof": "PITCHED"
+   },
+   "defaults": {
+    "kind": "HANGAR",
+    "name": "KARARGAH_01",
+    "width": 28.0,
+    "depth": 36.0,
+    "floors": 1,
+    "floor_height": 7.2,
+    "bays": 8,
+    "roof": "PITCHED",
+    "detail": "WORKING",
+    "palette": "COASTAL",
+    "seed": 17,
+    "base_height": 0.18,
+    "walkway_width": 3.2,
+    "plaza_depth": 4.5,
+    "local_ground": true,
+    "services": true,
+    "signage": true,
+    "sunshades": true,
+    "door_open": 0.64,
+    "roof_rise": 4.2,
+    "wear": 0.15,
+    "office_style": "AUTO",
+    "service_bays": 3,
+    "stair_tower": true,
+    "roof_screen": true,
+    "corner_glass": false,
+    "command_variant": "EXECUTIVE",
+    "facade_relief": 0.55,
+    "vertical_fins": 6,
+    "atrium_floors": 3,
+    "base_cladding": true,
+    "night_lighting": true,
+    "micro_details": true
+   },
+   "part_count": 41,
+   "triangles_raw": 10364,
+   "groups": {
+    "BODY": [
+     {
+      "name": "SM_MB01_SideCladding",
+      "group": "BODY",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 2,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_UpperCladding",
+      "group": "BODY",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 2,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_FrontPiers",
+      "group": "BODY",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.007,
+      "collision": "COMPLEX",
+      "collision_boxes": 2,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_FrontLintel",
+      "group": "BODY",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_RearWall",
+      "group": "BODY",
+      "primitives": 3,
+      "triangles_raw": 36,
+      "vertices": 24,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.008,
+      "collision": "COMPLEX",
+      "collision_boxes": 3,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "DETAIL": [
+     {
+      "name": "SM_MB01_PortalFootplates",
+      "group": "DETAIL",
+      "primitives": 18,
+      "triangles_raw": 216,
+      "vertices": 144,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_Fasteners",
+      "group": "DETAIL",
+      "primitives": 72,
+      "triangles_raw": 1440,
+      "vertices": 864,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_Purlins",
+      "group": "DETAIL",
+      "primitives": 12,
+      "triangles_raw": 144,
+      "vertices": 96,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ClerestoryFrames",
+      "group": "DETAIL",
+      "primitives": 50,
+      "triangles_raw": 600,
+      "vertices": 400,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_CladdingRibs",
+      "group": "DETAIL",
+      "primitives": 102,
+      "triangles_raw": 1224,
+      "vertices": 816,
+      "materials": [
+       "RoofOliveLight"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ConcretePlinth",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "ConcreteLight"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_Rainwater",
+      "group": "DETAIL",
+      "primitives": 6,
+      "triangles_raw": 248,
+      "vertices": 136,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RearDoorHandle",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RoofSeams",
+      "group": "DETAIL",
+      "primitives": 82,
+      "triangles_raw": 984,
+      "vertices": 656,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_RidgeCap",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_DoorTopRails",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_DoorFloorRails",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_HangarIdentityPanel",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.009,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryWallLights",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_EntryWallDiffusers",
+      "group": "DETAIL",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "LightWarm"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SuspendedLights",
+      "group": "DETAIL",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.006,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SuspendedDiffusers",
+      "group": "DETAIL",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "LightWarm"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LuminaireHangers",
+      "group": "DETAIL",
+      "primitives": 32,
+      "triangles_raw": 896,
+      "vertices": 512,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LuminaireAnchorPlates",
+      "group": "DETAIL",
+      "primitives": 32,
+      "triangles_raw": 384,
+      "vertices": 256,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_LockerHandle",
+      "group": "DETAIL",
+      "primitives": 3,
+      "triangles_raw": 36,
+      "vertices": 24,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "DOOR": [
+     {
+      "name": "SM_MB01_RearPersonnelDoor",
+      "group": "DOOR",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "HULLS",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_SlidingDoor_L0",
+      "group": "DOOR",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "RoofOliveLight",
+       "SteelDark",
+       "RoofOlive",
+       "Yellow"
+      ],
+      "bevel_m": 0.006,
+      "collision": "HULLS",
+      "collision_boxes": 1,
+      "door": "SLIDE",
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_SlidingDoor_L1",
+      "group": "DOOR",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "RoofOliveLight",
+       "SteelDark",
+       "RoofOlive",
+       "Yellow"
+      ],
+      "bevel_m": 0.006,
+      "collision": "HULLS",
+      "collision_boxes": 1,
+      "door": "SLIDE",
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_SlidingDoor_R0",
+      "group": "DOOR",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "RoofOliveLight",
+       "SteelDark",
+       "RoofOlive",
+       "Yellow"
+      ],
+      "bevel_m": 0.006,
+      "collision": "HULLS",
+      "collision_boxes": 1,
+      "door": "SLIDE",
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_SlidingDoor_R1",
+      "group": "DOOR",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "RoofOliveLight",
+       "SteelDark",
+       "RoofOlive",
+       "Yellow"
+      ],
+      "bevel_m": 0.006,
+      "collision": "HULLS",
+      "collision_boxes": 1,
+      "door": "SLIDE",
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "FACADE": [
+     {
+      "name": "SM_MB01_RearDoorFrame",
+      "group": "FACADE",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "GLASS": [
+     {
+      "name": "SM_MB01_ClerestoryGlass",
+      "group": "GLASS",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "Glass"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "GROUND": [
+     {
+      "name": "SM_MB01_Foundation",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.009,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtBed",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Joint"
+      ],
+      "bevel_m": 0,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtPavers",
+      "group": "GROUND",
+      "primitives": 68,
+      "triangles_raw": 816,
+      "vertices": 544,
+      "materials": [
+       "ConcreteLight",
+       "Concrete"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_RearLanding",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "PROPS": [
+     {
+      "name": "SM_MB01_ServiceLockers",
+      "group": "PROPS",
+      "primitives": 3,
+      "triangles_raw": 36,
+      "vertices": 24,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.016,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "ROOF": [
+     {
+      "name": "SM_MB01_Gables",
+      "group": "ROOF",
+      "primitives": 2,
+      "triangles_raw": 16,
+      "vertices": 12,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_RoofPanels",
+      "group": "ROOF",
+      "primitives": 2,
+      "triangles_raw": 24,
+      "vertices": 16,
+      "materials": [
+       "RoofOliveLight"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "STRUCTURE": [
+     {
+      "name": "SM_MB01_PortalColumns",
+      "group": "STRUCTURE",
+      "primitives": 18,
+      "triangles_raw": 792,
+      "vertices": 432,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_PortalRafters",
+      "group": "STRUCTURE",
+      "primitives": 18,
+      "triangles_raw": 792,
+      "vertices": 432,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ]
+   },
+   "ports": [
+    {
+     "name": "PERSONNEL_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      -4.5,
+      0,
+      0
+     ],
+     "yaw_rad": -3.1416,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    },
+    {
+     "name": "AIRCRAFT_IN",
+     "role": "HANGAR",
+     "width_m": 17.92,
+     "surface_height_m": 0.18,
+     "location_m": [
+      -0.12,
+      0,
+      0.18
+     ],
+     "yaw_rad": -3.1416,
+     "location_convention": "surface_plane",
+     "profile": "aircraft-surface-v1"
+    },
+    {
+     "name": "PERSONNEL_REAR_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      37.25,
+      -8.68,
+      0
+     ],
+     "yaw_rad": 0.0,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    }
+   ],
+   "doors": [
+    {
+     "part": "SM_MB01_SlidingDoor_L0",
+     "kind": "SLIDE"
+    },
+    {
+     "part": "SM_MB01_SlidingDoor_L1",
+     "kind": "SLIDE"
+    },
+    {
+     "part": "SM_MB01_SlidingDoor_R0",
+     "kind": "SLIDE"
+    },
+    {
+     "part": "SM_MB01_SlidingDoor_R1",
+     "kind": "SLIDE"
+    }
+   ],
+   "openings": 1,
+   "labels": [
+    "BAKIM HANGARI",
+    "KARARGAH 01"
+   ],
+   "notes": [
+    "Moving panels are preview/asset transforms, not a tested runtime Unreal door Blueprint."
+   ]
+  },
+  {
+   "kind": "SHELTER",
+   "label": {
+    "width": 24.0,
+    "depth": 32.0,
+    "floors": 1,
+    "floor_height": 4.8,
+    "bays": 8,
+    "roof": "ARCH"
+   },
+   "defaults": {
+    "kind": "SHELTER",
+    "name": "KARARGAH_01",
+    "width": 24.0,
+    "depth": 32.0,
+    "floors": 1,
+    "floor_height": 4.8,
+    "bays": 8,
+    "roof": "ARCH",
+    "detail": "WORKING",
+    "palette": "COASTAL",
+    "seed": 17,
+    "base_height": 0.18,
+    "walkway_width": 3.2,
+    "plaza_depth": 4.5,
+    "local_ground": true,
+    "services": true,
+    "signage": true,
+    "sunshades": true,
+    "door_open": 0.64,
+    "roof_rise": 4.2,
+    "wear": 0.15,
+    "office_style": "AUTO",
+    "service_bays": 3,
+    "stair_tower": true,
+    "roof_screen": true,
+    "corner_glass": false,
+    "command_variant": "EXECUTIVE",
+    "facade_relief": 0.55,
+    "vertical_fins": 6,
+    "atrium_floors": 3,
+    "base_cladding": true,
+    "night_lighting": true,
+    "micro_details": true
+   },
+   "part_count": 46,
+   "triangles_raw": 65576,
+   "groups": {
+    "DOOR": [
+     {
+      "name": "SM_MB01_AS07_PersonnelDoor",
+      "group": "DOOR",
+      "primitives": 7,
+      "triangles_raw": 148,
+      "vertices": 88,
+      "materials": [
+       "RoofOlive",
+       "Yellow",
+       "Galvanized",
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "HULLS",
+      "collision_boxes": 0,
+      "door": "HINGE",
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "FITTINGS": [
+     {
+      "name": "SM_MB01_AS07_FrameFasteners",
+      "group": "FITTINGS",
+      "primitives": 180,
+      "triangles_raw": 6480,
+      "vertices": 3600,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.0015,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_FasciaAccents",
+      "group": "FITTINGS",
+      "primitives": 2,
+      "triangles_raw": 1160,
+      "vertices": 584,
+      "materials": [
+       "Yellow"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_GuttersAndDownpipes",
+      "group": "FITTINGS",
+      "primitives": 18,
+      "triangles_raw": 568,
+      "vertices": 320,
+      "materials": [
+       "Galvanized",
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_PersonnelDoorFrame",
+      "group": "FITTINGS",
+      "primitives": 3,
+      "triangles_raw": 36,
+      "vertices": 24,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_CableTrays",
+      "group": "FITTINGS",
+      "primitives": 84,
+      "triangles_raw": 1008,
+      "vertices": 672,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_ServiceConduits",
+      "group": "FITTINGS",
+      "primitives": 7,
+      "triangles_raw": 236,
+      "vertices": 132,
+      "materials": [
+       "Rubber",
+       "Galvanized"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_LightFixtures",
+      "group": "FITTINGS",
+      "primitives": 64,
+      "triangles_raw": 1280,
+      "vertices": 768,
+      "materials": [
+       "SteelDark",
+       "LightWarm",
+       "Galvanized"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_WallEquipment",
+      "group": "FITTINGS",
+      "primitives": 13,
+      "triangles_raw": 156,
+      "vertices": 104,
+      "materials": [
+       "SteelDark",
+       "RoofOliveLight",
+       "Rubber",
+       "Yellow",
+       "Red",
+       "White"
+      ],
+      "bevel_m": 0.009,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_RearVentilation",
+      "group": "FITTINGS",
+      "primitives": 30,
+      "triangles_raw": 4784,
+      "vertices": 2448,
+      "materials": [
+       "SteelDark",
+       "Galvanized",
+       "RoofOlive"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_SignPanels",
+      "group": "FITTINGS",
+      "primitives": 3,
+      "triangles_raw": 36,
+      "vertices": 24,
+      "materials": [
+       "SteelDark",
+       "Yellow"
+      ],
+      "bevel_m": 0.007,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     }
+    ],
+    "GROUND": [
+     {
+      "name": "SM_MB01_Foundation",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.009,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtBed",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Joint"
+      ],
+      "bevel_m": 0,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtPavers",
+      "group": "GROUND",
+      "primitives": 56,
+      "triangles_raw": 672,
+      "vertices": 448,
+      "materials": [
+       "ConcreteLight",
+       "Concrete"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07RearLanding",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "PROPS": [
+     {
+      "name": "SM_MB01_AS07_Bollards",
+      "group": "PROPS",
+      "primitives": 48,
+      "triangles_raw": 1920,
+      "vertices": 1056,
+      "materials": [
+       "Yellow",
+       "SteelDark",
+       "Galvanized"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_MaintenanceTrolley",
+      "group": "PROPS",
+      "primitives": 23,
+      "triangles_raw": 724,
+      "vertices": 408,
+      "materials": [
+       "RoofOlive",
+       "Galvanized",
+       "SteelDark",
+       "Rubber"
+      ],
+      "bevel_m": 0.009,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_AS07_ServiceCases",
+      "group": "PROPS",
+      "primitives": 17,
+      "triangles_raw": 204,
+      "vertices": 136,
+      "materials": [
+       "SteelDark",
+       "RoofOlive",
+       "Galvanized",
+       "Yellow"
+      ],
+      "bevel_m": 0.014,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "STRUCTURE": [
+     {
+      "name": "SM_MB01_AS07_BasePlates",
+      "group": "STRUCTURE",
+      "primitives": 36,
+      "triangles_raw": 432,
+      "vertices": 288,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_SteelColumns",
+      "group": "STRUCTURE",
+      "primitives": 18,
+      "triangles_raw": 792,
+      "vertices": 432,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.007,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_00",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_01",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_02",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_03",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_04",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_05",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_06",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_07",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_ArchRib_08",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 1748,
+      "vertices": 876,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofPurlins",
+      "group": "STRUCTURE",
+      "primitives": 11,
+      "triangles_raw": 132,
+      "vertices": 88,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_SideBraces",
+      "group": "STRUCTURE",
+      "primitives": 20,
+      "triangles_raw": 240,
+      "vertices": 160,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_00",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOliveLight"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_01",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_02",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_03",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOliveLight"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_04",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_05",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_06",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOliveLight"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RoofBay_07",
+      "group": "STRUCTURE",
+      "primitives": 1,
+      "triangles_raw": 580,
+      "vertices": 292,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_StandingSeams",
+      "group": "STRUCTURE",
+      "primitives": 33,
+      "triangles_raw": 19140,
+      "vertices": 9636,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_PortalFascia",
+      "group": "STRUCTURE",
+      "primitives": 2,
+      "triangles_raw": 1160,
+      "vertices": 584,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_SideConcretePanels",
+      "group": "STRUCTURE",
+      "primitives": 16,
+      "triangles_raw": 192,
+      "vertices": 128,
+      "materials": [
+       "ConcreteLight"
+      ],
+      "bevel_m": 0.014,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_WallReveals",
+      "group": "STRUCTURE",
+      "primitives": 48,
+      "triangles_raw": 576,
+      "vertices": 384,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.002,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_SideLouvers",
+      "group": "STRUCTURE",
+      "primitives": 176,
+      "triangles_raw": 2112,
+      "vertices": 1408,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.002,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_LouverFrames",
+      "group": "STRUCTURE",
+      "primitives": 52,
+      "triangles_raw": 624,
+      "vertices": 416,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_AS07_RearWall",
+      "group": "STRUCTURE",
+      "primitives": 23,
+      "triangles_raw": 356,
+      "vertices": 224,
+      "materials": [
+       "ConcreteLight",
+       "RoofOliveLight",
+       "RoofOlive"
+      ],
+      "bevel_m": 0.012,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ]
+   },
+   "ports": [
+    {
+     "name": "PERSONNEL_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      -4.5,
+      0,
+      0
+     ],
+     "yaw_rad": -3.1416,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    },
+    {
+     "name": "AIRCRAFT_IN",
+     "role": "HANGAR",
+     "width_m": 23.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      0,
+      0,
+      0.18
+     ],
+     "yaw_rad": -3.1416,
+     "location_convention": "surface_plane",
+     "profile": "aircraft-surface-v1"
+    },
+    {
+     "name": "PERSONNEL_REAR_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      33.6,
+      -6.6,
+      0
+     ],
+     "yaw_rad": 0.0,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    }
+   ],
+   "doors": [
+    {
+     "part": "SM_MB01_AS07_PersonnelDoor",
+     "kind": "HINGE"
+    }
+   ],
+   "openings": 0,
+   "labels": [
+    "SERVICE",
+    "EXIT",
+    "AS / 07",
+    "AIRCRAFT SHELTER",
+    "07",
+    "BAY",
+    "KEEP CLEAR",
+    "GROUND SERVICE"
+   ],
+   "notes": [
+    "AS07 retained source geometry; new local foundation optional. AS07 structural collision uses static complex geometry, not whole-building boxes."
+   ]
+  },
+  {
+   "kind": "RANGE_SET",
+   "label": {
+    "width": 20.0,
+    "depth": 18.0,
+    "floors": 1,
+    "floor_height": 3.2,
+    "bays": 6,
+    "roof": "FLAT"
+   },
+   "defaults": {
+    "kind": "RANGE_SET",
+    "name": "KARARGAH_01",
+    "width": 20.0,
+    "depth": 18.0,
+    "floors": 1,
+    "floor_height": 3.2,
+    "bays": 6,
+    "roof": "FLAT",
+    "detail": "WORKING",
+    "palette": "COASTAL",
+    "seed": 17,
+    "base_height": 0.18,
+    "walkway_width": 3.2,
+    "plaza_depth": 4.5,
+    "local_ground": true,
+    "services": true,
+    "signage": true,
+    "sunshades": true,
+    "door_open": 0.64,
+    "roof_rise": 4.2,
+    "wear": 0.15,
+    "office_style": "AUTO",
+    "service_bays": 3,
+    "stair_tower": true,
+    "roof_screen": true,
+    "corner_glass": false,
+    "command_variant": "EXECUTIVE",
+    "facade_relief": 0.55,
+    "vertical_fins": 6,
+    "atrium_floors": 3,
+    "base_cladding": true,
+    "night_lighting": true,
+    "micro_details": true
+   },
+   "part_count": 18,
+   "triangles_raw": 10848,
+   "groups": {
+    "DETAIL": [
+     {
+      "name": "SM_MB01_PostShoes",
+      "group": "DETAIL",
+      "primitives": 14,
+      "triangles_raw": 168,
+      "vertices": 112,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.008,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_PavilionRoofSeams",
+      "group": "DETAIL",
+      "primitives": 32,
+      "triangles_raw": 384,
+      "vertices": 256,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.001,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_NumberBoards",
+      "group": "DETAIL",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.005,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_DisplayStands",
+      "group": "DETAIL",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_DisplayBoards",
+      "group": "DETAIL",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "Plaster"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_DisplayGraphics",
+      "group": "DETAIL",
+      "primitives": 18,
+      "triangles_raw": 8748,
+      "vertices": 4410,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_DisplayFeet",
+      "group": "DETAIL",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.004,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ScenicEdgePosts",
+      "group": "DETAIL",
+      "primitives": 10,
+      "triangles_raw": 120,
+      "vertices": 80,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_ScenicEdgeRails",
+      "group": "DETAIL",
+      "primitives": 4,
+      "triangles_raw": 48,
+      "vertices": 32,
+      "materials": [
+       "Galvanized"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_SetIdentity",
+      "group": "DETAIL",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.008,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": false
+     }
+    ],
+    "GROUND": [
+     {
+      "name": "SM_MB01_Foundation",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Concrete"
+      ],
+      "bevel_m": 0.009,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtBed",
+      "group": "GROUND",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "Joint"
+      ],
+      "bevel_m": 0,
+      "collision": "COMPLEX",
+      "collision_boxes": 1,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_ForecourtPavers",
+      "group": "GROUND",
+      "primitives": 48,
+      "triangles_raw": 576,
+      "vertices": 384,
+      "materials": [
+       "ConcreteLight",
+       "Concrete"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "PROPS": [
+     {
+      "name": "SM_MB01_SetTables",
+      "group": "PROPS",
+      "primitives": 6,
+      "triangles_raw": 72,
+      "vertices": 48,
+      "materials": [
+       "Timber"
+      ],
+      "bevel_m": 0.007,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     },
+     {
+      "name": "SM_MB01_TableLegs",
+      "group": "PROPS",
+      "primitives": 12,
+      "triangles_raw": 144,
+      "vertices": 96,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.002,
+      "collision": "NONE",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": false,
+      "lod2": false
+     }
+    ],
+    "ROOF": [
+     {
+      "name": "SM_MB01_PavilionRoof",
+      "group": "ROOF",
+      "primitives": 1,
+      "triangles_raw": 12,
+      "vertices": 8,
+      "materials": [
+       "RoofOlive"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ],
+    "STRUCTURE": [
+     {
+      "name": "SM_MB01_PavilionPosts",
+      "group": "STRUCTURE",
+      "primitives": 14,
+      "triangles_raw": 168,
+      "vertices": 112,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.006,
+      "collision": "COMPLEX",
+      "collision_boxes": 14,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     },
+     {
+      "name": "SM_MB01_CanopyRafters",
+      "group": "STRUCTURE",
+      "primitives": 7,
+      "triangles_raw": 84,
+      "vertices": 56,
+      "materials": [
+       "SteelDark"
+      ],
+      "bevel_m": 0.003,
+      "collision": "COMPLEX",
+      "collision_boxes": 0,
+      "door": null,
+      "lod1": true,
+      "lod2": true
+     }
+    ]
+   },
+   "ports": [
+    {
+     "name": "PERSONNEL_OUT",
+     "role": "PEDESTRIAN",
+     "width_m": 3.2,
+     "surface_height_m": 0.18,
+     "location_m": [
+      -4.5,
+      0,
+      0
+     ],
+     "yaw_rad": -3.1416,
+     "location_convention": "base_plane",
+     "profile": "walkway-v1"
+    }
+   ],
+   "doors": [],
+   "openings": 0,
+   "labels": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "EGITIM ALANI / SET"
+   ],
+   "notes": [
+    "RANGE_SET is fictional CGI scenery only. Dimensions are artistic. No live-fire suitability, ballistic containment, protective material or safe-distance claim."
+   ]
+  }
+ ],
+ "groups": {
+  "BODY": {
+   "parts": 14,
+   "families": [
+    "HANGAR",
+    "HQ",
+    "UNIT"
+   ],
+   "collision": "COMPLEX",
+   "lod1": "kept",
+   "lod2": "kept"
+  },
+  "DETAIL": {
+   "parts": 88,
+   "families": [
+    "HANGAR",
+    "HQ",
+    "RANGE_SET",
+    "UNIT"
+   ],
+   "collision": "NONE",
+   "lod1": "kept",
+   "lod2": "dropped"
+  },
+  "FACADE": {
+   "parts": 22,
+   "families": [
+    "HANGAR",
+    "HQ",
+    "UNIT"
+   ],
+   "collision": "NONE",
+   "lod1": "kept",
+   "lod2": "kept"
+  },
+  "GLASS": {
+   "parts": 7,
+   "families": [
+    "HANGAR",
+    "HQ",
+    "UNIT"
+   ],
+   "collision": "NONE",
+   "lod1": "kept",
+   "lod2": "kept"
+  },
+  "GROUND": {
+   "parts": 19,
+   "families": [
+    "HANGAR",
+    "HQ",
+    "RANGE_SET",
+    "SHELTER",
+    "UNIT"
+   ],
+   "collision": "COMPLEX",
+   "lod1": "kept",
+   "lod2": "kept"
+  },
+  "PROPS": {
+   "parts": 17,
+   "families": [
+    "HANGAR",
+    "HQ",
+    "RANGE_SET",
+    "SHELTER",
+    "UNIT"
+   ],
+   "collision": "NONE",
+   "lod1": "dropped",
+   "lod2": "dropped"
+  },
+  "ROOF": {
+   "parts": 8,
+   "families": [
+    "HANGAR",
+    "HQ",
+    "RANGE_SET",
+    "UNIT"
+   ],
+   "collision": "COMPLEX",
+   "lod1": "kept",
+   "lod2": "kept"
+  },
+  "DOOR": {
+   "parts": 7,
+   "families": [
+    "HANGAR",
+    "SHELTER",
+    "UNIT"
+   ],
+   "collision": "HULLS",
+   "lod1": "kept",
+   "lod2": "kept"
+  },
+  "STRUCTURE": {
+   "parts": 32,
+   "families": [
+    "HANGAR",
+    "RANGE_SET",
+    "SHELTER"
+   ],
+   "collision": "COMPLEX",
+   "lod1": "kept",
+   "lod2": "kept"
+  },
+  "FITTINGS": {
+   "parts": 10,
+   "families": [
+    "SHELTER"
+   ],
+   "collision": "NONE",
+   "lod1": "kept",
+   "lod2": "dropped"
+  }
+ },
+ "compatibility": {
+  "nodes": [
+   {
+    "id": "HQ.PERSONNEL_OUT",
+    "family": "HQ",
+    "name": "PERSONNEL_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     -4.5,
+     0,
+     0
+    ],
+    "yaw_rad": -3.1416,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "HQ.REAR_SERVICE_OUT",
+    "family": "HQ",
+    "name": "REAR_SERVICE_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     21.8,
+     0,
+     0
+    ],
+    "yaw_rad": 0.0,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "UNIT.PERSONNEL_OUT",
+    "family": "UNIT",
+    "name": "PERSONNEL_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     -4.5,
+     0,
+     0
+    ],
+    "yaw_rad": -3.1416,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "UNIT.REAR_SERVICE_OUT",
+    "family": "UNIT",
+    "name": "REAR_SERVICE_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     15.8,
+     0,
+     0
+    ],
+    "yaw_rad": 0.0,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "HANGAR.PERSONNEL_OUT",
+    "family": "HANGAR",
+    "name": "PERSONNEL_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     -4.5,
+     0,
+     0
+    ],
+    "yaw_rad": -3.1416,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "HANGAR.AIRCRAFT_IN",
+    "family": "HANGAR",
+    "name": "AIRCRAFT_IN",
+    "role": "HANGAR",
+    "width_m": 17.92,
+    "surface_height_m": 0.18,
+    "location_m": [
+     -0.12,
+     0,
+     0.18
+    ],
+    "yaw_rad": -3.1416,
+    "location_convention": "surface_plane",
+    "profile": "aircraft-surface-v1"
+   },
+   {
+    "id": "HANGAR.PERSONNEL_REAR_OUT",
+    "family": "HANGAR",
+    "name": "PERSONNEL_REAR_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     37.25,
+     -8.68,
+     0
+    ],
+    "yaw_rad": 0.0,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "SHELTER.PERSONNEL_OUT",
+    "family": "SHELTER",
+    "name": "PERSONNEL_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     -4.5,
+     0,
+     0
+    ],
+    "yaw_rad": -3.1416,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "SHELTER.AIRCRAFT_IN",
+    "family": "SHELTER",
+    "name": "AIRCRAFT_IN",
+    "role": "HANGAR",
+    "width_m": 23.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     0,
+     0,
+     0.18
+    ],
+    "yaw_rad": -3.1416,
+    "location_convention": "surface_plane",
+    "profile": "aircraft-surface-v1"
+   },
+   {
+    "id": "SHELTER.PERSONNEL_REAR_OUT",
+    "family": "SHELTER",
+    "name": "PERSONNEL_REAR_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     33.6,
+     -6.6,
+     0
+    ],
+    "yaw_rad": 0.0,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "RANGE_SET.PERSONNEL_OUT",
+    "family": "RANGE_SET",
+    "name": "PERSONNEL_OUT",
+    "role": "PEDESTRIAN",
+    "width_m": 3.2,
+    "surface_height_m": 0.18,
+    "location_m": [
+     -4.5,
+     0,
+     0
+    ],
+    "yaw_rad": -3.1416,
+    "location_convention": "base_plane",
+    "profile": "walkway-v1"
+   },
+   {
+    "id": "SW01",
+    "family": "SW01",
+    "name": "SW01",
+    "role": "PEDESTRIAN",
+    "profile": "walkway-v1",
+    "width_m": null,
+    "external": true
+   },
+   {
+    "id": "AF01",
+    "family": "AF01",
+    "name": "AF01",
+    "role": "APRON",
+    "profile": "aircraft-surface-v1",
+    "width_m": null,
+    "external": true
+   }
+  ],
+  "edges": [
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "HQ.REAR_SERVICE_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "UNIT.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "UNIT.REAR_SERVICE_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "HANGAR.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "HANGAR.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "HANGAR.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "SHELTER.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.PERSONNEL_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "UNIT.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "UNIT.REAR_SERVICE_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "HANGAR.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "HANGAR.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "HANGAR.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "SHELTER.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HQ.REAR_SERVICE_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "UNIT.REAR_SERVICE_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "HANGAR.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "HANGAR.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "HANGAR.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "SHELTER.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.PERSONNEL_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "HANGAR.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "HANGAR.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "HANGAR.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "SHELTER.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "UNIT.REAR_SERVICE_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "HANGAR.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "HANGAR.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "SHELTER.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.AIRCRAFT_IN",
+    "b": "HANGAR.PERSONNEL_REAR_OUT",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.AIRCRAFT_IN",
+    "b": "SHELTER.PERSONNEL_OUT",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.AIRCRAFT_IN",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.AIRCRAFT_IN",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.AIRCRAFT_IN",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.AIRCRAFT_IN",
+    "b": "SW01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.AIRCRAFT_IN",
+    "b": "AF01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_REAR_OUT",
+    "b": "SHELTER.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_REAR_OUT",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "HANGAR.PERSONNEL_REAR_OUT",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_REAR_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_REAR_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "HANGAR.PERSONNEL_REAR_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "SHELTER.PERSONNEL_OUT",
+    "b": "SHELTER.AIRCRAFT_IN",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "SHELTER.PERSONNEL_OUT",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "SHELTER.PERSONNEL_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "SHELTER.PERSONNEL_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "SHELTER.PERSONNEL_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "SHELTER.AIRCRAFT_IN",
+    "b": "SHELTER.PERSONNEL_REAR_OUT",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "SHELTER.AIRCRAFT_IN",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH",
+     "WIDTH_MISMATCH"
+    ]
+   },
+   {
+    "a": "SHELTER.AIRCRAFT_IN",
+    "b": "SW01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "SHELTER.AIRCRAFT_IN",
+    "b": "AF01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "SHELTER.PERSONNEL_REAR_OUT",
+    "b": "RANGE_SET.PERSONNEL_OUT",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "SHELTER.PERSONNEL_REAR_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "SHELTER.PERSONNEL_REAR_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   },
+   {
+    "a": "RANGE_SET.PERSONNEL_OUT",
+    "b": "SW01",
+    "compatible": true,
+    "issues": []
+   },
+   {
+    "a": "RANGE_SET.PERSONNEL_OUT",
+    "b": "AF01",
+    "compatible": false,
+    "issues": [
+     "ROLE_MISMATCH",
+     "PROFILE_MISMATCH"
+    ]
+   }
+  ],
+  "rules": {
+   "roles": [
+    "PEDESTRIAN",
+    "PEDESTRIAN_OPENING",
+    "APRON",
+    "HANGAR",
+    "SERVICE_ROAD",
+    "FACADE"
+   ],
+   "role_rule": "equal roles, or HANGAR<->APRON; PEDESTRIAN_OPENING always needs a landing adapter",
+   "profile_rule": "profiles must match exactly",
+   "tolerances": {
+    "position_m": 0.001,
+    "dimension_m": 0.001,
+    "facing_degrees": 0.1,
+    "uv_area": 1e-12,
+    "basis": 1e-06
+   },
+   "placement_rule": "direct butt joint only: surface gap, facing and up-vector within tolerance; no path routing",
+   "source": "assembly.contracts.inspect_joint"
+  }
+ },
+ "external_systems": {
+  "SW01": {
+   "title": "Walkway network",
+   "role": "PEDESTRIAN",
+   "profile": "walkway-v1",
+   "note": "Joins PERSONNEL_* ports of equal width."
+  },
+  "AF01": {
+   "title": "Shared apron / taxi surface",
+   "role": "APRON",
+   "profile": "aircraft-surface-v1",
+   "note": "Joins AIRCRAFT_IN hangar ports; disable local_ground to avoid a double floor."
+  },
+  "PK01": {
+   "title": "Port metadata convention",
+   "role": "*",
+   "profile": "*",
+   "note": "pk01_width / pk01_height / pk01_role custom properties on port Empties."
+  }
+ },
+ "hangar_studio": {
+  "panel_types": [
+   "METAL",
+   "CLERESTORY",
+   "LOUVER",
+   "PERSONNEL",
+   "CASSETTE",
+   "VISION",
+   "SHADED",
+   "DUAL_VENT",
+   "DOUBLE_SERVICE",
+   "CANOPY_ENTRY"
+  ],
+  "entry_types": [
+   "CANOPY_ENTRY",
+   "DOUBLE_SERVICE",
+   "PERSONNEL"
+  ],
+  "panel_modules": {
+   "METAL": "HANGAR.WALL.METAL",
+   "CLERESTORY": "HANGAR.WALL.CLERES",
+   "LOUVER": "HANGAR.WALL.LOUVER",
+   "PERSONNEL": "HANGAR.ENTRY.PERSONNEL",
+   "CASSETTE": "HANGAR.WALL.CASSETTE",
+   "VISION": "HANGAR.WALL.VISION",
+   "SHADED": "HANGAR.WALL.SHADED",
+   "DUAL_VENT": "HANGAR.WALL.DUAL_VENT",
+   "DOUBLE_SERVICE": "HANGAR.ENTRY.DOUBLE_SERVICE",
+   "CANOPY_ENTRY": "HANGAR.ENTRY.CANOPY"
+  },
+  "numeric_ranges": {
+   "width": [
+    20.0,
+    48.0
+   ],
+   "depth": [
+    18.0,
+    60.0
+   ],
+   "eave_height": [
+    6.0,
+    9.0
+   ],
+   "roof_rise": [
+    1.2,
+    4.8
+   ],
+   "monitor_width": [
+    2.0,
+    8.0
+   ],
+   "monitor_height": [
+    0.65,
+    1.6
+   ],
+   "opening_width": [
+    10.0,
+    36.0
+   ],
+   "opening_height": [
+    4.3,
+    7.7
+   ],
+   "gate_open": [
+    0.0,
+    1.0
+   ],
+   "personnel_open": [
+    0.0,
+    1.0
+   ],
+   "wall_thickness": [
+    0.16,
+    0.36
+   ],
+   "base_height": [
+    0.08,
+    0.35
+   ],
+   "apron_depth": [
+    3.0,
+    8.0
+   ],
+   "walkway_width": [
+    2.4,
+    4.5
+   ],
+   "wetness": [
+    0.0,
+    1.0
+   ],
+   "normal_strength": [
+    0.0,
+    1.4
+   ],
+   "concrete_tile_m": [
+    0.25,
+    8.0
+   ],
+   "metal_tile_m": [
+    0.25,
+    8.0
+   ]
+  },
+  "grammar": [
+   "one panel token per bay, per side (LEFT/RIGHT); bays 4..12",
+   "depth / bays (bay pitch) must be 2.8..6 m",
+   "two ENTRY_TYPES panels may not be adjacent",
+   "with local_ground+landings an entry bay needs pitch >= walkway_width + .12 m",
+   "default sequence: CLERESTORY everywhere, METAL first, LOUVER last, PERSONNEL in bay 2 (LEFT) / bays-1 (RIGHT)",
+   "main gate: 4/6/8 telescopic leaves; side pocket >= leaf + .25 m; opening_height + .95 <= eave_height"
+  ],
+  "presets": {
+   "DAYLIGHT_MRO": {
+    "name": "HG_DAYLIGHT_01",
+    "width": 32.0,
+    "depth": 36.0,
+    "bays": 8,
+    "roof_type": "MONITOR",
+    "gate_leaves": 6,
+    "left": [
+     "METAL",
+     "PERSONNEL",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "LOUVER"
+    ],
+    "right": [
+     "METAL",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "PERSONNEL",
+     "LOUVER"
+    ]
+   },
+   "CLASSIC_MAINTENANCE": {
+    "name": "HG_CLASSIC_01",
+    "width": 28.0,
+    "depth": 36.0,
+    "bays": 8,
+    "roof_type": "GABLE",
+    "gate_leaves": 4,
+    "left": [
+     "METAL",
+     "PERSONNEL",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "LOUVER"
+    ],
+    "right": [
+     "METAL",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "PERSONNEL",
+     "LOUVER"
+    ]
+   },
+   "COMPACT_SERVICE": {
+    "name": "HG_COMPACT_01",
+    "width": 24.0,
+    "depth": 24.0,
+    "bays": 6,
+    "roof_type": "GABLE",
+    "gate_leaves": 4,
+    "left": [
+     "METAL",
+     "PERSONNEL",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "LOUVER"
+    ],
+    "right": [
+     "METAL",
+     "CLERESTORY",
+     "CLERESTORY",
+     "CLERESTORY",
+     "PERSONNEL",
+     "LOUVER"
+    ]
+   },
+   "EXP_COASTAL": {
+    "name": "HG_COASTAL_03",
+    "width": 32.0,
+    "depth": 36.0,
+    "bays": 8,
+    "roof_type": "MONITOR",
+    "gate_leaves": 6,
+    "left": [
+     "CASSETTE",
+     "CANOPY_ENTRY",
+     "SHADED",
+     "SHADED",
+     "VISION",
+     "SHADED",
+     "DUAL_VENT",
+     "CASSETTE"
+    ],
+    "right": [
+     "CASSETTE",
+     "VISION",
+     "VISION",
+     "SHADED",
+     "DUAL_VENT",
+     "SHADED",
+     "DOUBLE_SERVICE",
+     "CASSETTE"
+    ]
+   },
+   "EXP_TECHNICAL": {
+    "name": "HG_TECH_03",
+    "width": 28.0,
+    "depth": 36.0,
+    "bays": 8,
+    "roof_type": "GABLE",
+    "gate_leaves": 4,
+    "left": [
+     "CASSETTE",
+     "DOUBLE_SERVICE",
+     "VISION",
+     "VISION",
+     "DUAL_VENT",
+     "METAL",
+     "METAL",
+     "CASSETTE"
+    ],
+    "right": [
+     "CASSETTE",
+     "METAL",
+     "DUAL_VENT",
+     "VISION",
+     "VISION",
+     "METAL",
+     "CANOPY_ENTRY",
+     "CASSETTE"
+    ]
+   },
+   "EXP_COMPACT": {
+    "name": "HG_COMPACT_03",
+    "width": 24.0,
+    "depth": 24.0,
+    "bays": 6,
+    "roof_type": "GABLE",
+    "gate_leaves": 4,
+    "left": [
+     "CASSETTE",
+     "CANOPY_ENTRY",
+     "VISION",
+     "DUAL_VENT",
+     "SHADED",
+     "CASSETTE"
+    ],
+    "right": [
+     "CASSETTE",
+     "SHADED",
+     "VISION",
+     "DUAL_VENT",
+     "PERSONNEL",
+     "CASSETTE"
+    ]
+   },
+   "EXP_LONG": {
+    "name": "HG_LONG_03",
+    "width": 32.0,
+    "depth": 48.0,
+    "bays": 10,
+    "roof_type": "MONITOR",
+    "gate_leaves": 6,
+    "left": [
+     "CASSETTE",
+     "DOUBLE_SERVICE",
+     "VISION",
+     "VISION",
+     "SHADED",
+     "SHADED",
+     "SHADED",
+     "DUAL_VENT",
+     "METAL",
+     "CASSETTE"
+    ],
+    "right": [
+     "CASSETTE",
+     "METAL",
+     "DUAL_VENT",
+     "SHADED",
+     "SHADED",
+     "VISION",
+     "VISION",
+     "METAL",
+     "CANOPY_ENTRY",
+     "CASSETTE"
+    ]
+   },
+   "EXP_URBAN": {
+    "name": "HG_URBAN_03",
+    "width": 36.0,
+    "depth": 36.0,
+    "bays": 8,
+    "roof_type": "MONITOR",
+    "gate_leaves": 8,
+    "left": [
+     "CASSETTE",
+     "CANOPY_ENTRY",
+     "VISION",
+     "SHADED",
+     "SHADED",
+     "VISION",
+     "DUAL_VENT",
+     "CASSETTE"
+    ],
+    "right": [
+     "CASSETTE",
+     "DUAL_VENT",
+     "VISION",
+     "SHADED",
+     "SHADED",
+     "VISION",
+     "DOUBLE_SERVICE",
+     "CASSETTE"
+    ]
+   }
+  }
+ },
+ "modular": {
+  "families": [
+   "HQ",
+   "UNIT",
+   "HANGAR",
+   "SUPPORT"
+  ],
+  "modules": [
+   {
+    "id": "COMMON.WALL.PLAIN",
+    "title": "Düz duvar paneli",
+    "category": "WALL",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "plain",
+    "note": ""
+   },
+   {
+    "id": "COMMON.WALL.WINDOW",
+    "title": "Pencereli duvar",
+    "category": "WALL",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "window",
+    "note": ""
+   },
+   {
+    "id": "COMMON.WALL.NARROW",
+    "title": "Dar pencereli duvar",
+    "category": "WALL",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "narrow",
+    "note": ""
+   },
+   {
+    "id": "COMMON.WALL.SUNSHADE",
+    "title": "Güneşlikli pencere",
+    "category": "SHADING",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "sunshade",
+    "note": ""
+   },
+   {
+    "id": "COMMON.WALL.VENT",
+    "title": "Panjurlu havalandırma paneli",
+    "category": "WALL",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "vent",
+    "note": ""
+   },
+   {
+    "id": "COMMON.ENTRY.SERVICE",
+    "title": "Tek kanat servis kapısı",
+    "category": "ENTRY",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "service",
+    "note": ""
+   },
+   {
+    "id": "COMMON.ENTRY.DOUBLE",
+    "title": "Çift kanat personel girişi",
+    "category": "ENTRY",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     3.0,
+     5.4
+    ],
+    "height_range": [
+     3.2,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "double",
+    "note": ""
+   },
+   {
+    "id": "HQ.FACADE.GLAZED",
+    "title": "Camlı cephe bölümü",
+    "category": "GLAZING",
+    "families": [
+     "HQ"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     3.0,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "glazed",
+    "note": ""
+   },
+   {
+    "id": "HQ.ENTRY.LOBBY",
+    "title": "Saçaklı camlı ana giriş",
+    "category": "ENTRY",
+    "families": [
+     "HQ"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     3.2,
+     5.4
+    ],
+    "height_range": [
+     3.3,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "lobby",
+    "note": ""
+   },
+   {
+    "id": "UNIT.WALL.WINDOW",
+    "title": "Birlik binası pencere modülü",
+    "category": "WALL",
+    "families": [
+     "UNIT"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "unit_window",
+    "note": ""
+   },
+   {
+    "id": "HANGAR.WALL.METAL",
+    "title": "Hangar metal yan panel",
+    "category": "HANGAR_ENVELOPE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     4.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 6.4,
+    "builder": "metal",
+    "note": ""
+   },
+   {
+    "id": "HANGAR.WALL.CLERES",
+    "title": "Hangar üst bant penceresi",
+    "category": "HANGAR_ENVELOPE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     4.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 6.4,
+    "builder": "clerestory",
+    "note": ""
+   },
+   {
+    "id": "HANGAR.WALL.LOUVER",
+    "title": "Hangar havalandırma bölmesi",
+    "category": "HANGAR_ENVELOPE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     4.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 6.4,
+    "builder": "hangar_louver",
+    "note": ""
+   },
+   {
+    "id": "HANGAR.ENTRY.PERSONNEL",
+    "title": "Hangar yan personel girişi",
+    "category": "HANGAR_ENTRY",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     4.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 6.4,
+    "builder": "hangar_service",
+    "note": ""
+   },
+   {
+    "id": "COMMON.CORNER.OUTER90",
+    "title": "Dış köşe",
+    "category": "CORNER",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.CORNER.INNER90",
+    "title": "İç köşe",
+    "category": "CORNER",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.CORNER.TERMINAL",
+    "title": "Uç bitiş",
+    "category": "CORNER",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.ROOF.PARAPET",
+    "title": "Parapet",
+    "category": "ROOF",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.ROOF.COPING",
+    "title": "Parapet kapak profili",
+    "category": "ROOF",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.ROOF.EAVE",
+    "title": "Saçak bitişi",
+    "category": "ROOF",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.ROOF.DRAIN",
+    "title": "Oluk ve iniş bağlantısı",
+    "category": "ROOF",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.BASE.PLINTH",
+    "title": "Kaide",
+    "category": "BASE",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.BASE.LANDING",
+    "title": "Personel sahanlığı",
+    "category": "BASE",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.BASE.RAMP",
+    "title": "Görsel rampa",
+    "category": "BASE",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.BASE.DRAIN",
+    "title": "Zemin drenaj yuvası",
+    "category": "BASE",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.DETAIL.SIGN",
+    "title": "Nötr numara rozeti",
+    "category": "DETAIL",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.DETAIL.LIGHT",
+    "title": "Opal armatür",
+    "category": "DETAIL",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "COMMON.DETAIL.CABINET",
+    "title": "Servis kutusu",
+    "category": "DETAIL",
+    "families": [
+     "HQ",
+     "UNIT",
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.STRUCTURE.PORTAL",
+    "title": "Portal çerçeve",
+    "category": "STRUCTURE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.STRUCTURE.PURLIN",
+    "title": "Aşık modülü",
+    "category": "STRUCTURE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.STRUCTURE.BRACE",
+    "title": "Görsel çapraz",
+    "category": "STRUCTURE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.GATE.SLIDING",
+    "title": "Çok kanat sürgülü ana kapı",
+    "category": "HANGAR_ENTRY",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.GATE.RAIL",
+    "title": "Ray başlığı ve kılavuz",
+    "category": "HANGAR_ENTRY",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.ROOF.SKIN",
+    "title": "Modüler çatı kaplaması",
+    "category": "ROOF",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.ROOF.LIGHT",
+    "title": "Çatı ışıklığı",
+    "category": "ROOF",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.FLOOR.THRESHOLD",
+    "title": "Apron eşiği",
+    "category": "BASE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.SERVICE.PLATFORM",
+    "title": "Bakım platformu dekoru",
+    "category": "DETAIL",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.SERVICE.WALL",
+    "title": "Tesisat duvarı",
+    "category": "DETAIL",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.LIGHT.LINEAR",
+    "title": "Askılı lineer armatür",
+    "category": "DETAIL",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SHELTER.AS07.ADAPTER",
+    "title": "Mevcut AS07 bina adaptörü",
+    "category": "ADAPTER",
+    "families": [
+     "SHELTER"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SHELTER.AS07.ARCH",
+    "title": "AS07 kemer hücresi ayrıştırma",
+    "category": "STRUCTURE",
+    "families": [
+     "SHELTER"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SHELTER.AS07.ROOF",
+    "title": "AS07 çatı hücresi",
+    "category": "ROOF",
+    "families": [
+     "SHELTER"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SHELTER.AS07.LOUVER",
+    "title": "AS07 panjur hücresi",
+    "category": "WALL",
+    "families": [
+     "SHELTER"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SHELTER.AS07.REAR",
+    "title": "AS07 arka duvar ve servis kapısı",
+    "category": "ENTRY",
+    "families": [
+     "SHELTER"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HQ.ENTRY.PORTICO",
+    "title": "Temsil giriş portiği",
+    "category": "ENTRY",
+    "families": [
+     "HQ"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HQ.FACADE.CORNERGLASS",
+    "title": "Köşe camı",
+    "category": "GLAZING",
+    "families": [
+     "HQ"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HQ.FACADE.MEETING",
+    "title": "Toplantı salonu cephe paketi",
+    "category": "GLAZING",
+    "families": [
+     "HQ"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HQ.INTERIOR.LOBBY",
+    "title": "Giriş holü",
+    "category": "INTERIOR",
+    "families": [
+     "HQ"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HQ.INTERIOR.OFFICE",
+    "title": "Seçili ofis",
+    "category": "INTERIOR",
+    "families": [
+     "HQ"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "UNIT.ENTRY.SIDECANOPY",
+    "title": "Yan giriş saçağı",
+    "category": "ENTRY",
+    "families": [
+     "UNIT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "UNIT.FACADE.CORRIDOR",
+    "title": "Koridor penceresi",
+    "category": "WALL",
+    "families": [
+     "UNIT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "UNIT.VOLUME.STAIR",
+    "title": "Merdiven hacmi dış kabuğu",
+    "category": "VOLUME",
+    "families": [
+     "UNIT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "UNIT.INTERIOR.ROOM",
+    "title": "Seçili oda seti",
+    "category": "INTERIOR",
+    "families": [
+     "UNIT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SUPPORT.CANOPY.BAY",
+    "title": "Eğitim gölgeliği",
+    "category": "STRUCTURE",
+    "families": [
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SUPPORT.WALL.STORE",
+    "title": "Ekipman deposu dış kabuğu",
+    "category": "WALL",
+    "families": [
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "SUPPORT.DETAIL.BOARD",
+    "title": "Nötr eğitim panosu",
+    "category": "DETAIL",
+    "families": [
+     "SUPPORT"
+    ],
+    "status": "planned",
+    "width_range": [
+     2.4,
+     5.4
+    ],
+    "height_range": [
+     3.0,
+     4.4
+    ],
+    "default_width": 3.6,
+    "default_height": 3.6,
+    "builder": "",
+    "note": "Not a selectable generator in alpha.1; acceptance-gated backlog."
+   },
+   {
+    "id": "HANGAR.WALL.CASSETTE",
+    "title": "Kaset bantlı metal panel",
+    "category": "HANGAR_ENVELOPE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     6.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 7.6,
+    "builder": "hg_cassette",
+    "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+   },
+   {
+    "id": "HANGAR.WALL.VISION",
+    "title": "Alçak geniş cam bandı",
+    "category": "HANGAR_ENVELOPE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     6.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 7.6,
+    "builder": "hg_vision",
+    "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+   },
+   {
+    "id": "HANGAR.WALL.SHADED",
+    "title": "Güneş kırıcı üst cam bandı",
+    "category": "HANGAR_ENVELOPE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     6.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 7.6,
+    "builder": "hg_shaded",
+    "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+   },
+   {
+    "id": "HANGAR.WALL.DUAL_VENT",
+    "title": "Çift panjurlu servis paneli",
+    "category": "HANGAR_ENVELOPE",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     6.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 7.6,
+    "builder": "hg_dual_vent",
+    "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+   },
+   {
+    "id": "HANGAR.ENTRY.DOUBLE_SERVICE",
+    "title": "Saçaklı çift servis kapısı",
+    "category": "HANGAR_ENTRY",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     6.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 7.6,
+    "builder": "hg_double_service",
+    "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+   },
+   {
+    "id": "HANGAR.ENTRY.CANOPY",
+    "title": "Saçaklı personel girişi",
+    "category": "HANGAR_ENTRY",
+    "families": [
+     "HANGAR"
+    ],
+    "status": "implemented_core",
+    "width_range": [
+     2.8,
+     6.0
+    ],
+    "height_range": [
+     6.0,
+     9.0
+    ],
+    "default_width": 4.5,
+    "default_height": 7.6,
+    "builder": "hg_canopy_service",
+    "note": "Expansion 0.3 alpha.1; fictional scenery; native runtime pending."
+   }
+  ],
+  "implemented": 20,
+  "planned": 42,
+  "style_roles": {
+   "palette": [
+    "COASTAL",
+    "WOODLAND",
+    "URBAN"
+   ],
+   "wall": [
+    "Plaster",
+    "Concrete",
+    "ConcreteLight"
+   ],
+   "frame": [
+    "SteelDark",
+    "RoofOlive",
+    "Galvanized"
+   ],
+   "plinth": [
+    "Stone",
+    "Concrete",
+    "ConcreteLight"
+   ]
+  },
+  "facade_rules": [
+   "1..32 cells, each module allowed only in its listed families",
+   "cell width within the module width_range; height within height_range; thickness .16..0.50 m",
+   "cells are laid along -Y from +total/2; nothing is scaled to hit target_width - a mismatch is an error",
+   "single-storey straight strip; no corner/closure modules exist yet"
+  ],
+  "game_kit_modules": [
+   "HANGAR.WALL.CASSETTE",
+   "HANGAR.WALL.VISION",
+   "HANGAR.WALL.SHADED",
+   "HANGAR.WALL.DUAL_VENT",
+   "HANGAR.ENTRY.DOUBLE_SERVICE",
+   "HANGAR.ENTRY.CANOPY"
+  ]
+ },
+ "materials": {
+  "roles": {
+   "Concrete": {
+    "texture_family": "Concrete",
+    "tint": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "roughness": 0.84,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "ConcreteLight": {
+    "texture_family": "Concrete",
+    "tint": [
+     1.2,
+     1.19,
+     1.18
+    ],
+    "roughness": 0.82,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "ConcreteDark": {
+    "texture_family": "Concrete",
+    "tint": [
+     0.3,
+     0.33,
+     0.34
+    ],
+    "roughness": 0.82,
+    "metallic": 0,
+    "tile_m": 1.6
+   },
+   "Plaster": {
+    "texture_family": "Plaster",
+    "tint": [
+     0.95,
+     0.94,
+     0.9
+    ],
+    "roughness": 0.78,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "Stone": {
+    "texture_family": "Stone",
+    "tint": [
+     0.22,
+     0.25,
+     0.25
+    ],
+    "roughness": 0.73,
+    "metallic": 0,
+    "tile_m": 1.5
+   },
+   "SteelDark": {
+    "texture_family": "CoatedSteel",
+    "tint": [
+     0.07,
+     0.1,
+     0.115
+    ],
+    "roughness": 0.37,
+    "metallic": 0,
+    "tile_m": 1.2
+   },
+   "RoofOlive": {
+    "texture_family": "CoatedSteel",
+    "tint": [
+     0.23,
+     0.31,
+     0.26
+    ],
+    "roughness": 0.44,
+    "metallic": 0,
+    "tile_m": 1.2
+   },
+   "RoofOliveLight": {
+    "texture_family": "CoatedSteel",
+    "tint": [
+     0.29,
+     0.37,
+     0.31
+    ],
+    "roughness": 0.46,
+    "metallic": 0,
+    "tile_m": 1.2
+   },
+   "Galvanized": {
+    "texture_family": "Galvanized",
+    "tint": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "roughness": 0.34,
+    "metallic": 0.95,
+    "tile_m": 1.0
+   },
+   "Yellow": {
+    "texture_family": "CoatedSteel",
+    "tint": [
+     0.95,
+     0.62,
+     0.12
+    ],
+    "roughness": 0.49,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "White": {
+    "texture_family": "CoatedSteel",
+    "tint": [
+     0.93,
+     0.96,
+     0.95
+    ],
+    "roughness": 0.49,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "Red": {
+    "texture_family": "CoatedSteel",
+    "tint": [
+     0.57,
+     0.1,
+     0.06
+    ],
+    "roughness": 0.44,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "Rubber": {
+    "texture_family": null,
+    "tint": [
+     0.014,
+     0.02,
+     0.022
+    ],
+    "roughness": 0.87,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "Joint": {
+    "texture_family": null,
+    "tint": [
+     0.065,
+     0.071,
+     0.074
+    ],
+    "roughness": 0.88,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "Interior": {
+    "texture_family": null,
+    "tint": [
+     0.024,
+     0.035,
+     0.04
+    ],
+    "roughness": 0.96,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "Blind": {
+    "texture_family": "Plaster",
+    "tint": [
+     0.48,
+     0.48,
+     0.42
+    ],
+    "roughness": 0.83,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "Timber": {
+    "texture_family": "Timber",
+    "tint": [
+     0.76,
+     0.62,
+     0.43
+    ],
+    "roughness": 0.63,
+    "metallic": 0,
+    "tile_m": 1.5
+   },
+   "Glass": {
+    "texture_family": null,
+    "tint": [
+     0.14,
+     0.25,
+     0.29
+    ],
+    "roughness": 0.13,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "RoofMembrane": {
+    "texture_family": "Membrane",
+    "tint": [
+     0.11,
+     0.12,
+     0.115
+    ],
+    "roughness": 0.9,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "Walkway": {
+    "texture_family": "Concrete",
+    "tint": [
+     0.18,
+     0.31,
+     0.25
+    ],
+    "roughness": 0.84,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "Asphalt": {
+    "texture_family": "Asphalt",
+    "tint": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "roughness": 0.93,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "Gravel": {
+    "texture_family": "Stone",
+    "tint": [
+     0.32,
+     0.29,
+     0.23
+    ],
+    "roughness": 0.94,
+    "metallic": 0,
+    "tile_m": 2.0
+   },
+   "LightWarm": {
+    "texture_family": null,
+    "tint": [
+     1.0,
+     0.84,
+     0.56
+    ],
+    "roughness": 0.25,
+    "metallic": 0,
+    "tile_m": 1.0
+   },
+   "LightGreen": {
+    "texture_family": null,
+    "tint": [
+     0.1,
+     0.65,
+     0.24
+    ],
+    "roughness": 0.28,
+    "metallic": 0,
+    "tile_m": 1.0
+   }
+  },
+  "texture_families": {
+   "Concrete": {
+    "resolution": 2048,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   },
+   "Plaster": {
+    "resolution": 2048,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   },
+   "Stone": {
+    "resolution": 1024,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   },
+   "CoatedSteel": {
+    "resolution": 1024,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   },
+   "Galvanized": {
+    "resolution": 1024,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   },
+   "Timber": {
+    "resolution": 1024,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   },
+   "Membrane": {
+    "resolution": 1024,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   },
+   "Asphalt": {
+    "resolution": 2048,
+    "maps": [
+     "BaseColor",
+     "Height",
+     "NormalDX",
+     "NormalGL",
+     "ORM"
+    ]
+   }
+  },
+  "resolution_unified": false,
+  "maps_per_family": [
+   "BaseColor",
+   "ORM",
+   "NormalGL",
+   "NormalDX",
+   "Height"
+  ],
+  "blender_shader": "NormalGL + Height bump + object-space grunge (wear)",
+  "unreal_material": "NormalDX preferred, green flip for GL"
+ },
+ "game_ready": {
+  "lod": {
+   "min_lod0_triangles": 600,
+   "lod1": "primitives without edge bevel",
+   "lod2": "LOD1 collapsed to 50% when smaller",
+   "whole_building": "semantic LOD0/1/2 via game_ready.building_bundle"
+  },
+  "collision": {
+   "ucx_max_hulls": 48,
+   "hulls": "generator collision boxes -> UCX_ per primitive",
+   "fallback": "complex-as-simple",
+   "doors": "one hinge-local hull"
+  },
+  "uv": {
+   "uv0": "UV0_Tile, 1 unit = 1 m, repeating",
+   "uv1": "UV1_Lightmap unique 0..1 shelf-packed coplanar islands"
+  },
+  "naming": {
+   "mesh": "SM_MB01_<Part>",
+   "collision": "UCX_<asset>_NN",
+   "lod": "<asset>_LOD<n>.fbx",
+   "signage": "MB01_LABEL_*"
+  },
+  "engine": "Unreal Engine 5 via unreal/MB01_Import.py (FBX, -Y forward, Z up, metres)"
+ }
+}

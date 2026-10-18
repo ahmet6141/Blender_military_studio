@@ -9,6 +9,7 @@ import bpy,bmesh
 from mathutils import Matrix
 from . import core,materials,coordinates
 from .blender_backend import descendants
+from .game_ready import ue5
 
 
 def filehash(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -46,10 +47,16 @@ def export_project(root,base):
         recipe=hangar_style.recipes(hangar_config,root.get('mb01_texture_root',''))
     else:
         recipe=materials.recipes(settings.palette,settings.wear,root.get('mb01_texture_root',''))
-    manifest={'schema':'mb01.scene/0.2','generator':root.get('mb01_version',core.VERSION),'project':root['mb01_owner'],
+    manifest={'schema':'mb01.scene/0.3','generator':root.get('mb01_version',core.VERSION),'project':root['mb01_owner'],
         'project_name':settings.name,'source_units':'m','blender_version':bpy.app.version_string,
         'asset_map':{},'instances':[],'materials':{},'ports':[],'export_warnings':[],
-        'lightmap_note':'UV0_Tile repeats in metres. No unique lightmap UV supplied. Dynamic lighting; lightmap unwrap is a separate operation.',
+        'lightmap_note':'UV0_Tile repeats in metres (channel 0). UV1_Lightmap is a unique 0..1 lightmap_pack layout (channel 1) on every mesh that reports uv1_lightmap=true.',
+        'lod_policy':{'LOD0':'evaluated hero mesh (edge bevels)','LOD1':'same primitives without edge bevels; identical silhouette and UVs',
+                      'LOD2':f'LOD1 collapsed to {ue5.LOD2_COLLAPSE_RATIO:.0%}; omitted when it does not reduce triangles',
+                      'minimum_lod0_triangles':ue5.LOD_MIN_TRIANGLES},
+        'collision_policy':{'HULLS':'UCX_ convex boxes authored per primitive by the generator (apertures stay open)',
+                            'COMPLEX':'complex-as-simple; used when no boxes exist or more than %d would be needed'%ue5.UCX_MAX_HULLS,
+                            'NONE':'decorative; collision disabled on the actor'},
         'ue_runtime_verified':False,'assembly_preflight':qa_report,
         'mcp_agent_api':'mb01_military_studio.agent_api','pbr_workflow':'BaseColor + ORM(AO/Roughness/Metal) + NormalGL/NormalDX + Height',
         'render_profile':'Cycles/AgX preview only; final lighting remains project-specific'}
@@ -133,9 +140,23 @@ def export_project(root,base):
                     hi=[max(v.co[j] for v in me.vertices) for j in range(3)]
                     h=core.A.MeshPart('DoorHull','COLLISION',0);h.box(tuple((lo[j]+hi[j])/2 for j in range(3)),tuple(hi[j]-lo[j] for j in range(3)),'C')
                     hulls=[h];coll='HULLS'
+                elif coll=='COMPLEX':
+                    boxes=ue5.collision_boxes(src);hulls=ue5.hull_parts(boxes,key)
+                    if hulls:coll='HULLS'
+                    elif boxes:manifest['export_warnings'].append(f'{key}: {len(boxes)} collision boxes exceed UCX limit {ue5.UCX_MAX_HULLS}; complex-as-simple kept.')
+                lod0_triangles=sum(max(0,len(p.vertices)-2) for p in me.polygons)
+                uv1=ue5.add_lightmap_uv(me,temp)
+                if not uv1:manifest['export_warnings'].append(key+': UV1_Lightmap packing failed; mesh exported with UV0 only.')
+                lods=[]
+                for index,lodme in ue5.lod_meshes(src,lod0_triangles,temp,key):
+                    ue5.add_lightmap_uv(lodme,temp)
+                    lod_triangles=ue5.triangle_count(lodme)  # fbx_write frees the temp mesh afterwards
+                    lodrel=fbx_write(lodme,f'{key}_LOD{index}')
+                    lods.append({'index':index,'file':lodrel,'sha256':filehash(dest/lodrel),'triangles':lod_triangles})
                 rel=fbx_write(me,key,hulls)
                 manifest['asset_map'][key]={'file':rel,'sha256':filehash(dest/rel),'materials':names,'material_slot_names':slotnames,
-                    'collision':coll,'metadata':metadata,'source_asset':src.get('mb01_asset_key',''),'calibration':False}
+                    'collision':coll,'collision_hulls':len(hulls),'metadata':metadata,'source_asset':src.get('mb01_asset_key',''),'calibration':False,
+                    'triangles':lod0_triangles,'uv1_lightmap':uv1,'lods':lods}
                 cache[sig]=key
             manifest['instances'].append({'id':src.get('mb01_element',src.name),'asset':cache[sig],
                 'label':src.name,'category':src.get('mb01_category','DETAIL'),
@@ -156,10 +177,10 @@ def export_project(root,base):
                 manifest['ports'].append({'id':o.get('mb01_element',o.name),'matrix_world_m':[list(row) for row in o.matrix_world],
                     'data':json.loads(o.get('mb01_data','{}'))})
         manifest['export_warnings'] += [
-            'Architectural shells use static complex collision. Moving door pieces carry simple convex hulls. Decorative props/glass have collision disabled.',
+            'Shells with generator collision boxes carry UCX_ convex hulls; shells without them use complex-as-simple. Moving doors carry one hull. Decorative props/glass have collision disabled.',
             'Preview cameras/lights/world/stage are not exported. Retained owned MB01 pieces are included; unowned user objects are not.',
             'External custom Blender shaders are not converted. Set GLASS_MATERIAL_PATH for your final Unreal glass.',
-            'Whole-building export preserves semantic assets and shared meshes. Choose Nanite or project-specific LOD policy in Unreal; the addon does not silently enable engine settings.',
+            'Per-asset LOD1/LOD2 FBX files are listed under asset_map[*].lods; MB01_Import.py binds them with StaticMeshEditorSubsystem.import_lod. Nanite is never enabled silently.',
             'Typed connection ports are stored in JSON. UE socket creation and live SW01/AF01 graph binding are not implemented in this release.',
             'Unreal importer must be tested in the target project. No UE execution claim is made by this Blender export.']
         (dest/'MB01_scene.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf-8')

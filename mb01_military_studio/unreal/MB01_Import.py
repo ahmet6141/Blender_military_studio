@@ -170,13 +170,14 @@ def main():
     source=ROOT/'MB01_scene.json'
     if not source.is_file():raise FileNotFoundError('Execute the EXPORTED script beside MB01_scene.json, not the add-on source copy.')
     data=json.loads(source.read_text(encoding='utf-8'))
-    if data.get('schema')!='mb01.scene/0.1':raise ValueError('Unsupported scene manifest schema.')
+    if data.get('schema') not in ('mb01.scene/0.1','mb01.scene/0.2','mb01.scene/0.3'):raise ValueError('Unsupported scene manifest schema: '+str(data.get('schema')))
     spec=importlib.util.spec_from_file_location('_mb01_coordinates',ROOT/'mb01_coordinates.py');contract=importlib.util.module_from_spec(spec);spec.loader.exec_module(contract)
     for key,d in data['asset_map'].items():
-        path=(ROOT/d['file']).resolve()
-        if not path.is_relative_to(ROOT):raise ValueError('Mesh path escapes export root.')
-        if not path.is_file():raise FileNotFoundError(str(path))
-        if hashlib.sha256(path.read_bytes()).hexdigest()!=d['sha256']:raise ValueError('Mesh hash mismatch: '+key)
+        for entry in [d]+list(d.get('lods',[])):
+            path=(ROOT/entry['file']).resolve()
+            if not path.is_relative_to(ROOT):raise ValueError('Mesh path escapes export root.')
+            if not path.is_file():raise FileNotFoundError(str(path))
+            if hashlib.sha256(path.read_bytes()).hexdigest()!=entry['sha256']:raise ValueError('Mesh hash mismatch: '+key)
     for d in data['materials'].values():
         for rel in d.get('textures',{}).values():
             path=(ROOT/rel).resolve()
@@ -210,6 +211,16 @@ def main():
             body=mesh.get_editor_property('body_setup')
             if body:prop(body,'collision_trace_flag',unreal.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE)
             else:warn('BodySetup missing for static architectural collision: '+key)
+        # UCX_ hulls inside the FBX are picked up by the importer itself; nothing to set for 'HULLS'.
+        if d.get('uv1_lightmap'):
+            try:prop(mesh,'light_map_coordinate_index',1)
+            except Exception as e:warn(f'{key}: lightmap coordinate index not set: {e}')
+        for lod in d.get('lods',[]):
+            try:
+                sms=unreal.get_editor_subsystem(unreal.StaticMeshEditorSubsystem)
+                got=sms.import_lod(mesh,int(lod['index']),str((ROOT/lod['file']).resolve()))
+                if got<0:warn(f'{key}: LOD{lod["index"]} import returned {got}')
+            except Exception as e:warn(f'{key}: LOD{lod["index"]} not bound: {e}')
         save(mesh)
     api=unreal.get_editor_subsystem(unreal.EditorActorSubsystem);spawned=[]
     scene_tag='MB01_SCENE_'+data['project']

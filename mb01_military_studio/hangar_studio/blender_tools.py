@@ -9,6 +9,7 @@ from math import radians
 import json, uuid, time, platform, hashlib
 from .. import core
 from ..blender_backend import descendants, mesh_for, remove_object, remove_collection_tree
+from ..mb_common import bevel_segments
 from . import VERSION, geometry, style
 from .contracts import to_document, from_document, number, gate_clear_width
 
@@ -79,9 +80,10 @@ class BuildJob:
             ob['mb01_collision_mode']='HULLS' if part.group=='DOOR' else ('COMPLEX' if part.group in ('BODY','STRUCTURE','ROOF','GROUND') else 'NONE')
             door=next((d for d in model.doors if d['part']==part.name),None)
             if door:ob['mb01_door']=json.dumps(door)
-            if part.bevel>0 and c.detail!='DRAFT':
+            segments=bevel_segments(part,c.detail)
+            if segments:
                 bevel=ob.modifiers.new('HG_EdgeFinish','BEVEL');bevel.width=part.bevel
-                bevel.segments=3 if c.detail=='HERO' else 2;bevel.limit_method='ANGLE';bevel.angle_limit=radians(35)
+                bevel.segments=segments;bevel.limit_method='ANGLE';bevel.angle_limit=radians(35)
                 bevel.use_clamp_overlap=True
                 if hasattr(bevel,'harden_normals'):bevel.harden_normals=True
             yield .08+.72*(i+1)/len(model.parts),part.name

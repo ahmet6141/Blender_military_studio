@@ -4,6 +4,7 @@ import bpy
 from mathutils import Vector, Matrix
 import json,math,time,uuid,platform
 from . import core,materials
+from .mb_common import bevel_segments
 
 
 def descendants(root):
@@ -90,6 +91,8 @@ class BuildJob:
         root['mb01_schema']='mb01.scene/0.2';root['mb01_version']=core.VERSION
         root['mb01_mcp_ready']=True;root['mb01_agent_api']='mb01_military_studio.agent_api'
         root['mb01_asset_profile']='CGI_PBR_GAME_READY_CANDIDATE'
+        collision_boxes={}
+        for c in model.collisions:collision_boxes.setdefault(c['part'],[]).append(c)
         for i,p in enumerate(model.parts):
             if bpy.context.scene!=self.scene:raise RuntimeError('Üretim sırasında sahne değişti. İşlem iptal edildi; eski yapı korundu.')
             if p.name not in self.locked:
@@ -99,9 +102,15 @@ class BuildJob:
                 ob['mb01_owner']=self.id;ob['mb01_element']=p.name;ob['mb01_category']=p.group
                 ob['mb01_asset_key']=p.name;ob['mb01_kind']='MESH';ob['mb01_source_pivot']=list(p.pivot)
                 ob['mb01_collision_mode']='HULLS' if p.group=='DOOR' else ('COMPLEX' if p.group in ('GROUND','BODY','STRUCTURE','ROOF') else 'NONE')
-                if p.bevel>0 and self.settings.detail!='DRAFT':
+                if p.name in collision_boxes:
+                    # Generator-authored per-primitive boxes in the part's pivot-local frame; the
+                    # exporter turns them into UE UCX_ hulls so door/window apertures stay open.
+                    ob['mb01_collision_boxes']=json.dumps([dict(center=[c['center'][j]-p.pivot[j] for j in range(3)],
+                        dims=list(c['dims']),axes=[list(a) for a in c['axes']]) for c in collision_boxes[p.name]])
+                segments=bevel_segments(p,self.settings.detail)
+                if segments:
                     bevel=ob.modifiers.new('MB01_EdgeHighlights','BEVEL');bevel.width=p.bevel
-                    bevel.segments=3 if self.settings.detail=='HERO' else 2
+                    bevel.segments=segments
                     bevel.limit_method='ANGLE';bevel.angle_limit=math.radians(35);bevel.use_clamp_overlap=True
                     if hasattr(bevel,'harden_normals'):bevel.harden_normals=True
                 door=next((d for d in model.doors if d['part']==p.name),None)

@@ -9,6 +9,14 @@ from .. import core
 
 SCHEMA = 'mb01.hangar_studio/0.3-alpha.1'
 SUPPORTED_SCHEMAS = (SCHEMA, 'mb01.hangar_studio/0.2-alpha.3', 'mb01.hangar_studio/0.2-alpha.2')
+NUMERIC_RANGES = (
+    ('width', 20., 48.), ('depth', 18., 60.), ('eave_height', 6., 9.),
+    ('roof_rise', 1.2, 4.8), ('monitor_width', 2., 8.), ('monitor_height', .65, 1.6),
+    ('opening_width', 10., 36.), ('opening_height', 4.3, 7.7),
+    ('gate_open', 0., 1.), ('personnel_open', 0., 1.), ('wall_thickness', .16, .36),
+    ('base_height', .08, .35), ('apron_depth', 3., 8.), ('walkway_width', 2.4, 4.5),
+    ('wetness', 0., 1.), ('normal_strength', 0., 1.4),
+    ('concrete_tile_m', .25, 8.), ('metal_tile_m', .25, 8.))
 PANEL_TYPES = ('METAL', 'CLERESTORY', 'LOUVER', 'PERSONNEL',
                'CASSETTE', 'VISION', 'SHADED', 'DUAL_VENT', 'DOUBLE_SERVICE', 'CANOPY_ENTRY')
 ENTRY_TYPES = frozenset(('PERSONNEL','DOUBLE_SERVICE','CANOPY_ENTRY'))
@@ -90,14 +98,7 @@ class HangarConfig:
     def checked(self):
         if not isinstance(self.name, str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,47}', self.name):
             raise ValueError('Hangar adı: harfle başlayan 1–48 ASCII harf/rakam/_/- kullanın.')
-        for name, lo, hi in (
-            ('width', 20., 48.), ('depth', 18., 60.), ('eave_height', 6., 9.),
-            ('roof_rise', 1.2, 4.8), ('monitor_width', 2., 8.), ('monitor_height', .65, 1.6),
-            ('opening_width', 10., 36.), ('opening_height', 4.3, 7.7),
-            ('gate_open', 0., 1.), ('personnel_open', 0., 1.), ('wall_thickness', .16, .36),
-            ('base_height', .08, .35), ('apron_depth', 3., 8.), ('walkway_width', 2.4, 4.5),
-            ('wetness', 0., 1.), ('normal_strength', 0., 1.4),
-            ('concrete_tile_m', .25, 8.), ('metal_tile_m', .25, 8.)):
+        for name, lo, hi in NUMERIC_RANGES:
             number(name, getattr(self, name), lo, hi)
         if type(self.bays) is not int or not 4 <= self.bays <= 12:
             raise ValueError('Bölme sayısı 4–12 arasında tam sayı olmalı.')

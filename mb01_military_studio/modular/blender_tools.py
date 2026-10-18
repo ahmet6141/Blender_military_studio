@@ -6,6 +6,7 @@ import bpy
 from mathutils import Vector, Matrix
 from .. import materials
 from ..blender_backend import mesh_for, descendants, remove_object, remove_collection_tree
+from ..mb_common import bevel_segments
 from . import VERSION
 from .contracts import ModuleInput, to_document, placements, numeric
 from . import geometry
@@ -82,9 +83,10 @@ def build_facade(facade, origin=(0.,0.,0.), yaw_degrees=0., texture_root=''):
                 obj['mb01_source_pivot']=list(part.pivot)
                 door=next((d for d in model.doors if d['part']==part.name),None)
                 if door:obj['mb01_door']=json.dumps(door)
-                if part.bevel and facade.detail!='DRAFT':
+                segments=bevel_segments(part,facade.detail)
+                if segments:
                     bevel=obj.modifiers.new('MB02_EdgeHighlights','BEVEL');bevel.width=part.bevel
-                    bevel.segments=3 if facade.detail=='HERO' else 2
+                    bevel.segments=segments
                     bevel.limit_method='ANGLE';bevel.angle_limit=math.radians(35);bevel.use_clamp_overlap=True
                     if hasattr(bevel,'harden_normals'):bevel.harden_normals=True
             for port in model.ports:

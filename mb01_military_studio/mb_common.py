@@ -13,6 +13,23 @@ def canonical(v):
     return (v[1], -v[0], v[2])
 
 
+def bevel_segments(part, detail):
+    """Edge-bevel segment count for a generated part.
+
+    Multi-segment bevels are only safe on all-quad box assemblies. On prism,
+    arch and cylinder primitives (any non-quad face: I-beam and arch-rib end
+    caps, pipe caps) Blender's bevel collapses the middle ring's UVs into
+    zero-area faces, which the mesh QA rightly rejects and which blocked the
+    HANGAR/SHELTER exports. Those parts get a single segment at every detail
+    level; the visual difference at 4-8 mm is nil, the triangle saving is not.
+    """
+    if detail == 'DRAFT' or part.bevel <= 0:
+        return 0
+    if any(len(face) != 4 for face in part.faces):
+        return 1
+    return 3 if detail == 'HERO' else 2
+
+
 def write_error_log(op, exc, *, block_name, log_prefix):
     """Write the current exception's traceback to a named Blender Text
     block and surface a short message on the operator. Shared by every

@@ -320,7 +320,8 @@ def add_office_lobby(m, central, x0=0.0, title='KARARGAH', secondary='KARARGAH 0
         m.p('CanopySupports','DETAIL',.004).beam((x,-1.25-canopy_depth/2+.18,b),(x,-1.25-canopy_depth/2+.42,b+3.0),.09,.09,'SteelDark')
     m.box('IdentityPanel',(x0,-.49,b+min(h,lobbyheight)-.48),(central-.65,.16,.62),'SteelDark','DETAIL',.012)
     m.label(title,(x0,-.579,b+min(h,lobbyheight)-.43),.29,'White',name='BuildingTitle')
-    m.label(secondary.replace('_',' ')[:26],(x0,-1.25-canopy_depth/2-.12,b+3.02),.16,'White',name='EntryIdentity')
+    # Sits in the fascia band below the yellow edge strip (b+3.0375..b+3.0725) instead of across it.
+    m.label(secondary.replace('_',' ')[:26],(x0,-1.25-canopy_depth/2-.12,b+2.98),.09,'White',name='EntryIdentity')
     if s.night_lighting:
         for x in (x0-1.2,x0+1.2):
             m.box('SoffitLights',(x,-1.25-canopy_depth/2+.7,b+2.93),(.38,.14,.028),'LightWarm','DETAIL',0)

@@ -51,7 +51,9 @@ def export_building_bundle(settings,directory,override='',mode='CLASSIC_LOD'):
             bm=bmesh.new();bm.from_mesh(me);bmesh.ops.triangulate(bm,faces=list(bm.faces),quad_method='BEAUTY',ngon_method='BEAUTY');bm.to_mesh(me);bm.free();me.update()
             name=part.name+f'_LOD{lod}';ob=bpy.data.objects.new(name,me);temp.collection.objects.link(ob)
             if lod<2:
-                bevel=ob.modifiers.new('MB04_GameEdgeBevel','BEVEL');bevel.width=.007 if lod==0 else .0035;bevel.segments=2 if lod==0 else 1
+                # The merged building mesh always contains prism/arch primitives, so a single
+                # segment is the only bevel that keeps every UV face non-degenerate (mb_common.bevel_segments).
+                bevel=ob.modifiers.new('MB04_GameEdgeBevel','BEVEL');bevel.width=.007 if lod==0 else .0035;bevel.segments=1
                 bevel.limit_method='ANGLE';bevel.angle_limit=0.6108652382;bevel.use_clamp_overlap=True
                 if hasattr(bevel,'harden_normals'):bevel.harden_normals=True
             if win:win.scene=temp
