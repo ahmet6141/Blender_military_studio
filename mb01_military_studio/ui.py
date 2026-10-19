@@ -29,7 +29,7 @@ class MB01Settings(bpy.types.PropertyGroup):
     sunshades:BoolProperty(name='Pencere güneşlikleri',default=True)
     door_open:FloatProperty(name='Kapı açıklığı',default=.64,min=0,max=1,subtype='FACTOR')
     roof_rise:FloatProperty(name='Kemer yükselişi',default=4.2,min=1.8,max=8)
-    shelter_style:EnumProperty(name='Shelter tipi',items=[('OPEN','Açık çelik kemer','Ön cephesi açık, çelik kemerli shelter'),('HARDENED','Korunaklı beton kemer','Beton kemer, teleskopik ağır çelik kapı')],default='OPEN')
+    shelter_style:EnumProperty(name='Shelter tipi',items=[('OPEN','Açık çelik kemer','Ön cephesi açık, çelik kemerli shelter'),('HARDENED','Korunaklı beton kemer','Beton kemer, kemer biçimli çift kanatlı ağır çelik sürgü kapı')],default='OPEN')
     wear:FloatProperty(name='Yüzey pürüzlülük varyasyonu',default=.15,min=0,max=1,subtype='FACTOR')
     office_style:EnumProperty(name='İdari / birlik stil modu',items=[('AUTO','Otomatik','HQ=Command, UNIT=Barracks'),('COMMAND','Command HQ','Daha prestijli giriş ve vurgu kütleleri'),('BARRACKS','Barracks / Birlik','Dış merdivenli, tekrar eden oda modülleri'),('SUPPORT','Support / Destek','İdari + servis kapılı destek yapısı'),('LOGISTICS','Logistics / Eğitim','Daha büyük servis cephesi ve lojistik dili')],default='AUTO')
     service_bays:IntProperty(name='Servis kapısı adedi',default=3,min=0,max=5)
