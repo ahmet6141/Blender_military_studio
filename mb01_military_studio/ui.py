@@ -6,7 +6,7 @@ from bpy.props import StringProperty,FloatProperty,IntProperty,BoolProperty,Enum
 from . import core
 from . import blender_backend as B
 
-LABELS={'HQ':'Karargâh / idari yapı','UNIT':'Birlik / personel binası','HANGAR':'Kapalı bakım hangarı','SHELTER':'AS07 açık shelter','RANGE_SET':'Atış alanı dekoru (CGI)'}
+LABELS={'HQ':'Karargâh / idari yapı','UNIT':'Birlik / personel binası','HANGAR':'Kapalı bakım hangarı (Hangar Studio)','SHELTER':'Kemerli açık uçak shelter','RANGE_SET':'Atış alanı dekoru (CGI)'}
 
 class MB01Settings(bpy.types.PropertyGroup):
     kind:EnumProperty(name='Yapı ailesi',items=[(k,v,'') for k,v in LABELS.items()],default='HQ')
@@ -16,8 +16,8 @@ class MB01Settings(bpy.types.PropertyGroup):
     floors:IntProperty(name='Kat sayısı',default=3,min=1,max=4)
     floor_height:FloatProperty(name='Kat / saçak yüksekliği',default=3.6,min=2.8,max=10)
     bays:IntProperty(name='Taşıyıcı / set bölümü',default=8,min=4,max=12)
-    roof:EnumProperty(name='Çatı',items=[('FLAT','Parapetli',''),('PITCHED','Eğimli',''),('ARCH','AS07 kemerli','')],default='FLAT')
-    detail:EnumProperty(name='Ayrıntı',items=[('DRAFT','Draft / hızlı','Bevel kapalı, bazı küçük parçalar azalır'),('WORKING','Working',''),('HERO','Hero / yakın plan','Üç segment bevel; AS07 kemer çözünürlüğü artar')],default='WORKING')
+    roof:EnumProperty(name='Çatı',items=[('FLAT','Parapetli',''),('PITCHED','Eğimli',''),('ARCH','Kemerli','')],default='FLAT')
+    detail:EnumProperty(name='Ayrıntı',items=[('DRAFT','Draft / hızlı','Bevel kapalı, bazı küçük parçalar azalır'),('WORKING','Working',''),('HERO','Hero / yakın plan','İki segment bevel; kemer çözünürlüğü artar')],default='WORKING')
     palette:EnumProperty(name='Palet',items=[('COASTAL','Coastal / açık taş + zeytin',''),('WOODLAND','Woodland / koyu yeşil',''),('URBAN','Urban / grafit','')],default='COASTAL')
     seed:IntProperty(name='Varyasyon tohumu',default=17,min=0,max=999999)
     base_height:FloatProperty(name='Taban / yaya yüzeyi yüksekliği',default=.18,min=.08,max=.35,precision=3)
@@ -28,7 +28,7 @@ class MB01Settings(bpy.types.PropertyGroup):
     signage:BoolProperty(name='Tabela / numaralandırma',default=True)
     sunshades:BoolProperty(name='Pencere güneşlikleri',default=True)
     door_open:FloatProperty(name='Kapı açıklığı',default=.64,min=0,max=1,subtype='FACTOR')
-    roof_rise:FloatProperty(name='AS07 kemer yükselişi',default=4.2,min=1.8,max=8)
+    roof_rise:FloatProperty(name='Kemer yükselişi',default=4.2,min=1.8,max=8)
     wear:FloatProperty(name='Yüzey pürüzlülük varyasyonu',default=.15,min=0,max=1,subtype='FACTOR')
     office_style:EnumProperty(name='İdari / birlik stil modu',items=[('AUTO','Otomatik','HQ=Command, UNIT=Barracks'),('COMMAND','Command HQ','Daha prestijli giriş ve vurgu kütleleri'),('BARRACKS','Barracks / Birlik','Dış merdivenli, tekrar eden oda modülleri'),('SUPPORT','Support / Destek','İdari + servis kapılı destek yapısı'),('LOGISTICS','Logistics / Eğitim','Daha büyük servis cephesi ve lojistik dili')],default='AUTO')
     service_bays:IntProperty(name='Servis kapısı adedi',default=3,min=0,max=5)

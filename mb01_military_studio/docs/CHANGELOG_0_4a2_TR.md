@@ -217,6 +217,33 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
   (mahyada gönye), böylece doku kitinde trim bandı olarak kalırlar: DEPOT_STORAGE
   Structure seti 122 px/m (tek parça bükük kirişte 52 px/m idi).
 
+## Shelter ve hızlı hangar ailesi (core SHELTER / HANGAR)
+
+- **HANGAR** (`core.hangar_config`): eski kutu tabanlı hangar kaldırıldı; core HANGAR
+  ayarları beşik çatılı bir Hangar Studio yapılandırmasına çevrilir (açıklık genişliğin
+  ~%64'ü, genişliğe göre 4/6/8 kanat, Hangar Studio aralıkları `Settings.checked` içinde
+  doğrulanır: genişlik 20–48 m, saçak 6–9 m, bölme 2,8–6 m). Profilli cephe, teleskopik
+  kapılar, portal çerçeve, kenet çatı, oluklar ve personel kapıları Hangar Studio ile aynı.
+  Core Blender üretimi ve exporter bu kökler için hangar malzeme tariflerini kullanır.
+- **SHELTER** (`shelter/geometry.py`, yeni): AS07 sözleşmesi (açıklık 18–40 m, derinlik
+  20–60 m, saçak 4,1–8 m, kemer yükselişi, bölme 2,3–6,5 m) korunarak geometri sıfırdan
+  yazıldı; `vendor/as07_reference.py` bayt bayt aynı kaldı. Gövdesi I kesitli (gövde
+  çerçeve düzleminde) kolonlar, taban plakası + ankraj, kolon başlığı ve kemer oturma
+  pabucu; ~4,5 m'lik parçalardan cıvatalı ek levhalarıyla birleşen kemer kirişleri;
+  kemer üstünde dudaklı C aşıklar ve bağlantı kulakları; yalıtımlı iç astar üstünde
+  0,60 m adımlı kavisli kenet çatı (saçakta kapalı dikiş uçları), saçak damlalığı, sarı
+  şeritli kemer alın flaşingleri; harç yatağı üstünde 10 mm derzli prekast beton plak
+  duvarlar ve kapaklar, Z kanatlı panjur bandı (kaynaklı kutu çerçeve, ≤2,6 m kayıt),
+  saçak kirişi ve saçak dolgusu; arkada rüzgar dikmeleri, prekast dado, 35/250 trapez
+  sac, taban damlalığı, köşe trimleri, egzoz fanları, kanopili çelik personel kapısı
+  (pres kasa, 50 mm kanat, menteşe, kol, tekme sacı, panik bar, dışa açılır); oluklar,
+  kazboynu iniş boruları ve kelepçeler; kimlik tabelası; ön kolon bariyerleri; zemin
+  derzleri, kanal ızgarası ve işaretler; armatürler, kablo tavası, yangın dolapları.
+- Doğrulama: 18×20 … 40×60 m aralığında doğrulama PASS, n-gon 0, aynı yöne bakan çakışık
+  yüz çifti 0; canlı Blender mesh QA (CORE HANGAR/SHELTER, WORKING/HERO) PASS; export
+  (LOD1/LOD2, UV1 lightmap, UCX) her iki aile için çalışır. HERO bevel öncesi üçgen:
+  SHELTER (24×32) 80,6K, HANGAR (28×36) 63,0K.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından

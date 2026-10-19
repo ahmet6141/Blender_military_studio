@@ -609,47 +609,6 @@ def hangar_config(s):
         palette=s.palette,seed=s.seed,wall_finish='OLIVE',roof_finish='GRAPHITE')
 
 
-def build_shelter(m):
-    s=m.cfg
-    cfg=dict(A.CONFIG);cfg.update(span=s.width,depth=s.depth,eave_height=s.floor_height,roof_rise=s.roof_rise,
-        bay_count=s.bays,detail={'DRAFT':'PREVIEW','WORKING':'HIGH','HERO':'CINEMATIC'}[s.detail],
-        add_service_props=s.services,add_signage=s.signage,add_practical_lights=False,
-        door_open_degrees=s.door_open*95)
-    source=A.ShelterModel(cfg)
-    # Do not execute original .build(): local apron and presentation are explicitly omitted.
-    for fn in ('build_frame','build_roof','build_walls','build_services'):
-        getattr(source,fn)()
-    if s.services:source.build_props()
-    source.build_signage()
-    local_ground(m)
-    for p in source.parts:
-        p.name=p.name.replace('SM_AS07_','SM_MB01_AS07_')
-        p.vertices=[(x,y,z+s.base_height) for x,y,z in p.vertices]
-        p.pivot=(p.pivot[0],p.pivot[1],p.pivot[2]+s.base_height)
-        # Vendor AS07 bevels are too wide for their thinnest features (7-14 mm on sign
-        # panels, cases and equipment) and the mitred gutter pipes cannot be bevelled
-        # at all; both left zero-area UV faces that failed the export preflight.
-        p.bevel=0 if s.detail=='DRAFT' or any(t in p.name for t in ('GuttersAndDownpipes','WallEquipment')) else min(p.bevel,.004)
-        if p.group=='Door':
-            p.group='DOOR';m.doors.append(dict(part=p.name,kind='HINGE',closed=p.pivot,opened=p.pivot,
-                angle=-radians(95),open_fraction=s.door_open))
-        else:p.group=p.group.upper()
-        m.parts.append(p)
-    # Original labels belong to source body: retain source layout with a new instance ID.
-    for l in source.labels if s.signage else []:
-        l=dict(l);loc=l['location'];l['location']=(loc[0],loc[1],loc[2]+s.base_height)
-        l['name']='AS07_'+str(len(m.labels));l['body']=l['body'].replace('AS / 07','AS / 07')
-        m.labels.append(l)
-    for c in source.collisions:
-        # AS07 has group-level hulls; do not misassign them to individual assets.
-        pass
-    m.port('AIRCRAFT_IN',(0,0,s.base_height),-pi/2,max(1,s.width-.8),'HANGAR')
-    dx=s.width/2*.55
-    if s.local_ground:m.box('AS07RearLanding',(dx,s.depth+.8,s.base_height-.08),(s.walkway_width,1.6,.16),'Concrete','GROUND',.006,True)
-    m.port('PERSONNEL_REAR_OUT',(dx,s.depth+1.6,0),pi/2,s.walkway_width)
-    m.notes.append('AS07 retained source geometry; new local foundation optional. AS07 structural collision uses static complex geometry, not whole-building boxes.')
-
-
 def build_range_set(m):
     """Nonfunctional film set: pavilion, tables, abstract display targets and scenic backdrop.
     No ballistic model, protective specification, live-fire layout or safety calculation.
@@ -701,7 +660,9 @@ def build(settings):
     elif settings.kind=='HANGAR':
         from .hangar_studio import geometry as HG
         return HG.build(hangar_config(settings))
-    elif settings.kind=='SHELTER':build_shelter(m)
+    elif settings.kind=='SHELTER':
+        from .shelter.geometry import build_shelter
+        build_shelter(m)
     else:build_range_set(m)
     return m.finish()
 

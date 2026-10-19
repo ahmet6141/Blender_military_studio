@@ -130,6 +130,10 @@ class BuildJob:
         root['mb01_schema']='mb01.scene/0.2';root['mb01_version']=core.VERSION
         root['mb01_mcp_ready']=True;root['mb01_agent_api']='mb01_military_studio.agent_api'
         root['mb01_asset_profile']='CGI_PBR_GAME_READY_CANDIDATE'
+        if hasattr(model,'hangar_config'):
+            from .hangar_studio.contracts import to_document
+            root['mb01_hangar_document']=json.dumps(to_document(model.hangar_config),ensure_ascii=False)
+            root['mb01_hangar_metadata']=json.dumps(model.hangar_meta,ensure_ascii=False)
         collision_boxes={}
         for c in model.collisions:collision_boxes.setdefault(c['part'],[]).append(c)
         for i,p in enumerate(model.parts):

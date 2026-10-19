@@ -40,7 +40,7 @@ def export_project(root,base):
         settings=SimpleNamespace(**json.loads(root['mb01_modular_style']))
     else:
         settings=core.Settings(**json.loads(root['mb01_config']))
-    if root.get('mb01_hangar_root'):
+    if root.get('mb01_hangar_document'):   # Hangar Studio roots and core HANGAR roots (built by Hangar Studio)
         from .hangar_studio.contracts import from_document
         from .hangar_studio import style as hangar_style
         hangar_config=from_document(json.loads(root['mb01_hangar_document']))
@@ -63,7 +63,7 @@ def export_project(root,base):
     if root.get('mb01_modular_root'):
         manifest['modular_recipe']=json.loads(root['mb01_modular_document'])
         manifest['export_warnings'].append('Modular alpha: single-storey facade only; no automatic building closure or native port joining.')
-    if root.get('mb01_hangar_root'):
+    if root.get('mb01_hangar_document'):
         manifest['hangar_recipe']=json.loads(root['mb01_hangar_document'])
         manifest['hangar_metadata']=json.loads(root['mb01_hangar_metadata'])
         manifest['door_motion']=[{'id':o['mb01_element'],'data':json.loads(o['mb01_door'])}
