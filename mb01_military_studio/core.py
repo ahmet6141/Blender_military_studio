@@ -40,6 +40,7 @@ class Settings:
     sunshades:bool=True
     door_open:float=.64
     roof_rise:float=4.2
+    shelter_style:str='OPEN'
     wear:float=.15
     office_style:str='AUTO'
     service_bays:int=3
@@ -88,6 +89,7 @@ class Settings:
             if type(getattr(self,k))!=bool:raise ValueError(k+' must be boolean.')
         if self.kind not in ('HQ','UNIT') and any((self.office_style!='AUTO',self.service_bays,self.stair_tower!=True,self.roof_screen!=True,self.corner_glass)):pass
         if self.kind=='HANGAR':hangar_config(self).checked()   # Hangar Studio ranges (width 20..48, eave 6..9, bay 2.8..6 m)
+        if self.shelter_style not in ('OPEN','HARDENED'):raise ValueError('Shelter style: OPEN or HARDENED.')
         if self.kind=='SHELTER':
             A.validate_config(dict(span=self.width,depth=self.depth,eave_height=self.floor_height,
                 roof_rise=self.roof_rise,bay_count=self.bays))
@@ -661,8 +663,12 @@ def build(settings):
         from .hangar_studio import geometry as HG
         return HG.build(hangar_config(settings))
     elif settings.kind=='SHELTER':
-        from .shelter.geometry import build_shelter
-        build_shelter(m)
+        if settings.shelter_style=='HARDENED':
+            from .shelter.hardened import build_hardened
+            build_hardened(m)
+        else:
+            from .shelter.geometry import build_shelter
+            build_shelter(m)
     else:build_range_set(m)
     return m.finish()
 

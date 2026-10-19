@@ -29,6 +29,7 @@ class MB01Settings(bpy.types.PropertyGroup):
     sunshades:BoolProperty(name='Pencere güneşlikleri',default=True)
     door_open:FloatProperty(name='Kapı açıklığı',default=.64,min=0,max=1,subtype='FACTOR')
     roof_rise:FloatProperty(name='Kemer yükselişi',default=4.2,min=1.8,max=8)
+    shelter_style:EnumProperty(name='Shelter tipi',items=[('OPEN','Açık çelik kemer','Ön cephesi açık, çelik kemerli shelter'),('HARDENED','Korunaklı beton kemer','Beton kemer, teleskopik ağır çelik kapı')],default='OPEN')
     wear:FloatProperty(name='Yüzey pürüzlülük varyasyonu',default=.15,min=0,max=1,subtype='FACTOR')
     office_style:EnumProperty(name='İdari / birlik stil modu',items=[('AUTO','Otomatik','HQ=Command, UNIT=Barracks'),('COMMAND','Command HQ','Daha prestijli giriş ve vurgu kütleleri'),('BARRACKS','Barracks / Birlik','Dış merdivenli, tekrar eden oda modülleri'),('SUPPORT','Support / Destek','İdari + servis kapılı destek yapısı'),('LOGISTICS','Logistics / Eğitim','Daha büyük servis cephesi ve lojistik dili')],default='AUTO')
     service_bays:IntProperty(name='Servis kapısı adedi',default=3,min=0,max=5)
@@ -182,7 +183,7 @@ class MB01_PT_Main(bpy.types.Panel):
         if p.kind!='RANGE_SET':l.prop(p,'floor_height')
         if p.kind in ('HANGAR','SHELTER','RANGE_SET'):l.prop(p,'bays')
         if p.kind in ('HQ','UNIT') and p.office_style in {'SUPPORT','LOGISTICS'}:l.prop(p,'service_bays')
-        if p.kind=='SHELTER':l.prop(p,'roof_rise')
+        if p.kind=='SHELTER':l.prop(p,'shelter_style');l.prop(p,'roof_rise')
         if p.kind=='RANGE_SET':l.label(text='Dekor seti; gerçek kullanım projesi değil.',icon='INFO')
         l.prop(p,'detail');l.prop(p,'palette');l.prop(p,'seed');l.prop(p,'yaw')
         l.operator('mb01.build',text='3D Cursor konumunda YENİ yapı',icon='ADD').rebuild=False

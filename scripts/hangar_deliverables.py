@@ -19,7 +19,7 @@ sys.path.insert(0, str(REPO))
 import bpy
 from mathutils import Vector
 import mb01_military_studio as mb01
-from mb01_military_studio import blender_backend as B
+from mb01_military_studio import blender_backend as B, core
 from mb01_military_studio.hangar_studio.contracts import preset
 from mb01_military_studio.hangar_studio.blender_tools import BuildJob
 from mb01_military_studio.hangar_studio import animation
@@ -37,6 +37,11 @@ def fresh():
 
 
 def build(pid, **overrides):
+    if pid.startswith('CORE_'):     # core families: CORE_SHELTER_HARDENED, CORE_SHELTER, CORE_HANGAR
+        kind, _, style = pid[5:].partition('_')
+        extra = dict(shelter_style=style) if style else {}
+        name = {'SHELTER': 'HAS_05' if style == 'HARDENED' else 'AS07_04', 'HANGAR': 'HANGAR_03'}.get(kind, kind)
+        return B.build_sync(core.settings_for(kind, detail='HERO', name=name, door_open=overrides.get('gate_open', 0.), **extra))[0]
     job = BuildJob(preset(pid, detail='HERO', **overrides))
     for _ in job.steps():
         pass
@@ -99,10 +104,14 @@ def video(pid, out, frames_dir):
     sc.display.render_aa = '5';sc.render.fps = 24
     lo, hi = bounds(root);slo, shi = bounds(root, shell=True);sy = (slo.y + shi.y) / 2
     s = animation.animate_doors(root, frames=96, hold=24, loop=True)
-    rail = next(o for o in B.descendants(root) if o.get('mb01_element', '').startswith('SM_MB01_HG_GateRail_0'))
+    rail = next(o for o in B.descendants(root) if o.get('mb01_element', '').startswith(('SM_MB01_HG_GateRail_0', 'SM_MB01_DoorRails')))
     r = sum((rail.matrix_world @ Vector(v) for v in rail.bound_box), Vector()) / 8
-    shots = [('a_gate_wide', range(s['start'], s['end'] + 1), ((slo.x - 27, sy - 9, 5.5), (slo.x + 3, sy, 3.6), 30)),
-             ('b_tracks', range(s['start'], s['open_at'] + 1), ((r.x - 4.5, r.y - 6.5, r.z - 1.9), (r.x + .3, r.y - 2.2, r.z + .1), 34))]
+    if pid.startswith('CORE_'):     # floor-running leaves: wide front, then the bogies on the rails
+        shots = [('a_gate_wide', range(s['start'], s['end'] + 1), ((slo.x - 36, sy - 11, 7.5), (slo.x + 3, sy, 4.4), 30)),
+                 ('b_tracks', range(s['start'], s['open_at'] + 1), ((r.x - 3.2, r.y - 8.0, r.z + 1.3), (r.x + .3, r.y - 3.5, r.z + .5), 30))]
+    else:
+        shots = [('a_gate_wide', range(s['start'], s['end'] + 1), ((slo.x - 27, sy - 9, 5.5), (slo.x + 3, sy, 3.6), 30)),
+                 ('b_tracks', range(s['start'], s['open_at'] + 1), ((r.x - 4.5, r.y - 6.5, r.z - 1.9), (r.x + .3, r.y - 2.2, r.z + .1), 34))]
     hinge = [o for o in B.descendants(root) if o.get('mb01_door') and json.loads(o['mb01_door']).get('angle')]
     if hinge:
         p = hinge[0].matrix_world.translation.copy();side = -1 if p.y > sy else 1
