@@ -187,6 +187,33 @@ sonra birleştirildi.
 - Bilinen eksikler: düşme önleme hattına erişim merdiveni ve fener duman tahliye
   kapakları üçgen bütçesi nedeniyle yok; kapı kapatıcı kolu kanatla rijit döner.
 
+### Son yakın plan incelemesi ve düzeltmeler
+
+88 son yakın plan görüntüsü bağımsız ve çekişmeli bir incelemeden geçti; 12 kusur
+doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu).
+
+- **Portal çerçeve** (`_structure`, `_frame_y`): kolon gövdesi çerçeve düzleminde, iç
+  flanş hangara bakar (önceden 90° dönüktü); saçakta cıvatalı alın plakası, konik guse
+  (haunch) ve kolon başlık plakası, mahyada gönye kesimli kiriş + alın plakası çifti ve
+  mahya gusesi (galvaniz bloklar kaldırıldı, V boşluğu kapandı); dik çatılarda başlık
+  plakası kirişe oturur, saçak aşığı içeri kayar. Aşıklar ~1,7 m aralıkla (MRO'da 4 m
+  idi), kolon başlarında saçak aşığı, beşik çatıda çift mahya aşığı; uç çerçevelerde
+  ankraj cıvataları yalnız hangar tarafında.
+- **Ana kapı** (`_gates`): cam bandı kayıtları dikme ızgarasında (dikme bant boyunca
+  kayıt olarak devam eder), öndeki dikmede iç astar kapatma şeridi, pelmet ve kanopi
+  alınlığı ~3 m boylarda ek kayışlarıyla (fenerlerden 200 mm uzak); kapı başlığının
+  astar önündeki şeridi uç kolonun iç flanşından 3 mm önce biter.
+- **Arka cephe** (`_facades`, `_monitor`): arka kaplama yarım adım kaydırıldı; kart
+  okuyucu ve duvar armatürü artık sac tepesine oturur (önceden oluk üzerinde 34 mm
+  boşlukta asılıydı); fener uç duvar köşe triminin ayağı eğimi izleyip taban
+  flaşingine gömülür.
+- **Duvar açıklıkları** (`opening_trims`, `_shaded`): denizlik flaşingi söve triminin
+  50 mm ötesine uzanır, uç dönüşleri kesit boyunca kalkar (siyah çentik yok); güneşlik
+  bölmesinde kanatlar .36 eğim sınırına kadar oluk tabanının ≥ 250 mm altında.
+- Doğrulama: `verify_fast` 12 önayar × WORKING/HERO PASS, 100 modül PASS; aynı yöne
+  bakan çakışık yüz çifti 10 önayarda 0, DEPOT önayarlarında 7 (rampa). HERO bevel
+  öncesi üçgen: MRO_WIDEBODY 114.4K, DEPOT_STORAGE 67.2K.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından
