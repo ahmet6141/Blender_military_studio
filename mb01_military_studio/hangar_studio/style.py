@@ -58,6 +58,9 @@ def recipes(config, override=''):
     # Gutters, outlets, downpipes and vent stacks: colour-coated steel matched to the roof
     # trims (not bright galvanised, which reads as PVC); hangers stay galvanised.
     clone('HG_RoofRainwater','HG_RoofFlashing',[x*1.05 for x in out['HG_RoofFlashing']['color']],.45)['metallic']=0
+    # Downpipes coated to the wall cladding they run down (gutter outlets stay roof-coloured),
+    # so they sit quietly on the facade instead of reading as a pale plastic stripe.
+    clone('HG_RoofDownpipe','HG_RoofRainwater',[x*.94 for x in out['HG_Wall']['color']],.45)
 
 
     # [WALL MATERIALS] names start with HG_Wall (texture kit set: Cladding)

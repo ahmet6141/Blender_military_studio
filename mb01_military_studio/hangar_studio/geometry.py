@@ -1440,7 +1440,7 @@ def _gutters(m,c):
             # hidden inside the sole; 8-sided inscribed radius clears the 12-sided pipe).
             g.cylinder((xo,y,top-h+.002),(xo,y,top-h-.073),r+.008,RAIN,8)
             zt=top-h-.150;pipes.pipe([(xo,y,top-h-.002),(xo,y,zt),(px,y,zt-h45),(px,y,z+.33),(px+side*.15,y,z+.10)],
-                                     r,RAIN,8 if c.detail=='DRAFT' else 10)
+                                     r,'HG_RoofDownpipe',8 if c.detail=='DRAFT' else 10)
             lo,hi=z+.9,zt-h45-.25;nc=max(2,ceil((hi-lo)/2.)+1);rb=r/.866+.002
             for k in range(nc):
                 zz=lo+(hi-lo)*k/(nc-1)
