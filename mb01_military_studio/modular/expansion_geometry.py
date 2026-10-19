@@ -27,9 +27,10 @@ def _vision(m):
 
 def _shaded(m):
     w,h=m.cfg.width,m.cfg.height
-    # Clerestory 240 mm lower than the plain band (head = top), so the fins (top h-.5275) keep
-    # >= 250 mm under the gutter sole and read apart from the gutter and roof fascia.
-    drop=.24;m.window(clerestory=True,drop=drop)
+    # Clerestory 300 mm lower than the plain band (head = top), so the fins (top h-.5875) keep
+    # >= 250 mm under the gutter sole up to the .36 roof-pitch limit (the module cannot see the
+    # roof) and read apart from the gutter and roof fascia.
+    drop=.30;m.window(clerestory=True,drop=drop)
     ow=w-.48;top=h-.45-drop;shade_z=top+.14
     # Horizontal fins project OUTWARD (-Y), never through the glazing aperture. The wall
     # plates bear on the head flashing face leg (4 mm packer implied above it), clear of the glass.
