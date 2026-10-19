@@ -122,9 +122,12 @@ def _structure(m,c):
     # Hot-rolled portal: column web in the frame plane (flanges at |x| a-.42 / a-.02), rafter one
     # sweep of vertical sections (the apex section is the mitre) between the column inner flanges,
     # its ends 2 mm into them (end plate 4, haunch 6: no shared end planes). T/B: rafter top/bottom
-    # flange faces. Column cap 25 mm over the rafter, kept 8 mm under the eaves purlin (xe).
+    # flange faces. Column cap 1 mm over the rafter at its inner edge (a-.447); the eaves purlin (xe)
+    # stands over the cap 8 mm clear, or on steep roofs steps inboard of it onto the rafter.
     T=lambda X:R(X)-.52+.23*k;B=lambda X:R(X)-.52-.23*k
-    xi,xr,xe=a-.42,a-.418,a-.30;top=min(T(xi)+.025,R(xe)-.233)
+    xi,xr=a-.42,a-.418;top=T(a-.447)+.021;xe=a-.30 if R(a-.30)-.233>=top else a-.51
+    # Gate header top where the door houses run to the corners: the front knees stay clear of it.
+    hz=z+c.opening_height+.645 if house_end(c)>a else 0.
     HT=((-.11,0.),(.11,0.),(.11,1.),(.012,1.),(.012,2.),(-.012,2.),(-.012,1.),(-.11,1.))
 
     def haunch(p,y,x0,x1,deep,stations):
@@ -148,30 +151,33 @@ def _structure(m,c):
         haunch(frame,y,0.,.45,.15,(-.45,0.,.45))
         bolts=c.fasteners and c.detail!='DRAFT';hero=bolts and c.detail=='HERO'   # hero: end-plate bolts
         if bolts:p=m.p('HG_Fasteners','DETAIL',.001)
+        gh=hz if end<0 else 0.
         for side in (-1,1):
             x=side*(a-.22);xa=side*xr
             frame.prism([(v,u) for u,v in A.i_profile(.34,.40,.035,.040)],(x,y,z+.105),A.IDENTITY,top-.018-z-.105,'SteelDark')
-            xh=side*(a-.414);haunch(frame,y,xh,xh-side*.90,.30,(xh,xh-side*.90))
+            # Over the gate header the knee haunch shoals to 28 mm above it, and goes where that leaves
+            # under 60 mm (the header is the eaves tie there); the end plate stops 3 mm above the header.
+            xh=side*(a-.414);dp=min(.30,B(xh)-gh-.028)
+            if dp>=.06:haunch(frame,y,xh,xh-side*.90,dp,(xh,xh-side*.90))
             yc,dy=span(.34)
             m.box('HG_BaseShoes',(side*(a-.267),yc,z+.0535),(.526,dy,.113),'SteelDark','STRUCTURE',.004)   # 3 mm into the slab, 4 mm off the liner
             # Knee: 25 mm end plate on the rafter and haunch, bolted to the column inner flange (bedded
             # in it, 10 mm into the cap); 20 mm cap plate over the column and the end plate.
-            zb=B(xa)-.325;yc,dy=span(.13)
+            zb=max(B(xa)-.325,gh+.003);yc,dy=span(.13)
             m.box('HG_EaveConnection',(side*(a-.4305),yc,(zb+top-.010)/2),(.029,dy,top-.010-zb),'SteelDark','DETAIL',.002)
             yc,dy=span(.18)
             m.box('HG_EaveConnection',(side*(a-.231),yc,top-.010),(.432,dy,.020),'SteelDark','DETAIL',.002)
             if bolts:
-                for dx in (-.23,.16):          # anchor bolts beside the flanges, the outer pair clear of the wall
+                for dx in (-.23,.16):          # anchor bolts beside the flanges (end frames: hall side only)
                     for dy in (-.25,.25):
+                        if end*dy>0:continue
                         yy=y+dy;xx=x+side*dx
-                        if end<0:yy=max(yy,-lim+.05)
-                        if end>0:yy=min(yy,d+lim-.05)
                         p.cylinder((xx,yy,z+.111),(xx,yy,z+.155),.028,'Galvanized',6)
                         p.cylinder((xx,yy,z+.108),(xx,yy,z+.121),.044,'Galvanized',12)
             if hero:
                 for dy in (-.075,.075):        # nut on the end plate, head inside the column flange
-                    for zz in (T(xa)-.035*k-.055,B(xa)-.15):
-                        p.cylinder((side*(a-.475),y+dy,zz),(side*(a-.372),y+dy,zz),.021,'Galvanized',6)
+                    for zz in (T(xa)-.035*k-.055,B(xa)-.15 if dp>.29 else B(xa)+.035*k+.055):
+                        if zz>zb+.05:p.cylinder((side*(a-.475),y+dy,zz),(side*(a-.372),y+dy,zz),.021,'Galvanized',6)
         # Apex: a pair of 25 mm end plates (2 mm joint) over the mitre, extended over the apex haunch.
         zt,zb=T(0.)+.015,B(0.)-.17;yc,dy=span(.13)
         for sx in (-1,1):
