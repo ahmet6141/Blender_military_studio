@@ -317,8 +317,9 @@ class ModuleModel:
             e = .089+(0. if any(z0-.025 < z < z0+.01 for z, _ in C.girt_rows(.58, self.cfg.height-.166)) else .0485)
             sp = self.part('SillFlashing', 'DETAIL', 0.)
             sp.prism([(y, z0+z) for y, z in C.sill_profile(ys)], (x0-e, 0., 0.), C.YZX, x1-x0+2*e, mat)
-            # Stop ends: 2.5 mm end dams over the full sill section, upturned 15 mm over the opening sill line.
-            end = ((-.055, -.040), (-.0525, -.040), (ys-.002, -.0035), (ys-.002, .015), (-.055, .015))
+            # Stop ends: 2.5 mm end plates over the sill section (drip leg and plate, open under it like
+            # the sill), upturned 12-16 mm over its top: a taller or solid end shades as a dark block.
+            end = ((-.055, -.040), (-.0525, -.040), (-.0525, -.0145), (ys-.002, -.003), (ys-.002, .004), (-.055, .004))
             for xe in (x0-e-.0025, x1+e):
                 sp.prism([(y, z0+z) for y, z in end], (xe, 0., 0.), C.YZX, .0025, mat)
 
