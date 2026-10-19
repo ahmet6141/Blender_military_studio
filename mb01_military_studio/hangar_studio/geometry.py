@@ -1139,7 +1139,7 @@ def _gates(m,c):
         for q0,q1,h0,h1 in ((.002,wl,.120,hp0),(.002,wl,hp1,ht),(.002,.130,hp0,hp1),(.212,wl,hp0,hp1),(lw-wt-.002,lw-.002,.120,ht)):
             bx(q0,q1,-.094,-.015,h0,h1,'HG_GateTrim')                    # folded stile covers
         bx(.130,.212,-.060,-.015,hp0,hp1,'SteelDark')                    # pocket back
-        bx(.118,wl-.019,-.014,-.012,.127,lh-.139,'HG_GateLiner')         # liner closer: stile to sheet edge, inside
+        bx(.118,wl+.002,-.014,-.012,.127,lh-.139,'HG_GateLiner')         # inside liner closer over the stile covers' backs
         cyl(.170,-.078,hp0-.010,.170,-.078,hp1+.010,.011,'Galvanized')   # grip bar, ends buried in the cover
         cap(p,X,y,z0,0.,lw,.320,-.056,'Galvanized',drip=.308)            # galvanised kick plate
         cap(p,X,y,z0,0.,lw+.040,ht,-.063,'HG_GateTrim')                  # leaf head flashing, over the astragal
