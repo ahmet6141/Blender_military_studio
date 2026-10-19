@@ -1139,6 +1139,7 @@ def _gates(m,c):
         for q0,q1,h0,h1 in ((.002,wl,.120,hp0),(.002,wl,hp1,ht),(.002,.130,hp0,hp1),(.212,wl,hp0,hp1),(lw-wt-.002,lw-.002,.120,ht)):
             bx(q0,q1,-.094,-.015,h0,h1,'HG_GateTrim')                    # folded stile covers
         bx(.130,.212,-.060,-.015,hp0,hp1,'SteelDark')                    # pocket back
+        bx(.118,wl-.019,-.014,-.012,.127,lh-.139,'HG_GateLiner')         # liner closer: stile to sheet edge, inside
         cyl(.170,-.078,hp0-.010,.170,-.078,hp1+.010,.011,'Galvanized')   # grip bar, ends buried in the cover
         cap(p,X,y,z0,0.,lw,.320,-.056,'Galvanized',drip=.308)            # galvanised kick plate
         cap(p,X,y,z0,0.,lw+.040,ht,-.063,'HG_GateTrim')                  # leaf head flashing, over the astragal
@@ -1149,11 +1150,12 @@ def _gates(m,c):
             bx(g0+.001,g1-.001,-.070,-.030,gb+.020,gb+.060,'HG_GateAlu') # glazing channels
             bx(g0+.001,g1-.001,-.070,-.030,gt-.045,gt-.005,'HG_GateAlu')
             bx(wl-.010,lw-wt+.010,-.058,-.042,gb+.040,gt-.025,'HG_GatePolycarb')   # 16 mm opal multiwall polycarbonate
-            wg=lw-wl-wt;npn=max(1,ceil(wg/1.20))
+            per=max(1,ceil((lw-.24)/cells/1.20));npn=cells*per            # bars on the stud grid
             for i in range(1,npn):
-                qb=wl+wg*i/npn
+                qb=.12+(lw-.24)*i/npn
                 bx(qb-.025,qb+.025,-.080,-.057,gb+.060,gt-.045,'HG_GateAlu')   # pressure caps outside
-                bx(qb-.020,qb+.020,-.043,.030,gb+.050,gt-.050,'HG_GateAlu')    # glazing bars inside
+                if i%per:bx(qb-.020,qb+.020,-.043,.030,gb+.050,gt-.050,'HG_GateAlu')    # glazing bars inside
+                else:bx(qb-.040,qb+.040,-.043,.050,gb+.050,gt-.050,'SteelDark')   # stud on as the mullion
         # ---- seals: brushes either side of the floor guide (exterior one 3 mm off the floor, clear of the
         #      2.5 mm apron paint), top brushes 1-2 mm inside the rail webs
         bx(.001,lw-.001,-.098,-.056,-.006,.012,'Galvanized');bx(.003,lw-.003,-.090,-.062,-.022,-.006,'Rubber')
@@ -1212,7 +1214,7 @@ def _gates(m,c):
         ls=Le-.001
         m.p('HG_CanopySoffit','DETAIL',.001).prism([(-ls,yo-.40),(ls,yo-.40),(ls,yo-.150),(u1,yo-.150),(u1,-.281),
             (-u1,-.281),(-u1,yo-.150),(-ls,yo-.150)],(0,0,top+.626),A.IDENTITY,.018,'Galvanized')
-        m.p('HG_CanopyFascia','FACADE',.003).prism([(yf-.022,zt-.280),(yf+.040,zt-.280),(yf+.040,zt+.050),
+        fa=m.p('HG_CanopyFascia','FACADE',.003);fa.prism([(yf-.022,zt-.280),(yf+.040,zt-.280),(yf+.040,zt+.050),
             (yf-.010,zt+.050),(yf-.010,zt-.262),(yf-.022,zt-.262)],(-Le,0,0),C.YZX,2*Le,'SteelDark')
         m.box('HG_PortalAccent',(0,yf-.013,zt-.115),(2*Le,.006,.050),'Yellow','DETAIL',.001)
         # 2 mm end caps over the fascia profile and the slab end. The slab meets the facade under the
@@ -1225,8 +1227,17 @@ def _gates(m,c):
         # web; its return laps over the leaf tops at the rail-web bottom line (top-.060), 3 mm short of the
         # outer web and 24 mm clear of the leaf, so it takes no opening height the rails do not already take.
         h1=top-.060
-        m.p('HG_GateTrackCover','FACADE',.002).prism([(yo-.150,h1),(yo-.093,h1),(yo-.093,h1+.008),
+        tc=m.p('HG_GateTrackCover','FACADE',.002);tc.prism([(yo-.150,h1),(yo-.093,h1),(yo-.093,h1+.008),
             (yo-.144,h1+.008),(yo-.144,top+.625),(yo-.150,top+.625)],(-u1,0,0),C.YZX,2*u1,'SteelDark')
+        # Pelmet and fascia in coil lengths of up to 3 m, joints on shared lines kept 200 mm clear of the
+        # beacons, each under a 150 mm butt strap bedded 1 mm, 3 mm proud: over the opening the pelmet
+        # strap wraps under the return (the house fronts close it beyond the jambs); the fascia strap
+        # turns over the drip lip, stops 3 mm under the upstand and runs behind the accent stripe.
+        for xj in _nudge(_laps(-u1,u1,3.),[sx*(c.opening_width/2+.30) for sx in (-1.,1.)],.20):
+            pth=[(yo-.095,h1),(yo-.150,h1)] if abs(xj)<u0-.085 else [(yo-.150,h1+.002)]
+            tc.prism(_band(pth+[(yo-.150,top+.622)],-.001,.003),(xj-LAP,0,0),C.YZX,2*LAP,'SteelDark')
+            fa.prism(_band([(yf-.022,zt-.278),(yf-.022,zt-.262),(yf-.010,zt-.262),(yf-.010,zt+.047)],-.001,.003),
+                     (xj-LAP,0,0),C.YZX,2*LAP,'SteelDark')
         # Amber warning beacons on the pelmet above each jamb (wall bracket, base, lens, cap) and a
         # push-button station (open / close / stop) with a rain hood on the left door-house front.
         bc=m.p('HG_GateBeacons','DETAIL',.001);zb=top+.20;yb=yo-.235
