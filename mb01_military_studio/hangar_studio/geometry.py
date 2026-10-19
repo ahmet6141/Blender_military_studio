@@ -1023,10 +1023,13 @@ def _gates(m,c):
         m.box('HG_GateHeader',(0,-.12,top+.3225),(2*(a+.089-sh),.32,.645),'SteelDark','STRUCTURE',.004)
         yf,zt=-.505-cd,top+.745                            # 330 mm folded fascia, 50 mm upstand, drip lip
         # Slab from the fascia's back leg to 9 mm in front of the wall crests (it no longer runs through
-        # the cladding, corner caps and end frame); a galvanised soffit liner 1 mm under it spans the
-        # pelmet zone between the door-house end cores, 1 mm in front of the header face.
+        # the cladding, corner caps and end frame); a galvanised soffit liner 1 mm under it, from 250 mm
+        # in front of the pelmet to 1 mm in front of the header face: one T-shaped plate, its front
+        # strip on to 1 mm inside the end caps, its back over the leaves between the door-house end cores.
         m.box('HG_RailCanopy',(0,(yf+.040+fy-.009)/2,top+.695),(2*Le,fy-.049-yf,.10),'SteelDark','FACADE',.005)
-        m.box('HG_CanopySoffit',(0,(yo-.681)/2,top+.635),(2*u1,.119-yo,.018),'Galvanized','DETAIL',.001)
+        ls=Le-.001
+        m.p('HG_CanopySoffit','DETAIL',.001).prism([(-ls,yo-.40),(ls,yo-.40),(ls,yo-.150),(u1,yo-.150),(u1,-.281),
+            (-u1,-.281),(-u1,yo-.150),(-ls,yo-.150)],(0,0,top+.626),A.IDENTITY,.018,'Galvanized')
         m.p('HG_CanopyFascia','FACADE',.003).prism([(yf-.022,zt-.280),(yf+.040,zt-.280),(yf+.040,zt+.050),
             (yf-.010,zt+.050),(yf-.010,zt-.262),(yf-.022,zt-.262)],(-Le,0,0),C.YZX,2*Le,'SteelDark')
         m.box('HG_PortalAccent',(0,yf-.013,zt-.115),(2*Le,.006,.050),'Yellow','DETAIL',.001)
