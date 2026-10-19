@@ -686,6 +686,9 @@ def _track_system(m,c):
     inner flanges), a continuous support girder bolted to the canopy soffit through hanger
     plates, cross spacers between adjacent girders, rubber-buffered end stops and a floor
     guide channel. All quads; still visual hardware, not a rated door design.
+    Seen from below the head reads as one dark soffit: painted rails, 6 mm closer strips under
+    the 60 mm gaps between adjacent rails (5 mm under each web, 2 mm below the web bottoms,
+    16 mm clear of the leaf tops) and an inner closer in front of the portal jambs.
     """
     oh=c.opening_height;z=c.base_height;w=c.width;top=z+oh
     L=w-.18;n=c.gate_leaves//2
@@ -693,18 +696,21 @@ def _track_system(m,c):
     for j in range(n):
         y=-.43-j*TRACK_PITCH
         rail=m.p(f'HG_GateRail_{j}','STRUCTURE',.002)
-        rail.box((0,y,top+.265),(L,.18,.03),'Galvanized')                       # top plate .25..28
+        rail.box((0,y,top+.265),(L,.18,.03),'HG_GateTrack')                     # top plate .25..28
         for s in (-1,1):
-            rail.box((0,y+s*.08,top+.095),(L,.02,.31),'Galvanized')            # webs -.06..25
-            rail.box((0,y+s*.0475,top+.11),(L,.045,.04),'Galvanized')          # flanges -.06..-.02
+            rail.box((0,y+s*.08,top+.095),(L,.02,.31),'HG_GateTrack')          # webs -.06..25
+            rail.box((0,y+s*.0475,top+.11),(L,.045,.04),'HG_GateTrack')        # running flanges .09..13
+        closer=m.p('HG_TrackClosers','DETAIL',.001)
+        if j==0:closer.box((0,-.321,top-.065),(L,.048,.006),'HG_GateTrack')     # inner closer, 2 mm off the jambs
+        if j<n-1:closer.box((0,y-.12,top-.065),(L,.070,.006),'HG_GateTrack')    # gap to the next track out
         # Support girder sits on the rail, hanger plates tie it to the canopy soffit.
         m.box(f'HG_TrackGirder_{j}',(0,y,top+.33),(L,.18,.10),'SteelDark','STRUCTURE',.003)
         hang=m.p('HG_TrackHangers','DETAIL',.001)
         for xx in xs:
             hang.box((xx,y,top+.386),(.16,.22,.012),'Galvanized')
-            hang.box((xx,y,top+.51),(.10,.14,.236),'Galvanized')
+            hang.box((xx,y,top+.509),(.10,.14,.234),'Galvanized')               # stem up to the soffit (+.626)
             if j<n-1:
-                hang.box((xx,y-TRACK_PITCH/2,top+.33),(.08,.07,.06),'SteelDark')   # cross spacer
+                hang.box((xx,y-TRACK_PITCH/2,top+.33),(.08,.06,.06),'SteelDark')   # cross spacer, girder to girder
         stops=m.p('HG_TrackEndStops','DETAIL',.001)
         for s in (-1,1):
             stops.box((s*(L/2+.006),y,top+.185),(.012,.20,.21),'SteelDark')
@@ -814,6 +820,14 @@ def _gates(m,c):
         gt=lh-.55;glz=(gt-min(1.20,max(.80,.17*lh)),gt)
     yo=-.43-(n-1)*.24                         # outermost track: pelmet and door houses sit in front of it
 
+    def stencil_digit(d,W=.12,H=.30,t=.026,g=.007):
+        # Seven-segment stencil numeral as (x0, z0, x1, z1) strokes in a W x H cell: t-wide strokes,
+        # g-wide stencil breaks where the bars meet the stems; '1' is one centred stem.
+        if d==1:return [((W-t)/2,H/2+g/2,(W+t)/2,H),((W-t)/2,0.,(W+t)/2,H/2-g/2)]
+        bars=dict(a=(t+g,H-t,W-t-g,H),g=(t+g,(H-t)/2,W-t-g,(H+t)/2),d=(t+g,0.,W-t-g,t),
+                  f=(0.,H/2+g/2,t,H),b=(W-t,H/2+g/2,W,H),e=(0.,0.,t,H/2-g/2),c=(W-t,0.,W,H/2-g/2))
+        return [bars[k] for k in ('abcdef','bc','abged','abgcd','fgbc','afgcd','afgecd','abc','abcdefg','abcdfg')[d]]
+
     def ribbed(p,origin,axes,u0,u1,crest,pan,back,pitch,length,mat,most=999,liner=None):
         # Trapezoidal profiled skin, 40 mm crests on 100 mm rib bases at an even pitch, flat back;
         # one closed shell extruded along axes[2], its ear-clipped caps end inside flashings/trims.
@@ -884,14 +898,14 @@ def _gates(m,c):
         bx(.130,.212,-.060,-.015,hp0,hp1,'SteelDark')                    # pocket back
         cyl(.170,-.078,hp0-.010,.170,-.078,hp1+.010,.011,'Galvanized')   # grip bar, ends buried in the cover
         cap(p,X,y,z0,0.,lw,.320,-.056,'Galvanized',drip=.308)            # galvanised kick plate
-        cap(p,X,y,z0,0.,lw,ht,-.063,'HG_GateTrim')                       # leaf head flashing
+        cap(p,X,y,z0,0.,lw+.040,ht,-.063,'HG_GateTrim')                  # leaf head flashing, over the astragal
         if glz:
             gb,gt=glz;g0,g1=wl-.005,lw-wt+.005
             cap(p,X,y,z0,g0,g1,gb,-.056,'HG_GateTrim')                   # sill with drip
             cap(p,X,y,z0,g0,g1,gt,-.056,'HG_GateTrim')                   # head over the glazing
             bx(g0+.001,g1-.001,-.070,-.030,gb+.020,gb+.060,'HG_GateAlu') # glazing channels
             bx(g0+.001,g1-.001,-.070,-.030,gt-.045,gt-.005,'HG_GateAlu')
-            bx(wl-.010,lw-wt+.010,-.058,-.042,gb+.040,gt-.025,'Glass')    # 16 mm multiwall polycarbonate
+            bx(wl-.010,lw-wt+.010,-.058,-.042,gb+.040,gt-.025,'HG_GatePolycarb')   # 16 mm opal multiwall polycarbonate
             wg=lw-wl-wt;npn=max(1,ceil(wg/1.20))
             for i in range(1,npn):
                 qb=wl+wg*i/npn
@@ -905,9 +919,10 @@ def _gates(m,c):
         if j==0:
             bx(-.005,.010,-.050,.040,.014,lh-.150,'Rubber')                # meeting seal, 2 mm gap at the centre
         else:
-            bx(-.040,.080,.060,.100,.014,lh-.160,'HG_GateTrim')            # rebate behind the inner neighbour's astragal
+            bx(-.040,.080,.060,.100,.014,lh-.141,'HG_GateTrim')            # rebate behind the inner neighbour's astragal
         # Trailing astragal on the exterior face: laps the outer neighbour's rebate; on the outermost leaf it
         # runs behind the door-house jamb trim and rubber blade. Labyrinths, no sightline into the hangar.
+        # Its top tucks 1 mm under the head flashing's drip; the rebate stops 1 mm under the hanger rail.
         bx(lw-.030,lw+.040,-.099,-.070,.014,ht-.041,'HG_GateTrim')
         # ---- handles and locks
         cyl(.180,.042,.90,.180,.042,1.50,.014,'Galvanized')               # inside pull bar, 44 mm knuckle space
@@ -924,6 +939,13 @@ def _gates(m,c):
             pieces.append([(qa,h0+N*st),(qb,h0+N*st+b),(qa,h0+N*st+b)])
             for k,pc in enumerate(pieces):
                 p.prism(pc,(xin,y-.094,z0),((s,0,0),(0,0,1),(0,-1,0)),.006,'HG_GateHazardInk' if k%2==0 else 'HG_GateHazard')
+        if c.detail!='DRAFT':
+            # Leaf number for maintenance, 1..2n left to right seen from outside: condensed 120 x 300 mm
+            # stencil strokes raised 5 mm on the leading-stile cover above the chevrons, kept to its far side
+            # so the two meeting-leaf numbers stand 17 cm apart; laid out in world x (never mirrored).
+            xl=min(X(.085),X(.205))
+            for sa,ha,sb,hb in stencil_digit(n-j if s<0 else n+1+j):
+                p.box((xl+(sa+sb)/2,y-.0965,z0+2.70+(ha+hb)/2),(sb-sa,.005,hb-ha),'White')
         if c.detail!='DRAFT' and c.fasteners:                            # cover screws at every rail line
             lv=[(g0+g1)/2 for g0,g1 in rails+fixed[1:-1]]+[ht-.06]
             for qq in (.221,lw-.060):
@@ -932,42 +954,94 @@ def _gates(m,c):
 
     def head():
         """Door head: header, canopy with folded fascia, pelmet over the leaf tops, door houses."""
-        cd=.44+(n-1)*.24;L=2*(env.outside_x+.06)          # canopy ends clear the corner caps' outer planes
+        C=MG.ModuleModel;X,fy=env.outside_x,env.front_y
+        u0,u1=c.opening_width/2+.005,a+.091;ue=u1+.083     # door house: jamb line, end plate, end plinth face
+        cd=.44+(n-1)*.24;Le=X+.068                         # canopy ends 68 mm past the corner caps' outer planes
         # Header ends 2 mm inside the door-house end plates (no step proud of them at the corners).
         m.box('HG_GateHeader',(0,-.12,top+.3225),(2*(a+.089),.32,.645),'SteelDark','STRUCTURE',.004)
-        m.box('HG_RailCanopy',(0,-.28-cd/2,top+.695),(L,cd+.45,.10),'SteelDark','FACADE',.005)
-        m.box('HG_CanopySoffit',(0,-.28-cd/2,top+.637),(w+.21,cd+.22,.018),'Galvanized','DETAIL',.001)
         yf,zt=-.505-cd,top+.745                            # 330 mm folded fascia, 50 mm upstand, drip lip
+        # Slab from the fascia's back leg to 9 mm in front of the wall crests (it no longer runs through
+        # the cladding, corner caps and end frame); a galvanised soffit liner 1 mm under it spans the
+        # pelmet zone between the door-house end plates, 1 mm in front of the header face.
+        m.box('HG_RailCanopy',(0,(yf+.040+fy-.009)/2,top+.695),(2*Le,fy-.049-yf,.10),'SteelDark','FACADE',.005)
+        m.box('HG_CanopySoffit',(0,(yo-.681)/2,top+.635),(2*u1,.119-yo,.018),'Galvanized','DETAIL',.001)
         m.p('HG_CanopyFascia','FACADE',.003).prism([(yf-.022,zt-.280),(yf+.040,zt-.280),(yf+.040,zt+.050),
-            (yf-.010,zt+.050),(yf-.010,zt-.262),(yf-.022,zt-.262)],(-L/2-.008,0,0),((0,1,0),(0,0,1),(1,0,0)),L+.016,'SteelDark')
-        m.box('HG_PortalAccent',(0,yf-.013,zt-.115),(L,.006,.050),'Yellow','DETAIL',.001)
+            (yf-.010,zt+.050),(yf-.010,zt-.262),(yf-.022,zt-.262)],(-Le,0,0),C.YZX,2*Le,'SteelDark')
+        m.box('HG_PortalAccent',(0,yf-.013,zt-.115),(2*Le,.006,.050),'Yellow','DETAIL',.001)
+        # 2 mm end caps over the fascia profile and the slab end; abutment flashing where the slab meets
+        # the facade: 100 mm leg on the slab, 150 mm upstand 1 mm in front of the corner-cap legs that
+        # covers the open rib ends (kept under the verge trims at the corners).
+        cap_end=[(yf-.022,zt-.280),(yf+.040,zt-.280),(yf+.040,zt-.100),(fy-.009,zt-.100),(fy-.009,zt),(yf+.040,zt),
+                 (yf+.040,zt+.050),(yf-.010,zt+.050),(yf-.010,zt-.262),(yf-.022,zt-.262)]
+        for sx in (-1.,1.):
+            m.p('HG_CanopyEndCaps','FACADE',.001).prism(cap_end,(sx*Le,0,0),((0,1,0),(0,0,1),(sx,0,0)),.002,'SteelDark')
+        hu=min(zt+.152,z+c.eave_height-.12)
+        m.p('HG_CanopyFlashing','DETAIL',0.).prism([(fy-.109,zt),(fy-.009,zt),(fy-.009,hu),(fy-.011,hu),
+            (fy-.011,zt+.002),(fy-.109,zt+.002)],(-(X+.008),0,0),C.YZX,2*(X+.008),'HG_WallTrim')
         # Pelmet (track cover) in front of the outermost track: hides girders, hangers and the outer rail
-        # web; its return laps 25 mm over the leaf tops at the rail-web bottom line (top-.060), so it
-        # takes no opening height the rails do not already take.
+        # web; its return laps over the leaf tops at the rail-web bottom line (top-.060), 3 mm short of the
+        # outer web and 24 mm clear of the leaf, so it takes no opening height the rails do not already take.
         h1=top-.060
-        m.p('HG_GateTrackCover','FACADE',.002).prism([(yo-.150,h1),(yo-.115,h1),(yo-.115,h1+.008),
-            (yo-.144,h1+.008),(yo-.144,top+.629),(yo-.150,top+.629)],(-a-.091,0,0),((0,1,0),(0,0,1),(1,0,0)),2*(a+.091),'SteelDark')
+        m.p('HG_GateTrackCover','FACADE',.002).prism([(yo-.150,h1),(yo-.093,h1),(yo-.093,h1+.008),
+            (yo-.144,h1+.008),(yo-.144,top+.625),(yo-.150,top+.625)],(-u1,0,0),C.YZX,2*u1,'SteelDark')
+        # Amber warning beacons on the pelmet above each jamb (wall bracket, base, lens, cap) and a
+        # push-button station (open / close / stop) with a rain hood on the left door-house front.
+        bc=m.p('HG_GateBeacons','DETAIL',.001);zb=top+.20;yb=yo-.235
+        for sx in (-1.,1.):
+            xb=sx*(c.opening_width/2+.30)
+            bc.box((xb,yo-.153,zb),(.10,.006,.12),'SteelDark')
+            bc.box((xb,yo-.223,zb-.045),(.05,.134,.03),'SteelDark')
+            bc.cylinder((xb,yb,zb-.030),(xb,yb,zb-.005),.050,'SteelDark',12)
+            bc.cylinder((xb,yb,zb-.005),(xb,yb,zb+.115),.044,'HG_GateBeacon',12)
+            bc.cylinder((xb,yb,zb+.115),(xb,yb,zb+.130),.047,'SteelDark',12)
+        cs=m.p('HG_GateControls','DETAIL',.002);xc,zc,yc=-(c.opening_width/2+.45),z+1.40,yo-.145
+        cs.box((xc,yc-.060,zc),(.25,.12,.35),'SteelDark')
+        cs.box((xc,yc-.075,zc+.181),(.27,.15,.012),'SteelDark')
+        for dz,mat in ((.08,'Yellow'),(0.,'Rubber'),(-.08,'Red')):
+            cs.cylinder((xc,yc-.120,zc+dz),(xc,yc-.135,zc+dz),.018,mat,8)
         # Door houses: clad pocket fronts flush with the pelmet face, enclosing the parked leaves. They
         # start 5 mm outside the opening line (no loss of clear width); at the jamb the outermost leaf's
-        # astragal runs behind the jamb trim and a rubber blade, closing the slot into the hangar. End
-        # plates run floor to soffit, clear of the corner column base shoe (a+.09), and butt against the
-        # plinth face below its top (.48) and 1 mm into the pocket wall above it.
-        hs=m.p('HG_GateHouses','FACADE',.002);u0,u1=c.opening_width/2+.005,a+.091;t=env.thickness
-        hb=.150;rise=.003+(.150-.119)*.52                 # base flashing: wedge rising to the sheet pans
+        # astragal runs behind the jamb trim and a rubber blade, closing the slot into the hangar.
+        # Base as on the building: an L-shaped .48 m concrete plinth under the front and the end, 46 mm
+        # proud of the crests, the building's drip flashing mitred round it, sheets from CLAD_BASE; a
+        # sealed movement joint where the end plinth meets the facade plinth, under the facade drip.
+        # Ends: vertical-rib sheet on a backing plate between the corner angle and a rear end trim
+        # 1 mm in front of the corner cap. Trims are colour-matched; the jamb trim stays dark with the pelmet.
+        # Trim feet start at z+.495 and lap 1-4 mm into the drip flashing, as the building's corner caps do.
+        hs=m.p('HG_GateHouses','FACADE',.002);pl=m.p('HG_GateHousePlinths','FACADE',.004)
+        fl=m.p('HG_GateHouseFlashings','DETAIL',0.);ce=yo-.144             # crest plane of the house fronts
         for sx in (-1.,1.):
             def hbx(ua,ub,v0,v1,za,zb,mat):
                 hs.box((sx*(ua+ub)/2,yo+(v0+v1)/2,(za+zb)/2),(ub-ua,v1-v0,zb-za),mat)
-            hbx(u0,u0+.10,-.150,-.110,z,h1,'SteelDark')                  # jamb trim
-            hbx(u1-.10,u1,-.150,-.110,z,h1,'SteelDark')                  # corner trim
+            hbx(u0,u0+.10,-.150,-.110,z,h1,'SteelDark')                  # jamb trim: steel post beside the plinth end
             hbx(u0,u0+.030,-.110,-.103,z+.003,h1-.004,'Rubber')          # jamb blade, 3 mm off the leaf band
-            hbx(u1,u1+.006,-.150,-t-.046-yo,z,z+.48,'HG_Wall')           # end plate below the plinth top
-            hbx(u1,u1+.006,-.150,-t-.001-yo,z+.48,top+.628,'HG_Wall')    # end plate up to the soffit
-            hbx(u1+.006,u1+.012,-.150,-.050,z,top+.628,'SteelDark')      # side leg of the corner trim
-            hbx(u1+.006,u1+.012,-.050,-t-.046-yo,z,z+hb,'SteelDark')     # base flashing on the end
-            hs.prism([(-.150,0.),(-.111,0.),(-.111,hb-.005),(-.119,hb-.005),(-.119,hb+rise),(-.150,hb+.003)],
-                (sx*(u0+.10),yo,z),((0,1,0),(0,0,1),(sx,0,0)),u1-u0-.20,'SteelDark')
-            # 25 mm trapezoid cladding (crest -.144, pan -.119, back -.113), ends buried in the trims
-            ribbed(hs,(0,yo,z+hb-.006),((sx,0,0),(0,1,0),(0,0,1)),u0+.05,u1-.05,-.144,-.119,-.113,.30,h1+.004-(z+hb-.006),'HG_Wall')
+            hbx(u1-.10,u1,-.150,-.110,z+.495,h1,'HG_WallTrim')           # corner angle, front leg
+            hbx(u1,u1+.006,-.150,fy-.009-yo,z+.495,top+.644,'HG_WallTrim')            # end plate (sheet backing)
+            hbx(u1+.006,u1+.043,-.150,-.050,z+.495,top+.644,'HG_WallTrim')            # corner angle, side leg
+            hbx(u1+.006,u1+.043,fy-.050-yo,fy-.009-yo,z+.495,top+.644,'HG_WallTrim')  # rear end trim
+            # 25 mm trapezoid sheets at the wall's .25 pitch, ends buried in the trims: front (crest -.144,
+            # pan -.119, back -.113) and end (crest u1+.037, back 1 mm off the plate), 1-2 mm under the tops
+            ribbed(hs,(0,yo,z+.50),((sx,0,0),(0,1,0),(0,0,1)),u0+.05,u1-.05,-.144,-.119,-.113,.25,h1-.001-(z+.50),'HG_Wall')
+            ribbed(hs,(sx*(u1+.006),0,z+.50),((0,1,0),(-sx,0,0),(0,0,1)),yo-.06,fy-.012,-.031,-.006,-.001,.25,top+.643-(z+.50),'HG_Wall')
+            # (1 mm over the apron: on 4-track gates the plinth bridges the trench drain's rim)
+            pl.prism([(sx*u,v) for u,v in ((u0+.10,yo-.190),(ue,yo-.190),(ue,fy-.0615),(u1-.030,fy-.0615),(u1-.030,yo-.106),
+                (u0+.10,yo-.106))],(0,0,z+.001),A.IDENTITY,.479,'Concrete')
+            pl.box((sx*(u1-.030+ue-.006)/2,fy-.05375,z+.225),(ue-.006-u1+.030,.0155,.448),'Rubber')
+            # Drip flashing: front run and end return (its back edge 1 mm into the end plate), built to sentinel
+            # ends, then mitred on the plan diagonal.
+            fl.prism(C.BASE_FLASH,(sx*(u0+.10),ce,z),((0,1,0),(0,0,1),(sx,0,0)),u1+.20-u0-.10,'HG_WallTrim')
+            fl.prism(C.BASE_FLASH,(sx*(u1+.038),yo-.40,z),((-sx,0,0),(0,0,1),(0,1,0)),fy-.061-yo+.40,'HG_WallTrim')
+            C.shift(fl,lambda v:abs(v[0]-sx*(u1+.20))<1e-6,lambda v:(sx*(u1+.038-(v[1]-ce)),v[1],v[2]))
+            C.shift(fl,lambda v:abs(v[1]-(yo-.40))<1e-6,lambda v:(v[0],ce+u1+.038-sx*v[0],v[2]))
+        if c.fasteners and c.detail=='HERO':
+            # Screws in alternate pans on the facade's girt lines (the house pans sit 25 mm behind the crests).
+            fx=m.p('HG_GateHouseFixings','DETAIL',0.);rows=C.girt_rows(z+.58,h1-.166)
+            k=max(3,round((u1-u0-.10)/.25));ke=max(3,round((fy+.048-yo)/.25))   # ribbed() rib counts
+            for sx in (-1.,1.):
+                C.fixings(fx,*sorted((sx*(u0+.05),sx*(u1-.05))),(u1-u0-.10)/k,sx*(u0+.05),rows,
+                          frame=((0,yo-.154,0),(1,0,0),(0,1,0)),mat='HG_WallTrim')
+                C.fixings(fx,*sorted((sx*(yo-.050),sx*(fy-.050))),(fy+.048-yo)/ke,sx*(yo-.06),rows,
+                          frame=((sx*(u1+.047),0,0),(0,sx,0),(-sx,0,0)),mat='HG_WallTrim')
 
     _track_system(m,c)
     head()
