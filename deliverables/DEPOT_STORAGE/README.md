@@ -33,12 +33,12 @@ Yoğunluk 4096 px doku için piksel/metre. TRIM satırında "bant / benzersiz b�
 |---|---|---|---|---|---|
 | `TS_Signage` | Trim bantları + benzersiz | Sign letters, number block, sign field, floor and safety markings | 1000 / 995 | 773 | HG_SignFace `#d39952`, HG_SignInk `#329ae5`, HG_SignSub `#4a37cc`, Red `#b04dcc`, White `#755fef`, Yellow `#5456f7` |
 | `TS_Glazing` | Benzersiz | Glass, window backing, light lenses | 739 | 551 | Interior `#6e54d3`, LightWarm `#4848d6` |
-| `TS_Gates` | Benzersiz | Main sliding gate leaves (panels, ribs, kick plates) | 218 | 253 | HG_Gate `#dd3341`, HG_GateBeacon `#9de550`, HG_GateHazard `#9160f2`, HG_GateHazardInk `#5befa7`, HG_GateLiner `#d15979`, HG_GateTrack `#343aed`, HG_GateTrim `#32e2f2` |
+| `TS_Gates` | Benzersiz | Main sliding gate leaves (panels, ribs, kick plates) | 218 | 250 | HG_Gate `#dd3341`, HG_GateBeacon `#9de550`, HG_GateHazard `#9160f2`, HG_GateHazardInk `#5befa7`, HG_GateLiner `#d15979`, HG_GateTrack `#343aed`, HG_GateTrim `#32e2f2` |
 | `TS_Roof` | Döşemeli (seamless) | Roof skin, ridge, monitor, roof trims and bargeboards | 1024 | 45 | HG_Roof `#db5e3f`, HG_RoofDownpipe `#4153db`, HG_RoofFlashing `#f72e71`, HG_RoofLight `#ef2680`, HG_RoofLightInner `#e234c8`, HG_RoofLiner `#464bdb`, HG_RoofRainwater `#f7ef59`, HG_RoofSeam `#2cf7f3` |
 | `TS_Cladding` | Döşemeli (seamless) | Wall cladding, facade modules, seams and reveals, personnel doors | 1024 | 44 | HG_Wall `#e09d50`, HG_WallCassette `#31d63c`, HG_WallLiner `#9e27d1`, HG_WallTrim `#ed34d1`, Joint `#f26a73`, RoofOlive `#2865d6` |
-| `TS_Structure` | Trim bantları + benzersiz | Painted steel: portal frames, girders, jambs, headers, window frames | 164 / 160 | 96 | SteelDark `#a5ce35` |
+| `TS_Structure` | Trim bantları + benzersiz | Painted steel: portal frames, girders, jambs, headers, window frames | 122 / 127 | 91 | SteelDark `#a5ce35` |
 | `TS_Concrete` | Döşemeli (seamless) | Floor slabs, apron, plinths, loading dock, landings | 1024 | 61 | Concrete `#ce48b3`, HG_Concrete_EXPOSED_0 `#542fce`, HG_Concrete_EXPOSED_1 `#37cc9f`, HG_Concrete_EXPOSED_2 `#c7ea60`, HG_Concrete_EXPOSED_3 `#a8dd63`, HG_Concrete_INDOOR_0 `#43d343`, HG_Concrete_INDOOR_1 `#cea621`, HG_Concrete_INDOOR_2 `#52f429`, HG_Concrete_INDOOR_3 `#47efe4` |
-| `TS_Metal` | Trim bantları + benzersiz | Galvanised and aluminium hardware: rails, trolleys, gutters, pipes, rubber | 214 / 206 | 134 | Galvanized `#5cf23e`, HG_Alu `#5079e0`, LightGreen `#d33d32`, Rubber `#f449ef` |
+| `TS_Metal` | Trim bantları + benzersiz | Galvanised and aluminium hardware: rails, trolleys, gutters, pipes, rubber | 212 / 205 | 122 | Galvanized `#5cf23e`, HG_Alu `#5079e0`, LightGreen `#d33d32`, Rubber `#f449ef` |
 
 Yerleşim türleri:
 

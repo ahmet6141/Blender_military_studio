@@ -147,7 +147,8 @@ def _structure(m,c):
             if end>0:hi=min(hi,d+lim-.003)
             return (lo+hi)/2,hi-lo
         frame=m.p(f'HG_Portal_{i:02d}','STRUCTURE',.004)
-        _sweep(frame,A.i_profile(.24,.46,.026,.035),lambda X,u,v:(X,y+u,R(X)-.52+v*k),(-xr,0.,xr),'SteelDark')
+        for st in ((-xr,0.),(0.,xr)):   # halves mitre on the apex line; each stays a straight trim member
+            _sweep(frame,A.i_profile(.24,.46,.026,.035),lambda X,u,v:(X,y+u,R(X)-.52+v*k),st,'SteelDark')
         haunch(frame,y,0.,.45,.15,(-.45,0.,.45))
         bolts=c.fasteners and c.detail!='DRAFT';hero=bolts and c.detail=='HERO'   # hero: end-plate bolts
         if bolts:p=m.p('HG_Fasteners','DETAIL',.001)
