@@ -16,8 +16,26 @@ A=MG.A
 SCHEMA='mb01.gamekit/0.1'
 NEW_MODULES=('HANGAR.WALL.CASSETTE','HANGAR.WALL.VISION','HANGAR.WALL.SHADED',
              'HANGAR.WALL.DUAL_VENT','HANGAR.ENTRY.DOUBLE_SERVICE','HANGAR.ENTRY.CANOPY')
-FINE=frozenset(('HeadReveal','SillDrip','CassetteReveals','VisionHeadShadow','EntryShadowReveal'))
-DISTANT=FINE|frozenset(('PanelSeams','CassetteFold','EntryJambFold','CanopyLight'))
+# Roles dropped at LOD1 / LOD2. Never Cladding, CassetteTrays, Wall, VentFrame, VentScreen, the
+# opening trims (JambTrims/HeadFlashing/SillFlashing close the cap-less sheet's crest voids at
+# every aperture), EaveTrim/BaseFlashing (light bands that would pop), WindowFrames, Glass or
+# ShadeWallPlate (the shade arms would float). LOD2 louvres read as dark recessed screens.
+FINE=frozenset(('CladFixings','PressureCaps'))
+DISTANT=FINE|frozenset(('CassetteJoints','VentBlades','CanopyLight'))
+
+
+def _check_lod_roles(settings, _seen=[]):
+    """Stale omission lists silently do nothing: every listed role must still be built by one
+    of the six modules (at HERO, which has them all). Checked once per process."""
+    if _seen:return
+    built=set()
+    for mid in NEW_MODULES:
+        spec=require(mid)
+        built|={role(p) for p in MG.build(replace(settings,module_id=mid,width=spec.default_width,
+                height=spec.default_height,detail='HERO')).parts}
+    stale=sorted(DISTANT-built)
+    if stale:raise ValueError('LOD omission lists name roles no module builds: '+', '.join(stale))
+    _seen.append(True)
 
 
 def role(part): return part.name.split('__')[-1]
@@ -98,6 +116,7 @@ def compile_module(settings):
     settings.checked()
     if settings.module_id not in NEW_MODULES:
         raise ValueError('Game-kit compiler currently supports the six expansion modules only.')
+    _check_lod_roles(settings)
     levels={};stats={};omitted={};reference=None
     stem='SM_MB03_'+settings.module_id.split('.')[-1]
     dimension_tag=hashlib.sha256(json.dumps([settings.width,settings.height,settings.thickness],separators=(',',':')).encode()).hexdigest()[:8]
