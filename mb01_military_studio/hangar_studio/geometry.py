@@ -126,8 +126,8 @@ def _structure(m,c):
     lim=c.wall_thickness-ModuleModel.CLAD_CORE-.005    # wall-side stop for end-frame plates
     # Hot-rolled portal: column web in the frame plane (flanges at |x| a-.42 / a-.02), rafter one
     # sweep of vertical sections (the apex section is the mitre) between the column inner flanges,
-    # its ends 2 mm into them. T/B: rafter top/bottom flange faces. Column cap 25 mm over the
-    # rafter, kept 8 mm under the eaves purlin (xe).
+    # its ends 2 mm into them (end plate 4, haunch 6: no shared end planes). T/B: rafter top/bottom
+    # flange faces. Column cap 25 mm over the rafter, kept 8 mm under the eaves purlin (xe).
     T=lambda X:R(X)-.52+.23*k;B=lambda X:R(X)-.52-.23*k
     xi,xr,xe=a-.42,a-.418,a-.30;top=min(T(xi)+.025,R(xe)-.233)
     HT=((-.11,0.),(.11,0.),(.11,1.),(.012,1.),(.012,2.),(-.012,2.),(-.012,1.),(-.11,1.))
@@ -150,36 +150,37 @@ def _structure(m,c):
         frame=m.p(f'HG_Portal_{i:02d}','STRUCTURE',.004)
         _sweep(frame,A.i_profile(.24,.46,.026,.035),lambda X,u,v:(X,y+u,R(X)-.52+v*k),(-xr,0.,xr),'SteelDark')
         haunch(frame,y,0.,.45,.15,(-.45,0.,.45))
-        bolts=c.fasteners and c.detail!='DRAFT'
+        bolts=c.fasteners and c.detail!='DRAFT';hero=bolts and c.detail=='HERO'   # hero: end-plate bolts
         if bolts:p=m.p('HG_Fasteners','DETAIL',.001)
         for side in (-1,1):
             x=side*(a-.22);xa=side*xr
             frame.prism([(v,u) for u,v in A.i_profile(.34,.40,.035,.040)],(x,y,z+.105),A.IDENTITY,top-.018-z-.105,'SteelDark')
-            haunch(frame,y,xa,xa-side*.90,.30,(xa,xa-side*.90))
+            xh=side*(a-.414);haunch(frame,y,xh,xh-side*.90,.30,(xh,xh-side*.90))
             yc,dy=span(.34)
-            m.box('HG_BaseShoes',(x,yc,z+.0535),(.62,dy,.113),'SteelDark','STRUCTURE',.004)   # 3 mm into the slab
-            # Knee: 25 mm end plate on the rafter and haunch, bolted to the column inner flange (2 mm
-            # into it, 10 mm into the cap); 20 mm cap plate over the column and the end plate.
+            m.box('HG_BaseShoes',(side*(a-.267),yc,z+.0535),(.526,dy,.113),'SteelDark','STRUCTURE',.004)   # 3 mm into the slab, 4 mm off the liner
+            # Knee: 25 mm end plate on the rafter and haunch, bolted to the column inner flange (bedded
+            # in it, 10 mm into the cap); 20 mm cap plate over the column and the end plate.
             zb=B(xa)-.325;yc,dy=span(.13)
-            m.box('HG_EaveConnection',(side*(a-.4315),yc,(zb+top-.010)/2),(.027,dy,top-.010-zb),'SteelDark','DETAIL',.002)
+            m.box('HG_EaveConnection',(side*(a-.4305),yc,(zb+top-.010)/2),(.029,dy,top-.010-zb),'SteelDark','DETAIL',.002)
             yc,dy=span(.18)
             m.box('HG_EaveConnection',(side*(a-.231),yc,top-.010),(.432,dy,.020),'SteelDark','DETAIL',.002)
             if bolts:
-                for dx in (-.23,.23):
+                for dx in (-.23,.16):          # anchor bolts beside the flanges, the outer pair clear of the wall
                     for dy in (-.25,.25):
-                        yy=y+dy
+                        yy=y+dy;xx=x+side*dx
                         if end<0:yy=max(yy,-lim+.05)
                         if end>0:yy=min(yy,d+lim-.05)
-                        p.cylinder((x+dx,yy,z+.111),(x+dx,yy,z+.155),.028,'Galvanized',6)
-                        p.cylinder((x+dx,yy,z+.108),(x+dx,yy,z+.121),.044,'Galvanized',12)
+                        p.cylinder((xx,yy,z+.111),(xx,yy,z+.155),.028,'Galvanized',6)
+                        p.cylinder((xx,yy,z+.108),(xx,yy,z+.121),.044,'Galvanized',12)
+            if hero:
                 for dy in (-.075,.075):        # nut on the end plate, head inside the column flange
                     for zz in (T(xa)-.035*k-.055,B(xa)-.15):
-                        p.cylinder((side*(a-.475),y+dy,zz),(side*(a-.355),y+dy,zz),.021,'Galvanized',6)
+                        p.cylinder((side*(a-.475),y+dy,zz),(side*(a-.372),y+dy,zz),.021,'Galvanized',6)
         # Apex: a pair of 25 mm end plates (2 mm joint) over the mitre, extended over the apex haunch.
         zt,zb=T(0.)+.015,B(0.)-.17;yc,dy=span(.13)
         for sx in (-1,1):
             m.box('HG_RidgeSplice',(sx*.0135,yc,(zt+zb)/2),(.025,dy,zt-zb),'SteelDark','DETAIL',.002)
-        if bolts:
+        if hero:
             for dy in (-.075,.075):
                 for zz in (T(0.)-.035*k-.06,B(0.)-.07):
                     p.cylinder((-.05,y+dy,zz),(.05,y+dy,zz),.021,'Galvanized',6)
@@ -198,12 +199,19 @@ def _structure(m,c):
     for side,sequence in ((-1,c.panel_sequence('LEFT')),(1,c.panel_sequence('RIGHT'))):
         for i,token in enumerate(sequence):
             if token!='METAL':continue
-            y0=i*bp+.30;y1=(i+1)*bp-.30;x=side*(a-.34)
+            y0=i*bp+.30;y1=(i+1)*bp-.30;x=side*(a-.34);zl,zh=z+.65,z+c.eave_height-.80
             p=m.p('HG_SelectiveBraces','STRUCTURE',.002)
             # The two diagonals of the X sit in separate planes (one bolted in front of the
             # other, as real flat-bar bracing is) instead of intersecting with coplanar faces.
-            p.beam((x,y0,z+.65),(x,y1,z+c.eave_height-.80),.045,.055,'Galvanized')
-            p.beam((x-side*.05,y1,z+.65),(x-side*.05,y0,z+c.eave_height-.80),.045,.055,'Galvanized')
+            p.beam((x,y0,zl),(x,y1,zh),.045,.055,'Galvanized')
+            p.beam((x-side*.05,y1,zl),(x-side*.05,y0,zh),.045,.055,'Galvanized')
+            # Gusset plates welded to the column webs between the diagonals' planes (1 mm into each),
+            # 80 mm past the bar ends.
+            q=(zh-zl)/(y1-y0)*.08+.07
+            for yf,ye,o in ((_frame_y(c,i),y0,1.),(_frame_y(c,i+1),y1,-1.)):
+                for ze,up in ((zl,1.),(zh,-1.)):
+                    ya,yb=sorted((yf+o*.0155,ye+o*.08));za,zb=sorted((ze-up*.11,ze+up*q))
+                    p.box((side*(a-.365),(ya+yb)/2,(za+zb)/2),(.007,yb-ya,zb-za),'SteelDark')
 
 
 # ------------------------------------------------------------------ roof system helpers
