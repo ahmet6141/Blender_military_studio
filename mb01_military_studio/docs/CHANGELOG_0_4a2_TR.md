@@ -211,7 +211,8 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
   50 mm ötesine uzanır, uç dönüşleri kesit boyunca kalkar (siyah çentik yok); güneşlik
   bölmesinde kanatlar .36 eğim sınırına kadar oluk tabanının ≥ 250 mm altında.
 - Doğrulama: `verify_fast` 12 önayar × WORKING/HERO PASS, 100 modül PASS; aynı yöne
-  bakan çakışık yüz çifti 10 önayarda 0, DEPOT önayarlarında 7 (rampa). HERO bevel
+  bakan çakışık yüz çifti 10 önayarda 0, DEPOT önayarlarında 7 (rampa); canlı Blender
+  mesh QA 28/28 PASS (12 önayar + CORE HANGAR/SHELTER, WORKING/HERO). HERO bevel
   öncesi üçgen: MRO_WIDEBODY 114.4K, DEPOT_STORAGE 67.2K.
 
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
