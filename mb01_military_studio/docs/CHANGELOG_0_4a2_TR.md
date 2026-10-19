@@ -213,7 +213,9 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
 - Doğrulama: `verify_fast` 12 önayar × WORKING/HERO PASS, 100 modül PASS; aynı yöne
   bakan çakışık yüz çifti 10 önayarda 0, DEPOT önayarlarında 7 (rampa); canlı Blender
   mesh QA 28/28 PASS (12 önayar + CORE HANGAR/SHELTER, WORKING/HERO). HERO bevel
-  öncesi üçgen: MRO_WIDEBODY 114.4K, DEPOT_STORAGE 67.2K.
+  öncesi üçgen: MRO_WIDEBODY 114.6K, DEPOT_STORAGE 67.4K. Kiriş yarıları ayrı süpürülür
+  (mahyada gönye), böylece doku kitinde trim bandı olarak kalırlar: DEPOT_STORAGE
+  Structure seti 122 px/m (tek parça bükük kirişte 52 px/m idi).
 
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
