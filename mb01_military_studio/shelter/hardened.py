@@ -39,12 +39,12 @@ class Vault:
         # the arch LAP beyond the opening, so the closed door reads as one round door in the portal.
         self.ai,self.Ri=a-NIB,R-NIB;self.ow=2*self.ai
         self.wt,self.Rt=self.ai+LAP-.004,self.Ri+LAP+.004       # door outline: half width, top radius
-        self.zb0=b+.45;self.zl0=self.zb0+.95                     # outrigger foot bottom / body bottom
+        self.zb0=b+.30;self.zl0=self.zb0+.95                     # outrigger foot bottom / body bottom
         self.yi=-RING_D-.08;self.yo=self.yi-LEAF_T;self.yc=(self.yi+self.yo)/2
         self.rails=(self.yc,self.yo-.55)                         # two rails under every leaf
         self.Lw=self.wt-.012;self.shift=self.wt+.40-.012         # leaf width, travel to the parked position
-        self.F=2*self.wt+.40+1.40                                # half width of the front (stops + end blocks)
-        self.Hw=min(4.0,h-.2)                                    # wing walls behind the parked leaves
+        self.xe=2*self.wt+.40+.60                                # rail / trench end (parked leaf + stop)
+        self.F=self.xe+1.50                                      # half width of the front apron
         self.xr=self.xo+RING_W;self.Rr=self.Ro+RING_W            # portal arch outer profile
     def T(self,x):return self.zc+sqrt(max(0.,self.Rt**2-x*x))   # top of the closed door at x
     def path(self,ai,Ri,zb):
@@ -82,43 +82,49 @@ def _vault(m,s,v):
 
 
 def _portal(m,s,v):
-    """Portal arch around the opening, steel seal frame, wing walls and end blocks."""
-    b,F=v.b,v.F
+    """Portal arch around the opening, steel seal plate, steel rim coping and rim floodlights. No wing
+    walls: the leaves run on rails set flush in the apron and park free-standing beside the shelter."""
+    b=v.b
     m.p('PortalArch','STRUCTURE',.015).prism(v.path(v.ai,v.Ri,b)+v.path(v.xr,v.Rr,b)[::-1],(0,-RING_D,0),XZY,RING_D,'ConcreteLight')
     band=v.path(v.ai+LAP,v.Ri+LAP,b)+v.path(v.ai,v.Ri,b)[::-1]           # embedded seal plate (door lap zone)
     m.p('SealFrame','FACADE',0.).prism(band,(0,-RING_D-.012,0),XZY,.012,'SteelDark')
-    # Steel coping over the portal's outer rim above the wing walls; flush with the face, so nothing on the
-    # face stands in the sliding leaves' path (their inner seals pass 14 mm in front of it).
-    zcut=b+v.Hw+.06
-    cap=v.path(v.xr+.03,v.Rr+.03,zcut)+v.path(v.xr,v.Rr,zcut)[::-1]
+    # Steel coping over the portal's outer rim, flush with the face: nothing on the face stands in the
+    # sliding leaves' path (their inner seals pass 14 mm in front of it).
+    cap=v.path(v.xr+.03,v.Rr+.03,b)+v.path(v.xr,v.Rr,b)[::-1]
     m.p('PortalCoping','FACADE',.002).prism(cap,(0,-RING_D,0),XZY,RING_D,'SteelDark')
-    for sx in (-1.,1.):
-        x0,x1=sorted((sx*v.xr,sx*(F-.8)))
-        m.box('WingWalls',((x0+x1)/2,-.475,b+v.Hw/2),(x1-x0,.95,v.Hw),'ConcreteLight','STRUCTURE',.012,True)
-        m.box('WingCopings',((x0+x1)/2,-.475,b+v.Hw+.03),(x1-x0,1.01,.06),'Concrete','DETAIL',.006)
-        x0,x1=sorted((sx*(F-.8),sx*F))
-        m.box('EndBlocks',((x0+x1)/2,-1.70,b+(v.Hw+.6)/2),(.8,3.40,v.Hw+.6),'ConcreteLight','STRUCTURE',.015,True)
-        x=sx*(F-.8);y0=-3.40;g=m.p('CornerGuards','DETAIL',.002)
-        g.box((x-sx*.004,y0+.25,b+1.0),(.008,.50,2.0),'SteelDark');g.box((x+sx*.25,y0-.004,b+1.0),(.50,.008,2.0),'SteelDark')
-        for k in range(5):g.box((x-sx*.0105,y0+.25,b+.20+k*.40),(.006,.46,.20),'Yellow')
-        # Floodlights on the end blocks, aimed at the door line.
-        m.box('Floodlights',(sx*(F-.4),y0-.12,b+v.Hw+.25),(.42,.24,.30),'SteelDark','DETAIL',.004)
-        m.box('FloodlightLenses',(sx*(F-.4),y0-.242,b+v.Hw+.25),(.34,.004,.22),'LightWarm','DETAIL',0.)
+    for sx in (-1.,1.):     # LED floodlights on the rim, behind the face (clear of the leaves)
+        t_=sx*radians(40);T_,N_=(cos(t_),0.,-sin(t_)),(sin(t_),0.,cos(t_))
+        def at(r,y):return (r*sin(t_),y,v.zc+r*cos(t_))
+        R0=v.Rr+.03
+        m.box('Floodlights',at(R0+.035,-.95),(.12,.10,.07),'SteelDark','DETAIL',.002,axes=(T_,(0,1,0),N_))
+        m.box('Floodlights',at(R0+.20,-.95),(.42,.30,.26),'SteelDark','DETAIL',.004,axes=(T_,(0,1,0),N_))
+        m.box('FloodlightLenses',at(R0+.20,-1.102),(.34,.004,.20),'LightWarm','DETAIL',0.,axes=(T_,(0,1,0),N_))
 
 
 def _rails(m,s,v):
-    b,F=v.b,v.F;x0,x1=-(F-.8),F-.8;hero=s.detail=='HERO'
-    rp=m.p('DoorRails','STRUCTURE',.002);sp=m.p('RailSolePlates','DETAIL',.002)
+    """Crane rails in trenches cast into the apron: rail heads 5 mm under the slab, galvanised edge angles
+    flush with it, sole plates and clips on the trench floor, raised stops only at the trench ends."""
+    b,xe=v.b,v.xe;hero=s.detail=='HERO';z0=b-.125          # rail base reference (head top at b-.005)
+    rp=m.p('DoorRails','STRUCTURE',.002);sp=m.p('RailSolePlates','DETAIL',.002);ea=m.p('TrenchEdges','DETAIL',.001)
     for yc in v.rails:
-        sp.box((0,yc,b+.01),(x1-x0,.30,.02),'SteelDark')
-        rp.prism([(yc+u,b+w) for u,w in RAIL],(x0+.45,0,0),YZX,x1-x0-.90,'Galvanized')
+        sp.box((0,yc,z0+.01),(2*xe-.02,.24,.02),'SteelDark')
+        rp.prism([(yc+u,z0+w) for u,w in RAIL],(-xe+.45,0,0),YZX,2*xe-.90,'Galvanized')
+        for sy in (-1,1):ea.box((0,yc+sy*(.15-.004),b-.03),(2*xe,.008,.06),'Galvanized')
         if hero:
             cl=m.p('RailClips','DETAIL',.001)
-            for k in range(int((x1-x0-.90)/1.0)):
-                for sy in (-1,1):cl.box((x0+.95+k,yc+sy*.085,b+.035),(.08,.05,.03),'SteelDark')
-        for sx in (-1.,1.):     # end stops with rubber buffers
-            m.box('RailEndStops',(sx*(F-1.025),yc,b+.245),(.45,.40,.45),'Yellow','DETAIL',.006)
-            m.p('RailBuffers','DETAIL',.002).cylinder((sx*(F-1.25),yc,b+.30),(sx*(F-1.37),yc,b+.30),.10,'Rubber',16)
+            for k in range(int((2*xe-.90)/1.0)):
+                for sy in (-1,1):cl.box((-xe+.95+k,yc+sy*.085,z0+.035),(.08,.05,.03),'SteelDark')
+        for sx in (-1.,1.):     # end stops with rubber buffers at wheel-centre height
+            m.box('RailEndStops',(sx*(xe-.225),yc,z0+.02+(b+.20-z0-.02)/2),(.45,.22,b+.20-z0-.02),'Yellow','DETAIL',.006)
+            m.p('RailBuffers','DETAIL',.002).cylinder((sx*(xe-.45),yc,b+.145),(sx*(xe-.57),yc,b+.145),.08,'Rubber',16)
+    for sx in (-1.,1.):         # warning bollards beyond the track ends
+        for dy in (-.45,.45):
+            x,y=sx*(xe+.60),(v.rails[0]+v.rails[1])/2+dy
+            bo=m.p('Bollards','PROPS',.004)
+            bo.cylinder((x,y,b),(x,y,b+1.0),.085,'Yellow',16)
+            for zz in (.50,.80):bo.cylinder((x,y,b+zz),(x,y,b+zz+.10),.087,'SteelDark',16)
+            bo.cylinder((x,y,b+1.0),(x,y,b+1.03),.075,'SteelDark',16)
+        m.collisions.append(dict(part='SM_MB01_Bollards',center=(sx*(xe+.60),sum(v.rails)/2,b+.52),dims=(.20,1.10,1.04),axes=A.IDENTITY))
 
 
 def _leaf(m,s,v,side):
@@ -156,10 +162,10 @@ def _leaf(m,s,v,side):
         p.box((x,yi+.015,(v.zl0+zt)/2),(.15,.03,zt-v.zl0),'SteelDark')
     # Running gear: bogies with a wheel on each rail at both ends, skirts between them.
     for e in (lo+.60,hi-.60):
-        p.box((e,(yi+yo-OUTRIG)/2,b+.35),(.90,yi-yo+OUTRIG-.06,.20),'SteelDark')
-        for yr in v.rails:p.cylinder((e,yr-.05,b+.29),(e,yr+.05,b+.29),.17,'Galvanized',16)
+        p.box((e,(yi+yo-OUTRIG)/2,b+.20),(.90,yi-yo+OUTRIG-.06,.20),'SteelDark')
+        for yr in v.rails:p.cylinder((e,yr-.05,b+.145),(e,yr+.05,b+.145),.15,'Galvanized',16)
     L=hi-lo-2.10
-    p.box((cx,yo-OUTRIG-.0085,b+.25),(L,.015,.42),'Rubber');p.box((cx,yi+.0085,b+.25),(L,.015,.42),'Rubber')
+    p.box((cx,yo-OUTRIG-.0085,b+.1675),(L,.015,.305),'Rubber');p.box((cx,yi+.0085,b+.1675),(L,.015,.305),'Rubber')
     p.box((cx,yo-OUTRIG/2-.05,v.zb0+.45),(1.0,.55,.40),'SteelDark')        # rack drive on the outrigger
     for x in (xl+(xt-xl)*.3,xl+(xt-xl)*.7):                               # lifting lugs on the top
         p.box((x,v.yc,T(x)+.065),(.04,.20,.18),'SteelDark')
@@ -236,12 +242,19 @@ def _personnel_door(m,s,v,xd,yi,yo,ow,oh):
 def _ground(m,s,v,xd):
     b,d,F=v.b,v.d,v.F
     if s.local_ground:
-        m.box('Foundation',(0,-4.5,b-.16),(2*F+2.0,9.0,.32),'Concrete','GROUND',.009,True)
+        r1,r2=sorted(v.rails,reverse=True);tw=.15            # apron strips around the two rail trenches
+        for y0,y1 in ((r1+tw,0.),(r2+tw,r1-tw),(-9.,r2-tw)):
+            m.box('Foundation',(0,(y0+y1)/2,b-.16),(2*F,y1-y0,.32),'Concrete','GROUND',.009,True)
+        for r in (r1,r2):
+            m.box('TrenchFloors',(0,r,b-.2225),(2*v.xe,2*tw,.195),'Concrete','GROUND',0.)
+            for sx in (-1.,1.):
+                x0,x1=sorted((sx*v.xe,sx*F))
+                m.box('Foundation',((x0+x1)/2,r,b-.16),(x1-x0,2*tw,.32),'Concrete','GROUND',.009,True)
         m.box('Foundation',(0,(d+TKR+6.0)/2,b-.16),(2*v.xo+2.0,d+TKR+6.0,.32),'Concrete','GROUND',.009,True)
         jt=m.p('ApronJoints','GROUND',0.)
-        nx=max(2,round((2*F+1.6)/5.0))
-        for j in range(1,nx):jt.box((-(F+.8)+(2*F+1.6)*j/nx,-6.3075,b+.0005),(.01,4.985,.001),'Joint')
-        jt.box((0,-3.8,b+.0005),(2*F+1.6,.01,.001),'Joint')
+        nx=max(2,round((2*F-.4)/5.0))
+        for j in range(1,nx):jt.box((-(F-.2)+(2*F-.4)*j/nx,-6.3075,b+.0005),(.01,4.985,.001),'Joint')
+        jt.box((0,-3.8,b+.0005),(2*F-.4,.01,.001),'Joint')
     jt=m.p('FloorJoints','GROUND',0.);a=v.a
     xs=[-a/2,0.,a/2]
     for x in xs:jt.box((x,(1.6+d-.3)/2,b+.0005),(.008,d-1.9,.001),'Joint')
@@ -255,7 +268,7 @@ def _ground(m,s,v,xd):
     mk.box((0,(1.3+d-3.2)/2,b+.0012),(.12,d-4.5,.0012),'Yellow')                     # taxi centreline
     mk.box((0,d-3.0,b+.0012),(2.4,.20,.0012),'Yellow')
     mk.box((0,-6.2,b+.0012),(.12,4.4,.0012),'Yellow')                             # lead-in on the apron
-    mk.box((0,v.yo-OUTRIG-.35,b+.0012),(2*(F-.83),.15,.0012),'Yellow')             # door-track keep-clear line
+    mk.box((0,v.yo-OUTRIG-.35,b+.0012),(2*(v.xe+1.0),.15,.0012),'Yellow')             # door-track keep-clear line
     for sx in (-1.,1.):mk.box((sx*(a-1.2),(1.3+d-1.0)/2,b+.0012),(.10,d-2.3,.0012),'White')
 
 

@@ -248,21 +248,24 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
 
 - `shelter/hardened.py` (yeni): bölme bölme dökülmüş, derzleri girintili ve kalıp izli
   betonarme tonoz (duvar + segmental kemer); önde kalın beton **portal kemer** (gömülü çelik
-  conta plakası, kenarında çelik kaplama), alçak kanat duvarları, uç blokları, köşe darbe
-  korumaları ve projektörler.
+  conta plakası, dış kenarında zemine kadar inen çelik kaplama, kenarda LED projektörler).
+  Yan duvar / uç blok yok: kapı sistemi doğrudan zemine entegre.
 - **Yuvarlak ağır çelik kapı:** üst kenarları kemeri izleyen iki kanat (700 mm kutu gövde);
   kapalıyken portal kemere oturan tek bir yuvarlak kapı gibi okunur. Her kanat, öne eğimli
   destek ayağı üzerinde iki kren rayına basan bojilerle taşınır (açıklığın üstünden geçen
   kiriş yok) ve açılınca tamamen shelter'ın yanına park eder. Kemerli üst bant, dikmeler,
   panel derzleri, karşılaşma contaları ve darbe şeritleri, iç yüzde bindirme bölgesinde
-  lastik conta ve berkitme lamaları, kremayer tahrik, kaldırma kulakları; ray klipsleri,
-  tamponlu ray sonları. Kanat hareket hacmi sabit parçalarla çakışmaz (kontrol edildi).
+  lastik conta ve berkitme lamaları, kremayer tahrik, kaldırma kulakları. Raylar apron
+  betonuna dökülmüş kanallarda: ray başı döşemenin 5 mm altında, galvaniz kenar köşebentleri
+  döşemeyle aynı kotta, taban plakası ve klipsler kanal tabanında; tekerlekler kanalda döner.
+  Zemin üstünde yalnız ray sonlarındaki tamponlu stoplar ve uyarı babaları kalır. Kanat
+  hareket hacmi sabit parçalarla çakışmaz (kontrol edildi).
 - Arka: panjurlu egzoz ağzı, beton püskürtme saptırıcı, kalın duvarda kasalı çelik
   personel kapısı ve kanopi. İçeride duvar projektörleri, tepe havalandırma kanalı, kablo
   tavası, yangın dolapları; önde apron, kapı hattı uyarı çizgisi.
 - Doğrulama: 18×20 … 40×60 m, DRAFT/HERO: doğrulama PASS, n-gon 0, aynı yöne bakan
-  çakışık yüz çifti 0; canlı Blender mesh QA PASS; export: 49 asset, hepsinde UV1,
-  kapı kanatlarında UCX. HERO bevel öncesi ~19,9K üçgen (24×32).
+  çakışık yüz çifti 0; canlı Blender mesh QA PASS; export: 48 asset, hepsinde UV1,
+  kapı kanatlarında UCX. HERO bevel öncesi ~20,8K üçgen (24×32).
 - `scripts/hangar_deliverables.py CORE_SHELTER_HARDENED turntable video anim`: 8 açı, kapı
   animasyon videosu ve animasyonlu kapı FBX'i (`deliverables/CORE_SHELTER_HARDENED/`).
 - Kurgusal CGI dekor: kalınlıklar ve profiller sanatsaldır; koruma/yapısal iddia yoktur.
