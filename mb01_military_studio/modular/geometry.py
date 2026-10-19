@@ -311,11 +311,15 @@ class ModuleModel:
                     self.box('JambTrims', (xe-s*.00125, (yF-.004)/2, (lr+z1-.0025)/2), (.0025, yF+.004, z1-.0025-lr), mat, 'DETAIL', 0.)
                 self.box('JambTrims', ((la+lb)/2, (yF-.0015)/2, z1-.0015), (lb-la, yF+.0015, .002), mat, 'DETAIL', 0.)
         if sill:
+            # Sill runs 50 mm past the jamb face legs, so the pocket between leg and stop end stays
+            # open (a 7.5 mm one shades as a black notch). Where a girt screw line runs under it,
+            # it stops at the legs instead, its stop ends bedded 1 mm into their ends (no slot).
+            e = .089+(0. if any(z0-.025 < z < z0+.01 for z, _ in C.girt_rows(.58, self.cfg.height-.166)) else .0485)
             sp = self.part('SillFlashing', 'DETAIL', 0.)
-            sp.prism([(y, z0+z) for y, z in C.sill_profile(ys)], (x0-.0975, 0., 0.), C.YZX, x1-x0+.195, mat)
+            sp.prism([(y, z0+z) for y, z in C.sill_profile(ys)], (x0-e, 0., 0.), C.YZX, x1-x0+2*e, mat)
             # Stop ends: 2.5 mm end dams over the full sill section, upturned 15 mm over the opening sill line.
             end = ((-.055, -.040), (-.0525, -.040), (ys-.002, -.0035), (ys-.002, .015), (-.055, .015))
-            for xe in (x0-.10, x1+.0975):
+            for xe in (x0-e-.0025, x1+e):
                 sp.prism([(y, z0+z) for y, z in end], (xe, 0., 0.), C.YZX, .0025, mat)
 
     def louvre(self, x0, z0, x1, z1, trims=True):
