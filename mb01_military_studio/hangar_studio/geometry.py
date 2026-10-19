@@ -1280,11 +1280,19 @@ def _services(m,c):
                 m.hangar_meta['light_fixtures_design'].append(dict(position=(x,y,bottom-.08),dimensions=(.17,1.6),watts_artist=55.))
     if c.signage:
         _identity_sign(m,c)
+        cells={f['id']:f for f in m.hangar_meta['facade_cells']}
         for entry in m.hangar_meta['personnel_openings_design']:
+            cell=cells[entry['id']]
+            if cell['kind']!='PERSONNEL':continue   # canopy entries carry their own housed downlight
             x,y,_=entry['center'];nx,ny,_=entry['normal']
-            # A shallow perimeter luminaire and neutral door label panel.
-            dims=(.065,.38,.13) if abs(nx)>.5 else (.38,.065,.13)
-            m.box('HG_PersonnelCanopyLights',(x+nx*.08,y+ny*.08,z+2.65),dims,'LightWarm','DETAIL',.002)
+            # Full cut-off LED wall pack 120 mm over the head flashing: the backplate (1 mm into the
+            # crests) spans the two ribs either side of the mid-pan door axis, housing on it, lens
+            # under the housing. Entry centre lies on the crest plane; offsets run along the normal.
+            zc=z+(2.62 if entry['leaf_count']>1 else 2.30)+.32;bw=MG.ModuleModel.clad_pitch(cell['width_m'])+.05
+            for d0,d1,wd,hz,zz,mat in ((-.001,.007,bw,.20,zc,'SteelDark'),(.0065,.1165,.26,.14,zc,'SteelDark'),
+                                       (.0265,.1065,.22,.006,zc-.0725,'LightWarm')):
+                d=(d0+d1)/2;dims=(d1-d0,wd,hz) if abs(nx)>.5 else (wd,d1-d0,hz)
+                m.box('HG_PersonnelWallLights',(x+nx*d,y+ny*d,zz),dims,mat,'DETAIL',.002)
 
 
 def build(config):
