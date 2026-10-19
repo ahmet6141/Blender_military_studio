@@ -469,7 +469,7 @@ def _roof_underside(m,c,env,lights):
     translucent GRP liner sheet with the same ribs (20 mm deep, so they too land on the
     purlin tops), 5 mm below the steel liner; cleats tie each purlin to the rafter below (the
     eaves purlin to the column cap)."""
-    a,d=c.width/2,c.depth;bp=d/c.bays;s=env.slope;R=lambda X:roof_level(c,X)
+    a,d=c.width/2,c.depth;bp=d/c.bays;R=lambda X:roof_level(c,X)
     _,q,n=_roof_grid(c)          # one liner rib per roof pan: rooflight cuts land on rib starts
     xin=c.monitor_width/2 if c.roof_type=='MONITOR' else 0.;xout=a-.002
     for side in (-1,1):
