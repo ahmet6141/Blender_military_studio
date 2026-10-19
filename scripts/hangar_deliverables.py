@@ -3,6 +3,7 @@
     python scripts/hangar_deliverables.py DEPOT_STORAGE            # everything
     python scripts/hangar_deliverables.py DEPOT_STORAGE kit turntable
     python scripts/hangar_deliverables.py MRO_WIDEBODY video
+    python scripts/hangar_deliverables.py CORE_SHELTER_HARDENED turntable video anim   # core families
 
 Needs the pip `bpy` module (Blender 5.x). Turntable and video use the Workbench engine;
 on a machine without a GPU, Mesa llvmpipe works:
@@ -107,7 +108,7 @@ def video(pid, out, frames_dir):
     rail = next(o for o in B.descendants(root) if o.get('mb01_element', '').startswith(('SM_MB01_HG_GateRail_0', 'SM_MB01_DoorRails')))
     r = sum((rail.matrix_world @ Vector(v) for v in rail.bound_box), Vector()) / 8
     if pid.startswith('CORE_'):     # floor-running leaves: wide front, then the bogies on the rails
-        shots = [('a_gate_wide', range(s['start'], s['end'] + 1), ((slo.x - 36, sy - 11, 7.5), (slo.x + 3, sy, 4.4), 30)),
+        shots = [('a_gate_wide', range(s['start'], s['end'] + 1), ((slo.x - 46, sy - 13, 9.0), (slo.x + 3, sy, 4.8), 30)),
                  ('b_tracks', range(s['start'], s['open_at'] + 1), ((r.x - 3.2, r.y - 8.0, r.z + 1.3), (r.x + .3, r.y - 3.5, r.z + .5), 30))]
     else:
         shots = [('a_gate_wide', range(s['start'], s['end'] + 1), ((slo.x - 27, sy - 9, 5.5), (slo.x + 3, sy, 3.6), 30)),
@@ -131,6 +132,17 @@ def video(pid, out, frames_dir):
     out.mkdir(parents=True, exist_ok=True)
     subprocess.run([ff, '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', str(listing), '-c', 'copy',
                     str(out / f'{pid}_door_animation.mp4')], check=True)
+
+
+def anim_fbx(pid, out):
+    """Animated FBX: door leaves keyed closed -> open -> hold -> closed (96 + 24 + 96 frames, 24 fps)
+    with the static shell for context; the same contract drives a UE Blueprint timeline."""
+    fresh();root = build(pid);bpy.context.scene.render.fps = 24
+    s = animation.animate_doors(root, frames=96, hold=24, loop=True)
+    sc = bpy.context.scene;sc.frame_start, sc.frame_end = s['start'], s['end']
+    out.mkdir(parents=True, exist_ok=True)
+    animation.export_door_animation(root, out / f'{pid}_doors_animated.fbx')
+    print('anim', s['start'], s['end'], flush=True)
 
 
 def kit(pid, out):
@@ -243,6 +255,8 @@ if __name__ == '__main__':
         readme(pid, root_out)
     if 'turntable' in jobs:
         turntable(pid, root_out / 'turntable')
+    if 'anim' in jobs:
+        anim_fbx(pid, root_out / 'animation')
     if 'video' in jobs:
         with tempfile.TemporaryDirectory() as tmp:
             video(pid, root_out / 'video', Path(tmp))
