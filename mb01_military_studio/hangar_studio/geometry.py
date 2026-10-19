@@ -563,11 +563,13 @@ def _monitor(m,c,env,ys):
         # Two-bay coil lengths jointed on the even frame lines, in step with the lantern ridge cap.
         _eave_trim(drip,side,mx,meave,ms,env.roof_y0-.007,env.roof_y1+.007,FLASH,[i*bp for i in range(2,c.bays,2)])
         # End-wall corner trims (L), bedded into the apron cover and the monitor roof, face
-        # leg 2.5 mm off the end-wall sheet crests. The return leg covers the whole end-wall
-        # return (core and sheet edge) and stops 3 mm inside the end jamb.
+        # leg 2.5 mm off the end-wall sheet crests, its foot raked 3 mm into the base flashing
+        # top (1.5 mm proud of its face leg). The return leg covers the whole end-wall return
+        # (core and sheet edge) and stops 3 mm inside the end jamb.
         for yf,o in ((env.front_y,-1),(env.back_y,1)):
             z0=S(mh)+.074;z1=Mz(mh-.09)+.003
-            vg.box((side*(mh-.041),yf+o*.009,(z0+z1)/2),(.098,.013,z1-z0),FLASH)
+            vg.prism([(side*u,R(u)+.063 if k<2 else z1) for k,u in enumerate((mh-.090,mh+.008,mh+.008,mh-.090))],
+                     (0,yf+o*.00925-.00675,0),XZ,.0135,FLASH)
             ya,yb=(yf-.010,.003) if o<0 else (d-.003,yf+.010)
             vg.box((side*(mh+.0065),(ya+yb)/2,(z0+z1)/2),(.013,yb-ya,z1-z0-.004),FLASH)
     for i in range(c.bays):
@@ -628,7 +630,7 @@ def _monitor(m,c,env,ys):
     zlo=lambda u:R(u)+.082;zhi=lambda u:Mz(u)-.006
     sheet=m.p('HG_MonitorEndCladding','ROOF',0.)        # ROOF: hidden with the lantern in section view
     C.profile_sheet(sheet,-mh,mh,pf,-X,zlo,zhi,(),(0.,),((0.,fy,0.),(1.,0.,0.),(0.,1.,0.)),'HG_Wall')
-    C.profile_sheet(sheet,-mh,mh,pr,-X,zlo,zhi,(),(0.,),((0.,by,0.),(-1.,0.,0.),(0.,-1.,0.)),'HG_Wall')
+    C.profile_sheet(sheet,-mh,mh,pr,-X+pr/2,zlo,zhi,(),(0.,),((0.,by,0.),(-1.,0.,0.),(0.,-1.,0.)),'HG_Wall')
     # Verge plates: the gables' 100 mm L2 trim (HG_VergeTrims) repeated under the lantern verge,
     # over the sheet head, bedded 2 mm into the soffit and into the corner trims' face legs.
     xa=mh-.088;vp=[(-xa,Mz(xa)-.100),(0.,Mz(0.)-.100),(xa,Mz(xa)-.100),(xa,Mz(xa)+.002),(0.,Mz(0.)+.002),(-xa,Mz(xa)+.002)]
@@ -872,7 +874,7 @@ def _facades(m,c):
     front=((0.,fy,0.),(1.,0.,0.),(0.,1.,0.));back=((0.,by,0.),(-1.,0.,0.),(0.,-1.,0.))
     pf,pr=C.clad_pitch(2*X),C.clad_pitch(bw)
     C.profile_sheet(m.p('HG_FrontCladding','BODY',0.),-X,X,pf,-X,z+C.CLAD_BASE,roof,[(-xh,z,xh,zc+.05)],(0.,),front,'HG_Wall')
-    C.profile_sheet(m.p('HG_RearCladding','BODY',0.),-X,X,pr,-X,z+C.CLAD_BASE,lambda u:roof(-u),C.sheet_cuts(rear,z),(0.,),back,'HG_Wall')
+    C.profile_sheet(m.p('HG_RearCladding','BODY',0.),-X,X,pr,-X+pr/2,z+C.CLAD_BASE,lambda u:roof(-u),C.sheet_cuts(rear,z),(0.,),back,'HG_Wall')
     # Abutment flashing: L1 upstand lapping 100 mm over the sheet foot, 2.5 mm cover leg on the
     # deck with a hemmed front edge; it stops against the corner angles' hems, or 2 mm inside the
     # canopy end caps where short door houses end the canopy before the corners.
@@ -884,7 +886,7 @@ def _facades(m,c):
         rows=C.girt_rows(z+.58,ey-.166,top=ridge-.2)
         fx=m.p('HG_CladFixings','DETAIL',0.)
         C.fixings(fx,-X+.15,X-.15,pf,-X,rows,[(-xh,z,xh,zc+.15)],roof,front,'HG_WallTrim')
-        C.fixings(fx,-X+.15,X-.15,pr,-X,rows,[(q[0],z+q[1],q[2],z+q[3]) for q in rear],lambda u:roof(-u),back,'HG_WallTrim')
+        C.fixings(fx,-X+.15,X-.15,pr,-X+pr/2,rows,[(q[0],z+q[1],q[2],z+q[3]) for q in rear],lambda u:roof(-u),back,'HG_WallTrim')
     # Verge trims: 100 mm plates under the roof edge in layer L2 (over the corner angles), plumb
     # ends meeting at the apex (the halves abut, never cross); they run out over the eave-trim
     # face legs at the corners, whose returns stop against their back face.
