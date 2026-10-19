@@ -27,22 +27,24 @@ def _vision(m):
 
 def _shaded(m):
     w,h=m.cfg.width,m.cfg.height
-    m.window(clerestory=True)
-    ow=w-.48;top=h-.45;shade_z=top+.14
+    # Clerestory 150 mm lower than the plain band, so the fins (top h-.4375) stand clear of
+    # the gutter and roof fascia instead of merging with them into one mass.
+    m.window(clerestory=True,drop=.15)
+    ow=w-.48;top=h-.60;shade_z=top+.14
     # Horizontal fins project OUTWARD (-Y), never through the glazing aperture. The wall
-    # plates sit above the head flashing ledge, clear of the glass; fins top out at h-.2875.
+    # plates bear on the head flashing face leg (4 mm packer implied above it), clear of the glass.
     for k in range(4):
         m.box('ShadeFins',(0.,-.15-.16*k,shade_z),(ow+.22,.10,.045),
               'RoofOlive','DETAIL',.002)
     for x in (-ow*.36,ow*.36):
         m.box('ShadeArms',(x,-.382,shade_z-.054),(.042,.696,.063),
               m.cfg.style.frame_material,'DETAIL',.002)
-        m.box('ShadeWallPlate',(x,-.02225,top+.108),(.12,.0435,.184),
+        m.box('ShadeWallPlate',(x,-.02525,top+.108),(.12,.0425,.184),
               m.cfg.style.frame_material,'DETAIL',.002)
     m.notes.append('Brise-soleil is scenery geometry; daylight/thermal performance is not computed.')
 
 
-def _wall_holes(m, holes):
+def _wall_holes(m, holes, skin=None):
     """Profiled steel wall minus nonoverlapping rectangular apertures (x0,z0,x1,z1).
     The core is tiled per aperture column; no full backing box behind any opening.
     """
@@ -55,7 +57,7 @@ def _wall_holes(m, holes):
                 raise ValueError('Overlapping wall apertures.')
         m.openings.append(dict(width=x1-x0,bottom=z0,height=z1-z0,
           center_output=(t/2,-(x0+x1)/2,(z0+z1)/2)))
-    m.clad(holes)
+    m.clad(holes,skin=skin)
 
 
 def _dual_vent(m):
@@ -63,28 +65,33 @@ def _dual_vent(m):
     outer=.34;middle=.24;vw=(w-2*outer-middle)/2
     bottom=h*.47;vh=min(1.70,h-bottom-.48)
     holes=[(x-vw/2,bottom,x+vw/2,bottom+vh) for x in (-middle/2-vw/2,middle/2+vw/2)]
-    _wall_holes(m,holes)
-    # Twin weather louvres, each with its own head flashing and sloped sill.
-    for x0,z0,x1,z1 in holes:m.louvre(x0,z0,x1,z1)
+    # Twin weather louvres trimmed as one ganged opening: one head flashing, one sill with stop
+    # ends, outer jamb angles and a cover plate over the 240 mm pier (no sheet or screw under it).
+    span=(holes[0][0],bottom,holes[1][2],bottom+vh)
+    _wall_holes(m,holes,[span])
+    for x0,z0,x1,z1 in holes:m.louvre(x0,z0,x1,z1,trims=False)
+    m.opening_trims(*span,.0245,.0995,piers=[(holes[0][2],holes[1][0])])
     m.notes.append('Dark vent screens are intentional. No airflow or protection rating.')
 
 
 def _canopy(m, double=False):
-    # Door set (frame, leaves, rain deflector) comes from entry(); a single entry gets a vision leaf.
+    # Door set (frame, leaves, opening trims) comes from entry(); a single entry gets a vision leaf.
     m.entry(double=double,glazed=not double,metal=True)
     w=m.cfg.width;draft=m.cfg.detail=='DRAFT'
     ow=min(2.3,w-.7) if double else min(1.18,w-.7)
     dh=2.62 if double else 2.30
-    seams=m._parts.get('PanelSeams')   # rib side faces as built by wall(); none -> no guard
-    ribx={round(abs(v[0]),6) for v in seams.vertices} if seams else set()
-    def clear_rib(v):
-        return v-.006 if any(abs(v-r)<.003 for r in ribx) else v
     # Cantilevered steel entrance canopy sized to the door (not the bay): wall channel, two tapered
     # arms, fascia, deck tray (front edge trim = drip below + kerb above, side upstands, abutment
     # flashing, scupper spout beside the door), two ~35 deg tie rods with clevises, lugs and a
-    # turnbuckle, galvanized soffit and a housed downlight. Its soffit sits >= 45 mm above the
-    # hangar's perimeter wall light; nothing reaches past |x| = w/2-.15.
-    xe=clear_rib(min(w/2-.15,ow/2+.50));P=1.25 if double else 1.10;zu=max(dh+.30,2.76)
+    # turnbuckle, galvanized soffit and a housed downlight (no separate wall light here). The
+    # channel sits 120 mm over the head flashing's face leg; arms, lugs and tie-rod wall plates
+    # stand on the cladding crest nearest ow/2+.47, so the plates bear on a rib; nothing reaches
+    # past |x| = w/2-.15 (a bay too narrow for a crest past the jamb trims keeps the edge line).
+    pc=m.clad_pitch(w);k=round((ow/2+.47+w/2)/pc-.5)
+    while k>0 and -w/2+(k+.5)*pc>w/2-.18:k-=1
+    xr=-w/2+(k+.5)*pc
+    if xr<ow/2+.12:xr=w/2-.18
+    xe=xr+.03;P=1.25 if double else 1.10;zu=dh+.22
     YZX=((0,1,0),(0,0,1),(1,0,0));S='SteelDark'
     c=m.part('EntryCanopy','FACADE',.003)
     c.box((0.,-.0265,zu+.07),(2*xe,.057,.14),S)                                   # wall channel
@@ -98,9 +105,6 @@ def _canopy(m, double=False):
         c.box((s*(xe-.004),-(P+.037)/2,zu+.180),(.008,P-.053,.030),S)              # side upstands
     c.box((xe-.12,-P-.030,zu+.1775),(.040,.100,.025),S)                            # scupper spout
     c.prism([(.002,zu+.165),(-.045,zu+.165),(-.045,zu+.195),(.002,zu+.255)],(-xe,0.,0.),YZX,2*xe,S)
-    xr=xe-.03
-    if any(abs(clear_rib(v)-v)>1e-9 for v in (xr-.05,xr+.05)):
-        xr-=.006
     zr=zu+.200+(P-.185)*.70
     rods=m.part('CanopyTieRods','DETAIL',0.)
     for s in (-1,1):
