@@ -39,6 +39,10 @@ def recipes(config, override=''):
     clone('HG_GateAlu','Galvanized',(.62,.65,.67),.34)         # anodised glazing channels, caps and bars
     clone('HG_GateHazard','Yellow',(.93,.66,.06),.46)          # leading-edge chevrons, yellow
     clone('HG_GateHazardInk','SteelDark',(.018,.018,.020),.55) # leading-edge chevrons, black
+    clone('HG_GateTrack','SteelDark',(.12,.13,.14),.52)        # door-head rails: dark, no light bands under the pelmet
+    pc=clone('HG_GatePolycarb','Glass',(.80,.85,.83),.32)       # opal 16 mm multiwall polycarbonate vision band
+    pc['glass_transmission']=.30;pc['glass_ior']=1.585
+    clone('HG_GateBeacon','Yellow',(.98,.55,.04),.30)          # amber rotating warning beacon lens
 
 
     # [ROOF MATERIALS] names start with HG_Roof (texture kit set: Roof)
