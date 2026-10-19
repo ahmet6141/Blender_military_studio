@@ -1251,8 +1251,11 @@ def _gates(m,c):
         u0,u1=c.opening_width/2+.005,house_end(c);sh=a+.091-u1   # door house: jamb line, end core inner face
         uc=u1+.053;ue=uc+.046                              # end-wall crest plane (pans 12 mm off the core), plinth face
         cd=.44+(n-1)*.24;Le=canopy_end(c)                  # canopy end planes
-        # Header ends 2 mm inside the door-house end cores (no step proud of them at the corners).
-        m.box('HG_GateHeader',(0,-.12,top+.3225),(2*(a+.089-sh),.32,.645),'SteelDark','STRUCTURE',.004)
+        # Header ends 2 mm inside the door-house end cores (no step proud of them at the corners); its
+        # strip proud of the liner stops 3 mm short of the end-frame column's inner flange.
+        L=a+.089-sh;xs=min(L,a-.423)
+        m.p('HG_GateHeader','STRUCTURE',.004).prism([(-L,-.28),(L,-.28),(L,-.003),(xs,-.003),(xs,.04),(-xs,.04),
+            (-xs,-.003),(-L,-.003)] if xs<L else [(-L,-.28),(L,-.28),(L,.04),(-L,.04)],(0,0,top),A.IDENTITY,.645,'SteelDark')
         yf,zt=-.505-cd,top+.745                            # 330 mm folded fascia, 50 mm upstand, drip lip
         # Slab from the fascia's back leg to 9 mm in front of the wall crests (it no longer runs through
         # the cladding, corner caps and end frame); a galvanised soffit liner 1 mm under it, from 250 mm
