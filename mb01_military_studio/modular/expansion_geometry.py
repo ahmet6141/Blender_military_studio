@@ -70,21 +70,23 @@ def _dual_vent(m):
 
 
 def _canopy(m, double=False):
-    # Door set (frame, leaves, rain deflector) comes from entry(); a single entry gets a vision leaf.
+    # Door set (frame, leaves, opening trims) comes from entry(); a single entry gets a vision leaf.
     m.entry(double=double,glazed=not double,metal=True)
     w=m.cfg.width;draft=m.cfg.detail=='DRAFT'
     ow=min(2.3,w-.7) if double else min(1.18,w-.7)
     dh=2.62 if double else 2.30
-    seams=m._parts.get('PanelSeams')   # rib side faces as built by wall(); none -> no guard
-    ribx={round(abs(v[0]),6) for v in seams.vertices} if seams else set()
-    def clear_rib(v):
-        return v-.006 if any(abs(v-r)<.003 for r in ribx) else v
     # Cantilevered steel entrance canopy sized to the door (not the bay): wall channel, two tapered
     # arms, fascia, deck tray (front edge trim = drip below + kerb above, side upstands, abutment
     # flashing, scupper spout beside the door), two ~35 deg tie rods with clevises, lugs and a
-    # turnbuckle, galvanized soffit and a housed downlight. Its soffit sits >= 45 mm above the
-    # hangar's perimeter wall light; nothing reaches past |x| = w/2-.15.
-    xe=clear_rib(min(w/2-.15,ow/2+.50));P=1.25 if double else 1.10;zu=max(dh+.30,2.76)
+    # turnbuckle, galvanized soffit and a housed downlight (no separate wall light here). The
+    # channel sits 120 mm over the head flashing's face leg; arms, lugs and tie-rod wall plates
+    # stand on the cladding crest nearest ow/2+.47, so the plates bear on a rib; nothing reaches
+    # past |x| = w/2-.15 (a bay too narrow for a crest past the jamb trims keeps the edge line).
+    pc=m.clad_pitch(w);k=round((ow/2+.47+w/2)/pc-.5)
+    while k>0 and -w/2+(k+.5)*pc>w/2-.18:k-=1
+    xr=-w/2+(k+.5)*pc
+    if xr<ow/2+.12:xr=w/2-.18
+    xe=xr+.03;P=1.25 if double else 1.10;zu=dh+.22
     YZX=((0,1,0),(0,0,1),(1,0,0));S='SteelDark'
     c=m.part('EntryCanopy','FACADE',.003)
     c.box((0.,-.0265,zu+.07),(2*xe,.057,.14),S)                                   # wall channel
@@ -98,9 +100,6 @@ def _canopy(m, double=False):
         c.box((s*(xe-.004),-(P+.037)/2,zu+.180),(.008,P-.053,.030),S)              # side upstands
     c.box((xe-.12,-P-.030,zu+.1775),(.040,.100,.025),S)                            # scupper spout
     c.prism([(.002,zu+.165),(-.045,zu+.165),(-.045,zu+.195),(.002,zu+.255)],(-xe,0.,0.),YZX,2*xe,S)
-    xr=xe-.03
-    if any(abs(clear_rib(v)-v)>1e-9 for v in (xr-.05,xr+.05)):
-        xr-=.006
     zr=zu+.200+(P-.185)*.70
     rods=m.part('CanopyTieRods','DETAIL',0.)
     for s in (-1,1):

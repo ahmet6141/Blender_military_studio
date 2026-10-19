@@ -427,20 +427,18 @@ class ModuleModel:
         self.wall((ow,0.,dh),metal=metal)
         if metal:
             # Hangar personnel door set. Real-world model: outward-opening (-Y) 50 mm insulated steel
-            # leaf (folded pull-face pan over a core) on lift-off butt hinges whose axis lies 8 mm
-            # outside the pull face, in a pressed-steel wrap frame set back in the clad reveal so its
-            # 65 mm face stands 4 mm proud of the leaf (as on a real outward door); the cladding
-            # returns into the reveal in front of it. Rebate soffit through the wall, stop behind the
-            # push face. Everything that swings is in DoorLeaf_<i>; frame-side hardware is in
-            # DoorHardware. Leaf pieces are >= 5.5 mm thick so the clamped 2 mm bevel never collapses
-            # them. glazed = wired-glass vision panel (single leaf only); the canopy is built by
-            # expansion_geometry._canopy, not here.
+            # leaf (folded pull-face pan over a core) on lift-off butt hinges mortised into frame and
+            # leaf edge, knuckles 2 mm proud of the frame face; a pressed-steel wrap frame set back in
+            # the clad reveal so its 65 mm face stands 4 mm proud of the leaf (as on a real outward
+            # door). The wall's own opening trims close the cut sheet and core: head flashing with
+            # drip, jamb angles, reveal returns and a head lining that stop 0.5 mm short of the frame
+            # face. Rebate soffit through the wall, stop behind the push face; 4 mm joints all round,
+            # 6 mm at the meeting stiles. Everything that swings is in DoorLeaf_<i> (concealed overhead
+            # closer, so nothing spans leaf and frame); frame-side hardware, the access reader and
+            # the inside EXIT sign are in DoorHardware. Leaf pieces are >= 5.5 mm thick so the
+            # clamped 2 mm bevel never collapses them. glazed = wired-glass vision panel (single
+            # leaf only); the canopy is built by expansion_geometry._canopy, not here.
             YZX=((0,1,0),(0,0,1),(1,0,0));mat=self.cfg.style.frame_material;draft=self.cfg.detail=='DRAFT'
-            seams=self._parts.get('PanelSeams')   # rib side faces as built by wall(); none -> no guard
-            ribx={round(abs(v[0]),6) for v in seams.vertices} if seams else set()
-            def clear_rib(v):
-                # Keep an end face (half-width v) >= 3 mm off every cladding-rib side face.
-                return v-.006 if any(abs(v-r)<.003 for r in ribx) else v
             def ring(p,outer,hole,ya,yb,m):
                 # Slab with a rectangular through-hole: 16 convex quads, no internal bevel seams.
                 (x0,x1,z0,z1),(h0,h1,k0,k1)=outer,hole
@@ -449,8 +447,8 @@ class ModuleModel:
                 for i in range(4):
                     j=(i+1)%4;fs+=[(i,j,4+j,4+i),(12+i,12+j,8+j,8+i),(i,8+i,8+j,j),(4+i,4+j,12+j,12+i)]
                 p.primitive(v,fs,m)
-            y=min(.095,t*.4);yp=y-.018;ye=yp+.008;yi=ye+.050   # pivot plane, pull face, push face
-            yf=ye-.004                                           # frame face plane
+            y=min(.095,t*.4);ye=y-.010;yi=ye+.050                # pull face, push face
+            yf=ye-.004;yh=yf-.0095                               # frame face plane, hinge axis
             zs0,zs1=.045,dh-.083                                 # jamb stops: threshold bar -> head stop
             for s in (-1,1):   # jamb: face + rebate side + soffit through the wall, 4 mm interior lip
                 self.box('DoorFrame',(s*(ow/2-.0325),(yf+t+.004)/2,dh/2),(.065,t+.004-yf,dh),mat,'FACADE',.003)
@@ -467,27 +465,24 @@ class ModuleModel:
             th.prism([(-.050,0.),(yf,0.),(yf,zy),(-.044,.010),(-.050,.006)],(-ow/2,0.,0.),YZX,ow,'Galvanized')
             th.prism([(yf,0.),(t+.030,0.),(t+.030,.006),(yi+.064,.018),(yi+.034,.045),(yi+.004,.045),
                       (yi+.004,.016),(yf,zy)],(-xa,0.,0.),YZX,2*xa,'Galvanized')
-            # Rain deflector at the cladding face over the opening: 45 deg nose and a drip lip 45 mm
-            # proud of the wall, 3 mm shadow joint above the head reveal; ribs over the opening lap it.
-            xf=clear_rib(ow/2+.040)
-            head=[(.002,dh+.003),(.002,dh+.034),(-.038,dh+.034),(-.045,dh+.027),(-.045,dh-.014),
-                  (-.039,dh-.014),(-.039,dh+.003)]
-            self.part('DoorHeadFlashing','FACADE',.002).prism(head,(-xf,0.,0.),YZX,2*xf,mat)
-            count=2 if double else 1;clear=ow-.15
-            leafw=(clear-(.014 if double else 0))/count
+            # Wall trims of the opening (one head flashing with drip): the reveal returns start 1 mm
+            # over the sloped threshold nose, so the sill stays a clean weathered step.
+            self.opening_trims(-ow/2,.015,ow/2,dh,yf-.0005,yf,sill=False)
+            count=2 if double else 1
+            leafw=(ow-.144)/2 if double else ow-.138             # 4 mm joints, 6 mm meeting gap
             zb,zt=.035,dh-.069;lh=zt-zb;vision=glazed and not double   # 4 mm head gap
-            yc0,yc1=yi+.038,min(yi+.062,t+.002);ym=(yc0+yc1)/2         # closer slide channel
             hw=self.part('DoorHardware','DETAIL',.001)
-            if double:   # one channel with close-sequence coordinator: passive leaf closes first
-                hw.box((0.,ym,dh-.075),(clear-.20,yc1-yc0,.020),'Galvanized')
+            # Closure filler bedded in the sheet corrugations over the head flashing: seals the slot
+            # between flashing and head lining, so no open rib ends show from below.
+            hw.box((0.,.0175,dh+.005),(ow,.037,.008),'Joint')
             for i in range(count):
-                c=-clear/2+leafw/2+i*(leafw+.014)
+                c=-ow/2+.069+leafw/2+i*(leafw+.006)
                 left=i==0
                 px=c-leafw/2 if left else c+leafw/2
                 q=1 if left else -1                               # hinge -> lock direction along X
                 X=lambda s,px=px,q=q:px+q*s
                 L0,L1=c-leafw/2,c+leafw/2
-                pivot=(px,y-.018,.035)
+                pivot=(px,yh,.035)
                 p=self.part('DoorLeaf_'+str(i),'DOOR',.002,pivot)
                 active=not double or i==1                         # right-hand leaf of a pair
                 if vision:   # core / folded pull-face pan / beads / glass around a 300x600 aperture
@@ -502,53 +497,84 @@ class ModuleModel:
                     p.box((c,(ye+.003+yi)/2,(zb+zt)/2),(leafw,yi-ye-.003,lh),'RoofOlive')
                     p.box((c,ye+.004,(zb+zt)/2),(leafw-.008,.008,lh-.008),'RoofOlive')
                 p.box((c,(ye+yi)/2,.02875),(leafw-.040,yi-ye-.020,.0135),'Rubber')          # drop seal
-                ka=.038 if double and i==1 else .030                                         # astragal leg
+                ka=.040 if double and i==1 else .030                                         # astragal leg
                 p.box(((L0+ka+L1-.030)/2,ye-.0005,.175),(L1-.030-L0-ka,.006,.250),'Galvanized')  # kick plates
                 p.box((c,yi+.0005,.175),(leafw-.060,.006,.250),'Galvanized')
                 if active:
-                    p.box((c,ye-.0005,2.02 if vision else 1.55),(.140,.006,.050),'White')     # door ID plate
+                    # Door sign: white enamel plate, red header band and three text lines, each 1 mm
+                    # proud of the plate and inset 1 mm from its edges.
+                    sw,sh,sz=(.16,.10,2.02) if vision else (.20,.15,1.55)
+                    hb=sh*.27;zm=sz-(.001+hb)/2;tp=sh*.147
+                    p.box((c,ye-.0005,sz),(sw,.006,sh),'White')
+                    p.box((c,ye-.0015,sz+sh/2-.001-hb/2),(sw-.002,.006,hb),'Red')
+                    for k,f in enumerate((.75,.60,.70)):
+                        p.box((c-sw*.375+sw*f/2,ye-.0015,zm+(1-k)*tp),(sw*f,.006,sh*.067),'SteelDark')
                     xh=X(leafw-.065)                                                         # 65 mm backset
                     p.box((xh,ye-.003,1.035),(.040,.011,.240),'Galvanized')                  # long backplate
                     if draft:
                         p.box((xh,ye-.024,1.05),(.022,.032,.022),'Galvanized')
+                        p.box((xh-q*.0625,ye-.049,1.05),(.140,.018,.020),'Galvanized')        # lever
+                        p.box((xh-q*.1235,ye-.030,1.05),(.018,.020,.020),'Galvanized')        # return to door
                     else:
                         p.cylinder((xh,ye-.008,1.05),(xh,ye-.040,1.05),.011,'Galvanized',10 if vision else 12)
                         p.cylinder((xh,ye-.008,.958),(xh,ye-.014,.958),.0085,'Galvanized',8)  # euro cylinder
-                    p.box((xh-q*.0625,ye-.049,1.05),(.140,.018,.020),'Galvanized')            # lever
-                    p.box((xh-q*.1235,ye-.030,1.05),(.018,.020,.020),'Galvanized')            # return to door
-                    # Push side: EN 1125 style panic bar between lock case and hinge-end case.
-                    p.box((X(leafw-.055),yi+.042,.995),(.080,.085,.110),'SteelDark')
+                        # Round safety lever: 19 mm bar, 13.5 mm bend, return ending 21 mm off the pan.
+                        p.pipe([(xh+q*.006,ye-.049,1.05),(xh-q*.110,ye-.049,1.05),
+                                (xh-q*.11955,ye-.04505,1.05),(xh-q*.1235,ye-.0355,1.05),
+                                (xh-q*.1235,ye-.021,1.05)],.0095,'Galvanized',8)
+                    # Push side: EN 1125 panic bar, a 32 mm tube between lock case and hinge-end case.
+                    # The lock case sits over the 65 mm backset, 30 mm in from the edge, so its far
+                    # corner clears the jamb stop through the whole swing.
+                    p.box((X(leafw-.070),yi+.042,.995),(.080,.085,.110),'SteelDark')
                     p.box((X(.115),yi+.042,.995),(.070,.085,.080),'SteelDark')
-                    p.box((X((.150+leafw-.095)/2),yi+.0655,.995),(leafw-.245,.030,.040),'Galvanized')
+                    p.cylinder((X(.148),yi+.0655,.995),(X(leafw-.108),yi+.0655,.995),.016,'Galvanized',6 if draft else 8)
                 if double and i==1:   # astragal: 65 mm cover strip lapping the passive leaf, 2 mm air
-                    p.prism([(.040,ye+.003),(.040,ye-.0075),(-.025,ye-.0075),(-.025,ye-.002),(.007,ye-.002),
-                             (.007,ye+.003)],(0.,0.,zb+.010),A.IDENTITY,lh-.020,'RoofOlive')
+                    p.prism([(.040,ye+.003),(.040,ye-.0075),(-.025,ye-.0075),(-.025,ye-.002),(.003,ye-.002),
+                             (.003,ye+.003)],(0.,0.,zb+.010),A.IDENTITY,lh-.020,'RoofOlive')
                 if double and i==0:   # passive leaf: flush bolts (retracted) and strike in the meeting edge
                     my=(ye+yi)/2
                     for zz in (zb+.135,zt-.135):
                         p.box((L1-.0005,my,zz),(.006,.020,.150),'Galvanized')
                     p.box((L1-.0005,my,1.01),(.006,yi-ye-.012,.220),'Galvanized')
                     if not draft:
-                        p.cylinder((L1-.010,my,zb+.0005),(L1-.010,my,.021),.006,'Galvanized',6)
+                        p.cylinder((L1-.010,my,zb+.0005),(L1-.010,my,zb-.002),.006,'Galvanized',6)
                         p.cylinder((L1-.010,my,zt-.0005),(L1-.010,my,zt+.002),.006,'Galvanized',6)
-                # Overhead slide-channel closer on the push side: body, folded arm and slider stud.
-                p.box((X(.175),yi+.0225,dh-.155),(.270,.046,.060),'Galvanized')
-                p.beam((X(.065),yi+.022,dh-.119),(X(.365),yi+.050,dh-.119),.016,.012,'SteelDark')
-                if not draft:
-                    p.box((X(.365),ym,dh-.099),(.012,.012,.028),'Galvanized')
                 if not double:
-                    hw.box((X(.31),ym,dh-.075),(.42,yc1-yc0,.020),'Galvanized')
                     hw.box((ow/2-.0655 if left else -(ow/2-.0655),(ye+yi)/2,1.01),(.002,yi-ye-.012,.220),
                            'Galvanized')                                                     # strike plate
-                if not draft:   # three lift-off butt hinges: frame half below, leaf half above, 2 mm split
+                if not draft:   # three lift-off butt hinges: frame half below, leaf half above, 2 mm split;
+                    # each leaf plate mortised 3 mm, 1.5 mm proud, 1 mm air between them in the joint
                     for zc in (zb+.25,zb+.52*lh,zt-.22):
-                        hw.cylinder((px,yp,zc-.056),(px,yp,zc-.001),.0075,'Galvanized',10)
-                        hw.box((px-q*.0085,yp+.019,zc-.0285),(.004,.042,.049),'Galvanized')
-                        p.cylinder((px,yp,zc+.001),(px,yp,zc+.056),.0075,'Galvanized',12)
-                        p.box((px-q*.0005,yp+.019,zc+.0285),(.006,.042,.049),'Galvanized')
+                        hw.cylinder((px,yh,zc-.056),(px,yh,zc-.001),.0075,'Galvanized',10)
+                        hw.box((px-q*.00475,yh+.021,zc-.0285),(.0045,.042,.049),'Galvanized')
+                        p.cylinder((px,yh,zc+.001),(px,yh,zc+.056),.0075,'Galvanized',12)
+                        p.box((px+q*.00075,yh+.021,zc+.0285),(.0045,.042,.049),'Galvanized')
                 self.doors.append({'part':p.name,'closed':pivot,'opened':pivot,
                                    'angle':(-1 if left else 1)*radians(96),
                                    'kind':'HINGE','rest_pose':'closed','runtime_blueprint':False})
+            # Access-control reader on the first rib past the lock-side jamb trim (back 1 mm into the
+            # crest) with a status LED; illuminated EXIT sign over the door inside, 1 mm into the liner,
+            # in an aluminium housing (the opaque game asset keeps <= 8 material slots).
+            pc=ModuleModel.clad_pitch(w);xr=-w/2+(ceil((ow/2+.14+w/2)/pc-.5)+.5)*pc
+            if xr<w/2-.10:
+                hw.box((xr,-.014,1.05),(.085,.030,.125),'SteelDark')
+                hw.box((xr,-.029,1.09),(.040,.004,.006),'LightGreen')
+            hw.box((0.,t+.0215,dh+.20),(.36,.045,.16),'Galvanized')
+            hw.box((0.,t+.044,dh+.20),(.30,.004,.11),'LightGreen')
+            # ISO 7010 E001 style pictogram 1.5 mm proud of the face: a running figure made of convex
+            # pieces that only share edges (torso, arms, thighs, shins; octagon head) and the door.
+            runner=(((-.041,-.005),(-.031,-.005),(-.019,.022),(-.029,.022)),
+                    ((-.019,.022),(-.0232,.01255),(-.003,.003),(.001,.012)),
+                    ((-.029,.022),(-.0332,.01255),(-.049,.004),(-.053,.013)),
+                    ((-.037,-.005),(-.031,-.005),(-.015,-.019),(-.023,-.027)),
+                    ((-.015,-.019),(-.023,-.027),(-.019,-.045),(-.010,-.045)),
+                    ((-.041,-.005),(-.037,-.005),(-.048,-.021),(-.054,-.015)),
+                    ((-.054,-.015),(-.048,-.021),(-.065,-.032),(-.070,-.025)),
+                    tuple((-.015+.0065*a,.033+.0065*b) for a,b in ((1,0),(.7071,.7071),(0,1),(-.7071,.7071),
+                                                                   (-1,0),(-.7071,-.7071),(0,-1),(.7071,-.7071))))
+            for g in runner:
+                hw.prism(g,(0.,t+.0445,dh+.20),((1,0,0),(0,0,1),(0,1,0)),.003,'Galvanized')
+            hw.box((.065,t+.046,dh+.20),(.060,.003,.090),'Galvanized')
             self.ports.append({'name':'ENTRY_OPENING','role':'PEDESTRIAN_OPENING',
                                'location_source':(0,0.,0.),'normal_source':(0.,-1.,0.),
                                'clear_width_m':ow-.15,'surface_offset_m':0.,
