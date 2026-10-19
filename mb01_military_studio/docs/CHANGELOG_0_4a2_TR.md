@@ -244,6 +244,28 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
   (LOD1/LOD2, UV1 lightmap, UCX) her iki aile için çalışır. HERO bevel öncesi üçgen:
   SHELTER (24×32) 80,6K, HANGAR (28×36) 63,0K.
 
+## Korunaklı shelter (SHELTER, `shelter_style='HARDENED'`)
+
+- `shelter/hardened.py` (yeni): bölme bölme dökülmüş, derzleri girintili ve kalıp izli
+  betonarme tonoz (duvar + segmental kemer); kemer biçimli açıklığı ve gömülü çelik conta
+  çerçevesi olan kalın ön alın duvarı, kalıp panel derzleri; yan cepleri kapatan payanda
+  uç duvarları, köşe darbe korumaları.
+- **Ağır çelik kapı:** iki ray hattında teleskopik çalışan 4 kanat (500 mm). Her kanatta
+  boji tekerlekleri, lastik etekler, çevre lamaları ve yatay bantlar, iç yüzde T
+  berkitme ızgarası, kremayer tahrik ünitesi, üstte kutu kiriş portaldaki kanala giren
+  kılavuz makaraları, kaldırma kulakları; orta kanatlarda karşılaşma contası ve sarı darbe
+  şeritleri. Kren rayı + taban plakası + klipsler, ray sonu tamponları. Açılınca iki kanat
+  yan cebe park eder; animasyon mevcut SLIDE/HINGE sözleşmesiyle (iç kanat önce kalkar).
+- Arka: panjurlu egzoz ağzı, beton püskürtme saptırıcı, kalın duvarda kasalı çelik
+  personel kapısı ve kanopi. İçeride duvar projektörleri, tepe havalandırma kanalı, kablo
+  tavası, yangın dolapları; önde apron, kapı hattı uyarı çizgisi.
+- Doğrulama: 18×20 … 40×60 m, DRAFT/HERO: doğrulama PASS, n-gon 0, aynı yöne bakan
+  çakışık yüz çifti 0; canlı Blender mesh QA PASS; export: 54 asset, hepsinde UV1,
+  kapı kanatlarında UCX. HERO bevel öncesi ~20,8K üçgen (24×32).
+- `scripts/hangar_deliverables.py CORE_SHELTER_HARDENED turntable video`: 8 açı + kapı
+  animasyon videosu (`deliverables/CORE_SHELTER_HARDENED/`).
+- Kurgusal CGI dekor: kalınlıklar ve profiller sanatsaldır; koruma/yapısal iddia yoktur.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından
