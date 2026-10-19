@@ -129,8 +129,9 @@ def _structure(m,c):
 
     def haunch(p,y,x0,x1,deep,stations):
         # Tapered T cutting (220x25 flange, 24 mm web) welded under the bottom flange: `deep`
-        # below it at x0, its tip buried in the flange at x1 (levels: underside, flange top, web top).
-        h0,h1=(-deep,-deep+.025*k,.032),(.003,.028,.032)
+        # below it at x0, its tip buried in the flange at x1 (levels: underside, flange top, web top;
+        # the web runs on 60 mm into the rafter web, hidden, so no bevel collapses it at the tip).
+        h0,h1=(-deep,-deep+.025*k,.060),(.003,.028,.060)
         def place(X,u,l):
             t=abs(X-x0)/abs(x1-x0);l=int(l);return (X,y+u,B(X)+h0[l]+(h1[l]-h0[l])*t)
         _sweep(p,HT,place,stations,'SteelDark')
