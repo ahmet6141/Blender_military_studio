@@ -88,16 +88,17 @@ class ModuleModel:
 
     # ---- Hangar wall build-up (wall(metal=True)) ------------------------------------------
     # Outside -> inside: trapezoidal steel sheet laid vertically ("35/250": 36 mm crest, 22 mm
-    # webs, ~170 mm pan, 35 mm deep), whose crest plane is the module face y=0; a 2 mm air gap;
-    # then the girt/insulation/liner core 'Wall' [CLAD_CORE, t] whose inner face is the light
-    # liner seen from inside. Pressed-steel flashings are 2-2.5 mm thick, in two layers outside
-    # the crest plane: L1 y[-.004,-.0015] (opening face legs, corner angles), L2 y[-.0065,-.0045]
-    # (eave/verge trims lapping over L1). Parallel faces of different parts stay >= 1.5 mm apart.
-    CLAD_DEPTH = .035; CLAD_CORE = .037; CLAD_PITCH = .25; CLAD_CREST = .036; CLAD_WEB = .022
-    CLAD_BASE = .50; CLAD_TOP = .006      # sheet foot (20 mm over the .48 plinth); 6 mm under the top
+    # webs, ~170 mm pan, 35 mm deep), whose crest plane is the module face y=0; a 12 mm air gap
+    # (so the pans never depth-fight the core at range); then the girt/insulation/liner core
+    # 'Wall' [CLAD_CORE, t] whose inner face is the light liner seen from inside. Pressed-steel
+    # flashings are 2-2.5 mm thick, in two layers outside the crest plane: L1 y[-.004,-.0015]
+    # (opening face legs, corner angles, cover plates), L2 y[-.0065,-.0045] (eave/verge trims
+    # lapping over L1). Parallel faces of different parts stay >= 1.5 mm apart.
+    CLAD_DEPTH = .035; CLAD_CORE = .047; CLAD_PITCH = .25; CLAD_CREST = .036; CLAD_WEB = .022
+    CLAD_BASE = .493; CLAD_TOP = .006     # sheet foot bedded ~1 mm into the base flashing; 6 mm under the top
     YZX = ((0, 1, 0), (0, 0, 1), (1, 0, 0))   # prism axes: profile (y, z), extruded along +x
-    # Base drip flashing over the plinth (y, z): top falls ~7 deg outward, drip leg 12 mm proud.
-    BASE_FLASH = ((.037, .499), (-.060, .487), (-.060, .450), (-.058, .450), (-.058, .485), (.037, .497))
+    # Base drip flashing over the plinth (y, z): top falls ~6 deg outward, drip leg 12 mm proud.
+    BASE_FLASH = ((CLAD_CORE, .499), (-.060, .487), (-.060, .450), (-.058, .450), (-.058, .485), (CLAD_CORE, .497))
     # Opening head flashing (y, z-z1): 100 mm face leg (L1), sloped ledge, 24 mm drip leg.
     HEAD_FLASH = ((-.0015, .100), (-.0040, .100), (-.0040, .012), (-.0450, .004), (-.0450, -.012),
                   (-.0430, -.012), (-.0430, .0015), (-.0015, .0095))
@@ -105,7 +106,7 @@ class ModuleModel:
     BLADE = ((.130, .035), (.030, -.035), (.030, -.050), (.0275, -.050), (.0275, -.0335), (.1285, .0372))
 
     @staticmethod
-    def eave_profile(h, back=.037):
+    def eave_profile(h, back=CLAD_CORE):
         """Eave trim (y, z): 100 mm face leg in L2, return into the core under the roof skin."""
         return ((-.0065, h-.100), (-.0045, h-.100), (-.0045, h-.005), (back, h-.005), (back, h-.003), (-.0065, h-.003))
 
@@ -116,8 +117,8 @@ class ModuleModel:
 
     @staticmethod
     def clad_pitch(width):
-        """Rib pitch for a run: an EVEN number of periods with mid-pan at both ends, so abutting
-        modules meet pan-to-pan, the rib rhythm and the alternate-pan fixing rhythm continue."""
+        """Rib pitch for a run: an EVEN number of periods, so abutting runs laid on the same
+        origin offset continue the rib rhythm and the alternate-pan fixing rhythm."""
         return width/(2*max(1, round(width/(2*ModuleModel.CLAD_PITCH))))
 
     @staticmethod
@@ -222,107 +223,138 @@ class ModuleModel:
         part.material_names, part.material_ids = names, ids
 
     @staticmethod
-    def shift(part, pick, move):
-        """Move the vertices selected by pick(v) (mitred flashing ends) and re-plan the metre
-        UVs of every face that touches them, with the same rule primitive() uses."""
-        moved = {i for i, v in enumerate(part.vertices) if pick(v)}
-        part.vertices = [move(v) if i in moved else v for i, v in enumerate(part.vertices)]
-        for fi, f in enumerate(part.faces):
-            if moved.isdisjoint(f):
-                continue
+    def plan_uvs(part, faces=None):
+        """Re-plan metre UVs (the primitive() rule: dominant normal axis) of the given faces, or
+        of all, in the part's current coordinates: placed copies tile continuously."""
+        for fi in (range(len(part.faces)) if faces is None else faces):
+            f = part.faces[fi]
             a, b, c = (part.vertices[f[j]] for j in range(3))
             n = A.cross(A.sub(b, a), A.sub(c, a))
             ax = ((1, 2), (0, 2), (0, 1))[max(range(3), key=lambda k: abs(n[k]))]
             part.uvs[fi] = [(part.vertices[j][ax[0]], part.vertices[j][ax[1]]) for j in f]
 
-    def clad(self, holes=(), sheet=True):
+    @staticmethod
+    def shift(part, pick, move):
+        """Move the vertices selected by pick(v) (mitred flashing ends) and re-plan the metre
+        UVs of every face that touches them, with the same rule primitive() uses."""
+        moved = {i for i, v in enumerate(part.vertices) if pick(v)}
+        part.vertices = [move(v) if i in moved else v for i, v in enumerate(part.vertices)]
+        ModuleModel.plan_uvs(part, [fi for fi, f in enumerate(part.faces) if not moved.isdisjoint(f)])
+
+    @staticmethod
+    def sheet_cuts(holes, z=0.):
+        """Sheet cut of each aperture (x0, z0, x1, z1) over a floor at z: the sheet runs 11 mm
+        under sill flashings (their underside is at z0-.010 at the crest plane) and 0.5 mm over
+        heads; a door cut stays raw at the floor and gets the doors' own jamb trims."""
+        return [(q[0], z+(q[1]-.011 if q[1] > .3 else q[1]), q[2], z+q[3]+.0005) for q in holes]
+
+    def clad(self, holes=(), sheet=True, skin=None):
         """Hangar wall build-up around real apertures (x0, z0, x1, z1): core, plinth facing,
-        base drip flashing, eave trim, profiled sheet and (HERO) girt-line fixings."""
+        base drip flashing, eave trim, profiled sheet and (HERO) girt-line fixings. skin: the
+        rectangles cut from the sheet and kept clear of screws (default holes; a ganged pair
+        of louvres passes one rectangle so the pier between them is a cover plate)."""
         C = ModuleModel
         w, h, t = self.cfg.width, self.cfg.height, self.cfg.thickness
-        # Core: one column of boxes per aperture x-band, no box across a clear opening.
+        self.skin_holes = list(holes if skin is None else skin)
+        # Core: one column of boxes per aperture x-band, no box across a clear opening. Its
+        # collision box spans the crest plane to the liner, so hits land on the visible face.
         xs = sorted({-w/2, w/2} | {v for q in holes for v in (q[0], q[2])})
+        core = self.part('Wall', 'BODY', 0.)
         for a, b in zip(xs, xs[1:]):
             xm = (a+b)/2; z = 0.
             for lo, hi in sorted((q[1], q[3]) for q in holes if q[0] < xm < q[2])+[(h, h)]:
                 if lo > z+1e-9:
-                    self.box('Wall', (xm, (C.CLAD_CORE+t)/2, (z+lo)/2), (b-a, t-C.CLAD_CORE, lo-z), 'RoofOlive', 'BODY', 0.)
+                    core.box((xm, (C.CLAD_CORE+t)/2, (z+lo)/2), (b-a, t-C.CLAD_CORE, lo-z), 'RoofOlive')
+                    self.wall_boxes.append({'center_source': (xm, t/2, (z+lo)/2), 'dims': (b-a, t, lo-z)})
                 z = max(z, hi)
-        # Concrete plinth facing and its drip flashing, clipped at door cuts. The flashing stops
-        # 1 mm short of a door cut so its closed end never meets the door frame.
+        # Concrete plinth facing (back face on the core) and its drip flashing, clipped at door
+        # cuts. The flashing stops 1 mm short of a door cut so its closed end never meets the frame.
         spans = []; x = -w/2
         for a, b in sorted((q[0], q[2]) for q in holes if q[1] < .48)+[(w/2, w/2)]:
             if a > x+1e-9:
                 spans.append((x, a))
             x = max(x, b)
         for lo, hi in spans:
-            self.box('Plinth', ((lo+hi)/2, -.0045, .24), (hi-lo, .083, .48), self.cfg.style.plinth_material, 'FACADE', .004)
+            self.box('Plinth', ((lo+hi)/2, (C.CLAD_CORE-.046)/2, .24), (hi-lo, C.CLAD_CORE+.046, .48), self.cfg.style.plinth_material, 'FACADE', .004)
             f0, f1 = lo+(.001 if lo > -w/2+1e-9 else 0.), hi-(.001 if hi < w/2-1e-9 else 0.)
             self.part('BaseFlashing', 'DETAIL', 0.).prism(C.BASE_FLASH, (f0, 0., 0.), C.YZX, f1-f0, 'RoofOliveLight')
         self.part('EaveTrim', 'DETAIL', 0.).prism(C.eave_profile(h), (-w/2, 0., 0.), C.YZX, w, 'RoofOliveLight')
         if not sheet:
             return
-        # The sheet runs 11 mm under sill flashings (their underside is at z0-.010 at the crest
-        # plane); a door cut stays raw at the floor and gets the doors' own jamb trims.
-        p = C.clad_pitch(w)
-        cut = [(q[0], q[1]-.011 if q[1] > .3 else q[1], q[2], q[3]+.0005) for q in holes]
-        C.profile_sheet(self.part('Cladding', 'BODY', 0.), -w/2, w/2, p, -w/2, C.CLAD_BASE, h-C.CLAD_TOP, cut)
+        # Module edges fall on crest centres (origin half a pitch in), where real sheets side-lap:
+        # the bay joint hides on a crest and fixings stay in mid-pan on the same origin.
+        p = C.clad_pitch(w); o = -w/2+p/2
+        C.profile_sheet(self.part('Cladding', 'BODY', 0.), -w/2, w/2, p, o, C.CLAD_BASE, h-C.CLAD_TOP, C.sheet_cuts(self.skin_holes))
         if self.cfg.detail == 'HERO':
-            C.fixings(self.part('CladFixings', 'DETAIL', 0.), -w/2, w/2, p, -w/2, C.girt_rows(.58, h-.166), holes)
+            C.fixings(self.part('CladFixings', 'DETAIL', 0.), -w/2, w/2, p, o, C.girt_rows(.58, h-.166), self.skin_holes)
 
-    def opening_trims(self, x0, z0, x1, z1, yF, ys, sill=True):
+    def opening_trims(self, x0, z0, x1, z1, yF, ys, sill=True, piers=()):
         """Pressed-steel trims of one aperture: head flashing with drip, jamb angles (face leg
         + reveal return to the frame face yF), head soffit lining and a sloped sill flashing
-        with drip and 100 mm stop ends that tucks under the frame at depth ys."""
+        with drip and upturned stop ends that tucks under the frame at depth ys. piers: (xa, xb)
+        mullion piers of a ganged opening, each one L1 cover plate with reveal returns."""
         C = ModuleModel; mat = 'RoofOliveLight'
         self.part('HeadFlashing', 'DETAIL', 0.).prism([(y, z1+z) for y, z in C.HEAD_FLASH], (x0-.09, 0., 0.), C.YZX, x1-x0+.18, mat)
-        lo = z0-.006 if sill else max(z0, C.CLAD_BASE)
+        # Face legs and returns bed ~0.5 mm into the sloped sill (its top is z0-.008 under them).
+        lo = z0-.0085 if sill else max(z0, C.CLAD_BASE)
+        lights = [(x0, x1)] if not piers else list(zip([x0]+[q[1] for q in piers], [q[0] for q in piers]+[x1]))
         for s, xe in ((-1, x0), (1, x1)):
             # Face leg butts 1 mm under the head ledge; the return lines the reveal 2.5 mm thick.
             self.box('JambTrims', (xe+s*.045, -.00275, (lo+z1+.008)/2), (.09, .0025, z1+.008-lo), mat, 'DETAIL', 0.)
-            if yF > .006:
-                self.box('JambTrims', (xe-s*.00125, (yF-.004)/2, (z0+z1-.0025)/2), (.0025, yF+.004, z1-.0025-z0), mat, 'DETAIL', 0.)
+        for xa, xb in piers:
+            self.box('JambTrims', ((xa+xb)/2, -.00275, (lo+z1+.008)/2), (xb-xa, .0025, z1+.008-lo), mat, 'DETAIL', 0.)
         if yF > .006:
-            self.box('JambTrims', ((x0+x1)/2, (yF-.0015)/2, z1-.0015), (x1-x0, yF+.0015, .002), mat, 'DETAIL', 0.)
+            for la, lb in lights:
+                for s, xe in ((-1, la), (1, lb)):
+                    self.box('JambTrims', (xe-s*.00125, (yF-.004)/2, (lo+z1-.0025)/2), (.0025, yF+.004, z1-.0025-lo), mat, 'DETAIL', 0.)
+                self.box('JambTrims', ((la+lb)/2, (yF-.0015)/2, z1-.0015), (lb-la, yF+.0015, .002), mat, 'DETAIL', 0.)
         if sill:
-            self.part('SillFlashing', 'DETAIL', 0.).prism([(y, z0+z) for y, z in C.sill_profile(ys)], (x0-.10, 0., 0.), C.YZX, x1-x0+.20, mat)
+            sp = self.part('SillFlashing', 'DETAIL', 0.)
+            sp.prism([(y, z0+z) for y, z in C.sill_profile(ys)], (x0-.0975, 0., 0.), C.YZX, x1-x0+.195, mat)
+            # Stop ends: 2.5 mm end dams over the full sill section, upturned 15 mm over the opening sill line.
+            end = ((-.055, -.040), (-.0525, -.040), (ys-.002, -.0035), (ys-.002, .015), (-.055, .015))
+            for xe in (x0-.10, x1+.0975):
+                sp.prism([(y, z0+z) for y, z in end], (xe, 0., 0.), C.YZX, .0025, mat)
 
-    def louvre(self, x0, z0, x1, z1):
-        """Factory weather louvre in one powder coat: pressed channel frame set 4.5 mm behind
-        the crest plane, mid mullion over 1.6 m, Z blades at ~75 mm pitch overlapping 12 mm (no
-        sight line) with ends buried 6 mm in the jambs, bird mesh behind, perimeter trims."""
+    def louvre(self, x0, z0, x1, z1, trims=True):
+        """Factory weather louvre in one powder coat: pressed channel frame whose face is 24.5 mm
+        behind the crest plane, mid mullion over 1.6 m, Z blades at ~75 mm pitch overlapping 12 mm
+        (no sight line) with ends buried 6 mm in the jambs, bird mesh behind, perimeter trims
+        (trims=False: the caller trims a ganged opening once)."""
         f = .07; mat = self.cfg.style.frame_material
         for x in (x0+f/2, x1-f/2):
             self.box('VentFrame', (x, .0995, (z0+z1)/2), (f, .15, z1-z0), mat, 'FACADE', .003)
         for z in (z0+f/2, z1-f/2):
             self.box('VentFrame', ((x0+x1)/2, .0995, z), (x1-x0-2*f, .15, f), mat, 'FACADE', .003)
-        if x1-x0 > 1.6:
-            self.box('VentFrame', ((x0+x1)/2, .0795, (z0+z1)/2), (.05, .13, z1-z0-2*f), mat, 'FACADE', .003)
+        if x1-x0 > 1.6:   # flush with the frame face, 2.5 mm clear of the mesh behind
+            self.box('VentFrame', ((x0+x1)/2, .081, (z0+z1)/2), (.05, .113, z1-z0-2*f), mat, 'FACADE', .003)
         first, last = z0+f+.052, z1-f-.0392
         n = max(3, int((last-first)/.075)+1); bl = self.part('VentBlades', 'DETAIL', 0.)
         for i in range(n):
             zc = first+(last-first)*i/(n-1)
             ModuleModel.open_prism(bl, [(y, zc+z) for y, z in ModuleModel.BLADE], (x0+f-.006, 0., 0.), ModuleModel.YZX, x1-x0-2*f+.012, mat)
         self.box('VentScreen', ((x0+x1)/2, .143, (z0+z1)/2), (x1-x0-2*f+.006, .006, z1-z0-2*f+.006), 'Interior', 'DETAIL', 0.)
-        self.opening_trims(x0, z0, x1, z1, .004, .0995)
+        if trims:   # reveal returns and head soffit line the slot in front of the frame face
+            self.opening_trims(x0, z0, x1, z1, .0245, .0995)
 
     def cassettes(self):
         """Flat folded cassette trays (secret fixed, no screws): 30 mm returns read as the
-        folds, 20 mm shadow joints over dark joint rails."""
+        folds, 20 mm shadow joints over dark joint rails bearing on the core."""
         C = ModuleModel
-        w, h = self.cfg.width, self.cfg.height; zb, zt, g = C.CLAD_BASE, h-C.CLAD_TOP, .02
+        w, h = self.cfg.width, self.cfg.height; zb, zt, g = .50, h-C.CLAD_TOP, .02
         nc = max(1, round(w/2.4)); nr = max(3, round((zt-zb)/1.05)); q = (zt-zb)/nr
         xs = [-w/2+w*j/nc for j in range(nc+1)]; zs = [zb+q*i for i in range(nr+1)]
         for j in range(nc):
             for i in range(nr):
                 x0, x1 = xs[j]+g/2, xs[j+1]-g/2; z0 = zs[i]+(g/2 if i else 0.); z1 = zs[i+1]-(g/2 if i < nr-1 else 0.)
                 self.box('CassetteTrays', ((x0+x1)/2, .015, (z0+z1)/2), (x1-x0, .030, z1-z0), 'RoofOlive', 'FACADE', .002)
-        # Horizontal rails stop 1 mm inside the module edge; vertical rails sit 1.5 mm deeper.
+        # Horizontal rails stop 1 mm inside the module edge, 1.5 mm off the core; vertical rails
+        # sit 1.5 mm deeper and bear on the core (no two back or front faces share a plane).
         for i in range(1, nr):
-            self.box('CassetteJoints', (0., .0335, zs[i]), (w-.002, .005, .03), 'Joint', 'DETAIL', 0.)
+            self.box('CassetteJoints', (0., (.031+C.CLAD_CORE-.0015)/2, zs[i]), (w-.002, C.CLAD_CORE-.0325, .03), 'Joint', 'DETAIL', 0.)
         for x in xs:
             lo, hi = max(-w/2, x-.015), min(w/2, x+.015)
-            self.box('CassetteJoints', ((lo+hi)/2, .0335, (zb+zt)/2), (hi-lo, .002, zt-zb), 'Joint', 'DETAIL', 0.)
+            self.box('CassetteJoints', ((lo+hi)/2, (.0325+C.CLAD_CORE)/2, (zb+zt)/2), (hi-lo, C.CLAD_CORE-.0325, zt-zb), 'Joint', 'DETAIL', 0.)
 
     def _hangar_glazing(self, ow, bottom, oh, transom, mullion):
         """Aluminium curtain-wall style glazing for hangar walls: perimeter frame, mullions at
@@ -367,11 +399,12 @@ class ModuleModel:
         self.box('Sill', (0, .025, bottom-.036), (ow+.16, .38, .072), 'ConcreteLight', 'FACADE', .005)
         self.box('SillDrip', (0, -.119, bottom-.07), (ow+.10, .014, .008), 'Joint', 'DETAIL', .001)
 
-    def window(self, narrow=False, shade=False, unit=False, clerestory=False, glazed=False):
+    def window(self, narrow=False, shade=False, unit=False, clerestory=False, glazed=False, drop=0.):
         w, h = self.cfg.width, self.cfg.height
         if clerestory:
-            # Hangar clerestory band in the profiled steel wall, aluminium glazing and trims.
-            ow, bottom, oh = w-.48, h-1.6, 1.15
+            # Hangar clerestory band in the profiled steel wall, aluminium glazing and trims;
+            # drop lowers it (brise-soleil bays keep their fins clear of the gutter and fascia).
+            ow, bottom, oh = w-.48, h-1.6-drop, 1.15
             self.wall((ow, bottom, oh), metal=True)
             self.frame(ow, bottom, oh, transom=True, mullion=True, hangar=True)
             return
