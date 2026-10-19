@@ -231,7 +231,7 @@ class HG_OT_Section(bpy.types.Operator):
                 saved={}
                 for ob in B.descendants(root):
                     element=ob.get('mb01_element','')
-                    roof_detail=any(token in element for token in ('HG_StandingSeams','HG_MonitorGlass','HG_MonitorFrames','HG_MonitorDrip','HG_MonitorEndCaps','HG_MonitorCap','HG_Bargeboards'))
+                    roof_detail=any(token in element for token in ('HG_StandingSeams','HG_MonitorGlass','HG_MonitorFrames','HG_MonitorEndCaps','HG_MonitorCap','HG_Bargeboards'))
                     if ob.get('mb01_category')=='ROOF' or roof_detail:
                         saved[ob.name]=bool(ob.hide_get());ob.hide_set(True)
                 root['hg_section_saved']=json.dumps(saved)
