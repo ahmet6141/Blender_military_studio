@@ -33,8 +33,10 @@ def _shaded(m):
     ow=w-.48;top=h-.60;shade_z=top+.14
     # Horizontal fins project OUTWARD (-Y), never through the glazing aperture. The wall
     # plates bear on the head flashing face leg (4 mm packer implied above it), clear of the glass.
+    # The fins stop 10 mm inside the glass sightline, 310 mm off the bay lines, so a downpipe on a
+    # frame line keeps a clear +-300 mm corridor (pipe, clamps) beside the projecting array.
     for k in range(4):
-        m.box('ShadeFins',(0.,-.15-.16*k,shade_z),(ow+.22,.10,.045),
+        m.box('ShadeFins',(0.,-.15-.16*k,shade_z),(ow-.14,.10,.045),
               'RoofOlive','DETAIL',.002)
     for x in (-ow*.36,ow*.36):
         m.box('ShadeArms',(x,-.382,shade_z-.054),(.042,.696,.063),
@@ -85,11 +87,12 @@ def _canopy(m, double=False):
     # flashing, scupper spout beside the door), two ~35 deg tie rods with clevises, lugs and a
     # turnbuckle, galvanized soffit and a housed downlight (no separate wall light here). The
     # channel sits 120 mm over the head flashing's face leg; arms, lugs and tie-rod wall plates
-    # stand on the cladding crest nearest ow/2+.47, so the plates bear on a rib; nothing reaches
-    # past |x| = w/2-.15 (a bay too narrow for a crest past the jamb trims keeps the edge line).
-    pc=m.clad_pitch(w);k=round((ow/2+.47+w/2)/pc-.5)
-    while k>0 and -w/2+(k+.5)*pc>w/2-.18:k-=1
-    xr=-w/2+(k+.5)*pc
+    # stand on the cladding crest nearest ow/2+.47 (crest centres at -w/2+k*pc, clad()'s rhythm),
+    # so the plates bear on a rib; nothing reaches past |x| = w/2-.15 (a bay too narrow for a
+    # crest past the jamb trims keeps the edge line).
+    pc=m.clad_pitch(w);k=round((ow/2+.47+w/2)/pc)
+    while k>0 and -w/2+k*pc>w/2-.18:k-=1
+    xr=-w/2+k*pc
     if xr<ow/2+.12:xr=w/2-.18
     xe=xr+.03;P=1.25 if double else 1.10;zu=dh+.22
     YZX=((0,1,0),(0,0,1),(1,0,0));S='SteelDark'

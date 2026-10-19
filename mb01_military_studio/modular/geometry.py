@@ -296,7 +296,9 @@ class ModuleModel:
         C = ModuleModel; mat = 'RoofOliveLight'
         self.part('HeadFlashing', 'DETAIL', 0.).prism([(y, z1+z) for y, z in C.HEAD_FLASH], (x0-.09, 0., 0.), C.YZX, x1-x0+.18, mat)
         # Face legs and returns bed ~0.5 mm into the sloped sill (its top is z0-.008 under them).
-        lo = z0-.0085 if sill else max(z0, C.CLAD_BASE)
+        # Door (sill=False): the face legs stand on the base flashing (CLAD_BASE beds them ~0.4 mm
+        # into its top at the L1 plane, no slot), the reveal returns run down to the threshold.
+        lo = z0-.0085 if sill else max(z0, C.CLAD_BASE); lr = lo if sill else z0
         lights = [(x0, x1)] if not piers else list(zip([x0]+[q[1] for q in piers], [q[0] for q in piers]+[x1]))
         for s, xe in ((-1, x0), (1, x1)):
             # Face leg butts 1 mm under the head ledge; the return lines the reveal 2.5 mm thick.
@@ -306,7 +308,7 @@ class ModuleModel:
         if yF > .006:
             for la, lb in lights:
                 for s, xe in ((-1, la), (1, lb)):
-                    self.box('JambTrims', (xe-s*.00125, (yF-.004)/2, (lo+z1-.0025)/2), (.0025, yF+.004, z1-.0025-lo), mat, 'DETAIL', 0.)
+                    self.box('JambTrims', (xe-s*.00125, (yF-.004)/2, (lr+z1-.0025)/2), (.0025, yF+.004, z1-.0025-lr), mat, 'DETAIL', 0.)
                 self.box('JambTrims', ((la+lb)/2, (yF-.0015)/2, z1-.0015), (lb-la, yF+.0015, .002), mat, 'DETAIL', 0.)
         if sill:
             sp = self.part('SillFlashing', 'DETAIL', 0.)
@@ -585,10 +587,11 @@ class ModuleModel:
                 self.doors.append({'part':p.name,'closed':pivot,'opened':pivot,
                                    'angle':(-1 if left else 1)*radians(96),
                                    'kind':'HINGE','rest_pose':'closed','runtime_blueprint':False})
-            # Access-control reader on the first rib past the lock-side jamb trim (back 1 mm into the
-            # crest) with a status LED; illuminated EXIT sign over the door inside, 1 mm into the liner,
-            # in an aluminium housing (the opaque game asset keeps <= 8 material slots).
-            pc=ModuleModel.clad_pitch(w);xr=-w/2+(ceil((ow/2+.14+w/2)/pc-.5)+.5)*pc
+            # Access-control reader on the first crest centre (-w/2+k*pc, clad()'s rhythm) past the
+            # lock-side jamb trim, back 1 mm into the crest, with a status LED; illuminated EXIT sign
+            # over the door inside, 1 mm into the liner, in an aluminium housing (the opaque game
+            # asset keeps <= 8 material slots).
+            pc=ModuleModel.clad_pitch(w);xr=-w/2+ceil((ow/2+.14+w/2)/pc-1e-9)*pc
             if xr<w/2-.10:
                 hw.box((xr,-.014,1.05),(.085,.030,.125),'SteelDark')
                 hw.box((xr,-.029,1.09),(.040,.004,.006),'LightGreen')
