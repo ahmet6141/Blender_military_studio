@@ -42,11 +42,6 @@ def _roof_uv(p, slope):
             p.uvs[index]=[(q[1],q[0]*scale) for q in v]
 
 
-def _ibeam(p, a, b, mat='SteelDark', width=.24, height=.46):
-    direction=A.unit(A.sub(b,a));u=(0.,1.,0.);v=A.unit(A.cross(direction,u))
-    p.prism(A.i_profile(width,height,.026,.035),a,(u,v,direction),sqrt(A.dot(A.sub(b,a),A.sub(b,a))),mat)
-
-
 def _copy_module(m, config, token, width, face_id, translate, axes):
     """Module output is canonical; rotate/translate it into design coordinates once."""
     settings=ModuleInput(PANEL_MODULES[token],'HANGAR',width,config.eave_height,
