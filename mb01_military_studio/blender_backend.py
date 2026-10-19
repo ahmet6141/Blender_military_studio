@@ -108,11 +108,14 @@ class BuildJob:
         start=time.perf_counter();model=core.build(self.settings);r=core.validation(model)
         if r['errors']:raise RuntimeError('\n'.join(r['errors']))
         yield .04,'Geometri kontrol edildi'
-        recipe=materials.recipes(self.settings.palette,self.settings.wear,self.override)
+        if hasattr(model,'hangar_config'):   # core HANGAR is built by Hangar Studio (HG_* material roles)
+            from .hangar_studio import style
+            recipe=style.recipes(model.hangar_config,self.override)
+        else:recipe=materials.recipes(self.settings.palette,self.settings.wear,self.override)
         required={x for p in model.parts for x in p.material_names}|{l['material'] for l in model.labels}
         missing=required-set(recipe)
         if missing:raise ValueError('Eksik materyal tarifi: '+str(missing))
-        mats=materials.create_blender_materials({k:recipe[k] for k in required})
+        mats=(style.create_blender_materials if hasattr(model,'hangar_config') else materials.create_blender_materials)({k:recipe[k] for k in required})
         coll=bpy.data.collections.new('MB01_STAGING_'+self.id[:8]);self.collection=coll
         coll['mb01_owner']=self.id;coll.hide_viewport=True;coll.hide_render=True;bpy.context.scene.collection.children.link(coll)
         groups={}

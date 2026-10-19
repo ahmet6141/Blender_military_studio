@@ -77,7 +77,6 @@ class Settings:
         for k in ('local_ground','services','signage','sunshades'):
             if type(getattr(self,k))!=bool:raise ValueError(k+' must be boolean.')
         if self.kind in ('HQ','UNIT') and not 3.0<=self.floor_height<=4.3:raise ValueError('Facade storey height: 3.0..4.3.')
-        if self.kind=='HANGAR' and not 6<=self.floor_height<=10:raise ValueError('Hangar eave height: 6..10.')
         if self.kind=='RANGE_SET' and not 2.8<=self.floor_height<=4.5:raise ValueError('Scenery canopy height: 2.8..4.5.')
         if self.office_style not in ('AUTO','COMMAND','BARRACKS','SUPPORT','LOGISTICS'):raise ValueError('Invalid office style.')
         if self.command_variant not in ('EXECUTIVE','TECHNICAL','MONOLITHIC'):raise ValueError('Invalid command variant.')
@@ -88,6 +87,7 @@ class Settings:
         for k in ('stair_tower','roof_screen','corner_glass','base_cladding','night_lighting','micro_details'):
             if type(getattr(self,k))!=bool:raise ValueError(k+' must be boolean.')
         if self.kind not in ('HQ','UNIT') and any((self.office_style!='AUTO',self.service_bays,self.stair_tower!=True,self.roof_screen!=True,self.corner_glass)):pass
+        if self.kind=='HANGAR':hangar_config(self).checked()   # Hangar Studio ranges (width 20..48, eave 6..9, bay 2.8..6 m)
         if self.kind=='SHELTER':
             A.validate_config(dict(span=self.width,depth=self.depth,eave_height=self.floor_height,
                 roof_rise=self.roof_rise,bay_count=self.bays))
@@ -594,124 +594,19 @@ def build_office(m):
     m.notes.append('HQ/UNIT families remain visual shell assets only; no complete interior room layout is generated.')
 
 
-def i_beam(m,name,a,b,width=.24,depth=.42):
-    axis=A.unit(A.sub(b,a));ref=(0,0,1) if abs(axis[2])<.95 else (0,1,0)
-    x=A.unit(A.cross(ref,axis));y=A.cross(axis,x)
-    m.p(name,'STRUCTURE',.004).prism(A.i_profile(width,depth,.028,.028),a,(x,y,axis),sqrt(A.dot(A.sub(b,a),A.sub(b,a))),'SteelDark')
-
-
-def build_hangar(m):
-    s=m.cfg;w,d,z=s.width,s.depth,s.base_height;h=s.floor_height;rise=max(1.25,w*.075);ow=w*.64;oh=h-.72
-    local_ground(m)
-    # Vertical I columns and two rafters per portal, purlins follow each slope.
-    for i in range(s.bays+1):
-        y=i*d/s.bays
-        for side in (-1,1):
-            x=side*(w/2-.21)
-            spring=z+h+rise*(1-abs(x)/(w/2+.38))-.36
-            i_beam(m,'PortalColumns',(x,y,z+.08),(x,y,spring),.32,.38)
-            # Rafters stop short of the ridge line and meet under a splice plate; two I-sections
-            # ending on the same point overlapped with coplanar web faces.
-            ridge=z+h+rise-.36;rx=side*.17
-            i_beam(m,'PortalRafters',(x,y,spring),(rx,y,spring+(ridge-spring)*(abs(x)-abs(rx))/abs(x)),.26,.43)
-            m.box('PortalFootplates',(x,y,z+.06),(.64,.65,.12),'SteelDark','DETAIL',.005)
-            if s.detail!='DRAFT':
-                for dx in (-.21,.21):
-                    for dy in (-.22,.22):m.p('Fasteners','DETAIL',.001).cylinder((x+dx,y+dy,z+.12),(x+dx,y+dy,z+.16),.028,'Galvanized',6)
-        m.box('RidgeSplice',(0,y,z+h+rise-.36),(.46,.07,.50),'Galvanized','DETAIL',.003)
-    for side in (-1,1):
-        for j in range(6):
-            x=side*w/2*(j+.2)/6;zz=z+h+rise*(1-abs(x)/(w/2+.38))-.11
-            m.box('Purlins',(x,d/2,zz),(.085,d+.15,.13),'Galvanized','DETAIL',.003)
-        # Cladding below and above clerestory; solid piers between real openings.
-        x=side*(w/2+.025);low=h*.65;wh=1.10
-        m.box('SideCladding',(x,d/2,z+low/2),(.15,d,low),'RoofOlive','BODY',.004,True)
-        m.box('UpperCladding',(x,d/2,z+low+wh+(h-low-wh)/2),(.15,d,h-low-wh),'RoofOlive','BODY',.004,True)
-        for i in range(s.bays):
-            y=(i+.5)*d/s.bays;length=d/s.bays
-            m.box('ClerestoryGlass',(x,y,z+low+wh/2),(.025,length-.16,wh-.10),'Glass','GLASS',0)
-            # Mullions 1 cm proud of the rails: flush .20 m faces on both z-fight.
-            for yy in ((y-length/2,y+length/2) if i==s.bays-1 else (y-length/2,)):m.box('ClerestoryFrames',(x,yy,z+low+wh/2),(.21,.10,wh),'SteelDark','DETAIL',.002)
-            for zz in (z+low,z+low+wh):m.box('ClerestoryFrames',(x,y,zz),(.20,length,.065),'SteelDark','DETAIL',.002)
-        # Vertical cladding profiles stop at the actual window strip.
-        for j in range(ceil(d/.72)+1):
-            y=j*d/ceil(d/.72)
-            m.box('CladdingRibs',(x+side*.10,y,z+low/2),(.030,.032,low-.035),'RoofOliveLight','DETAIL',.001)
-        # Concrete skirt and free-flowing exterior drainpipe.
-        m.box('ConcretePlinth',(x+side*.10,d/2,z+.22),(.12,d,.44),'ConcreteLight','DETAIL',.006)
-        p=m.p('Rainwater','DETAIL',0.)
-        p.box((side*(w/2+.2),d/2,z+h+.06),(.20,d+.65,.12),'Galvanized')
-        for y in (.5,d-.5):p.pipe([(side*(w/2+.2),y,z+h),(side*(w/2+.36),y,z+h-.3),(side*(w/2+.36),y,z+.2)],.055,'Galvanized',10)
-    # Front wall surrounds an actual door aperture, not a cuboid hidden by door faces.
-    for a,b in ((-w/2,-ow/2),(ow/2,w/2)):
-        m.box('FrontPiers',((a+b)/2,0,z+h/2),(b-a,.22,h),'RoofOlive','BODY',.007,True)
-    m.box('FrontLintel',(0,0,z+oh+(h-oh)/2),(ow,.22,h-oh),'RoofOlive','BODY',.006,True)
-    # Back cladding with a real offset personnel opening.
-    doorx=w*.31;dw=1.2;dh=2.35
-    for a,b in ((-w/2,doorx-dw/2),(doorx+dw/2,w/2)):
-        m.box('RearWall',((a+b)/2,d,z+h/2),(b-a,.22,h),'RoofOlive','BODY',.008,True)
-    m.box('RearWall',(doorx,d,z+dh+(h-dh)/2),(dw,.22,h-dh),'RoofOlive','BODY',.007,True)
-    rect_frame(m,'RearDoorFrame',doorx,d+.10,z+dh/2,dw,dh,.16)
-    m.box('RearPersonnelDoor',(doorx,d+.14,z+dh/2),(dw-.06,.07,dh-.06),'SteelDark','DOOR',.005,True)
-    m.box('RearDoorHandle',(doorx-.38,d+.21,z+1.05),(.17,.045,.028),'Galvanized','DETAIL',.002)
-    # Gable panels and thick folded roof with seam geometry.
-    profile=[(-w/2,z+h),(w/2,z+h),(0,z+h+rise)]
-    for y in (-.10,d-.04):m.p('Gables','ROOF',.004).prism(profile,(0,y,0),((1,0,0),(0,0,1),(0,1,0)),.16,'RoofOlive')
-    for side in (-1,1):
-        x0,x1=(-w/2-.38,0) if side<0 else (0,w/2+.38)
-        za,zb=(z+h,z+h+rise) if side<0 else (z+h+rise,z+h)
-        prof=[(x0,za),(x1,zb),(x1,zb+.08),(x0,za+.08)]
-        m.p('RoofPanels','ROOF',.003).prism(prof,(0,-.35,0),((1,0,0),(0,0,1),(0,1,0)),d+.7,'RoofOliveLight')
-        for i in range(ceil(d/.9)+1):
-            y=-.25+i*(d+.5)/ceil(d/.9)
-            m.p('RoofSeams','DETAIL',.001).beam((x0,y,za+.10),(x1,y,zb+.10),.025,.030,'SteelDark')
-    m.box('RidgeCap',(0,d/2,z+h+rise+.12),(.25,d+.85,.06),'Galvanized','DETAIL',.004)
-    # Two leaves per side slide onto parallel tracks. Geometry is closed-rest and pivot local.
-    # Leaves on the same track meet with a 4 mm shut line instead of a 2 cm overlap whose
-    # coplanar faces flickered; the two tracks still overlap each other in depth.
-    leafw=ow/4-.004
-    for side in (-1,1):
-        for i in range(2):
-            closed=(side*(i+.5)*ow/4,-.24-i*.14,z+.05)
-            opened=(side*(ow/2+ow/8+.11),closed[1],closed[2])
-            key=f'SlidingDoor_{"L" if side<0 else "R"}{i}'
-            p=m.p(key,'DOOR',.006);p.pivot=closed
-            p.box((closed[0],closed[1],z+oh/2),(leafw,.10,oh-.07),'RoofOliveLight')
-            for zz in (.26,oh-.23):p.box((closed[0],closed[1]-.062,z+zz),(leafw-.08,.03,.045),'SteelDark')
-            for k in range(ceil(leafw/.38)):
-                x=closed[0]-leafw/2+.15+k*.38
-                p.box((x,closed[1]-.061,z+oh/2),(.025,.025,oh-.16),'RoofOlive')
-            p.box((closed[0],closed[1]-.071,z+.55),(leafw-.12,.018,.22),'Yellow')
-            m.doors.append(dict(part=p.name,kind='SLIDE',closed=closed,opened=opened,open_fraction=s.door_open))
-            m.collisions.append(dict(part=p.name,center=(closed[0],closed[1],z+oh/2),dims=(leafw,.12,oh-.07),axes=A.IDENTITY))
-    for y in (-.24,-.38):
-        m.box('DoorTopRails',(0,y,z+oh+.12),(w-.20,.08,.13),'SteelDark','DETAIL',.003)
-        m.box('DoorFloorRails',(0,y,z+.008),(w-.20,.06,.016),'Galvanized','DETAIL',.001)
-    # Readable fascia signage and protected practical lights.
-    m.box('HangarIdentityPanel',(0,-.29,z+h+rise*.46),(7.8,.14,.8),'SteelDark','DETAIL',.009)
-    m.label('BAKIM HANGARI',(0,-.37,z+h+rise*.47),.39,'White',name='HangarTitle')
-    m.label(s.name.replace('_',' ')[:22],(-w*.39,-.151,z+2.5),.23,'Yellow',name='HangarID')
-    for x in (-w*.37,w*.37):
-        m.box('EntryWallLights',(x,-.21,z+3.4),(.60,.16,.15),'SteelDark','DETAIL',.006)
-        m.box('EntryWallDiffusers',(x,-.303,z+3.385),(.49,.018,.075),'LightWarm','DETAIL',0)
-    if s.services:
-        for side in (-1,1):
-            for i in range(s.bays):
-                y=(i+.5)*d/s.bays;lx=side*w*.25;lz=z+h+rise*.42-.45
-                m.box('SuspendedLights',(lx,y,lz),(.20,1.8,.10),'SteelDark','DETAIL',.006)
-                m.box('SuspendedDiffusers',(lx,y,lz-.056),(.15,1.68,.016),'LightWarm','DETAIL',0)
-                attach=z+h+rise*(1-abs(lx)/(w/2+.38))-.035
-                for dy in (-.58,.58):
-                    m.p('LuminaireHangers','DETAIL',.001).cylinder((lx,y+dy,lz+.053),(lx,y+dy,attach),.009,'Galvanized',8)
-                    m.box('LuminaireAnchorPlates',(lx,y+dy,attach+.012),(.14,.14,.025),'SteelDark','DETAIL',.002)
-        for i in range(3):
-            m.box('ServiceLockers',(-w/2+1.0,d*.65+i*1.0,z+1.03),(.55,.82,2.06),'RoofOlive','PROPS',.016)
-            m.box('LockerHandle',(-w/2+1.295,d*.65+i*1.0,z+1.15),(.035,.11,.023),'Galvanized','DETAIL',.001)
-    m.port('AIRCRAFT_IN',(0,-.12,z),-pi/2,ow,'HANGAR')
-    m.port('PERSONNEL_REAR_OUT',(doorx,d+1.25,0),pi/2,s.walkway_width)
-    if s.local_ground:m.box('RearLanding',(doorx,d+.65,z-.08),(s.walkway_width,1.3,.16),'Concrete','GROUND',.006,True)
-    m.openings.append(dict(kind='HANGAR',width=ow,height=oh,center=(0,0,z)))
-    m.notes.append('Moving panels are preview/asset transforms, not a tested runtime Unreal door Blueprint.')
+def hangar_config(s):
+    """Core HANGAR settings as a gable Hangar Studio configuration: the closed hangar family is
+    built by hangar_studio.geometry (profiled cladding, telescopic gates, portal frames)."""
+    from .hangar_studio.contracts import HangarConfig
+    w=s.width;leaves=4 if w<30 else (6 if w<42 else 8);ow=round(w*.64*2)/2
+    while ow>10 and (w-ow)/2<ow/leaves+.25:ow-=.5
+    name=re.sub(r'[^A-Za-z0-9_-]','_',s.name.strip())[:48]
+    if not name[:1].isalpha():name=('H'+name)[:48]
+    return HangarConfig(name=name,width=w,depth=s.depth,eave_height=s.floor_height,bays=s.bays,roof_type='GABLE',
+        roof_rise=round(max(1.2,min(w*.078,w*.18)),2),opening_width=ow,opening_height=round(s.floor_height-1.35,2),
+        gate_leaves=leaves,gate_open=s.door_open,base_height=s.base_height,local_ground=s.local_ground,
+        walkway_width=min(s.walkway_width,4.5),services=s.services,signage=s.signage,detail=s.detail,
+        palette=s.palette,seed=s.seed,wall_finish='OLIVE',roof_finish='GRAPHITE')
 
 
 def build_shelter(m):
@@ -803,7 +698,9 @@ def build_range_set(m):
 def build(settings):
     settings.checked();m=Model(settings)
     if settings.kind in ('HQ','UNIT'):build_office(m)
-    elif settings.kind=='HANGAR':build_hangar(m)
+    elif settings.kind=='HANGAR':
+        from .hangar_studio import geometry as HG
+        return HG.build(hangar_config(settings))
     elif settings.kind=='SHELTER':build_shelter(m)
     else:build_range_set(m)
     return m.finish()
