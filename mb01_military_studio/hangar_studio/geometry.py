@@ -111,38 +111,60 @@ def _copy_module(m, config, token, width, face_id, translate, axes):
 
 def _frame_y(c,i):
     """Frame line of portal i. The two end frames sit inside the girt zone so the column's
-    outer flange (.20 from the frame line) stays 5 mm behind the cladding core face; every
-    part that bears on a frame (cleats, splices) uses this, not i*bay_pitch."""
+    flange edges (.17 from the frame line, web in the frame plane) stay 5 mm behind the
+    cladding core face; every part that bears on a frame (cleats, splices) uses this, not
+    i*bay_pitch."""
     from ..modular.geometry import ModuleModel
-    bp=c.depth/c.bays;e=max(0.,.205-(c.wall_thickness-ModuleModel.CLAD_CORE))
+    bp=c.depth/c.bays;e=max(0.,.175-(c.wall_thickness-ModuleModel.CLAD_CORE))
     return i*bp+(e if i==0 else (-e if i==c.bays else 0.))
 
 
 def _structure(m,c):
     a,d,z=c.width/2,c.depth,c.base_height
-    bp=d/c.bays
+    bp=d/c.bays;k=sqrt(1.+envelope(c).slope**2);R=lambda X:roof_level(c,X)
     from ..modular.geometry import ModuleModel
     lim=c.wall_thickness-ModuleModel.CLAD_CORE-.005    # wall-side stop for end-frame plates
+    # Hot-rolled portal: column web in the frame plane (flanges at |x| a-.42 / a-.02), rafter one
+    # sweep of vertical sections (the apex section is the mitre) between the column inner flanges,
+    # its ends 2 mm into them. T/B: rafter top/bottom flange faces. Column cap 25 mm over the
+    # rafter, kept 8 mm under the eaves purlin (xe).
+    T=lambda X:R(X)-.52+.23*k;B=lambda X:R(X)-.52-.23*k
+    xi,xr,xe=a-.42,a-.418,a-.30;top=min(T(xi)+.025,R(xe)-.233)
+    HT=((-.11,0.),(.11,0.),(.11,1.),(.012,1.),(.012,2.),(-.012,2.),(-.012,1.),(-.11,1.))
+
+    def haunch(p,y,x0,x1,deep,stations):
+        # Tapered T cutting (220x25 flange, 24 mm web) welded under the bottom flange: `deep`
+        # below it at x0, its tip buried in the flange at x1 (levels: underside, flange top, web top).
+        h0,h1=(-deep,-deep+.025*k,.032),(.003,.028,.032)
+        def place(X,u,l):
+            t=abs(X-x0)/abs(x1-x0);l=int(l);return (X,y+u,B(X)+h0[l]+(h1[l]-h0[l])*t)
+        _sweep(p,HT,place,stations,'SteelDark')
     for i in range(c.bays+1):
         y=_frame_y(c,i);end=-1 if i==0 else (1 if i==c.bays else 0)
 
-        def span(half):   # plates stop 3 mm inside the flange's outer face (no shared plane)
+        def span(half):   # plates stop 3 mm inside the flange's outer edge (no shared plane)
             lo,hi=y-half,y+half
             if end<0:lo=max(lo,-lim+.003)
             if end>0:hi=min(hi,d+lim-.003)
             return (lo+hi)/2,hi-lo
         frame=m.p(f'HG_Portal_{i:02d}','STRUCTURE',.004)
+        _sweep(frame,A.i_profile(.24,.46,.026,.035),lambda X,u,v:(X,y+u,R(X)-.52+v*k),(-xr,0.,xr),'SteelDark')
+        haunch(frame,y,0.,.45,.15,(-.45,0.,.45))
+        bolts=c.fasteners and c.detail!='DRAFT'
+        if bolts:p=m.p('HG_Fasteners','DETAIL',.001)
         for side in (-1,1):
-            x=side*(a-.22)
-            frame.prism(A.i_profile(.34,.40,.035,.040),(x,y,z+.105),A.IDENTITY,c.eave_height-.54-.105,'SteelDark')
-            _ibeam(frame,(x,y,roof_level(c,x)-.52),(0,y,roof_level(c,0)-.52))
+            x=side*(a-.22);xa=side*xr
+            frame.prism([(v,u) for u,v in A.i_profile(.34,.40,.035,.040)],(x,y,z+.105),A.IDENTITY,top-.018-z-.105,'SteelDark')
+            haunch(frame,y,xa,xa-side*.90,.30,(xa,xa-side*.90))
             yc,dy=span(.34)
-            m.box('HG_BaseShoes',(x,yc,z+.055),(.62,dy,.11),'SteelDark','STRUCTURE',.004)
-            # Thickening plate is a visible mechanical joint, not a load calculation.
-            yc,dy=span(.23)
-            m.box('HG_EaveConnection',(x,yc,roof_level(c,x)-.64),(.48,dy,.26),'Galvanized','DETAIL',.004)
-            if c.fasteners and c.detail!='DRAFT':
-                p=m.p('HG_Fasteners','DETAIL',.001)
+            m.box('HG_BaseShoes',(x,yc,z+.0535),(.62,dy,.113),'SteelDark','STRUCTURE',.004)   # 3 mm into the slab
+            # Knee: 25 mm end plate on the rafter and haunch, bolted to the column inner flange (2 mm
+            # into it, 10 mm into the cap); 20 mm cap plate over the column and the end plate.
+            zb=B(xa)-.325;yc,dy=span(.13)
+            m.box('HG_EaveConnection',(side*(a-.4315),yc,(zb+top-.010)/2),(.027,dy,top-.010-zb),'SteelDark','DETAIL',.002)
+            yc,dy=span(.18)
+            m.box('HG_EaveConnection',(side*(a-.231),yc,top-.010),(.432,dy,.020),'SteelDark','DETAIL',.002)
+            if bolts:
                 for dx in (-.23,.23):
                     for dy in (-.25,.25):
                         yy=y+dy
@@ -150,16 +172,29 @@ def _structure(m,c):
                         if end>0:yy=min(yy,d+lim-.05)
                         p.cylinder((x+dx,yy,z+.111),(x+dx,yy,z+.155),.028,'Galvanized',6)
                         p.cylinder((x+dx,yy,z+.108),(x+dx,yy,z+.121),.044,'Galvanized',12)
-        m.box('HG_RidgeSplice',(0,y,roof_level(c,0)-.52),(.70,.045,.32),'Galvanized','DETAIL',.003)
-    # Purlins remain under the roof. No main purlins across the monitor opening.
-    xs=[-a+(j+.5)*(2*a/12) for j in range(12)]
-    mh=c.monitor_width/2
+                for dy in (-.075,.075):        # nut on the end plate, head inside the column flange
+                    for zz in (T(xa)-.035*k-.055,B(xa)-.15):
+                        p.cylinder((side*(a-.475),y+dy,zz),(side*(a-.355),y+dy,zz),.021,'Galvanized',6)
+        # Apex: a pair of 25 mm end plates (2 mm joint) over the mitre, extended over the apex haunch.
+        zt,zb=T(0.)+.015,B(0.)-.17;yc,dy=span(.13)
+        for sx in (-1,1):
+            m.box('HG_RidgeSplice',(sx*.0135,yc,(zt+zb)/2),(.025,dy,zt-zb),'SteelDark','DETAIL',.002)
+        if bolts:
+            for dy in (-.075,.075):
+                for zz in (T(0.)-.035*k-.06,B(0.)-.07):
+                    p.cylinder((-.05,y+dy,zz),(.05,y+dy,zz),.021,'Galvanized',6)
+    # Purlins under the roof at <=1.8 m centres, an eaves purlin over the column heads and twin
+    # ridge purlins beside the apex (not under a lantern); none across the monitor opening.
+    # seat: what the purlin's cleat stands on (rafter top flange, or the column cap).
+    n=max(12,2*ceil(a/1.8));mh=c.monitor_width/2;mon=c.roof_type=='MONITOR'
+    xs=sorted([-a+(j+.5)*(2*a/n) for j in range(n)]+[-xe,xe]+([] if mon else [-.30,.30]))
     for j,x in enumerate(xs):
-        if c.roof_type=='MONITOR' and abs(x)<mh+.10:
+        if mon and abs(x)<mh+.10:
             continue
         p=m.p(f'HG_Purlin_{j:02d}','STRUCTURE',.002)
-        p.box((x,d/2,roof_level(c,x)-.16),(.10,d+.22,.13),'Galvanized')
-        m.hangar_meta['roof_supports_design'].append(dict(x=x,top=roof_level(c,x)-.095,skin_lower=roof_level(c,x)))
+        p.box((x,d/2,R(x)-.16),(.10,d+.22,.13),'Galvanized')
+        xc=x+(.054 if x>0 else -.054)
+        m.hangar_meta['roof_supports_design'].append(dict(x=x,top=R(x)-.095,skin_lower=R(x),seat=top if abs(xc)>xi else T(xc)))
     for side,sequence in ((-1,c.panel_sequence('LEFT')),(1,c.panel_sequence('RIGHT'))):
         for i,token in enumerate(sequence):
             if token!='METAL':continue
@@ -428,7 +463,8 @@ def _roof_underside(m,c,env,lights):
     V-section: a 30 mm flat foot is invisible from the floor and costs a quad per pan)
     between the walls/monitor kerb, cut for rooflights; under each rooflight a bright
     translucent GRP liner sheet with the same ribs (20 mm deep, so they too land on the
-    purlin tops), 5 mm below the steel liner; cleats tie each purlin to the rafter below."""
+    purlin tops), 5 mm below the steel liner; cleats tie each purlin to the rafter below (the
+    eaves purlin to the column cap)."""
     a,d=c.width/2,c.depth;bp=d/c.bays;s=env.slope;R=lambda X:roof_level(c,X)
     _,q,n=_roof_grid(c)          # one liner rib per roof pan: rooflight cuts land on rib starts
     xin=c.monitor_width/2 if c.roof_type=='MONITOR' else 0.;xout=a-.002
@@ -450,12 +486,12 @@ def _roof_underside(m,c,env,lights):
                 _sheet(m.p('HG_RoofLightLiners','ROOF',0.),[[(side*X,y,R(X)-.075+dz) for y,dz in gp]
                        for X in (h['x0']+.003,h['x1']-.003)],'HG_RoofLightInner',-1)
     if c.detail=='DRAFT':return
-    k=sqrt(1.+s*s);cl=m.p('HG_PurlinCleats','STRUCTURE',.001)
+    cl=m.p('HG_PurlinCleats','STRUCTURE',.001)
     for sup in m.hangar_meta['roof_supports_design']:
         x=sup['x'];o=1. if x>0 else -1.;xc=x+o*.054
-        bottom=R(xc)-.52+.23*k-.005;top=R(x)-.12          # rafter top flange (_structure, .46 I-beam)
-        for i in range(c.bays+1):
-            cl.box((xc,_frame_y(c,i),(bottom+top)/2),(.010,.14,top-bottom),'Galvanized')
+        bottom=sup['seat']-.005;top=R(x)-.12      # 5 mm into the rafter top flange / column cap (_structure)
+        for i in range(c.bays+1):   # welded to the frame in the shop: painted with it
+            cl.box((xc,_frame_y(c,i),(bottom+top)/2),(.010,.14,top-bottom),'SteelDark')
 
 
 def _rooflight_plan(c,env):
