@@ -1139,7 +1139,7 @@ def _gates(m,c):
         for q0,q1,h0,h1 in ((.002,wl,.120,hp0),(.002,wl,hp1,ht),(.002,.130,hp0,hp1),(.212,wl,hp0,hp1),(lw-wt-.002,lw-.002,.120,ht)):
             bx(q0,q1,-.094,-.015,h0,h1,'HG_GateTrim')                    # folded stile covers
         bx(.130,.212,-.060,-.015,hp0,hp1,'SteelDark')                    # pocket back
-        bx(.118,wl+.002,-.014,-.012,.127,lh-.139,'HG_GateLiner')         # inside liner closer over the stile covers' backs
+        bx(.118,wl+.002,-.014,-.009,.127,lh-.139,'HG_GateLiner')         # inside liner closer over the stile covers' backs
         cyl(.170,-.078,hp0-.010,.170,-.078,hp1+.010,.011,'Galvanized')   # grip bar, ends buried in the cover
         cap(p,X,y,z0,0.,lw,.320,-.056,'Galvanized',drip=.308)            # galvanised kick plate
         cap(p,X,y,z0,0.,lw+.040,ht,-.063,'HG_GateTrim')                  # leaf head flashing, over the astragal
@@ -1230,13 +1230,14 @@ def _gates(m,c):
         tc=m.p('HG_GateTrackCover','FACADE',.002);tc.prism([(yo-.150,h1),(yo-.093,h1),(yo-.093,h1+.008),
             (yo-.144,h1+.008),(yo-.144,top+.625),(yo-.150,top+.625)],(-u1,0,0),C.YZX,2*u1,'SteelDark')
         # Pelmet and fascia in coil lengths of up to 3 m, joints on shared lines kept 200 mm clear of the
-        # beacons, each under a 150 mm butt strap bedded 1 mm, 3 mm proud: over the opening the pelmet
-        # strap wraps under the return (the house fronts close it beyond the jambs); the fascia strap
-        # turns over the drip lip, stops 3 mm under the upstand and runs behind the accent stripe.
+        # beacons, each under a 150 mm butt strap 3 mm proud, bedded 2/4 mm so it stays thicker than the
+        # part's two edge bevels: over the opening the pelmet strap wraps under the return (the house
+        # fronts close it beyond the jambs); the fascia strap turns over the drip lip, stops 3 mm under
+        # the upstand and runs behind the accent stripe.
         for xj in _nudge(_laps(-u1,u1,3.),[sx*(c.opening_width/2+.30) for sx in (-1.,1.)],.20):
             pth=[(yo-.095,h1),(yo-.150,h1)] if abs(xj)<u0-.085 else [(yo-.150,h1+.002)]
-            tc.prism(_band(pth+[(yo-.150,top+.622)],-.001,.003),(xj-LAP,0,0),C.YZX,2*LAP,'SteelDark')
-            fa.prism(_band([(yf-.022,zt-.278),(yf-.022,zt-.262),(yf-.010,zt-.262),(yf-.010,zt+.047)],-.001,.003),
+            tc.prism(_band(pth+[(yo-.150,top+.622)],-.002,.003),(xj-LAP,0,0),C.YZX,2*LAP,'SteelDark')
+            fa.prism(_band([(yf-.022,zt-.278),(yf-.022,zt-.262),(yf-.010,zt-.262),(yf-.010,zt+.047)],-.004,.003),
                      (xj-LAP,0,0),C.YZX,2*LAP,'SteelDark')
         # Amber warning beacons on the pelmet above each jamb (wall bracket, base, lens, cap) and a
         # push-button station (open / close / stop) with a rain hood on the left door-house front.
