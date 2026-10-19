@@ -405,10 +405,11 @@ def _downpipe_lines(m,c,env,side,z0,z1,conflicts):
 
 
 def _roof_underside(m,c,env,lights):
-    """Interior: trapezoidal liner (ribs downslope, resting on the purlins) between the
-    walls/monitor kerb, cut for rooflights; under each rooflight a bright translucent GRP
-    liner sheet with the same ribs (20 mm deep, so they too land on the purlin tops), 5 mm
-    below the steel liner; cleats tie each purlin to the rafter below."""
+    """Interior: profiled liner (one 60x25 mm rib per pan, downslope, resting on the purlins;
+    V-section: a 30 mm flat foot is invisible from the floor and costs a quad per pan)
+    between the walls/monitor kerb, cut for rooflights; under each rooflight a bright
+    translucent GRP liner sheet with the same ribs (20 mm deep, so they too land on the
+    purlin tops), 5 mm below the steel liner; cleats tie each purlin to the rafter below."""
     a,d=c.width/2,c.depth;bp=d/c.bays;s=env.slope;R=lambda X:roof_level(c,X)
     _,q,n=_roof_grid(c)          # one liner rib per roof pan: rooflight cuts land on rib starts
     xin=c.monitor_width/2 if c.roof_type=='MONITOR' else 0.;xout=a-.002
@@ -417,7 +418,7 @@ def _roof_underside(m,c,env,lights):
         for i in range(c.bays):
             prof=[]
             for r in range(int(bp/q+.5)):
-                y=i*bp+r*q;prof+=[(y,0.),(y+q-.060,0.),(y+q-.045,-.025),(y+q-.015,-.025)]
+                y=i*bp+r*q;prof+=[(y,0.),(y+q-.060,0.),(y+q-.030,-.025)]
             prof.append(((i+1)*bp,0.))
             hole=[l for l in lights if l['side']==side and l['bay']==i]
             xs=[xin]+([hole[0]['x0'],hole[0]['x1']] if hole else [])+[xout]
@@ -475,10 +476,11 @@ def _monitor(m,c,env,ys):
         pr=[(mh+.004,sill+.020),(mh+.010,sill+.020),(mh+.010,S(mh+.010)+OVER+.006),(mh+.200,S(mh+.200)+OVER+.006),
             (mh+.200,S(mh+.200)+.004),(mh+.194,S(mh+.194)+.004),(mh+.194,S(mh+.194)+OVER),(mh+.004,S(mh+.004)+OVER)]
         kerb.prism([(side*u,z) for u,z in pr],(0,env.front_y-.003,0),XZ,env.back_y-env.front_y+.006,FLASH)
-        # Apron joint straps on the frame lines: over the cover (bedded into the upstand leg)
-        # and down the drip hem, overrunning the hem by 1.5 mm (no shared end planes).
+        # Apron joint straps on the odd frame lines (two-bay coil lengths; the lantern ridge cap
+        # laps on the even ones): over the cover (bedded into the upstand leg) and down the
+        # drip hem, overrunning the hem by 1.5 mm (no shared end planes).
         strap=_band([(mh+.008,S(mh+.008)+OVER+.006),(mh+.200,S(mh+.200)+OVER+.006),(mh+.200,S(mh+.200)+.0025)],-.001,.003)
-        for y in range(1,c.bays):kerb.prism([(side*u,z) for u,z in strap],(0,y*bp-LAP,0),XZ,2*LAP,FLASH)
+        for y in range(1,c.bays,2):kerb.prism([(side*u,z) for u,z in strap],(0,y*bp-LAP,0),XZ,2*LAP,FLASH)
         # Stop ends close the apron void where it oversails the notch returns (set back 2 mm).
         se=[(mh+.010,S(mh+.010)-.005),(mh+.194,S(mh+.194)-.005),(mh+.194,S(mh+.194)+OVER),(mh+.010,S(mh+.010)+OVER)]
         for ya in (env.front_y-.001,env.back_y-.005):
@@ -521,30 +523,31 @@ def _monitor(m,c,env,ys):
         raf.prism([(-xr,Mz(xr)+.002),(0.,Mz(0.)+.002),(xr,Mz(xr)+.002),(xr,Mz(xr)-.178),(0.,Mz(0.)-.178),(-xr,Mz(xr)-.178)],
                   (0,ry(i),0),XZ,.10,'SteelDark')
     raf.box((0.,d/2,Mz(0.)-.058),(.10,d-.10,.12),'SteelDark')
-    # Lantern soffit: per bay and slope a ribbed liner tray (a 30 mm trapezoid rib under every
-    # second seam: a deeper, wider-spaced tray than the main liner) hung 3 mm under the sheet
-    # between the rafters, ridge purlin and head rail, on intermediate RHS purlins (sheet spans
-    # <= 1.4 m) bedded 2 mm into the rafter faces. Purlin tops carry the rib feet; the flat
-    # soffit above the trays stays hidden.
+    # Lantern soffit: per bay and slope a ribbed liner tray (an 80x30 mm rib under every second
+    # seam: a deeper, wider-spaced tray than the main liner) hung 3 mm under the sheet
+    # between the rafters, ridge purlin and head rail, on RHS purlins (sheet spans <= 1.4 m)
+    # running through the rafter webs end wall to end wall, bedded 2 mm into the end rafters.
+    # Purlin tops carry the rib feet; the flat soffit above the trays stays hidden.
     _,q,_=_roof_grid(c);lin=m.p('HG_MonitorLiner','ROOF',0.);pur=m.p('HG_MonitorPurlins','STRUCTURE',.001)
-    nseg=max(1,ceil(mh/1.4))
+    nseg=max(1,ceil(mh/1.4));ya,yb=ry(0)+.098,ry(c.bays)+.002
+    for side in (-1,1):
+        T=A.unit((side,0.,-ms));N=A.unit((side*ms,0.,1.))
+        for k in range(1,nseg):
+            xp=k*mh/nseg;top=(side*xp,(ya+yb)/2,Mz(xp)-.033)
+            pur.box(A.sub(top,A.mul(N,.065)),(.10,yb-ya,.13),'Galvanized',(T,(0.,1.,0.),N))
     for i in range(c.bays):
         ya,yb=ry(i)+.102,ry(i+1)-.002;prof=[(ya,0.)]
         for e in (i*bp+2*r*q for r in range(1,int(bp/q/2+.5)+1)):
-            if ya+.01<=e-.040 and e+.040<=yb-.01:prof+=[(e-.040,0.),(e-.020,-.030),(e+.020,-.030),(e+.040,0.)]
+            if ya+.01<=e-.040 and e+.040<=yb-.01:prof+=[(e-.040,0.),(e,-.030),(e+.040,0.)]
         prof.append((yb,0.))
         for side in (-1,1):
             _sheet(lin,[[(side*X,y,Mz(X)-.003+dz) for y,dz in prof] for X in (.052,mh-.064)],'HG_RoofLiner',-1)
-            T=A.unit((side,0.,-ms));N=A.unit((side*ms,0.,1.))
-            for k in range(1,nseg):
-                xp=k*mh/nseg;top=(side*xp,(ry(i)+.098+ry(i+1)+.002)/2,Mz(xp)-.033)
-                pur.box(A.sub(top,A.mul(N,.065)),(.10,ry(i+1)-ry(i)-.096,.13),'Galvanized',(T,(0.,1.,0.),N))
     _ridge(m.p('HG_MonitorCap','ROOF',.001),env.roof_y0-.008,env.roof_y1+.008,peak+ROOF_SKIN,ms,.17,.030,FLASH,
-           [i*bp for i in range(1,c.bays)])
+           [i*bp for i in range(2,c.bays,2)])
     Sm=lambda X:peak+ROOF_SKIN-ms*abs(X)
     for y_edge,out in ((env.roof_y0,-1),(env.roof_y1,1)):
         _verge(vg,Sm,(-(mx-.001),0.,mx-.001),y_edge,out,FLASH,(-(mx-.001),mx-.001))
-    # End walls on the gable planes: core 37 mm behind the gable crest plane (as HG_Gable,
+    # End walls on the gable planes: core CLAD_CORE behind the gable crest plane (as HG_Gable,
     # liner inside), top on the monitor roof soffit, clad with the gable's own trapezoidal
     # sheet in the same rib rhythm so the ribs run on from the gable cladding below.
     C=MG.ModuleModel;X=env.outside_x;fy,by=env.front_y,env.back_y
@@ -560,6 +563,10 @@ def _monitor(m,c,env,ys):
     sheet=m.p('HG_MonitorEndCladding','ROOF',0.)        # ROOF: hidden with the lantern in section view
     C.profile_sheet(sheet,-mh,mh,pf,-X,zlo,zhi,(),(0.,),((0.,fy,0.),(1.,0.,0.),(0.,1.,0.)),'HG_Wall')
     C.profile_sheet(sheet,-mh,mh,pr,-X,zlo,zhi,(),(0.,),((0.,by,0.),(-1.,0.,0.),(0.,-1.,0.)),'HG_Wall')
+    # Verge plates: the gables' 100 mm L2 trim (HG_VergeTrims) repeated under the lantern verge,
+    # over the sheet head, bedded 2 mm into the soffit and into the corner trims' face legs.
+    xa=mh-.088;vp=[(-xa,Mz(xa)-.100),(0.,Mz(0.)-.100),(xa,Mz(xa)-.100),(xa,Mz(xa)+.002),(0.,Mz(0.)+.002),(-xa,Mz(xa)+.002)]
+    for y in (fy-.0065,by+.0045):m.p('HG_MonitorVergePlates','ROOF',0.).prism(vp,(0,y,0),XZ,.002,'HG_WallTrim')
     # Base drip flashing on the rake where the end wall meets the gable: 6 mm face leg 2 mm
     # proud of the wall's verge trim, down to the main verge face line with a 45-degree drip,
     # weathering top falling outward under the end-wall sheet foot (it closes the junction and
@@ -1363,13 +1370,21 @@ def _hanger_ys(c,y0,y1):
     return [y0+.25+k*(y1-y0-.5)/(nh-1) for k in range(nh)]
 
 
-def _wall_face(boxes,X,y,z):
-    """|x| of the outermost wall-parallel facade face behind a clamp stem at (y,z), 30 mm
-    square: sheet pan, crest, cassette face or trim (deep reveals and projecting fins are
-    ignored); X-.004 when nothing is found."""
-    hit=[b[1] for b in boxes if b[1]-b[0]<.002 and X-.06<b[1]<X+.02 and b[3]>y-.015 and b[2]<y+.015
-         and b[5]>z-.015 and b[4]<z+.015]
-    return max(hit) if hit else X-.004
+def _wall_face(boxes,X,y,z,e=.03):
+    """|x| of the outermost wall-parallel facade face behind a clamp's 2e square wall plate
+    at (y,z): sheet pan, crest, cassette face or trim (deep reveals and projecting fins are
+    ignored), so the plate bears on the highest point it spans; X-.035 (pan) if none."""
+    hit=[b[1] for b in boxes if b[1]-b[0]<.002 and X-.06<b[1]<X+.02 and b[3]>y-e and b[2]<y+e
+         and b[5]>z-e and b[4]<z+e]
+    return max(hit) if hit else X-.035
+
+
+def _crest_snap(boxes,X,y,z):
+    """Centre of the profiled-sheet crest (a 36 mm face in the crest plane) nearest to y at
+    height z when within 60 mm, else y: downpipe brackets then fix through a crest."""
+    cs=[(b[2]+b[3])/2 for b in boxes if abs(b[1]-X)<1e-4 and b[1]-b[0]<1e-4 and .03<b[3]-b[2]<.04 and b[4]<z<b[5]]
+    near=min(cs,key=lambda v:abs(v-y),default=y)
+    return near if abs(near-y)<=.06 else y
 
 
 def _gutters(m,c):
@@ -1392,31 +1407,32 @@ def _gutters(m,c):
         for y in hangers:
             hang.beam((X(-.006),y,top+.001),(X(w+.038),y,top-.007),.025,.004,'Galvanized')
         px=side*(Xw+.14+r-.055);xo=X(w/2);h45=abs(xo-px);meta=m.hangar_meta['roof_design']
-        lines=_downpipe_lines(m,c,env,side,z+.10,top-h-.05,meta['downpipe_conflicts'])
+        boxes=_facade_boxes(m,side)
+        lines=[_crest_snap(boxes,Xw,y,z+3.) for y in
+               _downpipe_lines(m,c,env,side,z+.10,top-h-.05,meta['downpipe_conflicts'])]
         meta['downpipes_design']+=[dict(side=side,y=y) for y in lines]
         for y in _nudge([(i+.5)*bp for i in range(c.bays)],hangers+lines,.16):
             g.prism([(X(u),top+v) for u,v in union],(0,y-.030,0),XZ,.060,RAIN)
-        boxes=_facade_boxes(m,side)
         for y in lines:
-            # Outlet spigot through the sole into a socket on the swan neck (8-sided socket
-            # inscribed radius clears the 12-sided pipe).
-            g.cylinder((xo,y,top-h+.010),(xo,y,top-h-.020),r-.003,RAIN,8)
-            g.cylinder((xo,y,top-h-.003),(xo,y,top-h-.073),r+.008,RAIN,8)
+            # Outlet socket on the swan neck, bedded 2 mm into the 4 mm sole (its cap stays
+            # hidden inside the sole; 8-sided inscribed radius clears the 12-sided pipe).
+            g.cylinder((xo,y,top-h+.002),(xo,y,top-h-.073),r+.008,RAIN,8)
             zt=top-h-.150;pipes.pipe([(xo,y,top-h-.002),(xo,y,zt),(px,y,zt-h45),(px,y,z+.33),(px+side*.15,y,z+.10)],
-                                     r,RAIN,8 if c.detail=='DRAFT' else 12)
+                                     r,RAIN,8 if c.detail=='DRAFT' else 10)
             lo,hi=z+.9,zt-h45-.25;nc=max(2,ceil((hi-lo)/2.)+1);rb=r/.866+.002
             for k in range(nc):
                 zz=lo+(hi-lo)*k/(nc-1)
                 # Hexagonal band (inscribed radius 2 mm clear of the pipe, a flat toward the
-                # wall) on a stand-off stem bedded 2 mm into the wall face behind it (sheet
-                # pan, crest or cassette face) and 2 mm through the band's flat.
+                # wall) on a stand-off stem; 60x60x4 wall plate bedded 1.5 mm into the face it
+                # bears on (crest, pan, cassette face or trim), stem 2 mm into plate and band.
                 _ring(clamps,(px,y,zz-.0175),(px,y,zz+.0175),rb,'SteelDark',6)
-                back=_wall_face(boxes,Xw,y,zz)-.002;so=abs(px)-rb*.866+.002-back
+                face=_wall_face(boxes,Xw,y,zz);clamps.box((side*(face+.0005),y,zz),(.004,.06,.06),'SteelDark')
+                back=face+.0005;so=abs(px)-rb*.866+.002-back
                 clamps.box((side*(back+so/2),y,zz),(so,.03,.03),'SteelDark')
             if c.local_ground and hero:
                 # Flush gully: one closed cast tray (280 mm, frame 40 mm wide, 12 mm proud of
                 # the apron and bedded 3 mm, dark sump 8 mm down; 5 mm inside the slab edge at
-                # floor_x) with three galvanised bars, under the shoe.
+                # floor_x) with two galvanised bars (three 67 mm slots), under the shoe.
                 gx,gu=side*(Xw+.285),m.p('HG_RainGullies','GROUND',.001)
                 sq=lambda e,zz:[(gx+sx*e,y+sy*e,zz) for sx,sy in ((-1,-1),(1,-1),(1,1),(-1,1))]
                 f=[ff for k in range(4) for ff in ((k,(k+1)%4,4+(k+1)%4,4+k),(4+k,4+(k+1)%4,8+(k+1)%4,8+k),
@@ -1424,8 +1440,8 @@ def _gutters(m,c):
                 gu.primitive(sq(.14,z+.012)+sq(.10,z+.012)+sq(.10,z+.004)+sq(.14,z-.003),f,'SteelDark')
                 if 'Interior' not in gu.material_names:gu.material_names.append('Interior')
                 gu.material_ids[-1]=gu.material_names.index('Interior')
-                for k in (-1,0,1):
-                    gu.box((gx,y+k*.05,z+.0065),(.204,.014,.007),'Galvanized')
+                for k in (-1,1):
+                    gu.box((gx,y+k*.0335,z+.0065),(.204,.014,.007),'Galvanized')
 
 
 def _services(m,c):
