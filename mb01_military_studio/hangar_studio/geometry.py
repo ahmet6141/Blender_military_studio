@@ -518,12 +518,12 @@ def _monitor(m,c,env,ys):
         _eave_trim(drip,side,mx,meave,ms,env.roof_y0-.007,env.roof_y1+.007,FLASH,[i*bp for i in range(2,c.bays,2)])
         # End-wall corner trims (L), bedded into the apron cover and the monitor roof, face
         # leg 2.5 mm off the end-wall sheet crests, its foot raked 3 mm into the base flashing
-        # top (1 mm proud of its face leg). The return leg covers the whole end-wall return
+        # top (1.5 mm proud of its face leg). The return leg covers the whole end-wall return
         # (core and sheet edge) and stops 3 mm inside the end jamb.
         for yf,o in ((env.front_y,-1),(env.back_y,1)):
             z0=S(mh)+.074;z1=Mz(mh-.09)+.003
             vg.prism([(side*u,R(u)+.063 if k<2 else z1) for k,u in enumerate((mh-.090,mh+.008,mh+.008,mh-.090))],
-                     (0,yf+o*.009-.0065,0),XZ,.013,FLASH)
+                     (0,yf+o*.00925-.00675,0),XZ,.0135,FLASH)
             ya,yb=(yf-.010,.003) if o<0 else (d-.003,yf+.010)
             vg.box((side*(mh+.0065),(ya+yb)/2,(z0+z1)/2),(.013,yb-ya,z1-z0-.004),FLASH)
     for i in range(c.bays):
