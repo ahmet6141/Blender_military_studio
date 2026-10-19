@@ -374,12 +374,31 @@ def _pipe_hits(boxes,env,y,z0,z1):
     return sum(1 for b in boxes if b[1]>x0 and b[0]<x1 and b[3]>y-.075 and b[2]<y+.075 and b[5]>z0 and b[4]<z1)
 
 
+def _fin_gap(boxes,env,y,z0,z1,o):
+    """Distance along the wall from a downpipe at y to the nearest facade feature projecting
+    over 150 mm (brise-soleil fins, canopies) on side o (-1 below y, +1 above); 9 if none."""
+    xp=env.outside_x+.15
+    return min([b[2]-y if o>0 else y-b[3] for b in boxes if b[1]>xp and b[5]>z0 and b[4]<z1
+                and (b[3]>y if o>0 else b[2]<y)]+[9.])
+
+
 def _downpipe_lines(m,c,env,side,z0,z1,conflicts):
     """Rainwater outlets: one near each end (nudged inward if a module feature is in the
     way; always placed, at the least obstructed try if none is clear, and logged), frame
-    lines nearest to ~14 m spacing whose corridor is clear, then gaps over 18 m are split."""
+    lines nearest to ~14 m spacing whose corridor is clear (a line boxed in by projecting
+    fins on both sides counts a bay farther away), then gaps over 18 m are split. A pipe
+    with fins on one side only moves off the frame line until they are 300 mm clear (a
+    hand's width for the clamps and the fin fixings)."""
     d=c.depth;bp=d/c.bays;ys=[];boxes=_facade_boxes(m,side)
     clear=lambda y:_pipe_hits(boxes,env,y,z0,z1)==0
+    gap=lambda y,o:_fin_gap(boxes,env,y,z0,z1,o)
+    boxed=lambda y:bp if max(gap(y,-1),gap(y,1))<.30 else 0.
+
+    def ease(y):
+        lo,hi=gap(y,-1),gap(y,1)
+        if (lo<.30)==(hi<.30):return y
+        y2=y+.30-lo if lo<.30 else y-.30+hi
+        return y2 if clear(y2) and min(gap(y2,-1),gap(y2,1))>=.299 else y
     for y,step in ((.22,.30),(d-.22,-.30)):
         best=None
         for k in range(6):
@@ -392,16 +411,16 @@ def _downpipe_lines(m,c,env,side,z0,z1,conflicts):
     for k in range(1,n):
         free=[i*bp for i in range(1,c.bays) if min([abs(i*bp-y) for y in ys]+[9.])>=4. and clear(i*bp)]
         if free:
-            y=min(free,key=lambda v:abs(v-d*k/n))
+            y=min(free,key=lambda v:abs(v-d*k/n)+boxed(v))
             if abs(y-d*k/n)<=1.5*bp:ys.append(y)
     ys=sorted(ys)
     while True:   # split the widest remaining run over 18 m at the clear line nearest its middle
         for g,ya,yb in sorted(((b-a,a,b) for a,b in zip(ys,ys[1:])),reverse=True):
-            if g<=18.:return ys
+            if g<=18.:return [ease(y) for y in ys]
             free=[i*bp for i in range(1,c.bays) if ya+4.<=i*bp<=yb-4. and clear(i*bp)]
             if free:
-                ys=sorted(ys+[min(free,key=lambda v:abs(v-(ya+yb)/2))]);break
-        else:return ys
+                ys=sorted(ys+[min(free,key=lambda v:abs(v-(ya+yb)/2)+boxed(v))]);break
+        else:return [ease(y) for y in ys]
 
 
 def _roof_underside(m,c,env,lights):
@@ -495,7 +514,8 @@ def _monitor(m,c,env,ys):
         for i in range(c.bays+1):
             z0=R(mh)-.51;z1=Mz(mh-.204)+.003
             m.box('HG_MonitorPosts',(side*(mh-.129),i*bp,(z0+z1)/2),(.15,.095,z1-z0),'SteelDark','STRUCTURE',.003)
-        _eave_trim(drip,side,mx,meave,ms,env.roof_y0-.007,env.roof_y1+.007,FLASH)
+        # Two-bay coil lengths jointed on the even frame lines, in step with the lantern ridge cap.
+        _eave_trim(drip,side,mx,meave,ms,env.roof_y0-.007,env.roof_y1+.007,FLASH,[i*bp for i in range(2,c.bays,2)])
         # End-wall corner trims (L), bedded into the apron cover and the monitor roof, face
         # leg 2.5 mm off the end-wall sheet crests. The return leg covers the whole end-wall
         # return (core and sheet edge) and stops 3 mm inside the end jamb.
@@ -591,14 +611,16 @@ def _roof_hardware(m,c,env,ys,pitch,npan,lights):
         posts=sorted({min(ys,key=lambda y:abs(y-(.5+j*(d-1.)/n))) for j in range(n+1)})
         top=S(X)+.50
         for y in posts:
+            # 44 mm post and 56 mm absorber as hexagonal sections: round enough at roof
+            # distance, and the saving pays for the lantern eave-trim joints.
             base=(X,y,S(X));line.box(A.add(base,A.mul(N(sd),.0355)),(.12,.06,.075),'Galvanized',(T(sd),(0,1,0),N(sd)))
-            line.cylinder((X,y,S(X)+.065),(X,y,top),.022,'Galvanized',8)
+            line.cylinder((X,y,S(X)+.065),(X,y,top),.022,'Galvanized',6)
             line.box((X,y,top),(.05,.04,.03),'Galvanized')
         # 8 mm wire rope as a square section with a flat top: a continuous line from above
         # instead of the faceted cylinder that broke into dots at grazing angles.
         line.box((X,(posts[0]+posts[-1])/2,top-.002),(.0092,posts[-1]-posts[0],.0092),'Galvanized')
         for y in (posts[0]+.15,posts[-1]-.15):
-            line.cylinder((X,y-.11,top-.002),(X,y+.11,top-.002),.028,'Yellow',8)
+            line.cylinder((X,y-.11,top-.002),(X,y+.11,top-.002),.028,'Yellow',6)
     from math import cos,sin
     stacks=m.p('HG_RoofPenetrations','ROOF',.001)
     for sd in (-1,1):
@@ -607,9 +629,9 @@ def _roof_hardware(m,c,env,ys,pitch,npan,lights):
         X=.62*rx if not mon else mh+.15+.55*(rx-mh-.15);x=sd*X;y=i*bp+(npan//2+.5)*pitch
         stacks.box(A.add((x,y,S(X)),A.mul(N(sd),.002)),(.44,.36,.006),'Galvanized',(T(sd),(0,1,0),N(sd)))
         zb=S(X)+.005-.12*s-.002;top=S(X)+.95
-        _frustum(stacks,(x,y,zb),(x,y,zb+.14+.12*s),.12,.065,'Rubber')
+        _frustum(stacks,(x,y,zb),(x,y,zb+.14+.12*s),.12,.065,'Rubber',10)
         stacks.cylinder((x,y,zb+.01),(x,y,top),.055,RAIN,12)      # colour-coated like the rainwater goods
-        _frustum(stacks,(x,y,top+.07),(x,y,top+.13),.11,.015,'Galvanized')
+        _frustum(stacks,(x,y,top+.07),(x,y,top+.13),.11,.015,'Galvanized',10)
         for k in range(3):
             ang=k*2*pi/3
             stacks.box((x+.045*cos(ang),y+.045*sin(ang),top+.031),(.012,.012,.082),'Galvanized')
