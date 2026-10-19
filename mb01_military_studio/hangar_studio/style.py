@@ -46,9 +46,14 @@ def recipes(config, override=''):
     # Folded seam heads catch the light; flashings are colour-matched coil (second batch).
     clone('HG_RoofSeam','HG_Roof',[min(1.,x*1.10) for x in rc],.42)
     clone('HG_RoofFlashing','HG_Roof',[x*.86 for x in rc],.45)
-    # Interior liner tray (bright polyester) and translucent GRP rooflight sheet.
+    # Interior liner tray (bright polyester) and translucent GRP rooflight sheet: cool opal
+    # outside, a brighter diffusing inner GRP liner seen from the floor.
     clone('HG_RoofLiner','White',(.74,.76,.75),.62)
-    lite=clone('HG_RoofLight','Glass',(.90,.92,.82),.40);lite['glass_transmission']=.40;lite['glass_ior']=1.52
+    lite=clone('HG_RoofLight','Glass',(.86,.90,.89),.35);lite['glass_transmission']=.40;lite['glass_ior']=1.52
+    clone('HG_RoofLightInner','White',(.95,.96,.93),.55)
+    # Gutters, outlets, downpipes and vent stacks: colour-coated steel matched to the roof
+    # trims (not bright galvanised, which reads as PVC); hangers stay galvanised.
+    clone('HG_RoofRainwater','HG_RoofFlashing',[x*1.05 for x in out['HG_RoofFlashing']['color']],.45)['metallic']=0
 
 
     # [WALL MATERIALS] names start with HG_Wall (texture kit set: Cladding)
