@@ -144,6 +144,49 @@ Workbench ile çekilip tek tek incelendi.
 - Doğrulama: 12 önayar × WORKING/HERO canlı QA 28/28 PASS; kit FBX geri-import:
   263 nesne, 2 UV kanalı, 8 TS_ malzemesi, sıfır alanlı UV_Paint yüzü 0.
 
+## Kapı, duvar paneli ve çatı detay geçişi (yakın plan gerçekçilik)
+
+Dört alan (ana kapı, duvar kaplaması, çatı, personel kapıları) ayrı ayrı tasarlandı,
+çekişmeli tasarım incelemesinden geçti, kendi worktree'lerinde uygulandı, dokusuz
+yakın plan render'larla iki tur sanat yönetmeni incelemesi ve düzeltme turu yapıldı,
+sonra birleştirildi.
+
+- **Duvar kaplaması** (`modular/geometry.py` wall/clad/profile_sheet/opening_trims/louvre/
+  cassettes, `hangar_studio/geometry.py` _facades/_copy_module): 35 mm derin, 250 mm
+  adımlı trapez profilli çelik sac (tepe ortası ritmi, modül birleşimleri tepe tepeye),
+  geri çekilmiş çekirdek, taban damlalık flaşingi, saçak trimi, HERO'da vida sıraları,
+  pencere/menfez/kapı çevresinde başlık flaşingi, söve trimleri, eğimli denizlik;
+  baskı kapaklı alüminyum camlama, gömülü kanatlı menfezler + kuş teli, kaset paneller
+  gölge derzli, köşe dönüş kaplaması ve kenetli köşe açısı; ön cep, başlık ve alınlar aynı
+  sac ile kaplı.
+- **Ana kapı kanatları** (`_gates`, `_track_system`): çelik çerçeveli kanat, dış yüzde
+  trapez sac, üst cam/polikarbon bandı, alt fırça/kauçuk conta, düşey kenar contaları ve
+  bindirmeli karşılaşma dikmeleri, tekme sacı, çekme kolları, öndeki kanatlarda yer
+  sürgüsü ve sarı-siyah ikaz şeritleri; kapı başı pelmeti ve koyu sofit; park eden
+  kanatları saklayan **kapı evleri** (kaplı uç duvarlar, köşe açısı, üst trim); kısa
+  kanat yığınlarında kapı evi ve ray kanopisi yığının 300 mm ötesinde biter.
+- **Çatı** (`_roof` ve yardımcıları, `_gutters`): 58 mm yükseklikli konik dikişli standing-seam
+  paneller (saçakta konik dikiş uçları), mahya/saçak/bordür flaşingleri ~3 m'de bindirme
+  ve bağlantı kayışlarıyla, kutu oluk (geniş gövdeli hangarda 260 mm / DN125 iniş),
+  duvar sacına oturan boru kelepçeleri, opal GRP çatı ışıklıkları (içeriden açık renkli
+  nervürlü), mahya havalandırıcıları, havalandırma bacaları, düşme önleme hattı;
+  çatı altında nervürlü astar sac, aşık kulakları; fener (lantern) çatısında kaplı uç
+  duvarlar, nervürlü alt yüz ve ara aşıklar; iniş boruları güneşlik kanatlarından
+  ≥ 300 mm uzak.
+- **Personel kapıları** (`entry`, `_canopy`): preslenmiş çelik kasa ve stop, 50 mm
+  kenarlı kanat, görünür menteşeler, levye kol + rozet + silindir, kapı kapatıcı, tekme
+  sacı, eşik, iç tarafta panik bar (çift kapıda aktif/pasif kanat ve kayıt), duvar
+  trimleriyle birleşen kapı açıklığı, duvar tipi aydınlatma, kanopi kolları ve kart
+  okuyucu sac tepelerine hizalı. HQ/UNIT/SUPPORT kapıları değişmedi (digest korumalı).
+- **Yapı**: uç portal çerçeveleri kaplama bölgesinin içine alındı (`_frame_y`); taban
+  plakaları ve saçak bağlantı plakaları flanş yüzünün 3 mm içinde biter.
+- Doğrulama: 12 önayar × WORKING/HERO `verify_fast` PASS, 100 modül PASS, HQ/UNIT/SUPPORT
+  geometrisi bayt bayt aynı; aynı yöne bakan çakışık yüz çifti (z-fighting adayı)
+  her önayarda ~%60 azaldı (MRO_WIDEBODY 385 → 136); HERO bevel öncesi üçgen yaklaşık
+  iki katı (MRO_WIDEBODY 51.8K → 106.7K, DEPOT_STORAGE 29.5K → 62.0K).
+- Bilinen eksikler: düşme önleme hattına erişim merdiveni ve fener duman tahliye
+  kapakları üçgen bütçesi nedeniyle yok; kapı kapatıcı kolu kanatla rijit döner.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından
