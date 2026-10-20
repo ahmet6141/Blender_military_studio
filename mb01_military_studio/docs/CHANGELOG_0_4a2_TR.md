@@ -331,6 +331,63 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
   - Export 47 asset, hepsinde UV1.
   - HERO (24×32) bevel öncesi 23,7K üçgen, 43 parça.
 
+## Karargâh binası yeniden tasarımı (core HQ, `hq/command.py`)
+
+Analiz ve plan: `docs/HQ_KARARGAH_ANALIZ_PLAN_TR.md`. `office_style` AUTO/COMMAND olan HQ yeni
+üreteçle kurulur; UNIT, SUPPORT ve LOGISTICS stilleri `build_office` üzerinde aynen kalır.
+
+- **Kütle:**
+  - Taş kaide üzerinde simetrik blok; zemin kat tören alanından 3 rıht (16/32 cm) yüksekte.
+  - Tek sayıda bölme; ortadaki 3 bölme, 1,0 + `facade_relief` kadar öne çıkan giriş kütlesi.
+  - Giriş kütlesinin attikasında kabartma amblem madalyonu.
+- **Cephe:**
+  - Duvarlar bölme ve kat çizgilerinde yalnızca birbirine değen parçalarla örülür; pencere
+    boşluğunun yanları doğal söve olur.
+  - Taş taban kat, sıva (EXECUTIVE), prekast (TECHNICAL) veya tamamen taş (MONOLITHIC) üst katlar.
+  - Köşeyi saran pilastrlar, pilastrlar arasında kesilen kat bantları, çatı çizgisinde korniş.
+  - 1,05 m parapet ve metal harpuşta.
+- **Pencere:**
+  - Kasa 115 mm içeride (derin söve); dikme ve vasistas kaydı.
+  - Cam ayrı düzlemde; içeride karanlık panel ve jaluzi.
+  - Prekast denizlik ve lento saçağı.
+  - Zemin katta söve içinde güvenlik parmaklıkları.
+  - Dış taraftaki pencere kolları kaldırıldı.
+- **Giriş:**
+  - Dört taş sütunlu revak; revak döşemesi, taş korkuluklu tören / selamlama balkonu.
+  - Balkon önünde "KARARGAH" yazısı ve bina adı.
+  - Çerçeveli çift kanat ana kapı, üst ışık, eşik; revak tavanında gömme aydınlatma panelleri.
+  - Balkonun üstünde, `atrium_floors` katı boyunca cam şerit.
+  - Terasa 3 basamak ve ara korkuluklar; bir yanda bordürlü, iki yanı korkuluklu 1:12 rampa.
+- **Arka ve yan:**
+  - Arkada çelik çift servis kapısı (görüş camlı), saçak, sahanlık ve basamaklar.
+  - Her yanda dışarıdan kolu olmayan acil çıkış kapısı, sahanlık ve basamaklar.
+- **Çatı:**
+  - Membran ve parapet iç yüzü.
+  - Merdiven çıkış kulesi (kapı, saçak, harpuşta).
+  - İçi boş, panjurlu makine perdesi.
+  - Süzgeçler; arka parapette taşma ağzı, toplama kutusu ve kelepçeli iniş boruları.
+  - Paratoner: harpuşta iletkeni (attikanın üstünden geçer), yakalama uçları, iniş
+    iletkenleri ve test klemensleri.
+- **Saha (görsel karşılık; mühendislik iddiası yok):**
+  - Döşeme taşlı tören alanı, bordürler, bina çevresinde yaya şeridi.
+  - Ön sınırda anti-ram babalar: Ø 0,27 m, aralarında 1,2 m net açıklık.
+  - Taş kaide üzerinde üç bayrak direği.
+  - Cephe önü boş bölge: banklar, saksılar, yön pilonları, çatı makineleri ve servis dolapları
+    kaldırıldı (hazır modellerle eklenecek).
+- **Oyun motoru:**
+  - Duvar çarpışması cephe başına birkaç kutu; varlık başına en çok 40 UCX gövde (en büyük
+    boyutta). Önceden 385 ayrı kutu vardı.
+  - Kapı açıklıkları boş; 4 boyutta 2352 örnekle kontrol edildi.
+  - Görünmeyen kat döşemeleri ve iç pilastrlar kaldırıldı.
+- **Doğrulama:**
+  - 9 kombinasyon (varsayılan, üç varyant, 14×10 tek kat, 56×64 dört kat, 22×14, 40×24,
+    zeminsiz 30×18) × DRAFT/WORKING/HERO: doğrulama PASS ve aynı yöne bakan çakışık yüz
+    çifti 0. Önceden 1617 çift ve 34,7 m² vardı.
+  - Canlı Blender QA PASS (EXECUTIVE ve TECHNICAL).
+  - Export 49 asset (önce 70), hepsinde UV1, 12 varlıkta UCX.
+  - LOD0 (bevel sonrası) 180K (önce 214K); LOD1 40K.
+  - Önce/sonra sayfaları: `deliverables/CORE_HQ/review_before_after/`.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından

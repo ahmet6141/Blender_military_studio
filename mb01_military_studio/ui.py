@@ -196,7 +196,8 @@ class MB01_PT_Details(bpy.types.Panel):
         p=context.scene.mb01;l=self.layout
         for k in ('local_ground','base_height','walkway_width','plaza_depth','services','signage','sunshades','wear'):l.prop(p,k)
         if p.kind in ('HQ','UNIT'):
-            for k in ('stair_tower','roof_screen','corner_glass'):l.prop(p,k)
+            command=p.kind=='HQ' and p.office_style in {'AUTO','COMMAND'}
+            for k in (('roof_screen',) if command else ('stair_tower','roof_screen','corner_glass')):l.prop(p,k)
         if p.kind=='HQ':
             for k in ('base_cladding','night_lighting','micro_details'):l.prop(p,k)
         l.label(text='PK01 port metadata; otomatik yol üretmez.')

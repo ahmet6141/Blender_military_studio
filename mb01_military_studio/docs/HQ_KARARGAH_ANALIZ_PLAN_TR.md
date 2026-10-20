@@ -172,3 +172,17 @@ Koordinatlar core.Model ile aynıdır: x cephe boyunca, y binanın içine, z yuk
    - export testi;
    - `verify_fast`.
 5. Kısa yakın plan kontrolü (birkaç kare), değişiklik günlüğü, commit ve push.
+
+## 4. Sonuç (uygulandı)
+
+- Ölçümler (varsayılan, HERO):
+
+  | Ölçüt | Önce | Sonra |
+  |---|---|---|
+  | Aynı yöne bakan çakışık yüz çifti | 1617 (34,7 m²) | **0** (9 kombinasyon × 3 detay) |
+  | Asset | 70 | 49 |
+  | LOD0 / LOD1 üçgen | 214K / 36,5K | 180K / 40,3K |
+  | UCX | 385 kutu (sınır aşımı) | varlık başına en çok 40 |
+
+- Kapı açıklıkları çarpışmadan bağımsız. Canlı Blender QA PASS.
+- Ayrıntılar: `CHANGELOG_0_4a2_TR.md`, "Karargâh binası yeniden tasarımı".

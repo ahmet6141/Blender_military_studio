@@ -658,7 +658,10 @@ def build_range_set(m):
 
 def build(settings):
     settings.checked();m=Model(settings)
-    if settings.kind in ('HQ','UNIT'):build_office(m)
+    if settings.kind=='HQ' and office_style_for(settings)=='COMMAND':
+        from .hq.command import build_command
+        build_command(m)
+    elif settings.kind in ('HQ','UNIT'):build_office(m)
     elif settings.kind=='HANGAR':
         from .hangar_studio import geometry as HG
         return HG.build(hangar_config(settings))
