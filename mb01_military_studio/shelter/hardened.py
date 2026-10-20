@@ -8,7 +8,8 @@ bogies on two crane rails set in trenches flush with the apron (no overhead guid
 opening, no wing walls) and parks free-standing beside the shelter against buffered end stops.
 Rear: wall cast in two halves with a sealed centre joint, exhaust port with a steel louvre grille and
 a buttressed concrete blast deflector, steel personnel door with canopy. Crown air terminals and
-down conductors, high-bay lighting inside.
+down conductors, supply duct under the crown. Equipment (lights, cameras, cabinets, panels) is left
+to dedicated prop assets.
 Fictional CGI scenery: thicknesses and profiles are artistic, with no protective or structural claim.
 
 Design coordinates of core.Model: x across, y from the front face of the vault (0) to the rear (d),
@@ -50,7 +51,6 @@ class Vault:
         self.xr=self.xo+RING_W;self.Rr=self.Ro+RING_W            # portal arch outer profile
         self.to=asin(self.xo/self.Ro);self.kf=max(2,round(2*self.to*self.Ro/2.4))   # outer arch half angle, formwork lifts
         self.zd=self.zc+R-.95                                    # ventilation duct axis under the crown
-        self.zcam=min(b+4.2,self.zc+sqrt(self.Ro**2-self.xo**2)-.8)  # rear-corner CCTV height
     def T(self,x):return self.zc+sqrt(max(0.,self.Rt**2-x*x))   # top of the closed door at x
     def path(self,ai,Ri,zb):
         """Left foot -> wall -> arch -> wall -> right foot, walls at +-ai, arch radius Ri."""
@@ -101,8 +101,8 @@ def _vault(m,s,v):
 
 
 def _portal(m,s,v):
-    """Portal arch around the opening, steel seal plate, steel rim coping and rim floodlights. No wing
-    walls: the leaves run on rails set flush in the apron and park free-standing beside the shelter."""
+    """Portal arch around the opening, steel seal plate, steel rim coping, jamb guards. No wing walls:
+    the leaves run on rails set flush in the apron and park free-standing beside the shelter."""
     b=v.b
     m.p('PortalArch','STRUCTURE',.015).prism(v.path(v.ai,v.Ri,b)+v.path(v.xr,v.Rr,b)[::-1],(0,-RING_D,0),XZY,RING_D,'ConcreteLight')
     _arch_hulls(m,'SM_MB01_PortalArch',v,v.Ri,v.ai,v.Rr,v.xr,-RING_D,0.)
@@ -112,14 +112,7 @@ def _portal(m,s,v):
     # sliding leaves' path (their inner seals pass 14 mm in front of it).
     cap=v.path(v.xr+.03,v.Rr+.03,b)+v.path(v.xr,v.Rr,b)[::-1]
     m.p('PortalCoping','FACADE',.002).prism(cap,(0,-RING_D,0),XZY,RING_D,'SteelDark')
-    for sx in (-1.,1.):     # LED floodlights on the rim, behind the face (clear of the leaves)
-        t_=sx*radians(40);T_,N_=(cos(t_),0.,-sin(t_)),(sin(t_),0.,cos(t_))
-        def at(r,y):return (r*sin(t_),y,v.zc+r*cos(t_))
-        R0=v.Rr+.03
-        m.box('Floodlights',at(R0+.035,-.95),(.12,.10,.07),'SteelDark','DETAIL',.002,axes=(T_,(0,1,0),N_))
-        m.box('Floodlights',at(R0+.20,-.95),(.42,.30,.26),'SteelDark','DETAIL',.004,axes=(T_,(0,1,0),N_))
-        m.box('FloodlightLenses',at(R0+.20,-1.102),(.34,.004,.20),'LightWarm','DETAIL',0.,axes=(T_,(0,1,0),N_))
-        # Hazard-banded steel guards on the jamb reveals at taxi height (out of the leaves' path).
+    for sx in (-1.,1.):     # hazard-banded steel guards on the jamb reveals (out of the leaves' path)
         m.box('JambGuards',(sx*(v.ai-.006),-RING_D/2,b+.80),(.012,RING_D-.10,1.20),'SteelDark','DETAIL',.001)
         for k in range(3):m.box('JambGuards',(sx*(v.ai-.012),-RING_D/2,b+.40+k*.40),(.006,RING_D-.16,.20),'Yellow')
 
@@ -200,11 +193,6 @@ def _leaf(m,s,v,side):
         for yr in v.rails:p.cylinder((e,yr-.05,b+.145),(e,yr+.05,b+.145),.15,'Galvanized',16)
     for yy in (yo-OUTRIG-.0085,yi+.0085):p.box((cx,yy,b+.1675),(hi-lo-.008,.015,.305),'Rubber')
     for x in (lo+.0135,hi-.0135):p.box((x,(yi+yo-OUTRIG)/2,b+.1575),(.015,yi-yo+OUTRIG,.285),'SteelDark')
-    # Rack drive: geared motor in a housing bedded on the raked foot.
-    rise=v.zl0-v.zb0-.30;ls=sqrt(OUTRIG**2+rise**2);Ty,Ny=(0,OUTRIG/ls,rise/ls),(0,-rise/ls,OUTRIG/ls)
-    def raked(h):return (cx,yo-OUTRIG+Ty[1]*ls/2+Ny[1]*h,v.zb0+.30+Ty[2]*ls/2+Ny[2]*h)
-    p.box(raked(.106),(1.10,.62,.22),'SteelDark',((1,0,0),Ty,Ny))
-    c=raked(.32);p.cylinder((cx-.36,c[1],c[2]),(cx+.36,c[1],c[2]),.12,'RoofOlive',16)
     for x in (xl+(xt-xl)*.3,xl+(xt-xl)*.7):                               # lifting lugs on the top
         zb,zh,R_,r_=T(x)-.03,T(x)+.10,.10,.035
         for sy in (-1,1):
@@ -248,8 +236,6 @@ def _rear(m,s,v):
         while zk<v.zc+v.Ro-.6:
             X=min(xo,sqrt(v.Ro**2-(zk+.015-v.zc)**2))-.10
             cuts=[(-.03,.03)]+([(-xe-fr-.05,xe+fr+.05)] if zk<ze1+fr+.05 else [])+([(xd-1.0,xd+1.0)] if zk<b+dh+1.35 else [])
-            if abs(zk-v.zd)<.75:cuts.append((-.70,.70))
-            if abs(zk-v.zcam)<.45:cuts+=[(-xo+.45,-xo+1.15),(xo-1.15,xo-.45)]
             u=-X
             for c0,c1 in sorted(cuts)+[(X,X)]:
                 c0=min(c0,X)
@@ -305,8 +291,6 @@ def _personnel_door(m,s,v,xd,yi,yo,ow,oh):
     for x in (xd-.75,xd+.75):
         m.p('CanopyTies','DETAIL',.001).pipe([(x,cy-.06,zc+.03),(x,yo+.01,zc+.90)],.014,'Galvanized',8)
         m.box('CanopyTies',(x,yo+.005,zc+.90),(.10,.01,.14),'Galvanized','DETAIL',.002)
-    m.box('WallPacks',(xd,yo+.06,zc+.48),(.32,.12,.22),'SteelDark','DETAIL',.003)
-    m.box('WallPackDiffusers',(xd,yo+.06,zc+.365),(.26,.09,.012),'LightWarm','DETAIL',0.)
     m.label('EXIT',(xd,yi-.003,b+oh+.15),.12,'LightGreen',name='ShelterExit',font='BigShoulders-Bold.ttf',anchor='CENTER')
 
 
@@ -378,28 +362,12 @@ def _sign(m,s,v):
 
 
 def _services(m,s,v):
-    b,d,a,n=v.b,v.d,v.a,s.bays;zf=v.zc+sqrt(v.R**2-a*a)-.50
-    for i in range(n):
-        y=(i+.5)*d/n
-        for sx in (-1.,1.):     # wall floodlights on brackets under the springline
-            x=sx*(a-.20)
-            m.box('WallFloods',(x,y,zf),(.30,.46,.30),'SteelDark','DETAIL',.004)
-            m.box('WallFloodLenses',(x-sx*.152,y,zf),(.004,.38,.22),'LightWarm','DETAIL',0.)
-            m.box('WallFloods',(sx*(a-.025),y,zf),(.05,.10,.10),'SteelDark','DETAIL',.002)
-    for i in range(n):          # high-bay LED fittings hung either side of the duct
-        y=(i+.5)*d/n
-        for sx in (-1.,1.):
-            x=sx*min(3.6,.3*a);zl=v.z_in(x)-1.4
-            m.box('HighBayLights',(x,y,zl),(.42,1.10,.09),'Galvanized','DETAIL',.003)
-            m.box('HighBayLenses',(x,y,zl-.046),(.36,1.02,.004),'LightWarm','DETAIL',0.)
-            for dy in (-.42,.42):m.p('HighBayHangers','DETAIL',0.).cylinder((x,y+dy,zl+.045),(x,y+dy,v.z_in(x)+.03),.008,'Galvanized',6)
-    zc=v.zd;y0,y1=1.0,d+TKR+.05     # supply duct under the crown, through the rear wall into a weather hood
-    du=m.p('VentDuct','DETAIL',.002);du.cylinder((0,y0,zc),(0,y1,zc),.35,'Galvanized',20)
+    """Building services kept as fabric: supply duct under the crown (through the rear wall) on hangers,
+    cable trays along both walls."""
+    b,d,a,n=v.b,v.d,v.a,s.bays
+    zc=v.zd;du=m.p('VentDuct','DETAIL',.002)
+    du.cylinder((0,1.0,zc),(0,d+TKR/2,zc),.35,'Galvanized',20)
     du.cylinder((0,d-.06,zc),(0,d,zc),.43,'SteelDark',20)                     # wall collar
-    for i in range(n):du.box((0,(i+.5)*d/n,zc-.335),(.30,.30,.17),'SteelDark')   # diffuser per bay
-    yw=d+TKR-.003;zb=zc-.55
-    m.p('VentHood','FACADE',.003).prism([(yw,zb),(yw+.42,zb),(yw+.42,zb+.14),(yw,zc+.55)],(-.55,0,0),YZX,1.10,'SteelDark')
-    m.box('VentHood',(0,yw+.21,zb-.004),(1.06,.36,.008),'Galvanized')          # bird mesh in the open bottom
     for i in range(1,n):
         y=i*d/n
         hp=m.p('DuctHangers','DETAIL',.001)
@@ -411,40 +379,6 @@ def _services(m,s,v):
         for dx in (-.15,.15):tr.box((x+dx,d/2,z),(.02,d-.40,.08),'Galvanized')
         tr.box((x,d/2,z-.035),(.28,d-.40,.01),'Galvanized')
         for i in range(1,n):tr.box((sx*(a-.1305),i*d/n,z-.05),(.261,.04,.02),'SteelDark')
-        m.box('FireCabinets',(sx*(a-.12),2.0,b+1.15),(.24,.60,.84),'Red','PROPS',.006)
-        m.box('FireCabinets',(sx*(a-.25),2.0,b+1.42),(.02,.40,.10),'White','PROPS',.001)
-    xc=-(a-.10);yp=3.4      # door control station inside the left jamb: push buttons and an emergency stop
-    m.box('DoorControl',(xc,yp,b+1.35),(.20,.50,.70),'White','PROPS',.006);xf=xc+.10
-    m.p('DoorControlButtons','PROPS',.001).cylinder((xf,yp+.12,b+1.48),(xf+.012,yp+.12,b+1.48),.05,'Yellow',16)
-    m.p('DoorControlButtons','PROPS',.001).cylinder((xf+.005,yp+.12,b+1.48),(xf+.05,yp+.12,b+1.48),.035,'Red',16)
-    for z,mat in ((b+1.52,'LightGreen'),(b+1.40,'White'),(b+1.28,'LightAmber')):
-        m.p('DoorControlButtons','PROPS',.001).cylinder((xf,yp-.10,z),(xf+.02,yp-.10,z),.022,mat,12)
-    m.box('PowerBoard',(-(a-.15),d-1.6,b+1.40),(.30,1.0,1.20),'SteelDark','PROPS',.008)
-    m.box('PowerBoard',(-(a-.31),d-1.6,b+1.40),(.02,.90,1.10),'RoofOliveLight','PROPS',.002)
-
-
-def _security(m,s,v):
-    """Door warning beacons and CCTV on the portal rim (above the leaves' path), CCTV on the rear corners."""
-    b,d,xo=v.b,v.d,v.xo;R0=v.Rr+.03
-    def rim(t,r,y):return (r*sin(t),y,v.zc+r*cos(t))
-    def frame(t):return ((cos(t),0,-sin(t)),(0,1,0),(sin(t),0,cos(t)))
-    for sx in (-1.,1.):
-        t=sx*radians(12);N=frame(t)[2]          # amber beacon: base, lens, cap
-        bc=m.p('WarningBeacons','DETAIL',.002)
-        bc.cylinder(rim(t,R0-.005,-.60),rim(t,R0+.08,-.60),.10,'SteelDark',16)
-        bc.cylinder(rim(t,R0+.08,-.60),rim(t,R0+.24,-.60),.075,'LightAmber',16)
-        bc.cylinder(rim(t,R0+.24,-.60),rim(t,R0+.27,-.60),.082,'SteelDark',16)
-        t=sx*radians(32);ax=frame(t)              # CCTV: base plate, pole, housing looking out over the apron
-        cc=m.p('CCTV','DETAIL',.002)
-        cc.box(rim(t,R0+.004,-.95),(.16,.16,.012),'SteelDark',ax)
-        cc.cylinder(rim(t,R0+.010,-.95),rim(t,R0+.26,-.95),.03,'White',12)
-        cc.box(rim(t,R0+.32,-.95),(.12,.32,.12),'White',ax)
-        cc.cylinder(rim(t,R0+.32,-1.11),rim(t,R0+.32,-1.13),.04,'Glass',12)
-        x=sx*(xo-.80);z=v.zcam;yf=d+TKR         # rear corner: wall plate, arm, housing looking back
-        cc.box((x,yf+.008,z),(.14,.02,.20),'SteelDark')
-        cc.box((x,yf+.148,z),(.05,.26,.05),'White')
-        cc.box((x,yf+.42,z-.085),(.12,.30,.12),'White')
-        cc.cylinder((x,yf+.57,z-.085),(x,yf+.59,z-.085),.04,'Glass',12)
 
 
 def _lightning(m,s,v):
@@ -473,7 +407,7 @@ def _lightning(m,s,v):
 
 def build_hardened(m):
     s=m.cfg;v=Vault(s)
-    _vault(m,s,v);_portal(m,s,v);_rails(m,s,v);_lightning(m,s,v);_security(m,s,v)
+    _vault(m,s,v);_portal(m,s,v);_rails(m,s,v);_lightning(m,s,v)
     for side in (-1,1):_leaf(m,s,v,side)
     xd=_rear(m,s,v);_ground(m,s,v,xd);_sign(m,s,v)
     if s.services:_services(m,s,v)

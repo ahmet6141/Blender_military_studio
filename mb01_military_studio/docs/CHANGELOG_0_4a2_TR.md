@@ -248,21 +248,21 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
 
 - `shelter/hardened.py` (yeni): bölme bölme dökülmüş, derzleri girintili ve kalıp izli
   betonarme tonoz (duvar + segmental kemer); önde kalın beton **portal kemer** (gömülü çelik
-  conta plakası, dış kenarında zemine kadar inen çelik kaplama, kenarda LED projektörler).
+  conta plakası, dış kenarında zemine kadar inen çelik kaplama).
   Yan duvar / uç blok yok: kapı sistemi doğrudan zemine entegre.
 - **Yuvarlak ağır çelik kapı:** üst kenarları kemeri izleyen iki kanat (700 mm kutu gövde);
   kapalıyken portal kemere oturan tek bir yuvarlak kapı gibi okunur. Her kanat, öne eğimli
   destek ayağı üzerinde iki kren rayına basan bojilerle taşınır (açıklığın üstünden geçen
   kiriş yok) ve açılınca tamamen shelter'ın yanına park eder. Kemerli üst bant, dikmeler,
   panel derzleri, karşılaşma contaları ve darbe şeritleri, iç yüzde bindirme bölgesinde
-  lastik conta ve berkitme lamaları, kremayer tahrik, kaldırma kulakları. Raylar apron
+  lastik conta ve berkitme lamaları, kaldırma kulakları. Raylar apron
   betonuna dökülmüş kanallarda: ray başı döşemenin 5 mm altında, galvaniz kenar köşebentleri
   döşemeyle aynı kotta, taban plakası ve klipsler kanal tabanında; tekerlekler kanalda döner.
   Zemin üstünde yalnız ray sonlarındaki tamponlu stoplar ve uyarı babaları kalır. Kanat
   hareket hacmi sabit parçalarla çakışmaz (kontrol edildi).
 - Arka: panjurlu egzoz ağzı, beton püskürtme saptırıcı, kalın duvarda kasalı çelik
-  personel kapısı ve kanopi. İçeride duvar projektörleri, tepe havalandırma kanalı, kablo
-  tavası, yangın dolapları; önde apron, kapı hattı uyarı çizgisi.
+  personel kapısı ve kanopi. İçeride tepe havalandırma kanalı ve kablo tavaları; önde apron,
+  kapı hattı uyarı çizgisi. (Ekipmanlar sonradan kaldırıldı, aşağıya bakın.)
 - Doğrulama: 18×20 … 40×60 m, DRAFT/HERO: doğrulama PASS, n-gon 0, aynı yöne bakan
   çakışık yüz çifti 0; canlı Blender mesh QA PASS; export: 48 asset, hepsinde UV1,
   kapı kanatlarında UCX. HERO bevel öncesi ~20,8K üçgen (24×32).
@@ -275,8 +275,8 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
 - **Kapı altı açıklığı (hata):** etekler yalnız bojiler arasındaydı; uçlarda ve orta
   birleşimde kanadın altından ray ve gün ışığı görünüyordu. Etekler artık boydan boya;
   her kanadın iki ucunda bojileri kapatan ray süpürgeleri var.
-- **Tahrik kutusu (hata):** eğimli ayağa gömülü kutu, kama gibi görünüyordu. Yerine
-  eğime oturan (4 mm yataklı) dişli motor gövdesi ve üstünde yatay motor silindiri geldi.
+- **Tahrik kutusu (hata):** eğimli ayağa gömülü kutu, kama gibi görünüyordu; kaldırıldı
+  (tahrik ekipmanı hazır modelle eklenecek).
 - **Kanat dış yüzü:** dikmelerin tepesi bandın 20 mm altında bitiyor ve köşede çentik
   bırakıyordu. Dikmeler ve yeni düşey berkitme lamaları (~2,4 m aralık) bandın alt
   kirişlerine tam oturur. Yatay kuşaklar dikmeler arasında çerçevelenir; düz büyük
@@ -296,13 +296,11 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
 - Paratoner: tepede 3 yakalama ucu ve klipsli mahya iletkeni var. İki yanda kemer üzerinden
   inen iletkenler, baza üstündeki test klemenslerinde biter. Klipsler kalıp çizgilerinin
   arasına yerleşir.
-- İçeride her bölmede, kanalın iki yanına askılı high-bay LED armatür eklendi (önceden
-  tonozda tepe aydınlatması yoktu).
 - Doğrulama: 5 ölçü × DRAFT/HERO için aynı yöne bakan çakışık yüz çifti 0 ve doğrulama
   PASS. Kanat hareket hacminde sabit parça yok. Canlı Blender QA PASS. Export 56 asset,
   hepsinde UV1, 6 UCX gövde. HERO (24×32) bevel öncesi 20,8K → 23,5K üçgen.
 
-### Model detay geçişi 2 (dokular sonraya)
+### Model detay geçişi 2 ve ekipman temizliği (dokular sonraya)
 
 - **Çarpışma (UCX):**
   - Tonoz, portal kemer ve arka duvar artık mesh'in kendisi yerine gerçek convex gövdeler
@@ -311,27 +309,27 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
     25 mm'dir.
   - Arka duvarda personel kapısı ve kapı açıklığı boş bırakılır.
   - Kontrol: üç boyutta salon, uçak açıklığı ve personel kapısı içinde çarpışma yok.
-- **Havalandırma (tutarlılık):** tepe kanalı artık havada bitmiyor. Arka duvardan bir yaka
-  ile geçip dış cephede kuş telli yağmur başlığına bağlanıyor. Her bölmede alttan menfez var.
-- **Kapı güvenliği:**
-  - Portal kemer üstünde iki amber ikaz lambası ve iki CCTV kamera; ikisi de kanat yolunun
-    dışında.
-  - Arka köşelerde iki duvar tipi CCTV kamera.
-  - İçeride sol sövede kapı kontrol istasyonu: aç / kapa / ikaz butonları ve sarı yakalı acil
-    stop.
-  - Yeni malzeme `LightAmber` (emisyonlu); doku kitinde Glazing setine gider.
+- **Havalandırma kanalı:** artık havada bitmiyor; arka duvara yakayla girer.
 - **Zemin:**
   - Uçak konumunun iki yanında üç sırada gömme bağlama noktaları.
   - Burun önünde iki statik topraklama noktası.
   - Tonoz ayaklarında, bazanın dışında boydan boya ızgaralı kanal drenajı.
 - **Kaldırma kulakları:** düz kutu yerine delikli lama. İki C yarım profil orta düzlemde
   birleşir, böylece gerçek bir göz açıklığı oluşur.
+- **Ekipman modelleri kaldırıldı:** kutu yaklaşımıyla yapılmış ekipmanlar modelden çıkarıldı;
+  bunlar hazır, gerçekçi prop modelleriyle eklenecek. Kaldırılanlar:
+  - kemer projektörleri, ikaz lambaları, CCTV kameralar;
+  - kapı kontrol istasyonu, yangın dolapları, elektrik panosu;
+  - iç duvar projektörleri, high-bay armatürler, kapı üstü duvar lambası;
+  - havalandırma başlığı ve menfezleri, kapı tahrik motoru gövdesi.
+- Yapı, kapı sistemi, ray/kanal, drenaj, paratoner, havalandırma kanalı ve kablo tavaları
+  modelde kalır.
 - **Doğrulama:**
   - 5 ölçü × DRAFT/HERO için aynı yöne bakan çakışık yüz çifti 0.
   - Kanat hareket hacminde sabit parça yok.
   - Canlı Blender QA PASS.
-  - Export 63 asset, hepsinde UV1.
-  - HERO (24×32) bevel öncesi 23,5K → 26,8K üçgen.
+  - Export 47 asset, hepsinde UV1.
+  - HERO (24×32) bevel öncesi 23,7K üçgen, 43 parça.
 
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 

@@ -38,7 +38,7 @@ TEXTURE_SETS = (   # ordered: first matching rule wins; keys are MB01 material r
     ('Signage',   'TRIM',   'Sign letters, number block, sign field, floor and safety markings',
                   lambda k: k.startswith('HG_Sign') or k in ('Yellow', 'White', 'Red')),
     ('Glazing',   'UNIQUE', 'Glass, window backing, light lenses',
-                  lambda k: k in ('Glass', 'Interior', 'LightWarm', 'LightAmber', 'Blind') or k.startswith('HG_Glass')),
+                  lambda k: k in ('Glass', 'Interior', 'LightWarm', 'Blind') or k.startswith('HG_Glass')),
     ('Gates',     'UNIQUE', 'Main sliding gate leaves (panels, ribs, kick plates)',
                   lambda k: k.startswith('HG_Gate')),
     ('Roof',      'TILING', 'Roof skin, ridge, monitor, roof trims and bargeboards',
