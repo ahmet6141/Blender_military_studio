@@ -372,7 +372,7 @@ def _lightning(m,s,v):
     """Lightning protection: air terminals on the crown, a ridge conductor on stand-off clips and a
     down conductor over each side of the arch to a test clamp on the plinth."""
     if s.detail=='DRAFT':return
-    b,d,n=v.b,v.d,s.bays;bp=d/n;Ro=v.Ro;zt=v.zc+Ro;so=.03;to=asin(v.xo/Ro)
+    b,d,n=v.b,v.d,s.bays;bp=d/n;Ro=v.Ro;zt=v.zc+Ro;so=.03;to=v.to
     lc=m.p('LightningConductors','DETAIL',0.);cl=m.p('ConductorClips','DETAIL',0.)
     lc.pipe([(0,.40,zt+so),(0,d+TKR-.30,zt+so)],.008,'Galvanized',6)
     for i in range(n):
@@ -388,7 +388,7 @@ def _lightning(m,s,v):
         for j in range(v.kf//2+v.kf%2,v.kf,2):     # clips midway between the formwork lift lines
             t=sx*abs(-to+2*to*(j+.5)/v.kf)
             cl.box(((Ro+.014)*sin(t),y,v.zc+(Ro+.014)*cos(t)),(.03,.03,.038),'Galvanized',((cos(t),0,-sin(t)),(0,1,0),(sin(t),0,cos(t))))
-        for z in (b+1.2,b+3.0,b+4.6):cl.box((sx*(v.xo+xv+.004-.005)/2,y,z),(xv-v.xo+.009,.03,.03),'Galvanized')
+        for z in [z for z in (b+1.2,b+3.0,b+4.6) if z<v.zc+r*cos(to)-.30]:cl.box((sx*(v.xo+xv+.004-.005)/2,y,z),(xv-v.xo+.009,.03,.03),'Galvanized')
         m.box('TestClamps',(sx*xv,y,b+.36),(.07,.07,.12),'SteelDark','DETAIL',.002)
 
 
