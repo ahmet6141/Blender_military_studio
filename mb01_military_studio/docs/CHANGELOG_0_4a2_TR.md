@@ -280,7 +280,8 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
 - **Kanat dış yüzü:** dikmelerin tepesi bandın 20 mm altında bitiyor ve köşede çentik
   bırakıyordu. Dikmeler ve yeni düşey berkitme lamaları (~2,4 m aralık) bandın alt
   kirişlerine tam oturur. Yatay kuşaklar dikmeler arasında çerçevelenir; düz büyük
-  paneller ağır çelik kapı ızgarasına dönüştü.
+  paneller ağır çelik kapı ızgarasına dönüştü (çevre çerçeve koyu çelik, berkitmeler gövde
+  tonunda; kuşak uçları bandın altında havada bitmez).
 - **Arka duvar (hata):** b+1,20'deki döküm derzi personel kapısını yarı yüksekliğinden
   kesiyordu. Duvar artık orta eksende iki dökümden oluşur. Aradaki contalı derz
   tonozunkiyle aynıdır, kapı ve egzoz ağzından hiçbir derz geçmez. Dış yüzde 2,4 m'de bir
@@ -299,7 +300,7 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
   tonozda tepe aydınlatması yoktu).
 - Doğrulama: 5 ölçü × DRAFT/HERO için aynı yöne bakan çakışık yüz çifti 0 ve doğrulama
   PASS. Kanat hareket hacminde sabit parça yok. Canlı Blender QA PASS. Export 56 asset,
-  hepsinde UV1, 6 UCX gövde. HERO (24×32) bevel öncesi 20,8K'dan 23,5K üçgene çıktı.
+  hepsinde UV1, 6 UCX gövde. HERO (24×32) bevel öncesi 20,8K → 23,5K üçgen.
 
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 

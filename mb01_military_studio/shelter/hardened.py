@@ -155,16 +155,15 @@ def _leaf(m,s,v,side):
         return [(x0,at(x0))]+[(u,w) for u,w in ub if x0+1e-4<u<x1-1e-4]+[(x1,at(x1))]
     u_in,u_out=abs(xl)+f,abs(xt)-f;nr=max(2,round((u_out-u_in)/2.4));rw=.16
     verts=[(abs(xl),u_in)]+[(u-rw/2,u+rw/2) for u in (u_in+(u_out-u_in)*k/nr for k in range(1,nr))]+[(u_out,abs(xt))]
-    for u0,u1 in verts:
+    for k,(u0,u1) in enumerate(verts):      # dark frame round the leaf, stiffeners in the skin's tone
         x0,x1=sorted((side*u0,side*u1))
-        p.prism([(x0,v.zl0+f),(x1,v.zl0+f)]+under(x0,x1)[::-1],fo,XZY,pr,'SteelDark')
+        p.prism([(x0,v.zl0+f),(x1,v.zl0+f)]+under(x0,x1)[::-1],fo,XZY,pr,'SteelDark' if k in (0,len(verts)-1) else 'RoofOliveLight')
     p.box((cx,yo-pr/2,v.zl0+f/2),(hi-lo,pr,f),'SteelDark')
     zk=v.zl0+1.8
     while zk<T(xl)-f-.30:
         reach=sqrt(max(0.,v.Rt**2-(zk+.06+f+.06-v.zc)**2))
-        for (_,u0),(u1,_) in zip(verts,verts[1:]):
-            u1=min(u1,reach)
-            if u1-u0>.6:p.box((side*(u0+u1)/2,yo-pr/2,zk),(u1-u0,pr,.08),'SteelDark')
+        for (_,u0),(u1,_) in zip(verts,verts[1:]):  # only full bays: no girt ends loose under the band
+            if u1<=reach:p.box((side*(u0+u1)/2,yo-pr/2,zk),(u1-u0,pr,.08),'RoofOliveLight')
         zk+=1.8
     for j in range(int((T(xl)-2*f-v.zl0-.25)/.50)+1):            # impact stripes on the meeting stile
         p.box((xl+side*f/2,yo-pr-.003,v.zl0+f+.20+j*.50),(f-.03,.009,.25),'Yellow')
