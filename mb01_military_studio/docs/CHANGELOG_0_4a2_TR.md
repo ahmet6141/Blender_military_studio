@@ -270,6 +270,37 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
   animasyon videosu ve animasyonlu kapı FBX'i (`deliverables/CORE_SHELTER_HARDENED/`).
 - Kurgusal CGI dekor: kalınlıklar ve profiller sanatsaldır; koruma/yapısal iddia yoktur.
 
+### Parça parça yakın plan incelemesi (kapalı/açık kapı, 40+ kamera) ve düzeltmeler
+
+- **Kapı altı açıklığı (hata):** etekler yalnız bojiler arasındaydı; uçlarda ve orta
+  birleşimde kanadın altından ray ve gün ışığı görünüyordu. Etekler artık boydan boya;
+  her kanadın iki ucunda bojileri kapatan ray süpürgeleri var.
+- **Tahrik kutusu (hata):** eğimli ayağa gömülü kutu, kama gibi görünüyordu. Yerine
+  eğime oturan (4 mm yataklı) dişli motor gövdesi ve üstünde yatay motor silindiri geldi.
+- **Kanat dış yüzü:** dikmelerin tepesi bandın 20 mm altında bitiyor ve köşede çentik
+  bırakıyordu. Dikmeler ve yeni düşey berkitme lamaları (~2,4 m aralık) bandın alt
+  kirişlerine tam oturur. Yatay kuşaklar dikmeler arasında çerçevelenir; düz büyük
+  paneller ağır çelik kapı ızgarasına dönüştü.
+- **Arka duvar (hata):** b+1,20'deki döküm derzi personel kapısını yarı yüksekliğinden
+  kesiyordu. Duvar artık orta eksende iki dökümden oluşur. Aradaki contalı derz
+  tonozunkiyle aynıdır, kapı ve egzoz ağzından hiçbir derz geçmez. Dış yüzde 2,4 m'de bir
+  kalıp kat çizgisi vardır; kapı, kanopi ve egzoz çerçevesinin önünde kesilir.
+- Egzoz panjurunun arkasına kuş teli eklendi; kanatçıklar arasından içerisi görünmüyor.
+  Saptırıcı duvarın arkasına iki eğimli payanda kondu.
+- Tonoz baza bandı arka köşelerden dönüp arka cephe boyunca devam eder; personel kapısının
+  açılma alanında kesilir.
+- Portal: açıklık söve yüzlerinde, taksi yüksekliğinde sarı bantlı çelik koruyucular var
+  (kanat yolunun dışında). Tabela kapı üst bandından 300 mm yukarı alındı; kapalı kanat
+  alçak açılardan tabelayı örtmüyor.
+- Paratoner: tepede 3 yakalama ucu ve klipsli mahya iletkeni var. İki yanda kemer üzerinden
+  inen iletkenler, baza üstündeki test klemenslerinde biter. Klipsler kalıp çizgilerinin
+  arasına yerleşir.
+- İçeride her bölmede, kanalın iki yanına askılı high-bay LED armatür eklendi (önceden
+  tonozda tepe aydınlatması yoktu).
+- Doğrulama: 5 ölçü × DRAFT/HERO için aynı yöne bakan çakışık yüz çifti 0 ve doğrulama
+  PASS. Kanat hareket hacminde sabit parça yok. Canlı Blender QA PASS. Export 56 asset,
+  hepsinde UV1, 6 UCX gövde. HERO (24×32) bevel öncesi 20,8K'dan 23,5K üçgene çıktı.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından

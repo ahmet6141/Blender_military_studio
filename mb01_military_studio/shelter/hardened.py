@@ -4,9 +4,11 @@ A cast-in-place concrete vault (walls to the springline, segmental arch) poured 
 recessed construction joints, framed at the front by a thick concrete portal arch. The opening is
 closed by two bi-parting steel leaves whose tops follow the arch, so the closed door reads as one
 round door sealed against the portal; each leaf is a 700 mm box with a raked outrigger foot and
-bogies on two crane rails (no overhead guide beam crossing the opening) and parks in full beside
-the shelter in front of low wing walls. Rear: exhaust port with a steel louvre grille and a concrete
-blast deflector, steel personnel door with canopy.
+bogies on two crane rails set in trenches flush with the apron (no overhead guide beam crossing the
+opening, no wing walls) and parks free-standing beside the shelter against buffered end stops.
+Rear: wall cast in two halves with a sealed centre joint, exhaust port with a steel louvre grille and
+a buttressed concrete blast deflector, steel personnel door with canopy. Crown air terminals and
+down conductors, high-bay lighting inside.
 Fictional CGI scenery: thicknesses and profiles are artistic, with no protective or structural claim.
 
 Design coordinates of core.Model: x across, y from the front face of the vault (0) to the rear (d),
@@ -46,6 +48,7 @@ class Vault:
         self.xe=2*self.wt+.40+.60                                # rail / trench end (parked leaf + stop)
         self.F=self.xe+1.50                                      # half width of the front apron
         self.xr=self.xo+RING_W;self.Rr=self.Ro+RING_W            # portal arch outer profile
+        self.to=asin(self.xo/self.Ro);self.kf=max(2,round(2*self.to*self.Ro/2.4))   # outer arch half angle, formwork lifts
     def T(self,x):return self.zc+sqrt(max(0.,self.Rt**2-x*x))   # top of the closed door at x
     def path(self,ai,Ri,zb):
         """Left foot -> wall -> arch -> wall -> right foot, walls at +-ai, arch radius Ri."""
@@ -69,7 +72,7 @@ def _vault(m,s,v):
             m.p('VaultJoints','DETAIL',0.).prism(v.ring(.03,-.03,b+.003),(0,i*bp-.012,0),XZY,.024,'Joint')
     # Formwork lift lines on the outer arch, per pour (3 mm proud, bedded 3 mm).
     if s.detail!='DRAFT':
-        to=asin(v.xo/v.Ro);k=max(2,round(2*to*v.Ro/2.4))
+        to,k=v.to,v.kf
         fl=m.p('FormworkLines','DETAIL',0.)
         for j in range(1,k):
             t=-to+2*to*j/k;N=(sin(t),0.,cos(t));T=(cos(t),0.,-sin(t))
@@ -77,8 +80,8 @@ def _vault(m,s,v):
                 y0=i*bp+.03;y1=(i+1)*bp-.03
                 c=(v.Ro*sin(t),(y0+y1)/2,v.zc+v.Ro*cos(t))
                 fl.box(c,(.03,y1-y0,.006),'Concrete',(T,(0,1,0),N))
-    for sx in (-1.,1.):     # foot plinth along the outer walls
-        m.box('VaultPlinth',(sx*(v.xo+.125),d/2,b+.15),(.25,d,.30),'Concrete','FACADE',.008)
+    for sx in (-1.,1.):     # foot plinth along the outer walls, returned round the rear corners
+        m.box('VaultPlinth',(sx*(v.xo+.125),(d+TKR+.25)/2,b+.15),(.25,d+TKR+.25,.30),'Concrete','FACADE',.008)
 
 
 def _portal(m,s,v):
@@ -99,6 +102,9 @@ def _portal(m,s,v):
         m.box('Floodlights',at(R0+.035,-.95),(.12,.10,.07),'SteelDark','DETAIL',.002,axes=(T_,(0,1,0),N_))
         m.box('Floodlights',at(R0+.20,-.95),(.42,.30,.26),'SteelDark','DETAIL',.004,axes=(T_,(0,1,0),N_))
         m.box('FloodlightLenses',at(R0+.20,-1.102),(.34,.004,.20),'LightWarm','DETAIL',0.,axes=(T_,(0,1,0),N_))
+        # Hazard-banded steel guards on the jamb reveals at taxi height (out of the leaves' path).
+        m.box('JambGuards',(sx*(v.ai-.006),-RING_D/2,b+.80),(.012,RING_D-.10,1.20),'SteelDark','DETAIL',.001)
+        for k in range(3):m.box('JambGuards',(sx*(v.ai-.012),-RING_D/2,b+.40+k*.40),(.006,RING_D-.16,.20),'Yellow')
 
 
 def _rails(m,s,v):
@@ -137,17 +143,28 @@ def _leaf(m,s,v,side):
     top=[(x,T(x)) for x in xs]
     p.prism([(xl,v.zl0),(xt,v.zl0)]+top,(0,yo,0),XZY,LEAF_T,'RoofOlive')
     p.prism([(yi,v.zb0),(yo-OUTRIG,v.zb0),(yo-OUTRIG,v.zb0+.30),(yo,v.zl0),(yi,v.zl0)],(lo,0,0),YZX,hi-lo,'RoofOlive')
-    # Outer face (30 mm flats): arched top band, edge stiles, bottom rail, horizontal panel joints.
+    # Outer face (30 mm flats): arched top band; edge stiles and vertical ribs butting into its underside
+    # along the band's own chords (no notch); bottom rail; horizontal girts framed between the verticals.
     f=.25;pr=.03;fo=(0,yo-pr,0)
     p.prism([(x,z) for x,z in top]+[(x,z-f) for x,z in top[::-1]],fo,XZY,pr,'SteelDark')
-    for x,z in ((xl+side*f/2,T(xl+side*f)-.02),(xt-side*f/2,T(xt)-.02)):  # stiles stop under the band (chords)
-        p.box((x,yo-pr/2,(v.zl0+f+z-f)/2),(f,pr,z-f-v.zl0-f),'SteelDark')
+    ub=sorted((x,z-f) for x,z in top)
+    def under(x0,x1):       # band underside between x0<x1, left to right
+        def at(x):
+            for (u0,w0),(u1,w1) in zip(ub,ub[1:]):
+                if u0-1e-9<=x<=u1+1e-9:return w0+(w1-w0)*(x-u0)/(u1-u0)
+        return [(x0,at(x0))]+[(u,w) for u,w in ub if x0+1e-4<u<x1-1e-4]+[(x1,at(x1))]
+    u_in,u_out=abs(xl)+f,abs(xt)-f;nr=max(2,round((u_out-u_in)/2.4));rw=.16
+    verts=[(abs(xl),u_in)]+[(u-rw/2,u+rw/2) for u in (u_in+(u_out-u_in)*k/nr for k in range(1,nr))]+[(u_out,abs(xt))]
+    for u0,u1 in verts:
+        x0,x1=sorted((side*u0,side*u1))
+        p.prism([(x0,v.zl0+f),(x1,v.zl0+f)]+under(x0,x1)[::-1],fo,XZY,pr,'SteelDark')
     p.box((cx,yo-pr/2,v.zl0+f/2),(hi-lo,pr,f),'SteelDark')
     zk=v.zl0+1.8
     while zk<T(xl)-f-.30:
         reach=sqrt(max(0.,v.Rt**2-(zk+.06+f+.06-v.zc)**2))
-        u0,u1=abs(xl)+f,min(abs(xt)-f,reach)
-        if u1-u0>.6:p.box((side*(u0+u1)/2,yo-pr/2,zk),(u1-u0,pr,.08),'SteelDark')
+        for (_,u0),(u1,_) in zip(verts,verts[1:]):
+            u1=min(u1,reach)
+            if u1-u0>.6:p.box((side*(u0+u1)/2,yo-pr/2,zk),(u1-u0,pr,.08),'SteelDark')
         zk+=1.8
     for j in range(int((T(xl)-2*f-v.zl0-.25)/.50)+1):            # impact stripes on the meeting stile
         p.box((xl+side*f/2,yo-pr-.003,v.zl0+f+.20+j*.50),(f-.03,.009,.25),'Yellow')
@@ -160,13 +177,18 @@ def _leaf(m,s,v,side):
     for k in range(1,nv):
         x=xl+(xt-xl)*k/nv;zt=min(T(x-.075),T(x+.075))-sb-.03
         p.box((x,yi+.015,(v.zl0+zt)/2),(.15,.03,zt-v.zl0),'SteelDark')
-    # Running gear: bogies with a wheel on each rail at both ends, skirts between them.
+    # Running gear: bogies with a wheel on each rail at both ends, enclosed by full-length skirts and
+    # rail sweeps across both ends, so no daylight shows under the closed door.
     for e in (lo+.60,hi-.60):
         p.box((e,(yi+yo-OUTRIG)/2,b+.20),(.90,yi-yo+OUTRIG-.06,.20),'SteelDark')
         for yr in v.rails:p.cylinder((e,yr-.05,b+.145),(e,yr+.05,b+.145),.15,'Galvanized',16)
-    L=hi-lo-2.10
-    p.box((cx,yo-OUTRIG-.0085,b+.1675),(L,.015,.305),'Rubber');p.box((cx,yi+.0085,b+.1675),(L,.015,.305),'Rubber')
-    p.box((cx,yo-OUTRIG/2-.05,v.zb0+.45),(1.0,.55,.40),'SteelDark')        # rack drive on the outrigger
+    for yy in (yo-OUTRIG-.0085,yi+.0085):p.box((cx,yy,b+.1675),(hi-lo-.008,.015,.305),'Rubber')
+    for x in (lo+.0135,hi-.0135):p.box((x,(yi+yo-OUTRIG)/2,b+.1575),(.015,yi-yo+OUTRIG,.285),'SteelDark')
+    # Rack drive: geared motor in a housing bedded on the raked foot.
+    rise=v.zl0-v.zb0-.30;ls=sqrt(OUTRIG**2+rise**2);Ty,Ny=(0,OUTRIG/ls,rise/ls),(0,-rise/ls,OUTRIG/ls)
+    def raked(h):return (cx,yo-OUTRIG+Ty[1]*ls/2+Ny[1]*h,v.zb0+.30+Ty[2]*ls/2+Ny[2]*h)
+    p.box(raked(.106),(1.10,.62,.22),'SteelDark',((1,0,0),Ty,Ny))
+    c=raked(.32);p.cylinder((cx-.36,c[1],c[2]),(cx+.36,c[1],c[2]),.12,'RoofOlive',16)
     for x in (xl+(xt-xl)*.3,xl+(xt-xl)*.7):                               # lifting lugs on the top
         p.box((x,v.yc,T(x)+.065),(.04,.20,.18),'SteelDark')
     m.doors.append(dict(part=p.name,kind='SLIDE',closed=(cx,v.yc,b),opened=(cx+side*v.shift,v.yc,b),
@@ -177,30 +199,52 @@ def _leaf(m,s,v,side):
 
 # ------------------------------------------------------------------------------------- rear
 def _rear(m,s,v):
-    b,d,xo=v.b,v.d,v.xo;y0=d;ze=b+1.20;ze1=b+3.60;xe=1.50
+    b,d,xo=v.b,v.d,v.xo;y0=d;ze=b+1.20;ze1=b+3.60;xe=1.50;gj=.01
     xd=round(v.a*.55,2);dw,dh=1.10,2.25
-    rw=m.p('RearWall','STRUCTURE',.015)
-    for x0,x1 in ((-xo,xd-dw/2),(xd+dw/2,xo)):
-        rw.box(((x0+x1)/2,y0+TKR/2,(b+ze)/2),(x1-x0,TKR,ze-b),'ConcreteLight')
+    # Two pours split on the centre line (sealed joint, like the vault's) so no lift joint crosses the
+    # door or the port; the top follows the vault's outer chords.
     to=asin(xo/v.Ro);n=v.n
-    arc=[(v.Ro*sin(to-2*to*k/n),v.zc+v.Ro*cos(to-2*to*k/n)) for k in range(n+1)]
-    poly=[(-xo,ze),(-xe,ze),(-xe,ze1),(xe,ze1),(xe,ze),(xd-dw/2,ze),(xd-dw/2,b+dh),(xd+dw/2,b+dh),(xd+dw/2,ze),(xo,ze)]+arc
-    rw.prism(poly,(0,y0,0),XZY,TKR,'ConcreteLight')
+    arc=[(v.Ro*sin(-to+2*to*k/n),v.zc+v.Ro*cos(-to+2*to*k/n)) for k in range(n+1)]
+    def chord(x):
+        for (x0,z0),(x1,z1) in zip(arc,arc[1:]):
+            if x0<=x<=x1:return z0+(z1-z0)*(x-x0)/(x1-x0)
+    rw=m.p('RearWall','STRUCTURE',.015)
+    rw.prism([(-xo,b),(-gj,b),(-gj,ze),(-xe,ze),(-xe,ze1),(-gj,ze1),(-gj,chord(-gj))]+[q for q in arc if q[0]<-gj-1e-4][::-1],
+             (0,y0,0),XZY,TKR,'ConcreteLight')
+    rw.prism([(gj,b),(xd-dw/2,b),(xd-dw/2,b+dh),(xd+dw/2,b+dh),(xd+dw/2,b),(xo,b)]+[q for q in arc if q[0]>gj+1e-4][::-1]
+             +[(gj,chord(gj)),(gj,ze1),(xe,ze1),(xe,ze),(gj,ze)],(0,y0,0),XZY,TKR,'ConcreteLight')
+    for z0,z1 in ((b+.003,ze-.003),(ze1+.003,v.zc+v.Ro-.03)):
+        m.p('VaultJoints','DETAIL',0.).box((0,y0+TKR/2,(z0+z1)/2),(.024,TKR-.06,z1-z0),'Joint')
     m.collisions.append(dict(part=rw.name,center=(0,y0+TKR/2,(b+ze)/2),dims=(2*xo,TKR,ze-b),axes=A.IDENTITY))
+    fr=.12
+    if s.detail!='DRAFT':   # formwork lift lines on the outer face, stopped short of the port and door
+        ll=m.p('RearWallLines','DETAIL',0.);zk=b+2.4
+        while zk<v.zc+v.Ro-.6:
+            X=min(xo,sqrt(v.Ro**2-(zk+.015-v.zc)**2))-.10
+            cuts=[(-.03,.03)]+([(-xe-fr-.05,xe+fr+.05)] if zk<ze1+fr+.05 else [])+([(xd-1.0,xd+1.0)] if zk<b+dh+1.35 else [])
+            u=-X
+            for c0,c1 in sorted(cuts)+[(X,X)]:
+                c0=min(c0,X)
+                if c0-u>.30:ll.box(((u+c0)/2,y0+TKR,zk),(c0-u,.006,.03),'Concrete')
+                u=max(u,c1)
+            zk+=2.4
     # Exhaust port: steel reveal lining, 45 deg louvre blades, outer frame.
     g=m.p('ExhaustGrille','FACADE',.002)
     for x in (-xe+.004,xe-.004):g.box((x,y0+TKR/2,(ze+ze1)/2),(.008,TKR,ze1-ze),'SteelDark')
     for z in (ze+.004,ze1-.004):g.box((0,y0+TKR/2,z),(2*xe-.016,TKR,.008),'SteelDark')
     for k in range(int((ze1-ze-.20)/.22)):
         g.box((0,y0+TKR/2,ze+.18+k*.22),(2*xe-.018,.012,.30),'RoofOlive',A.euler_axes(radians(45),0,0))
-    fr=.12
+    g.box((0,y0+.15,(ze+ze1)/2),(2*xe-.016,.006,ze1-ze-.016),'SteelDark')      # bird mesh behind the blades
     for x in (-xe-fr/2,xe+fr/2):g.box((x,y0+TKR+.015,(ze+ze1)/2),(fr,.03,ze1-ze+2*fr),'SteelDark')
     for z in (ze-fr/2,ze1+fr/2):g.box((0,y0+TKR+.015,z),(2*xe,.03,fr),'SteelDark')
-    # Blast deflector: sloped concrete wall facing the port.
-    yd=y0+TKR+2.4
-    m.p('BlastDeflector','STRUCTURE',.015).prism([(yd,b),(yd+1.0,b),(yd+1.0,b+4.6),(yd+.6,b+4.6)],(-2.6,0,0),YZX,5.2,'ConcreteLight')
+    # Blast deflector: sloped concrete wall facing the port, two raking buttresses behind it.
+    yd=y0+TKR+2.4;bd=m.p('BlastDeflector','STRUCTURE',.015)
+    bd.prism([(yd,b),(yd+1.0,b),(yd+1.0,b+4.6),(yd+.6,b+4.6)],(-2.6,0,0),YZX,5.2,'ConcreteLight')
+    for x in (-1.9,1.9):bd.prism([(yd+1.0,b),(yd+2.3,b),(yd+1.0,b+3.8)],(x-.225,0,0),YZX,.45,'ConcreteLight')
     m.collisions.append(dict(part='SM_MB01_BlastDeflector',center=(0,yd+.6,b+2.3),dims=(5.2,1.2,4.6),axes=A.IDENTITY))
     _personnel_door(m,s,v,xd,y0,y0+TKR,dw,dh)
+    for x0,x1 in ((-xo,xd-dw/2-.05),(xd+dw/2+.05,xo)):     # plinth along the rear, open at the door swing
+        m.box('VaultPlinth',((x0+x1)/2,y0+TKR+.125,b+.15),(x1-x0,.25,.30),'Concrete','FACADE',.008)
     return xd
 
 
@@ -275,7 +319,7 @@ def _ground(m,s,v,xd):
 def _sign(m,s,v):
     """Identity sign on the portal face above the closed door (clear of the leaves' seals and lugs)."""
     if not s.signage:return
-    number=sign_text(s.name);W=4.6;H=.70;x=0.;y=-RING_D;zs=v.T(0)+.12+H/2
+    number=sign_text(s.name);W=4.6;H=.70;x=0.;y=-RING_D;zs=v.T(0)+.30+H/2
     ys=y-.03;xb=x-W/2+H
     m.box('SignField',((xb+x+W/2)/2,ys,zs),(x+W/2-xb,.04,H),'SteelDark','DETAIL',.002)
     m.box('SignNumberBlock',((x-W/2+xb)/2,ys,zs),(H,.04,H),'Yellow','DETAIL',.002)
@@ -299,6 +343,13 @@ def _services(m,s,v):
             m.box('WallFloods',(x,y,zf),(.30,.46,.30),'SteelDark','DETAIL',.004)
             m.box('WallFloodLenses',(x-sx*.152,y,zf),(.004,.38,.22),'LightWarm','DETAIL',0.)
             m.box('WallFloods',(sx*(a-.025),y,zf),(.05,.10,.10),'SteelDark','DETAIL',.002)
+    for i in range(n):          # high-bay LED fittings hung either side of the duct
+        y=(i+.5)*d/n
+        for sx in (-1.,1.):
+            x=sx*min(3.6,.3*a);zl=v.z_in(x)-1.4
+            m.box('HighBayLights',(x,y,zl),(.42,1.10,.09),'Galvanized','DETAIL',.003)
+            m.box('HighBayLenses',(x,y,zl-.046),(.36,1.02,.004),'LightWarm','DETAIL',0.)
+            for dy in (-.42,.42):m.p('HighBayHangers','DETAIL',0.).cylinder((x,y+dy,zl+.045),(x,y+dy,v.z_in(x)+.03),.008,'Galvanized',6)
     zc=v.zc+v.R-.95;y0,y1=1.0,d-1.0
     m.p('VentDuct','DETAIL',.002).cylinder((0,y0,zc),(0,y1,zc),.35,'Galvanized',20)
     for i in range(1,n):
@@ -318,9 +369,33 @@ def _services(m,s,v):
     m.box('PowerBoard',(-(a-.31),d-1.6,b+1.40),(.02,.90,1.10),'RoofOliveLight','PROPS',.002)
 
 
+def _lightning(m,s,v):
+    """Lightning protection: air terminals on the crown, a ridge conductor on stand-off clips and a
+    down conductor over each side of the arch to a test clamp on the plinth."""
+    if s.detail=='DRAFT':return
+    b,d,n=v.b,v.d,s.bays;bp=d/n;Ro=v.Ro;zt=v.zc+Ro;so=.03;to=asin(v.xo/Ro)
+    lc=m.p('LightningConductors','DETAIL',0.);cl=m.p('ConductorClips','DETAIL',0.)
+    lc.pipe([(0,.40,zt+so),(0,d+TKR-.30,zt+so)],.008,'Galvanized',6)
+    for i in range(n):
+        for f in (.25,.75):cl.box((0,(i+f)*bp,zt+.015),(.04,.03,.04),'Galvanized')
+    for i in sorted({0,n//2,n-1}):
+        y=(i+.5)*bp
+        lc.cylinder((0,y,zt-.01),(0,y,zt+.05),.045,'Galvanized',12)
+        lc.cylinder((0,y,zt+.05),(0,y,zt+.95),.010,'Galvanized',8)
+    y=d-bp/2;K=max(6,ceil(to/.06));r=Ro+so;xv=r*sin(to)
+    for sx in (-1.,1.):
+        pts=[(sx*r*sin(to*k/K),y,v.zc+r*cos(to*k/K)) for k in range(K+1)]+[(sx*xv,y,b+.36)]
+        lc.pipe(pts,.008,'Galvanized',6)
+        for j in range(v.kf//2+v.kf%2,v.kf,2):     # clips midway between the formwork lift lines
+            t=sx*abs(-to+2*to*(j+.5)/v.kf)
+            cl.box(((Ro+.014)*sin(t),y,v.zc+(Ro+.014)*cos(t)),(.03,.03,.038),'Galvanized',((cos(t),0,-sin(t)),(0,1,0),(sin(t),0,cos(t))))
+        for z in (b+1.2,b+3.0,b+4.6):cl.box((sx*(v.xo+xv+.004-.005)/2,y,z),(xv-v.xo+.009,.03,.03),'Galvanized')
+        m.box('TestClamps',(sx*xv,y,b+.36),(.07,.07,.12),'SteelDark','DETAIL',.002)
+
+
 def build_hardened(m):
     s=m.cfg;v=Vault(s)
-    _vault(m,s,v);_portal(m,s,v);_rails(m,s,v)
+    _vault(m,s,v);_portal(m,s,v);_rails(m,s,v);_lightning(m,s,v)
     for side in (-1,1):_leaf(m,s,v,side)
     xd=_rear(m,s,v);_ground(m,s,v,xd);_sign(m,s,v)
     if s.services:_services(m,s,v)
