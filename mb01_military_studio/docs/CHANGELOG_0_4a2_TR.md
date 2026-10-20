@@ -302,6 +302,37 @@ doğrulandı ve dört alanda düzeltildi (her alan ayrı inceleme + onarım turu
   PASS. Kanat hareket hacminde sabit parça yok. Canlı Blender QA PASS. Export 56 asset,
   hepsinde UV1, 6 UCX gövde. HERO (24×32) bevel öncesi 20,8K → 23,5K üçgen.
 
+### Model detay geçişi 2 (dokular sonraya)
+
+- **Çarpışma (UCX):**
+  - Tonoz, portal kemer ve arka duvar artık mesh'in kendisi yerine gerçek convex gövdeler
+    taşıyor (varsayılan boyutta 16 + 16 + 9).
+  - Kemer, eğriliğe göre sayısı ayarlanan kiriş kutularıyla örülür; kiriş sehimi en fazla
+    25 mm'dir.
+  - Arka duvarda personel kapısı ve kapı açıklığı boş bırakılır.
+  - Kontrol: üç boyutta salon, uçak açıklığı ve personel kapısı içinde çarpışma yok.
+- **Havalandırma (tutarlılık):** tepe kanalı artık havada bitmiyor. Arka duvardan bir yaka
+  ile geçip dış cephede kuş telli yağmur başlığına bağlanıyor. Her bölmede alttan menfez var.
+- **Kapı güvenliği:**
+  - Portal kemer üstünde iki amber ikaz lambası ve iki CCTV kamera; ikisi de kanat yolunun
+    dışında.
+  - Arka köşelerde iki duvar tipi CCTV kamera.
+  - İçeride sol sövede kapı kontrol istasyonu: aç / kapa / ikaz butonları ve sarı yakalı acil
+    stop.
+  - Yeni malzeme `LightAmber` (emisyonlu); doku kitinde Glazing setine gider.
+- **Zemin:**
+  - Uçak konumunun iki yanında üç sırada gömme bağlama noktaları.
+  - Burun önünde iki statik topraklama noktası.
+  - Tonoz ayaklarında, bazanın dışında boydan boya ızgaralı kanal drenajı.
+- **Kaldırma kulakları:** düz kutu yerine delikli lama. İki C yarım profil orta düzlemde
+  birleşir, böylece gerçek bir göz açıklığı oluşur.
+- **Doğrulama:**
+  - 5 ölçü × DRAFT/HERO için aynı yöne bakan çakışık yüz çifti 0.
+  - Kanat hareket hacminde sabit parça yok.
+  - Canlı Blender QA PASS.
+  - Export 63 asset, hepsinde UV1.
+  - HERO (24×32) bevel öncesi 23,5K → 26,8K üçgen.
+
 ## UE5 game-ready pipeline (`game_ready/ue5.py`, `exporter.py`)
 
 - **UV1_Lightmap**: her static mesh için eş-düzlemli UV0 adalarından

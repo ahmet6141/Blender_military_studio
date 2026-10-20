@@ -30,6 +30,7 @@ SPECS={
  'Gravel':('Stone',(.32,.29,.23),.94,0,2.),
  'LightWarm':(None,(1.,.84,.56),.25,0,1.),
  'LightGreen':(None,(.10,.65,.24),.28,0,1.),
+ 'LightAmber':(None,(1.,.42,.04),.25,0,1.),
 }
 
 def recipes(palette='COASTAL',wear=.15,override=''):
